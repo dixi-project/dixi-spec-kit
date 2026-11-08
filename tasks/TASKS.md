@@ -24,6 +24,18 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 
 - [ ] **Specialized commands** _(P2, level 3)_ — [TASK-007](backlog/TASK-007-specialized-commands.md). Implemented; pull request pending review.
 
+## v1.4.0
+
+- [ ] **Project profiles and core templates** _(P1, level 3)_ — [TASK-008](backlog/TASK-008-profiles-and-core-templates.md). Contract and ADR-104 pending validation.
+
+## v1.5.0
+
+- [ ] **Remaining content areas** _(P2, level 2)_ — [TASK-009](backlog/TASK-009-remaining-content.md). Contract pending validation; depends on TASK-008.
+
+## v1.6.0
+
+- [ ] **Opt-in automated controls, subagents and new operations** _(P1, level 3)_ — [TASK-010](backlog/TASK-010-automated-controls.md). Contract and ADR-105 pending validation.
+
 ## Related
 
 - [Roadmap](../ROADMAP.md)
