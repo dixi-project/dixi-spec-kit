@@ -8,7 +8,7 @@ Show what each public release includes and what comes next. Only what has tests 
 
 `dixi` CLI (`init`, `doctor`, `check`, `workflow`), no-agent mode, Claude Code adapter with ten commands, Spanish/English documentation, the `examples/notes` example, public CI and MIT license. Scope set in [ADR-102](09-architecture/adr/ADR-102-recorte-de-alcance-v1.md).
 
-## v1.1.0 — English first and design, continuity and change commands
+## v1.1.0 — English first and design, continuity and change commands (2026-11-08)
 
 - English as the repository's primary language and the CLI default (`--lang es` remains available).
 - Agent commands `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.threat-model`, `/dixi.handoff` and `/dixi.change`.

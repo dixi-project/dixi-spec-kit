@@ -21,6 +21,7 @@ The example was produced by following each command's steps in a Claude Code 2.1.
 | 9 | `/dixi.specify` + `/dixi.tasks` | FEATURE-002 and T-004 to T-006. |
 | 10 | `/dixi.build T-004` … `T-006` | `tests/test_tags.py` red (5 failures); then green without touching `tests/test_notes.py`. |
 | 11 | `/dixi.verify` and `/dixi.review` | `make verify` with 12 tests green; [prepared review](review-feature-002.md) for a person. |
+| 12 | `dixi upgrade --dry-run` (kit 1.1.0) | Plan: `CLAUDE.md` updatable, six new commands, no conflicts. Applied by hand, since automatic apply is not available yet; the plan is now empty and `doctor` reports 16 of 16 commands. |
 
 ## Repeat it
 
