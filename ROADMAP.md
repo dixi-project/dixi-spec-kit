@@ -22,6 +22,18 @@ Codex integration evaluated against its own capability and control matrix.
 
 `/dixi.data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance` and `duediligence`, each with an explicit contract and limits.
 
+## v1.4.0 — project profiles and core templates
+
+`dixi init --profile site|app|platform [--regulated]` with generic templates for data, architecture, engineering, quality, security and AI ([ADR-104](09-architecture/adr/ADR-104-project-profiles-and-content.md)). Without `--profile`, nothing changes.
+
+## v1.5.0 — remaining content areas
+
+Templates for governance, business, platform, observability, delivery, operations, product, UX, FinOps, compliance, due diligence and the other method areas, assigned to profiles.
+
+## v1.6.0 — opt-in automated controls
+
+`dixi init --controls`: agent hooks for frozen tests, secrets, signing and approval, production mode and verification before stopping ([ADR-105](09-architecture/adr/ADR-105-opt-in-automated-controls.md)); Claude Code subagents; `interview` and `risk-review` operations; `dixi placeholders` and `dixi pr-size`.
+
 ## Later
 
 PyPI publication (requires its own ADR), a second example language and Windows support if safe filesystem operations can be guaranteed.
