@@ -16,6 +16,7 @@
   "initialized": "Documentary project created: {path}",
   "structure_only": "Scope: documentary structure. This does not certify application tests or readiness to build.",
   "unsafe_path": "Unsafe path, symbolic link, or access outside the permitted scope.",
+  "unsafe_destination": "Unsafe destination: use a new or empty directory, without '..' or symbolic links. Inside an empty folder, run `dixi init .`.",
   "unsupported_platform": "Platform lacks required safe filesystem operations; no unsafe fallback was used.",
   "invalid_file": "Invalid or nonregular file, or a read/analysis limit exceeded: {path}",
   "missing_file": "Required file is missing: {path}",

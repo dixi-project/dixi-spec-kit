@@ -16,6 +16,7 @@
   "initialized": "Proyecto documental creado: {path}",
   "structure_only": "Alcance: estructura documental. No acredita pruebas de aplicación ni preparación para construir.",
   "unsafe_path": "Ruta insegura, enlace simbólico o acceso fuera del alcance permitido.",
+  "unsafe_destination": "Destino inseguro: usa un directorio nuevo o vacío, sin '..' ni enlaces simbólicos. Dentro de una carpeta vacía, ejecuta `dixi init .`.",
   "unsupported_platform": "Plataforma sin las operaciones seguras de filesystem requeridas; no se ha aplicado una alternativa insegura.",
   "invalid_file": "Archivo inválido, no regular o que excede un límite de lectura/análisis: {path}",
   "missing_file": "Falta un archivo requerido: {path}",

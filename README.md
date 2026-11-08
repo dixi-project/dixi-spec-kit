@@ -52,7 +52,7 @@ Open Claude Code in `my-project` and walk through:
 
 | Command | What it does |
 |---|---|
-| `dixi init <dir> [--agent none\|claude\|codex]` | Creates the documentary baseline in a new or empty directory; never overwrites. |
+| `dixi init <dir> [--agent none\|claude\|codex]` | Creates the documentary baseline in a new or empty directory (`.` for the current one); never overwrites. |
 | `dixi doctor` | Diagnoses environment and project without network or credentials. |
 | `dixi check` | Checks structure, links and traceability. Runs no code. |
 | `dixi workflow list\|show\|prepare` | Lists and prepares the discover, specify, clarify, domain, architecture, contract, threat-model and plan procedures. |

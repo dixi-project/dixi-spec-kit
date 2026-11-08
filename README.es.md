@@ -52,7 +52,7 @@ Abre Claude Code en `mi-proyecto` y recorre:
 
 | Comando | Qué hace |
 |---|---|
-| `dixi init <dir> [--agent none\|claude\|codex]` | Crea la base documental en un directorio nuevo o vacío; nunca sobrescribe. |
+| `dixi init <dir> [--agent none\|claude\|codex]` | Crea la base documental en un directorio nuevo o vacío (`.` para el actual); nunca sobrescribe. |
 | `dixi doctor` | Diagnostica el entorno y el proyecto sin red ni credenciales. |
 | `dixi check` | Comprueba estructura, enlaces y trazabilidad. No ejecuta código. |
 | `dixi workflow list\|show\|prepare` | Consulta y prepara los procedimientos de descubrimiento, especificación, dominio, arquitectura, contrato, amenazas y plan. |

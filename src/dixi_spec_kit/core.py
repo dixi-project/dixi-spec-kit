@@ -79,9 +79,10 @@ def message(key, **params):
 
 
 def initialize(destination, language, agent="none"):
-    path = Path(destination)
-    if ".." in path.parts or not path.name:
-        raise Issue("unsafe_path", 3)
+    text = str(destination)
+    path = Path(os.getcwd()) if text and text.rstrip("/") == "." else Path(text)
+    if not text or ".." in path.parts or not path.name:
+        raise Issue("unsafe_destination", 3)
     payload = {name: text.encode("utf-8") for name, text in templates(language).items()}
     payload.update(adapter_files(agent, language))
     metadata = {"schema_version": 1, "kit_version": __version__, "language": language,
@@ -103,7 +104,7 @@ def initialize(destination, language, agent="none"):
                 os.unlink(".dixi-init.lock", dir_fd=root)
     except Issue as error:
         if error.key == "unsafe_path":
-            error.code = 3
+            error.key, error.code = "unsafe_destination", 3
         raise
     except FileExistsError:
         raise Issue("destination_conflict", 3) from None

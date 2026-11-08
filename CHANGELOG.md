@@ -9,6 +9,11 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 ### Added
 
 - Nine specialized operations for Claude Code (`/dixi.<operation>`) and Codex (`$dixi-<operation>`), in English and Spanish: `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`. Each writes documents in its area only and never runs migrations, deploys, edits `MODE`, queries billing or claims certifications. Optional for projects from earlier versions (`dixi upgrade --dry-run` lists them as new).
+- `dixi init .` initializes the current directory when it is empty.
+
+### Changed
+
+- An unsafe `init` destination now reports how to choose a valid one instead of a generic unsafe-path message.
 
 ## [1.2.0] — unreleased
 
