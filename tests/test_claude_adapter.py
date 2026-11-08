@@ -13,7 +13,8 @@ import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
-COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
+COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status",
+            "domain", "architecture", "contract", "threat-model", "handoff", "change")
 WORKFLOW_OPERATIONS = {"discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan"}
 CLI_COMMANDS = {"init", "doctor", "check", "workflow", "--help", "--version", "--lang", "--json"}
 LIMITS = {
@@ -156,7 +157,7 @@ class ClaudeAdapterTests(unittest.TestCase):
         messages = json.loads(doctor.stdout)["messages"]
         claude = [m for m in messages if m["key"] == "agent_claude"]
         self.assertEqual(len(claude), 1, messages)
-        self.assertEqual(claude[0]["params"]["commands"], 10)
+        self.assertEqual(claude[0]["params"]["commands"], len(COMMANDS))
 
     def test_check_detects_deleted_command(self):
         self.init()
