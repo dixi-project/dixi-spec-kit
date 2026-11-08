@@ -14,7 +14,7 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 ## v1.1.0
 
 - [ ] **English as the primary language** _(P1, level 2)_ — [TASK-004](backlog/TASK-004-english-primary.md). Implemented; pull request pending review.
-- [ ] **Design, continuity and change commands + `upgrade --dry-run`** _(P1, level 3)_ — block A of the [roadmap](../ROADMAP.md). Scope validated on 2026-11-08; contract and tests first next.
+- [ ] **Design, continuity and change commands + `upgrade --dry-run`** _(P1, level 3)_ — [TASK-005](backlog/TASK-005-design-continuity-change-upgrade.md). Implemented; pull request pending review.
 
 ## Related
 

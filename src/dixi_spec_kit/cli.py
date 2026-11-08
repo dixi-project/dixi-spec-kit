@@ -7,6 +7,7 @@ import sys
 from . import __version__
 from .core import METADATA, check_project, doctor, initialize, message
 from .filesystem import Issue, read_json, root_directory
+from .upgrade import STATUSES, plan as upgrade_plan
 from .workflows import OPERATIONS, workflow_result
 
 
@@ -28,7 +29,7 @@ def parser_for(catalog):
     parser.add_argument("--lang", choices=("es", "en"), default=None, help=catalog["lang"])
     parser.add_argument("--json", action="store_true", help=catalog["json"])
     commands = parser.add_subparsers(dest="command", required=True, title=catalog["commands"])
-    for command in ("init", "doctor", "check", "workflow"):
+    for command in ("init", "doctor", "check", "workflow", "upgrade"):
         child = commands.add_parser(command, help=catalog[command], description=catalog[command],
                                     add_help=False, formatter_class=Formatter)
         child._positionals.title = catalog["arguments"]
@@ -37,6 +38,8 @@ def parser_for(catalog):
         if command == "init":
             child.add_argument("directory", help=catalog["directory"])
             child.add_argument("--agent", choices=("none", "claude"), default="none", help=catalog["agent"])
+        elif command == "upgrade":
+            child.add_argument("--dry-run", action="store_true", help=catalog["upgrade_dry_run"])
         elif command == "workflow":
             actions = child.add_subparsers(dest="workflow_action", required=True, title=catalog["commands"])
             for action in ("list", "show", "prepare"):
@@ -88,6 +91,7 @@ def main(argv=None):
     catalog = json.loads(files("dixi_spec_kit").joinpath("locales", f"{language}.json").read_text(encoding="utf-8"))
     code = 0
     workflow = None
+    upgrade = None
     try:
         args = parser_for(catalog).parse_args(argv)
         args.lang = args.lang or language
@@ -98,6 +102,12 @@ def main(argv=None):
         elif args.command == "workflow":
             workflow = workflow_result(args, Path.cwd())
             messages = [message("workflow_scope")]
+        elif args.command == "upgrade":
+            if not args.dry_run:
+                raise Issue("upgrade_requires_dry_run", 2)
+            upgrade = upgrade_plan(Path.cwd())
+            messages = [message("upgrade_planned", source=upgrade["from"], target=upgrade["to"]),
+                        message("upgrade_no_changes")]
         else:
             code, messages = check_project(Path.cwd())
     except Issue as error:
@@ -109,6 +119,8 @@ def main(argv=None):
     result = {"status": "completed" if code == 0 else "failed", "code": code, "messages": messages}
     if workflow is not None:
         result["workflow"] = workflow
+    if upgrade is not None:
+        result["upgrade"] = upgrade
     if "--json" in argv:
         print(json.dumps(result, ensure_ascii=False))
     else:
@@ -116,7 +128,19 @@ def main(argv=None):
             print(entry["message"], file=sys.stderr if code else sys.stdout)
         if workflow is not None:
             print(format_workflow(workflow, catalog))
+        if upgrade is not None:
+            print(format_upgrade(upgrade, catalog))
     return code
+
+
+def format_upgrade(upgrade, catalog):
+    lines = []
+    for status in STATUSES:
+        names = upgrade["files"][status]
+        lines.append(f"\n{catalog['upgrade_heading_' + status]} ({len(names)}):")
+        if status != "unchanged":
+            lines += [f"- {name}" for name in names]
+    return "\n".join(lines)
 
 
 def format_workflow(workflow, catalog):

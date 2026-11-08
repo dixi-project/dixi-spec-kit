@@ -48,7 +48,7 @@ class LocalCoreTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         for command in ("init", "doctor", "check"):
             self.assertIn(command, result.stdout)
-        for absent in ("upgrade", "--agent codex", "--agent claude"):
+        for absent in ("--agent codex", "--agent claude"):
             self.assertNotIn(absent, result.stdout)
 
     def test_version_is_release(self):

@@ -11,6 +11,16 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 - English is the repository's primary language; README, contributing guide, policies, specs and ADRs are in English, with a Spanish README (`README.es.md`).
 - **Behavior change:** the CLI and new projects default to English. Use `dixi --lang es …` for Spanish. Inside an existing project, messages follow the project's language when `--lang` is not given.
 
+### Added
+
+- Six Claude Code commands in English and Spanish: `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.threat-model`, `/dixi.handoff` (writes `.context/handoff.md`) and `/dixi.change` (change proposal with impact).
+- `dixi upgrade --dry-run`: read-only plan classifying files as unchanged, updatable, conflict, new, missing or obsolete; human and JSON output. Applying upgrades is not available yet.
+- `dixi doctor` reports installed versus available commands and suggests the upgrade plan.
+
+### Compatibility
+
+- Projects created with v1.0.0 keep passing `dixi check`: the six new commands are optional in their inventory.
+
 ## [1.0.0] — 2026-11-08 — first public release
 
 ### Added

@@ -18,7 +18,8 @@ PARENTS = {"goal": set(), "domain": {"goal"}, "module": {"domain"},
            "test": {"feature", "contract"}}
 METADATA = ".dixi/project.json"
 AGENTS = ("none", "claude")
-CLAUDE_COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
+CLAUDE_REQUIRED = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
+CLAUDE_COMMANDS = CLAUDE_REQUIRED + ("domain", "architecture", "contract", "threat-model", "handoff", "change")
 TRACE = ".dixi/traceability.json"
 INLINE_LINK = re.compile(r"!?\[[^\[\]\n]{0,999}\]\(([^)\n]{1,4096})\)")
 KIT_VERSION = re.compile(r"(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})(?:\.dev[0-9]{1,4}|rc[0-9]{1,4})?")
@@ -111,7 +112,9 @@ def project_metadata(root):
     for name, digest in inventory.items():
         if not safe_path(name) or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
             raise Issue("invalid_metadata")
-    required = set(templates(data["language"])) | set(adapter_files(data["agent"], data["language"]))
+    required = set(templates(data["language"]))
+    if data["agent"] == "claude":
+        required |= {"CLAUDE.md"} | {f".claude/commands/dixi.{name}.md" for name in CLAUDE_REQUIRED}
     if not required <= set(inventory):
         raise Issue("invalid_metadata")
     return data
@@ -203,8 +206,12 @@ def doctor(path, language):
         try:
             metadata = project_metadata(root)
             if metadata["agent"] == "claude":
+                installed = sum(f".claude/commands/dixi.{name}.md" in metadata["managed_files"]
+                                for name in CLAUDE_COMMANDS)
                 results.append(message("agent_claude", language=metadata["language"],
-                                       commands=len(CLAUDE_COMMANDS)))
+                                       commands=installed, available=len(CLAUDE_COMMANDS)))
+                if installed < len(CLAUDE_COMMANDS):
+                    results.append(message("upgrade_hint"))
             else:
                 results.append(message("agent_none", language=metadata["language"]))
         except Issue as error:

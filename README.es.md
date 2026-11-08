@@ -46,7 +46,7 @@ Abre Claude Code en `mi-proyecto` y recorre:
 /dixi.review main
 ```
 
-`/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Sin `--lang es`, documentos y mensajes salen en inglés; dentro de un proyecto, los mensajes siguen su idioma.
+`/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Diseña con `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` y `/dixi.threat-model`; propone cambios con `/dixi.change`; deja un traspaso con `/dixi.handoff`. Sin `--lang es`, documentos y mensajes salen en inglés; dentro de un proyecto, los mensajes siguen su idioma.
 
 ## Comandos de terminal
 
@@ -56,6 +56,7 @@ Abre Claude Code en `mi-proyecto` y recorre:
 | `dixi doctor` | Diagnostica el entorno y el proyecto sin red ni credenciales. |
 | `dixi check` | Comprueba estructura, enlaces y trazabilidad. No ejecuta código. |
 | `dixi workflow list\|show\|prepare` | Consulta y prepara los procedimientos de descubrimiento, especificación, dominio, arquitectura, contrato, amenazas y plan. |
+| `dixi upgrade --dry-run` | Previsualiza qué cambiaría la versión instalada del kit: archivos sin cambios, actualizables, en conflicto, nuevos, ausentes y obsoletos. No escribe nada. |
 | `dixi --help`, `dixi --version` | Ayuda y versión. Opciones globales: `--lang es\|en`, `--json`. |
 
 Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proyecto ausente, 3 destino ocupado o inseguro, 4 versión o plataforma no soportada, 5 fallo de entrada/salida.
@@ -66,7 +67,7 @@ Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proy
 
 ## Qué incluye y qué no
 
-Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: el adaptador de Claude Code instala comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. Previsto: comandos de diseño, handoff y change más `dixi upgrade --dry-run` en v1.1, adaptador de Codex en v1.2 y comandos especializados en v1.3 ([plan](ROADMAP.md)). Windows no está soportado.
+Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: el adaptador de Claude Code instala comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. Previsto: adaptador de Codex en v1.2 y comandos especializados en v1.3; aplicar actualizaciones automáticamente aún no está disponible ([plan](ROADMAP.md)). Windows no está soportado.
 
 ## Contribuir
 

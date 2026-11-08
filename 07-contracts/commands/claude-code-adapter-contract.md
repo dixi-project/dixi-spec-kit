@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Fix what `dixi init --agent claude` installs, what each of the ten `/dixi.*` commands does inside Claude Code, and which controls are automated, handled in CI/review or unsupported. Makes [TASK-003](../../tasks/backlog/TASK-003-adaptador-claude-code.md) concrete under [ADR-102](../../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md).
+Fix what `dixi init --agent claude` installs, what each of the `/dixi.*` commands does (ten in v1.0.0; six more in v1.1.0, see the [block A contract](block-a-contract.md)) inside Claude Code, and which controls are automated, handled in CI/review or unsupported. Makes [TASK-003](../../tasks/backlog/TASK-003-adaptador-claude-code.md) concrete under [ADR-102](../../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md).
 
 ## Verified version and syntax
 
