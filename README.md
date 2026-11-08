@@ -46,7 +46,7 @@ Open Claude Code in `my-project` and walk through:
 /dixi.review main
 ```
 
-`/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
+`/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Design with `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` and `/dixi.threat-model`; propose changes with `/dixi.change`; leave a resumable handoff with `/dixi.handoff`. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
 
 ## Terminal commands
 
@@ -56,6 +56,7 @@ Open Claude Code in `my-project` and walk through:
 | `dixi doctor` | Diagnoses environment and project without network or credentials. |
 | `dixi check` | Checks structure, links and traceability. Runs no code. |
 | `dixi workflow list\|show\|prepare` | Lists and prepares the discover, specify, clarify, domain, architecture, contract, threat-model and plan procedures. |
+| `dixi upgrade --dry-run` | Previews what the installed kit version would change: unchanged, updatable, conflicting, new, missing and obsolete files. Writes nothing. |
 | `dixi --help`, `dixi --version` | Help and version. Global options: `--lang es\|en`, `--json`. |
 
 Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O failure.
@@ -66,7 +67,7 @@ Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 oc
 
 ## What is and is not included
 
-See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Planned: design, handoff and change commands plus `dixi upgrade --dry-run` in v1.1, a Codex adapter in v1.2 and specialized commands in v1.3 ([roadmap](ROADMAP.md)). Windows is not supported.
+See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Planned: a Codex adapter in v1.2 and specialized commands in v1.3; applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
 
 ## Contributing
 

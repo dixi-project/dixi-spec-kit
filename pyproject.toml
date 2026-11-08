@@ -46,4 +46,16 @@ dixi_spec_kit = ["locales/es.json", "locales/en.json", "resources/project.es.jso
     "resources/claude/en/dixi.verify.md",
     "resources/claude/en/dixi.review.md",
     "resources/claude/en/dixi.analyze.md",
-    "resources/claude/en/dixi.status.md"]
+    "resources/claude/en/dixi.status.md",
+    "resources/claude/es/dixi.domain.md",
+    "resources/claude/es/dixi.architecture.md",
+    "resources/claude/es/dixi.contract.md",
+    "resources/claude/es/dixi.threat-model.md",
+    "resources/claude/es/dixi.handoff.md",
+    "resources/claude/es/dixi.change.md",
+    "resources/claude/en/dixi.domain.md",
+    "resources/claude/en/dixi.architecture.md",
+    "resources/claude/en/dixi.contract.md",
+    "resources/claude/en/dixi.threat-model.md",
+    "resources/claude/en/dixi.handoff.md",
+    "resources/claude/en/dixi.change.md"]

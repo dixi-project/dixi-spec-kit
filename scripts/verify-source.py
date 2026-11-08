@@ -26,7 +26,7 @@ def main():
                 assert text.startswith("# "), name
     adapter = ROOT / "src/dixi_spec_kit/resources/claude"
     names = [sorted(p.name for p in (adapter / lang).glob("*.md")) for lang in ("es", "en")]
-    assert names[0] == names[1] and len(names[0]) == 11, "Claude adapter resources differ"
+    assert names[0] == names[1] and len(names[0]) == 17, "Claude adapter resources differ"
     assert (ROOT / "LICENSE").read_bytes() == (ROOT / "src/dixi_spec_kit/LICENSE").read_bytes(), "LICENSE copies differ"
     subprocess.run(["git", "diff", "--check"], cwd=ROOT, check=True)
     print("Source syntax, es/en catalogs, resource parity and license: OK")

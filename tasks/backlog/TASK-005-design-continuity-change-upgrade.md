@@ -36,6 +36,10 @@ so that I can evolve a project safely without losing local work.
 2. `make verify` passes, CI is green and English/Spanish resources are in parity.
 3. README, support matrix and changelog describe the real behavior.
 
+## Progress — 2026-11-08
+
+Contract, authorized frozen-test updates and red acceptance tests committed before the implementation. Six commands (es/en), inventory compatibility, `doctor` hint and `dixi upgrade --dry-run` implemented; `make verify` green with 105 tests. Pull request pending review.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/block-a-contract.md)

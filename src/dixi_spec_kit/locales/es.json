@@ -30,7 +30,7 @@
   "runtime": "Python local: {version}",
   "resources_ok": "Recursos locales disponibles; filesystem seguro disponible.",
   "agent_none": "Integración: none. No se requiere agente. Idioma del proyecto: {language}",
-  "agent_claude": "Integración: Claude Code. Comandos instalados: {commands}. Idioma del proyecto: {language}",
+  "agent_claude": "Integración: Claude Code. Comandos instalados: {commands} de {available}. Idioma del proyecto: {language}",
   "no_project_optional": "Sin proyecto en este directorio; diagnóstico general completado.",
   "invalid_arguments": "Argumentos inválidos. Consulta dixi --help; las opciones globales van antes del comando.",
   "io_error": "Fallo de entrada/salida. Puede existir una inicialización parcial; inspecciona el destino antes de reintentar.",
@@ -56,5 +56,18 @@
   "workflow_heading_checks": "Comprobaciones",
   "workflow_heading_guards": "Guardas comunes",
   "workflow_heading_next_operations": "Procedimientos relacionados",
-  "workflow_heading_sources": "Fuentes observadas"
+  "workflow_heading_sources": "Fuentes observadas",
+  "upgrade": "Previsualizar qué cambiaría esta versión del kit en el proyecto, sin escribir.",
+  "upgrade_dry_run": "Obligatorio: solo calcula el plan; no escribe ningún archivo.",
+  "upgrade_requires_dry_run": "Solo está disponible `dixi upgrade --dry-run`; aplicar cambios aún no está soportado.",
+  "upgrade_planned": "Plan de actualización del kit {source} a {target}:",
+  "upgrade_no_changes": "No se modificó ningún archivo.",
+  "upgrade_hint": "Hay comandos nuevos disponibles; ejecuta `dixi upgrade --dry-run` para revisarlos.",
+  "project_newer": "El proyecto se creó con el kit {version}, más reciente que esta instalación. Actualiza dixi primero.",
+  "upgrade_heading_unchanged": "Sin cambios",
+  "upgrade_heading_updatable": "Actualizables (cambió el kit, sin ediciones locales)",
+  "upgrade_heading_conflict": "Conflictos (ediciones locales o archivo existente)",
+  "upgrade_heading_new": "Nuevos en esta versión del kit",
+  "upgrade_heading_missing": "Ausentes localmente (no se recrean)",
+  "upgrade_heading_obsolete": "Ya no se distribuyen (se conservan)"
 }

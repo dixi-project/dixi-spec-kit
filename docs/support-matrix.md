@@ -17,7 +17,7 @@ Declare what DIXI Spec Kit v1.0.0 supports, with what evidence, and which contro
 | Integration | Status | What it installs |
 |---|---|---|
 | `--agent none` | Supported | Documentary base, `AGENTS.md` and guide. Use it with any editor or agent, without installed commands. |
-| `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and ten `/dixi.*` commands in `.claude/commands/`. |
+| `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and sixteen `/dixi.*` commands in `.claude/commands/` (ten in projects created with v1.0.0; see `dixi upgrade --dry-run`). |
 | Codex and others | Not included in v1.0.0 | Codex planned for v1.1. Having `AGENTS.md` does not amount to support. |
 
 ## Claude Code adapter controls
@@ -34,9 +34,9 @@ Declare what DIXI Spec Kit v1.0.0 supports, with what evidence, and which contro
 
 ## Capabilities
 
-Included: `init`, `doctor`, `check`, `workflow list/show/prepare`, the ten commands `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, and es/en documents.
+Included: `init`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, the sixteen commands `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, and es/en documents.
 
-Not included in v1.0.0: `dixi upgrade`, `/dixi.handoff`, `/dixi.change`, specialized commands (data, quality, AI, release, operations, FinOps, compliance, due diligence), extensions or presets, and a second example language.
+Not included yet: applying upgrades, the Codex adapter (v1.2), specialized commands (data, quality, AI, release, operations, FinOps, compliance, due diligence), extensions or presets, and a second example language.
 
 ## Related
 
