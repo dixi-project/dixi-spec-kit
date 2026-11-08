@@ -9,7 +9,7 @@ Kit de desarrollo guiado por especificaciones de Dixi Project: specs trazables, 
 ## Quickstart
 
 ```text
-dixi --lang en init my-project --agent claude   # or --agent none
+dixi init my-project --agent claude   # or --agent none
 cd my-project
 dixi doctor
 dixi check

@@ -1,14 +1,14 @@
-# Notas locales — ejemplo de DIXI Spec Kit
+# Local notes — DIXI Spec Kit example
 
-## Propósito
+## Purpose
 
-Ejemplo público y reproducible: una biblioteca y CLI de notas con etiquetas, construida con el recorrido `/dixi.*` en Claude Code. Muestra specs trazables, pruebas primero, código verificado y una evolución con análisis de impacto. La persona responsable es ficticia.
+Public, reproducible example: a notes library and CLI with tags, built with the `/dixi.*` flow in Claude Code. It shows traceable specs, tests first, verified code and an evolution with impact analysis. The responsible person is fictitious.
 
-`make verify` ejecuta `dixi check` (estructura y trazabilidad) y las pruebas reales de la aplicación con `unittest`. No hay despliegue ni proveedor configurado.
+`make verify` runs `dixi check` (structure and traceability) and the application's real tests with `unittest`. There is no deployment or configured provider.
 
-## Relacionados
+## Related
 
-- [Recorrido paso a paso](docs/walkthrough.md)
-- [Guía](docs/guide.md)
-- [Proyecto](00-master-spec.md)
-- [Objetivo](01-business/vision.md)
+- [Step-by-step walkthrough](docs/walkthrough.md)
+- [Guide](docs/guide.md)
+- [Project](00-master-spec.md)
+- [Goal](01-business/vision.md)

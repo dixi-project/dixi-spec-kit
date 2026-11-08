@@ -1,27 +1,27 @@
-# Threat model — Preparación de procedimientos B2a
+# Threat model — Procedure preparation B2a
 
-## Propósito
+## Purpose
 
-Extender el análisis de B1 a solicitudes, selección de contexto y recetas compartidas, antes de implementar TASK-002. Sin agentes ejecutados ni archivos escritos.
+Extend the B1 analysis to requests, context selection and shared recipes, before implementing TASK-002. No agents executed and no files written.
 
-## Amenazas y cobertura
+## Threats and coverage
 
-| Amenaza / STRIDE | Control | Evidencia prevista |
+| Threat / STRIDE | Control | Planned evidence |
 |---|---|---|
-| Suplantar un objetivo o tipo | ID exacto, tipos por operación, grafo validado | Objetivos ausentes/incompatibles, padres inválidos y duplicados. |
-| Alterar o fabricar evidencia | Hash de bytes actuales, estado prepared, sin aprobación implícita | Repetición idéntica y cambio de hash al editar. |
-| Leer fuera del alcance / divulgación | Raíz confinada B1; selección de ancestros; sin cuerpos ni enlaces seguidos; solo campos conocidos del objetivo | Symlinks/FIFO, traversal, nombres sensibles, rama ajena no leída y `test_target_excludes_unknown_fields`. |
-| Agotar memoria o bloquear lectura | 1 MiB/archivo, 64 fuentes, 2 MiB total, solicitud 4 096 caracteres | Casos de cada límite y archivos especiales. |
-| Ejecutar texto malicioso / elevación | Solicitud como dato, sin subprocess/red; recetas con guardas | Solicitud shell no ejecutada, sockets bloqueados, snapshot sin cambios. |
-| Ocultar falta de controles / repudio | Estado y alcance explícitos; gates comunes y específicos | Recetas completas, estado prepared y sin cuerpos del proyecto. |
-| Perder recursos en distribución | Allowlist y carga desde importlib.resources | Recorrido en wheel y wheel reconstruido desde sdist. |
+| Spoofing a target or type | Exact ID, per-operation types, validated graph | Missing/incompatible targets, invalid parents and duplicates. |
+| Altering or fabricating evidence | Hash of current bytes, prepared status, no implicit approval | Identical repetition and hash change on edit. |
+| Reading out of scope / disclosure | B1 confined root; ancestor selection; no bodies and no links followed; only known fields of the target | Symlinks/FIFO, traversal, sensitive names, unrelated branch not read and `test_target_excludes_unknown_fields`. |
+| Exhausting memory or blocking reads | 1 MiB/file, 64 sources, 2 MiB total, request 4 096 characters | Cases for each limit and special files. |
+| Executing malicious text / elevation | Request as data, no subprocess/network; recipes with guards | Shell request not executed, sockets blocked, snapshot unchanged. |
+| Hiding missing controls / repudiation | Explicit status and scope; common and specific gates | Complete recipes, prepared status and no project bodies. |
+| Losing resources in distribution | Allowlist and loading from importlib.resources | Walkthrough in wheel and in a wheel rebuilt from sdist. |
 
-## Riesgo residual
+## Residual risk
 
-El manifiesto no es snapshot ni firma; un consumidor debe revalidar hashes. La CLI no interpreta si una instrucción del proyecto es segura ni impone guardas a un agente externo. No detecta secretos con nombres arbitrarios: no se deben registrar archivos secretos como specs. Un paquete preparado no certifica completitud, consentimiento o calidad del diseño. Evaluaciones de inyección/gates en cada adaptador quedan pendientes antes de anunciarlo.
+The manifest is neither a snapshot nor a signature; a consumer must revalidate hashes. The CLI does not interpret whether a project instruction is safe nor does it impose guards on an external agent. It does not detect secrets with arbitrary names: secret files must not be registered as specs. A prepared package does not certify completeness, consent or design quality. Injection/gate evaluations for each adapter remain pending before it is announced.
 
-## Relacionados
+## Related
 
-- [Contrato](../07-contracts/commands/workflow-preparation-contract.md)
-- [Amenazas B1](local-core-threat-model.md)
+- [Contract](../07-contracts/commands/workflow-preparation-contract.md)
+- [B1 threats](local-core-threat-model.md)
 - [Feature](../05-features/workflow-preparation/feature-spec.md)

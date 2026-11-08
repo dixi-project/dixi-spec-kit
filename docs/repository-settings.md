@@ -1,42 +1,42 @@
-# Configuración del repositorio público
+# Public repository settings
 
-## Propósito
+## Purpose
 
-Dejar escrita la configuración de `dixi-project/dixi-spec-kit` que garantiza: `main` público y descargable por cualquiera, forks y PRs abiertos, e integración reservada a los mantenedores con revisión y checks. Aplicada y comprobada el 2026-11-08.
+Record the configuration of `dixi-project/dixi-spec-kit` that guarantees: `main` public and downloadable by anyone, forks and PRs open, and merging reserved to maintainers with review and checks. Applied and verified on 2026-11-08.
 
-## Ajustes
+## Settings
 
-| Ajuste | Valor |
+| Setting | Value |
 |---|---|
-| Visibilidad | Pública, solo después de revisar el historial final (abajo). |
-| Rama por defecto | `main`. |
-| Forks | Permitidos. |
-| Escritura | Solo mantenedores de Dixi; colaboradores externos sin permiso de escritura. |
-| Merge | Squash o merge commit; borrar ramas al integrar. |
-| Private vulnerability reporting | Activado (Settings → Security). |
-| Actions | Aprobación requerida para workflows de PRs de colaboradores nuevos. |
+| Visibility | Public, only after reviewing the final history (below). |
+| Default branch | `main`. |
+| Forks | Allowed. |
+| Write access | Dixi maintainers only; external collaborators without write permission. |
+| Merge | Squash or merge commit; delete branches on merge. |
+| Private vulnerability reporting | Enabled (Settings → Security). |
+| Actions | Approval required for workflows from new contributors' PRs. |
 
-## Protección de `main` (ruleset)
+## Protection of `main` (ruleset)
 
-Aplicado el 2026-11-08 como ruleset `main-protegida` (rama por defecto, sin `bypass_actors`):
+Applied on 2026-11-08 as the `main-protegida` ruleset (default branch, no `bypass_actors`):
 
-| Regla | Valor |
+| Rule | Value |
 |---|---|
-| Borrado de `main` | Prohibido |
-| Force push | Prohibido |
-| Pull request | Obligatorio; hilos resueltos; revisiones obsoletas se descartan al hacer push |
-| Aprobaciones | 0 mientras haya un solo mantenedor (GitHub no permite aprobar el propio PR). Los PRs externos los revisa el mantenedor antes de integrar. Subir a 1 con CODEOWNERS cuando haya un segundo mantenedor |
-| Checks obligatorios | `make verify` (ubuntu/macos × Python 3.11/3.13) y `DCO sign-off`, con la rama al día |
+| Deletion of `main` | Prohibited |
+| Force push | Prohibited |
+| Pull request | Required; threads resolved; stale reviews dismissed on push |
+| Approvals | 0 while there is a single maintainer (GitHub does not allow approving your own PR). External PRs are reviewed by the maintainer before merging. Raise to 1 with CODEOWNERS when there is a second maintainer |
+| Required checks | `make verify` (ubuntu/macos × Python 3.11/3.13) and `DCO sign-off`, with the branch up to date |
 
-Consultar: `gh api repos/dixi-project/dixi-spec-kit/rulesets`. Los rulesets requieren repositorio público o GitHub Pro.
+Check with: `gh api repos/dixi-project/dixi-spec-kit/rulesets`. Rulesets require a public repository or GitHub Pro.
 
-## Historial limpio antes de hacerlo público
+## Clean history before making it public
 
-La preparación (con material heredado no distribuible y un PR que no puede borrarse) se archivó en un repositorio privado aparte. Este repositorio se creó nuevo, con `main` construido por una lista explícita de inclusión, y antes de hacerlo público se comprobó con `git ls-remote` que solo contenía `main`.
+The preparation work (with non-distributable inherited material and a PR that cannot be deleted) was archived in a separate private repository. This repository was created fresh, with `main` built from an explicit inclusion list, and before making it public `git ls-remote` was used to confirm that it contained only `main`.
 
-## Relacionados
+## Related
 
 - [ADR-100](../09-architecture/adr/ADR-100-distribucion-publica-v1.md)
 - [ADR-103](../09-architecture/adr/ADR-103-ci-publica-en-github-actions.md)
-- [Puerta de publicación](publication-readiness.md)
-- [Contribuir](../CONTRIBUTING.md)
+- [Publication gate](publication-readiness.md)
+- [Contributing](../CONTRIBUTING.md)

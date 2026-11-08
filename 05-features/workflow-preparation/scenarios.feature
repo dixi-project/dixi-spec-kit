@@ -1,33 +1,33 @@
-# language: es
-Característica: Preparar procedimientos sin imponer agente
+# language: en
+Feature: Prepare procedures without imposing an agent
   @WP-01
-  Escenario: Consultar procedimientos sin proyecto
-    Dado un directorio sin proyecto ni agente
-    Cuando se consulta el catálogo y una receta en español o inglés
-    Entonces se muestran entradas, pasos, salidas, gates y comprobaciones
+  Scenario: View procedures without a project
+    Given a directory with no project and no agent
+    When the catalog and a recipe are requested in Spanish or English
+    Then inputs, steps, outputs, gates and checks are shown
 
   @WP-02 @WP-03
-  Escenario: Preparar un objetivo explícito
-    Dado un proyecto B1 y un ID compatible
-    Cuando se prepara una operación con una solicitud
-    Entonces el manifiesto contiene el objetivo y sus ancestros con hashes actuales
-    Y no contiene cuerpos de documentos ni ramas ajenas
+  Scenario: Prepare an explicit target
+    Given a B1 project and a compatible ID
+    When an operation is prepared with a request
+    Then the manifest contains the target and its ancestors with current hashes
+    And it contains no document bodies and no unrelated branches
 
   @WP-02 @WP-03
-  Escenario: Rechazar entradas inseguras
-    Dado un objetivo inexistente o una fuente insegura
-    Cuando se intenta preparar la operación
-    Entonces se informa un error y no se entrega un paquete parcial
+  Scenario: Reject unsafe inputs
+    Given a nonexistent target or an unsafe source
+    When an attempt is made to prepare the operation
+    Then an error is reported and no partial package is delivered
 
   @WP-04
-  Escenario: Repetir sin efectos externos
-    Dado un proyecto sin cambios
-    Cuando se prepara dos veces la misma solicitud
-    Entonces los paquetes son idénticos y el proyecto no cambia
-    Y no se ejecuta código ni se afirma que el diseño está aprobado
+  Scenario: Repeat without external effects
+    Given a project without changes
+    When the same request is prepared twice
+    Then the packages are identical and the project does not change
+    And no code is executed and the design is not claimed to be approved
 
   @WP-05
-  Escenario: Usar la distribución instalada
-    Dado un wheel original y otro reconstruido desde sdist
-    Cuando se instala cada uno y se prepara un objetivo
-    Entonces ambos incluyen el catálogo y recetas completas
+  Scenario: Use the installed distribution
+    Given an original wheel and another rebuilt from sdist
+    When each one is installed and a target is prepared
+    Then both include the catalog and complete recipes

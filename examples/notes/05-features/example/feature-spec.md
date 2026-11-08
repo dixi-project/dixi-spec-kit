@@ -1,29 +1,29 @@
-# FEATURE-001 — Capturar, listar y buscar notas
+# FEATURE-001 — Capture, list and search notes
 
-## Propósito
+## Purpose
 
-Primera funcionalidad del ejemplo, producida con `/dixi.specify`.
+First feature of the example, produced with `/dixi.specify`.
 
-## Historia
+## Story
 
-Como persona usuaria de terminal
-quiero añadir notas y buscarlas por texto
-para recuperar ideas sin salir de la consola.
+As a terminal user
+I want to add notes and search them by text
+so that I can retrieve ideas without leaving the console.
 
-## Criterios de aceptación
+## Acceptance criteria
 
-1. `add` guarda una nota con texto recortado y devuelve su ID; los IDs crecen desde 1.
-2. Texto vacío o de más de 1 000 caracteres se rechaza sin modificar el almacén.
-3. `list` devuelve las notas en orden de creación; un almacén inexistente equivale a vacío.
-4. `search` devuelve las notas cuyo texto contiene el término sin distinguir mayúsculas.
-5. La CLI termina con código 0 al completar y 2 ante entrada inválida.
+1. `add` saves a note with trimmed text and returns its ID; IDs increase from 1.
+2. Empty text or text longer than 1,000 characters is rejected without modifying the store.
+3. `list` returns the notes in creation order; a nonexistent store is equivalent to an empty one.
+4. `search` returns the notes whose text contains the term, case-insensitively.
+5. The CLI exits with code 0 on completion and 2 on invalid input.
 
-## Reglas de negocio
+## Business rules
 
-1. Las notas no se editan ni se borran en esta versión.
+1. Notes are not edited or deleted in this version.
 
-## Relacionados
+## Related
 
-- [Módulo](../../04-modules/example/module-spec.md)
-- [Contrato](../../07-contracts/example.md)
-- [Tareas](tasks.md)
+- [Module](../../04-modules/example/module-spec.md)
+- [Contract](../../07-contracts/example.md)
+- [Tasks](tasks.md)

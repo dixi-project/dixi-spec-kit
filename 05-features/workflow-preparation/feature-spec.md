@@ -1,27 +1,27 @@
-# Feature — Preparar definición y diseño sin acoplar un agente
+# Feature — Prepare definition and design without coupling an agent
 
-## Propósito
+## Purpose
 
-Entregar B2a sobre el módulo command-workflow: consultar ocho procedimientos compartidos y preparar contexto explícito verificable. Una persona o un adaptador posterior usa el mismo contrato para producir artefactos.
+Deliver B2a on the command-workflow module: view eight shared procedures and prepare explicit, verifiable context. A person or a later adapter uses the same contract to produce artifacts.
 
-## Aceptación
+## Acceptance
 
-- WP-01: catálogo y recetas es/en completos, disponibles sin proyecto.
-- WP-02: objetivo explícito del tipo admitido y solicitud válida; sin selección automática.
-- WP-03: manifiesto mínimo de fuentes y ancestros, hashes actuales, límites y lectura confinada.
-- WP-04: resultado preparado, repetible y sin efectos externos, claramente distinto de ejecución semántica.
-- WP-05: disponibilidad del recorrido en wheel y sdist limpios; regresión B1 en verde.
+- WP-01: complete es/en catalog and recipes, available without a project.
+- WP-02: explicit target of the allowed type and a valid request; no automatic selection.
+- WP-03: minimal manifest of sources and ancestors, current hashes, limits and confined reading.
+- WP-04: prepared, repeatable result with no external effects, clearly distinct from semantic execution.
+- WP-05: availability of the workflow in clean wheel and sdist; B1 regression green.
 
-La historia y sus criterios detallados viven en TASK-002. Esto no acredita generación asistida de specs, cumplimiento semántico, adaptadores verificados ni el recorrido completo B2.
+The story and its detailed criteria live in TASK-002. This does not certify assisted spec generation, semantic compliance, verified adapters or the full B2 workflow.
 
-## Verificación
+## Verification
 
-Pruebas deterministas nuevas en `tests/test_workflows.py` y `tests/test_workflow_distribution.py`, congeladas antes de implementación. `tests/test_workflow_edges.py` añade regresiones de salida y contexto compartido. Los escenarios BDD enlazan el comportamiento; no se requiere runner Gherkin. La rúbrica posterior deberá evaluar los artefactos producidos por cada integración, incluidas decisiones faltantes y gates. [Evidencia B2a](../../docs/b2-verification.md).
+New deterministic tests in `tests/test_workflows.py` and `tests/test_workflow_distribution.py`, frozen before implementation. `tests/test_workflow_edges.py` adds regressions for output and shared context. The BDD scenarios link the behavior; no Gherkin runner is required. The later rubric must evaluate the artifacts produced by each integration, including missing decisions and gates. [B2a evidence](../../docs/b2-verification.md).
 
-## Relacionados
+## Related
 
-- [Módulo padre](../../04-modules/command-workflow/module-spec.md)
-- [Contrato](../../07-contracts/commands/workflow-preparation-contract.md)
-- [Tarea](../../tasks/backlog/TASK-002-operaciones-compartidas-b2.md)
-- [Escenarios](scenarios.feature)
-- [Aceptación](acceptance.yaml)
+- [Parent module](../../04-modules/command-workflow/module-spec.md)
+- [Contract](../../07-contracts/commands/workflow-preparation-contract.md)
+- [Task](../../tasks/backlog/TASK-002-operaciones-compartidas-b2.md)
+- [Scenarios](scenarios.feature)
+- [Acceptance](acceptance.yaml)

@@ -5,8 +5,8 @@ from pathlib import Path
 import sys
 
 from . import __version__
-from .core import check_project, doctor, initialize, message
-from .filesystem import Issue
+from .core import METADATA, check_project, doctor, initialize, message
+from .filesystem import Issue, read_json, root_directory
 from .workflows import OPERATIONS, workflow_result
 
 
@@ -25,7 +25,7 @@ def parser_for(catalog):
     parser._optionals.title = catalog["options"]
     parser.add_argument("--help", "-h", action="help", help=catalog["help"])
     parser.add_argument("--version", action="version", version=f"dixi {__version__}", help=catalog["version"])
-    parser.add_argument("--lang", choices=("es", "en"), default="es", help=catalog["lang"])
+    parser.add_argument("--lang", choices=("es", "en"), default=None, help=catalog["lang"])
     parser.add_argument("--json", action="store_true", help=catalog["json"])
     commands = parser.add_subparsers(dest="command", required=True, title=catalog["commands"])
     for command in ("init", "doctor", "check", "workflow"):
@@ -53,19 +53,44 @@ def parser_for(catalog):
     return parser
 
 
+def project_language():
+    try:
+        with root_directory(Path.cwd()) as root:
+            language = read_json(root, METADATA).get("language")
+    except (Issue, OSError, AttributeError):
+        return None
+    return language if language in ("es", "en") else None
+
+
+def subcommand(argv):
+    skip = False
+    for arg in argv:
+        if skip:
+            skip = False
+        elif arg == "--lang":
+            skip = True
+        elif not arg.startswith("-"):
+            return arg
+    return None
+
+
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
-    language = "es"
+    language = None
     for index, arg in enumerate(argv):
         if arg == "--lang" and index + 1 < len(argv) and argv[index + 1] in ("es", "en"):
             language = argv[index + 1]
         elif arg in ("--lang=es", "--lang=en"):
             language = arg.split("=", 1)[1]
+    if language is None and subcommand(argv) != "init":
+        language = project_language()
+    language = language or "en"
     catalog = json.loads(files("dixi_spec_kit").joinpath("locales", f"{language}.json").read_text(encoding="utf-8"))
     code = 0
     workflow = None
     try:
         args = parser_for(catalog).parse_args(argv)
+        args.lang = args.lang or language
         if args.command == "init":
             messages = initialize(args.directory, args.lang, args.agent)
         elif args.command == "doctor":

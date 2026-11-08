@@ -1,31 +1,31 @@
-# Threat model STRIDE — Adaptador Claude Code B3
+# STRIDE threat model — Claude Code adapter B3
 
-## Propósito
+## Purpose
 
-Identificar amenazas propias de instalar comandos de agente antes de implementarlos. Amplía el [modelo B1](local-core-threat-model.md); las amenazas de filesystem se heredan.
+Identify the threats specific to installing agent commands before implementing them. Extends the [B1 model](local-core-threat-model.md); filesystem threats are inherited.
 
-## Activos y límites de confianza
+## Assets and trust boundaries
 
-Activos: archivos del usuario, configuración de Claude Code, pruebas congeladas, historial Git y secretos locales. El texto que escribe la persona (`$ARGUMENTS`) y los documentos del proyecto son datos no confiables para el agente. La CLI no ejecuta el agente; el riesgo principal está en lo que los comandos instruyen.
+Assets: user files, Claude Code configuration, frozen tests, Git history and local secrets. The text the person writes (`$ARGUMENTS`) and the project documents are untrusted data for the agent. The CLI does not run the agent; the main risk lies in what the commands instruct.
 
-## Amenazas y mitigaciones
+## Threats and mitigations
 
-| ID / STRIDE | Amenaza | Mitigación | Prueba |
+| ID / STRIDE | Threat | Mitigation | Test |
 |---|---|---|---|
-| A01 / Elevation | Instalar permisos, hooks o MCP que amplíen lo que el agente puede hacer sin decisión de la persona. | Solo `CLAUDE.md` y `.claude/commands/dixi.*.md`; sin `allowed-tools`. | `test_installs_only_commands` |
-| A02 / Tampering | Sobrescribir comandos o configuración `.claude/` existentes. | Destino vacío obligatorio y creación exclusiva (B1). | `test_existing_claude_dir_untouched` |
-| A03 / Tampering | Un comando instruye modificar pruebas congeladas para pasar. | Límite común explícito en cada comando; revisión humana del PR. | `test_commands_declare_limits` |
-| A04 / Repudiation | El agente firma, aprueba, integra o hace push en nombre de la persona. | Límite común; ningún comando contiene `git push` ni `--no-verify`. | `test_commands_declare_limits`, `test_commands_avoid_dangerous_operations` |
-| A05 / Information disclosure | Inyección de instrucciones en specs o argumentos para leer secretos. | Instrucción de tratar entradas como datos; `dixi` deniega rutas sensibles. Riesgo residual: no hay enforcement en el agente. | `test_commands_declare_limits` |
-| A06 / Spoofing | Metadata que declara un agente o inventario falso para pasar `check`. | Agente en lista cerrada e inventario completo exigido. | `test_unknown_agent_metadata`, `test_incomplete_adapter_inventory` |
-| A07 / Information disclosure | Comandos que referencian recursos privados o ausentes. | Solo operaciones `dixi` existentes y procedimientos empaquetados. | `test_commands_reference_existing_operations` |
+| A01 / Elevation | Installing permissions, hooks or MCP that broaden what the agent can do without the person's decision. | Only `CLAUDE.md` and `.claude/commands/dixi.*.md`; no `allowed-tools`. | `test_installs_only_commands` |
+| A02 / Tampering | Overwriting existing `.claude/` commands or configuration. | Mandatory empty destination and exclusive creation (B1). | `test_existing_claude_dir_untouched` |
+| A03 / Tampering | A command instructs modifying frozen tests to make them pass. | Explicit common limit in each command; human review of the PR. | `test_commands_declare_limits` |
+| A04 / Repudiation | The agent signs, approves, integrates or pushes on the person's behalf. | Common limit; no command contains `git push` or `--no-verify`. | `test_commands_declare_limits`, `test_commands_avoid_dangerous_operations` |
+| A05 / Information disclosure | Instruction injection in specs or arguments to read secrets. | Instruction to treat inputs as data; `dixi` denies sensitive paths. Residual risk: there is no enforcement in the agent. | `test_commands_declare_limits` |
+| A06 / Spoofing | Metadata declaring a false agent or inventory to pass `check`. | Agent from a closed list and complete inventory required. | `test_unknown_agent_metadata`, `test_incomplete_adapter_inventory` |
+| A07 / Information disclosure | Commands that reference private or missing resources. | Only existing `dixi` operations and packaged procedures. | `test_commands_reference_existing_operations` |
 
-## Riesgo residual
+## Residual risk
 
-Las instrucciones en Markdown dependen del modelo y no son controles. La protección efectiva contra cambios no revisados está en la protección de rama y la revisión humana del repositorio del proyecto, que el kit documenta pero no configura.
+Instructions in Markdown depend on the model and are not controls. Effective protection against unreviewed changes lies in branch protection and human review of the project's repository, which the kit documents but does not configure.
 
-## Relacionados
+## Related
 
-- [Contrato B3](../07-contracts/commands/claude-code-adapter-contract.md)
+- [B3 contract](../07-contracts/commands/claude-code-adapter-contract.md)
 - [Feature](../05-features/claude-code-adapter/feature-spec.md)
-- [Modelo B1](local-core-threat-model.md)
+- [B1 model](local-core-threat-model.md)

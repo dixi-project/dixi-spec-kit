@@ -1,38 +1,38 @@
-# language: es
-Característica: Adaptador Claude Code
+# language: en
+Feature: Claude Code adapter
   @CC-01
-  Escenario: Instalar los comandos en un proyecto nuevo
-    Dado un destino ausente
-    Cuando se ejecuta init con agent claude sin acceso a red
-    Entonces existen CLAUDE.md y diez comandos dixi en .claude/commands
-    Y no se instalan hooks, settings, permisos ni servidores MCP
+  Scenario: Install the commands in a new project
+    Given a missing destination
+    When init is run with agent claude without network access
+    Then CLAUDE.md and ten dixi commands exist in .claude/commands
+    And no hooks, settings, permissions or MCP servers are installed
 
   @CC-02
-  Escenario: No sobrescribir comandos existentes
-    Dado un destino con un archivo .claude/commands/dixi.plan.md propio
-    Cuando se ejecuta init con agent claude
-    Entonces la operación falla con código 3 y el archivo no cambia
+  Scenario: Do not overwrite existing commands
+    Given a destination with its own .claude/commands/dixi.plan.md file
+    When init is run with agent claude
+    Then the operation fails with code 3 and the file does not change
 
   @CC-03
-  Escenario: Comandos con límites explícitos
-    Dado un proyecto inicializado con agent claude en español o inglés
-    Cuando se inspecciona cada comando instalado
-    Entonces declara entrada, límites comunes y solo operaciones dixi existentes
+  Scenario: Commands with explicit limits
+    Given a project initialized with agent claude in Spanish or English
+    When each installed command is inspected
+    Then it declares input, common limits and only existing dixi operations
 
   @CC-04
-  Escenario: Detectar un comando borrado
-    Dado un proyecto con agent claude sin el comando dixi.build
-    Cuando se ejecuta check
-    Entonces falla con código 1 e identifica el archivo ausente
+  Scenario: Detect a deleted command
+    Given a project with agent claude missing the dixi.build command
+    When check is run
+    Then it fails with code 1 and identifies the missing file
 
   @CC-05
-  Escenario: Recursos del adaptador en la distribución
-    Dado el wheel construido
-    Cuando se listan sus archivos
-    Entonces contiene los comandos es y en
+  Scenario: Adapter resources in the distribution
+    Given the built wheel
+    When its files are listed
+    Then it contains the es and en commands
 
   @CC-06
-  Escenario: Ejemplo público verificable
-    Dado el ejemplo examples/notes
-    Cuando se ejecuta check y make verify
-    Entonces ambos terminan con código 0
+  Scenario: Verifiable public example
+    Given the example examples/notes
+    When check and make verify are run
+    Then both finish with code 0

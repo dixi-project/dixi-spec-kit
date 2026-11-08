@@ -1,44 +1,44 @@
 # DIXI Spec Kit
 
-**Español** · [English](README.en.md)
+**English** · [Español](README.es.md)
 
-## Propósito
+## Purpose
 
-DIXI Spec Kit es una herramienta de [Dixi Project](https://github.com/dixi-project) para desarrollar software guiado por especificaciones (SDD) con trazabilidad y verificación: de la idea a specs enlazadas, pruebas primero, código verificado y revisión humana. Incluye una CLI (`dixi`) y comandos para Claude Code.
+DIXI Spec Kit is a [Dixi Project](https://github.com/dixi-project) tool for specification-driven development (SDD) with traceability and verification: from an idea to linked specs, tests first, verified code and human review. It ships a CLI (`dixi`) and commands for Claude Code.
 
-- **Trazabilidad explícita:** objetivo → dominio → módulo → feature → contrato → prueba, con IDs que `dixi check` comprueba.
-- **Pruebas primero y congeladas:** los comandos instruyen escribir pruebas en rojo antes del código y no tocarlas para hacerlo pasar.
-- **Control humano:** el agente no firma, no aprueba, no integra y no despliega.
-- **Sin dependencias ni red:** la CLI usa solo la biblioteca estándar de Python, no consume IA y no pide credenciales. El lenguaje de tu proyecto lo eliges tú.
+- **Explicit traceability:** goal → domain → module → feature → contract → test, with IDs checked by `dixi check`.
+- **Tests first, then frozen:** commands instruct writing failing tests before code and never editing them to make code pass.
+- **Human control:** the agent does not sign, approve, merge or deploy.
+- **No dependencies, no network:** the CLI uses only the Python standard library, consumes no AI and asks for no credentials. You choose your project's language.
 
-## Instalación
+## Installation
 
-Requisitos: Python 3.11 o superior, macOS o Linux. Windows no está soportado en v1.0.0.
+Requirements: Python 3.11 or later, macOS or Linux. Windows is not supported in v1.0.0.
 
 ```sh
 uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.0.0
-# o
+# or
 pipx install git+https://github.com/dixi-project/dixi-spec-kit@v1.0.0
 ```
 
-El paquete aún no está publicado en PyPI. También puedes descargar el wheel de la [release v1.0.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.0.0) e instalarlo con `pipx install dixi_spec_kit-1.0.0-py3-none-any.whl`.
+The package is not on PyPI yet. You can also download the wheel from the [v1.0.0 release](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.0.0) and install it with `pipx install dixi_spec_kit-1.0.0-py3-none-any.whl`.
 
-## Inicio rápido
+## Quickstart
 
 ```sh
-dixi init mi-proyecto --agent claude   # o --agent none para usarlo sin agente
-cd mi-proyecto
+dixi init my-project --agent claude   # or --agent none to use it without an agent
+cd my-project
 dixi doctor
 dixi check
 make verify
 ```
 
-Abre Claude Code en `mi-proyecto` y recorre:
+Open Claude Code in `my-project` and walk through:
 
 ```text
-/dixi.discover <tu idea>
-/dixi.specify <funcionalidad>
-/dixi.clarify <ID de la spec>
+/dixi.discover <your idea>
+/dixi.specify <feature>
+/dixi.clarify <spec ID>
 /dixi.plan <FEATURE-ID>
 /dixi.tasks <FEATURE-ID>
 /dixi.build <T-ID>
@@ -46,32 +46,32 @@ Abre Claude Code en `mi-proyecto` y recorre:
 /dixi.review main
 ```
 
-`/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Para documentos en inglés: `dixi --lang en init my-project --agent claude`.
+`/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
 
-## Comandos de terminal
+## Terminal commands
 
-| Comando | Qué hace |
+| Command | What it does |
 |---|---|
-| `dixi init <dir> [--agent none\|claude]` | Crea la base documental en un directorio nuevo o vacío; nunca sobrescribe. |
-| `dixi doctor` | Diagnostica el entorno y el proyecto sin red ni credenciales. |
-| `dixi check` | Comprueba estructura, enlaces y trazabilidad. No ejecuta código. |
-| `dixi workflow list\|show\|prepare` | Consulta y prepara los procedimientos de descubrimiento, especificación, dominio, arquitectura, contrato, amenazas y plan. |
-| `dixi --help`, `dixi --version` | Ayuda y versión. Opciones globales: `--lang es\|en`, `--json`. |
+| `dixi init <dir> [--agent none\|claude]` | Creates the documentary baseline in a new or empty directory; never overwrites. |
+| `dixi doctor` | Diagnoses environment and project without network or credentials. |
+| `dixi check` | Checks structure, links and traceability. Runs no code. |
+| `dixi workflow list\|show\|prepare` | Lists and prepares the discover, specify, clarify, domain, architecture, contract, threat-model and plan procedures. |
+| `dixi --help`, `dixi --version` | Help and version. Global options: `--lang es\|en`, `--json`. |
 
-Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proyecto ausente, 3 destino ocupado o inseguro, 4 versión o plataforma no soportada, 5 fallo de entrada/salida.
+Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O failure.
 
-## Ejemplo
+## Example
 
-[`examples/notes`](examples/notes) es una biblioteca y CLI de notas construida con este recorrido, con una evolución y su análisis de impacto. `make verify` ejecuta `dixi check` y 12 pruebas reales.
+[`examples/notes`](examples/notes) is a notes library and CLI built with this flow, including an evolution with its impact analysis. `make verify` runs `dixi check` and 12 real tests.
 
-## Qué incluye y qué no
+## What is and is not included
 
-Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: el adaptador de Claude Code instala comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. `dixi upgrade`, Codex, Windows y el segundo lenguaje de ejemplo llegan en v1.1 ([plan](ROADMAP.md)).
+See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Planned: design, handoff and change commands plus `dixi upgrade --dry-run` in v1.1, a Codex adapter in v1.2 and specialized commands in v1.3 ([roadmap](ROADMAP.md)). Windows is not supported.
 
-## Contribuir
+## Contributing
 
-Cualquiera puede usar, clonar y hacer fork. Los cambios se proponen con un PR desde tu fork; solo los mantenedores integran en `main`, con revisión y checks en verde. Consulta [CONTRIBUTING.md](CONTRIBUTING.md). Las vulnerabilidades se reportan de forma privada según [SECURITY.md](SECURITY.md).
+Anyone can use, clone and fork. Propose changes with a pull request from your fork; only maintainers merge into `main`, after review and green checks. See [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
-## Licencia
+## License
 
-[MIT](LICENSE) © 2026 Dixi Project. Los proyectos que generes con `dixi init` son tuyos.
+[MIT](LICENSE) © 2026 Dixi Project. Projects you generate with `dixi init` are yours.

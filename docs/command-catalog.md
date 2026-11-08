@@ -1,119 +1,119 @@
-# Catálogo propuesto de comandos de DIXI Spec Kit
+# DIXI Spec Kit proposed command catalog
 
-## Propósito
+## Purpose
 
-Convertir las capacidades de EIS-IA en operaciones utilizables por terceros: definir, construir, verificar y mantener un producto con trazabilidad. La cobertura se deriva del método Dixi y de recorridos verificables, sin limitarse al catálogo de otra herramienta.
+Turn EIS-IA's capabilities into operations usable by third parties: define, build, verify and maintain a product with traceability. Coverage is derived from the Dixi method and from verifiable walkthroughs, without being limited to another tool's catalog.
 
-## Estado y alcance
+## Status and scope
 
-Catálogo de trabajo de TASK-001 y ADR-100. B1 ya implementa `dixi init --agent none`, `dixi doctor`, `dixi check`, ayuda y versión como desarrollo local. Los comandos del agente, actualización y capacidades especializadas siguen propuestos; su presencia aquí no indica que estén instalados. La dirección abierta y el inicio incremental están autorizados.
+Working catalog of TASK-001 and ADR-100. B1 already implements `dixi init --agent none`, `dixi doctor`, `dixi check`, help and version as local development. Agent commands, upgrade and specialized capabilities remain proposed; their presence here does not indicate that they are installed. The open direction and incremental start are authorized.
 
-B2a añade `dixi workflow list`, `show` y `prepare` para las ocho recetas de definición/diseño. Son acceso determinista al método y su contexto; no ejecución asistida de los comandos `/dixi.*`. [Contrato B2a](../07-contracts/commands/workflow-preparation-contract.md) · [Guía](workflow-quickstart.md).
+B2a adds `dixi workflow list`, `show` and `prepare` for the eight definition/design recipes. They are deterministic access to the method and its context; not assisted execution of the `/dixi.*` commands. [B2a contract](../07-contracts/commands/workflow-preparation-contract.md) · [Guide](workflow-quickstart.md).
 
-Los nombres `/dixi.*` expresan operaciones compartidas del núcleo; la sintaxis instalable se verifica por adaptador y puede variar entre herramientas. Los comandos `dixi ...` se ejecutan en terminal. La CLI realiza operaciones deterministas; la integración elegida guía decisiones y prepara documentos usando validadores compartidos. El modo sin integración entrega el método, plantillas y guías para uso documental. Codex y Claude Code son candidatos de igual prioridad, sin soporte anunciado hasta verificarlos.
+The `/dixi.*` names express shared operations of the core; the installable syntax is verified per adapter and may vary between tools. The `dixi ...` commands run in the terminal. The CLI performs deterministic operations; the chosen integration guides decisions and prepares documents using shared validators. The no-integration mode delivers the method, templates and guides for documentary use. Codex and Claude Code are candidates of equal priority, without announced support until they are verified.
 
-La [revisión conjunta](v1-design-review.md) propone incluir los 16 comandos del recorrido y de diseño/trazabilidad, y priorizar después las nueve entradas especializadas. El [contrato inicial](../07-contracts/commands/command-contract.md) concreta entradas, escrituras, límites y resultados. Esta selección sigue pendiente de validación.
+The [joint review](v1-design-review.md) proposes including the 16 journey and design/traceability commands, and prioritizing the nine specialized entries afterwards. The [initial contract](../07-contracts/commands/command-contract.md) specifies inputs, writes, limits and results. This selection remains pending validation.
 
-## Base existente y brechas
+## Existing base and gaps
 
-En la revisión del origen privado se encontraron nueve comandos: `initsdd`, `initproject`, `build`, `risk-review`, `open`, `close`, `mode`, `promote` y `duediligence`. Su existencia no acredita funcionamiento en el producto público ni derechos de distribución.
+The review of the private origin found nine commands: `initsdd`, `initproject`, `build`, `risk-review`, `open`, `close`, `mode`, `promote` and `duediligence`. Their existence does not accredit that they work in the public product nor distribution rights.
 
-| Capacidad existente | Tratamiento propuesto |
+| Existing capability | Proposed treatment |
 |---|---|
-| `initsdd` | Sustituir la dependencia del repositorio privado por `dixi init` con recursos empaquetados. |
-| `initproject` | Adaptar la entrevista a `discover`; hacer accesibles por separado dominios, arquitectura y contratos. |
-| `build` | Adaptar TDD, clasificación de riesgo y gates humanos; eliminar dependencia obligatoria del sistema interno de tareas. |
-| `risk-review` | Adaptar a `review`, con base Git explícita y sin aprobar ni integrar. |
-| `open`, `close` | Adaptar a `status` y `handoff`, con continuidad local y sin push implícito. |
-| `mode`, `promote` | Conservar consulta de estado y diseñar promoción supervisada; no confundir promoción de MODE con despliegue. |
-| `duediligence` | Adaptar como capacidad especializada, con evidencias y faltantes explícitos. |
+| `initsdd` | Replace the dependency on the private repository with `dixi init` using packaged resources. |
+| `initproject` | Adapt the interview to `discover`; make domains, architecture and contracts accessible separately. |
+| `build` | Adapt TDD, risk classification and human gates; remove the mandatory dependency on the internal task system. |
+| `risk-review` | Adapt to `review`, with an explicit Git base and without approving or merging. |
+| `open`, `close` | Adapt to `status` and `handoff`, with local continuity and without implicit push. |
+| `mode`, `promote` | Keep status lookup and design supervised promotion; do not confuse MODE promotion with deployment. |
+| `duediligence` | Adapt as a specialized capability, with explicit evidence and gaps. |
 
-Una brecha indica que no hay una entrada pública autónoma verificada para esa operación. Parte de su lógica puede existir dentro de los comandos o guías del origen; se audita antes de crear otra implementación.
+A gap indicates that there is no verified autonomous public entry for that operation. Part of its logic may exist inside the origin's commands or guides; it is audited before creating another implementation.
 
-## Recorrido principal candidato para v1
+## Candidate main journey for v1
 
 `init → discover → specify → plan → tasks → build → verify → review`
 
-`status` orienta el siguiente paso y `handoff` permite retomar el trabajo. `plan` incorpora dominios, arquitectura, contratos y seguridad según el riesgo; esas capacidades también pueden invocarse directamente. Los cambios pequeños siguen el proceso proporcional de EIS-IA, sin exigir todo el recorrido.
+`status` points to the next step and `handoff` allows work to be resumed. `plan` incorporates domains, architecture, contracts and security according to risk; those capabilities can also be invoked directly. Small changes follow EIS-IA's proportional process, without requiring the whole journey.
 
-| Comando del agente | Resultado observable | Base o brecha |
+| Agent command | Observable result | Base or gap |
 |---|---|---|
-| `/dixi.discover` | Visión, actores, alcance, restricciones y preguntas pendientes del producto. | Adaptar `initproject`. |
-| `/dixi.specify` | Historia y feature con reglas, criterios verificables y enlaces a dominio y módulo. | Entrada específica pendiente. |
-| `/dixi.clarify` | Respuestas y supuestos incorporados a una spec; dudas bloqueantes identificadas. | Entrada específica pendiente; también usada durante otros pasos. |
-| `/dixi.plan` | Plan técnico por bloques, contratos afectados, ADRs, riesgos y ruta de verificación. | Extraer y adaptar planificación del ciclo existente. |
-| `/dixi.tasks` | Tareas con criterios, dependencias, nivel de riesgo y enlaces a specs. | Separar generación de tareas de la entrevista y de `build`. |
-| `/dixi.build` | Pruebas primero, cambio de código y evidencia de ejecución por tarea. | Adaptar `build`. |
-| `/dixi.verify` | Informe de checks ejecutados, fallidos o no ejecutados y cobertura de criterios. | Entrada específica pendiente sobre verificadores del proyecto. |
-| `/dixi.review` | Hallazgos por riesgo y contraste criterio → cambio → prueba para revisión humana. | Adaptar `risk-review`. |
-| `/dixi.status` | Estado de artefactos, decisiones pendientes y siguiente paso justificado. | Adaptar `open`. |
-| `/dixi.handoff` | Contexto local para continuar, evidencias y pendientes, sin declarar cierre sin verificar. | Adaptar `close`. |
+| `/dixi.discover` | Product vision, actors, scope, constraints and pending questions. | Adapt `initproject`. |
+| `/dixi.specify` | Story and feature with rules, verifiable criteria and links to domain and module. | Specific entry pending. |
+| `/dixi.clarify` | Answers and assumptions incorporated into a spec; blocking doubts identified. | Specific entry pending; also used during other steps. |
+| `/dixi.plan` | Technical plan by blocks, affected contracts, ADRs, risks and verification path. | Extract and adapt planning from the existing cycle. |
+| `/dixi.tasks` | Tasks with criteria, dependencies, risk level and links to specs. | Separate task generation from the interview and from `build`. |
+| `/dixi.build` | Tests first, code change and execution evidence per task. | Adapt `build`. |
+| `/dixi.verify` | Report of executed, failed or non-executed checks and criteria coverage. | Specific entry pending over the project's verifiers. |
+| `/dixi.review` | Findings by risk and criterion → change → test comparison for human review. | Adapt `risk-review`. |
+| `/dixi.status` | Status of artifacts, pending decisions and justified next step. | Adapt `open`. |
+| `/dixi.handoff` | Local context to continue, evidence and pending items, without declaring closure without verification. | Adapt `close`. |
 
-## Capacidades propias de Dixi que deben quedar cubiertas en v1
+## Dixi's own capabilities that must be covered in v1
 
-Propuesta: exponer estas operaciones como comandos directos y reutilizarlas desde `plan` o `verify`. La partición final se valida con los contratos para evitar dos caminos que produzcan documentos contradictorios.
+Proposal: expose these operations as direct commands and reuse them from `plan` or `verify`. The final partition is validated with the contracts to avoid two paths that produce contradictory documents.
 
-| Comando propuesto | Resultado observable | Cuándo se necesita |
+| Proposed command | Observable result | When it is needed |
 |---|---|---|
-| `/dixi.domain` | Límites de dominio, lenguaje ubicuo y módulos vinculados a objetivos de negocio. | Discovery o cambio de dominio. |
-| `/dixi.architecture` | Diseño, alternativas, consecuencias y ADRs propuestos. | Decisión estructural. |
-| `/dixi.contract` | Contratos y schemas enlazados a sus consumidores; impacto de compatibilidad documentado. | Interfaces nuevas o modificadas. |
-| `/dixi.threat-model` | Amenazas STRIDE, mitigaciones y pruebas previstas por amenaza. | Disparadores de riesgo de EIS-IA; no es opcional cuando aplica. |
-| `/dixi.analyze` | Informe de faltantes y contradicciones entre negocio, dominio, módulo, feature, contrato y prueba. | Antes de construir y al cambiar specs. |
-| `/dixi.change` | Propuesta de cambio con impacto en specs, contratos, tareas y pruebas existentes. | Evolución de una funcionalidad; no modifica pruebas congeladas. |
+| `/dixi.domain` | Domain boundaries, ubiquitous language and modules linked to business goals. | Discovery or domain change. |
+| `/dixi.architecture` | Design, alternatives, consequences and proposed ADRs. | Structural decision. |
+| `/dixi.contract` | Contracts and schemas linked to their consumers; compatibility impact documented. | New or modified interfaces. |
+| `/dixi.threat-model` | STRIDE threats, mitigations and planned tests per threat. | EIS-IA risk triggers; not optional when it applies. |
+| `/dixi.analyze` | Report of gaps and contradictions between business, domain, module, feature, contract and test. | Before building and when specs change. |
+| `/dixi.change` | Change proposal with impact on existing specs, contracts, tasks and tests. | Evolution of a feature; does not modify frozen tests. |
 
-`analyze` interpreta coherencia semántica; `dixi check` comprueba reglas mecánicas. `verify` ejecuta la escalera del proyecto y reúne evidencia. Un informe del agente no sustituye el resultado de esas comprobaciones.
+`analyze` interprets semantic consistency; `dixi check` checks mechanical rules. `verify` runs the project's ladder and gathers evidence. An agent report does not replace the result of those checks.
 
-## Capacidades especializadas a delimitar
+## Specialized capabilities to be delimited
 
-Se incluyen en el mapa del producto. Su inclusión como comandos independientes en v1 queda pendiente de priorización y pruebas; diferir una interfaz no elimina una norma aplicable.
+They are included in the product map. Their inclusion as independent commands in v1 remains pending prioritization and testing; deferring an interface does not remove an applicable rule.
 
-| Candidato | Resultado y límite |
+| Candidate | Result and limit |
 |---|---|
-| `/dixi.data` | Modelo, clasificación de datos, retención y plan de migración; sin ejecutar migraciones en entornos. |
-| `/dixi.quality` | Estrategia de pruebas, presupuestos y matriz de verificación, incluyendo i18n y accesibilidad según alcance. |
-| `/dixi.ai` | Casos de uso, evaluación, datos, costos y diseño de agentes/MCP según políticas del proyecto; Bedrock sigue vigente en el conjunto Dixi, con portabilidad pública propuesta en ADR-101. |
-| `/dixi.release` | Evidencia de preparación y propuesta de release; sin aprobar gates ni desplegar desde el agente. |
-| `/dixi.promote` | Revisión de requisitos para MODE=prod y ceremonia supervisada; sin promoción silenciosa. |
-| `/dixi.operate` | SLOs, observabilidad, runbooks y preparación de incidentes; sin operar producción desde la laptop. |
-| `/dixi.finops` | Estimaciones con supuestos, fuentes y presupuestos; sin inventar consumo o costos reales. |
-| `/dixi.compliance` | Mapa de obligaciones y evidencias pendientes; sin declarar certificaciones. |
-| `/dixi.duediligence` | Informe sustentado por artefactos y faltantes, para evaluación humana. |
+| `/dixi.data` | Model, data classification, retention and migration plan; without running migrations in environments. |
+| `/dixi.quality` | Test strategy, budgets and verification matrix, including i18n and accessibility according to scope. |
+| `/dixi.ai` | Use cases, evaluation, data, costs and agent/MCP design according to the project's policies; Bedrock remains in force in the Dixi set, with public portability proposed in ADR-101. |
+| `/dixi.release` | Readiness evidence and release proposal; without approving gates or deploying from the agent. |
+| `/dixi.promote` | Review of requirements for MODE=prod and supervised ceremony; no silent promotion. |
+| `/dixi.operate` | SLOs, observability, runbooks and incident preparation; without operating production from the laptop. |
+| `/dixi.finops` | Estimates with assumptions, sources and budgets; without inventing real consumption or costs. |
+| `/dixi.compliance` | Map of obligations and pending evidence; without declaring certifications. |
+| `/dixi.duediligence` | Report backed by artifacts and gaps, for human evaluation. |
 
-## CLI de soporte
+## Supporting CLI
 
-| Comando | Contrato y estado |
+| Command | Contract and status |
 |---|---|
-| `dixi init` | Disponible con `--agent none` y `--agent claude` (B3): crea documentos y baseline sin sobrescribir. |
-| `dixi doctor` | B1 disponible: runtime, recursos, filesystem y metadata local. Diagnóstico de agentes/perfiles pendiente. |
-| `dixi check` | B1 disponible: estructura, referencias y grafo declarado según el contrato local. |
-| `dixi upgrade --dry-run` | Aplazado a v1.1 (ADR-102). |
-| `dixi --help`, `dixi --version` | B1 disponible: capacidades instaladas y versión de desarrollo. |
+| `dixi init` | Available with `--agent none` and `--agent claude` (B3): creates documents and baseline without overwriting. |
+| `dixi doctor` | B1 available: runtime, resources, filesystem and local metadata. Agent/profile diagnostics pending. |
+| `dixi check` | B1 available: structure, references and declared graph according to the local contract. |
+| `dixi upgrade --dry-run` | Deferred to v1.1 (ADR-102). |
+| `dixi --help`, `dixi --version` | B1 available: installed capabilities and development version. |
 
-La CLI no invoca IA ni AWS al instalar o generar proyectos. Los comandos del agente requieren el entorno del agente documentado. No se anuncia operación completa offline por el hecho de empaquetar plantillas locales.
+The CLI does not invoke AI or AWS when installing or generating projects. Agent commands require the documented agent environment. Fully offline operation is not announced merely because templates are packaged locally.
 
-## Contrato obligatorio por comando
+## Mandatory contract per command
 
-Antes de implementar se especifican: objetivo, argumentos, entradas y requisitos previos; archivos leídos y escritos; salidas y estados de error; gates humanos; comportamiento ante repetición, interrupción y cambios locales; siguiente paso; escenarios de aceptación y evidencia esperada. Los supuestos quedan visibles y nunca se presentan como decisiones del usuario.
+Before implementing, the following are specified: goal, arguments, inputs and prerequisites; files read and written; outputs and error states; human gates; behavior on repetition, interruption and local changes; next step; acceptance scenarios and expected evidence. Assumptions remain visible and are never presented as user decisions.
 
-Se comprueba que los comandos instalados referencien solo recursos distribuidos. Los verificadores deben tener pruebas automatizadas; los comandos del agente requieren además recorridos de evaluación con entradas y criterios controlados, sin exigir igualdad literal del texto generado. Se prueba la falta de información, el conflicto entre specs y la negativa a saltar gates. La sintaxis y el funcionamiento se prueban en el agente anunciado.
+It is checked that installed commands reference only distributed resources. Verifiers must have automated tests; agent commands additionally require evaluation walkthroughs with controlled inputs and criteria, without requiring literal equality of the generated text. Missing information, conflicts between specs and refusal to skip gates are tested. Syntax and behavior are tested in the announced agent.
 
-## Orden de entrega y aceptación
+## Delivery order and acceptance
 
-1. Revisar historia + ADRs + catálogo como un conjunto; fijar comandos incluidos, integraciones elegibles, políticas y matriz de soporte.
-2. Crear trazabilidad y contratos por bloques: instalación; definición; diseño; tareas y construcción; verificación y revisión; continuidad y cambios.
-3. Por bloque, registrar pruebas en rojo antes de implementar y comprobar los recursos instalados. Resolver derechos antes de incorporar material del origen a la distribución.
-4. Completar un ejemplo público desde idea hasta código verificado y revisión humana preparada; repetir con una modificación de contrato para comprobar impacto y gates.
-5. Evaluar los comandos especializados y registrar la decisión de inclusión o aplazamiento, sin anunciar los pendientes como disponibles.
-6. Validar empaquetado, documentación es/en y condiciones de publicación. La cantidad de comandos por sí sola no acredita utilidad ni calidad.
+1. Review story + ADRs + catalog as a whole; fix included commands, eligible integrations, policies and support matrix.
+2. Create traceability and contracts by blocks: installation; definition; design; tasks and build; verification and review; continuity and changes.
+3. Per block, record red tests before implementing and check the installed resources. Resolve rights before incorporating material from the origin into the distribution.
+4. Complete a public example from idea to verified code and prepared human review; repeat with a contract modification to check impact and gates.
+5. Evaluate the specialized commands and record the inclusion or deferral decision, without announcing pending ones as available.
+6. Validate packaging, es/en documentation and publication conditions. The number of commands alone does not accredit usefulness or quality.
 
-## Relacionados
+## Related
 
-- [Producto](product-spec.md)
-- [Revisión de diseño](v1-design-review.md)
-- [Contrato de comandos](../07-contracts/commands/command-contract.md)
-- [Contrato implementado B1](../07-contracts/commands/local-core-contract.md)
-- [Historia](../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [Product](product-spec.md)
+- [Design review](v1-design-review.md)
+- [Command contract](../07-contracts/commands/command-contract.md)
+- [Implemented B1 contract](../07-contracts/commands/local-core-contract.md)
+- [Story](../tasks/backlog/TASK-001-lanzamiento-v1.md)
 - [ADR-100](../09-architecture/adr/ADR-100-distribucion-publica-v1.md)
 - [ADR-101](../09-architecture/adr/ADR-101-nucleo-sdd-portable-e-integraciones.md)
-- [Plan](../ROADMAP.md)
+- [Roadmap](../ROADMAP.md)

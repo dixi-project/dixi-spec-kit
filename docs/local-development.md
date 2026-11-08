@@ -1,14 +1,14 @@
-# Desarrollo y prueba local / Local development
+# Local development and testing
 
-## Propósito
+## Purpose
 
-Construir, instalar y probar DIXI Spec Kit desde este repositorio. La CLI no necesita agente ni proveedor; Python es su runtime, no una elección del lenguaje del proyecto. Licencia MIT; el paquete aún no está en PyPI.
+Build, install and test DIXI Spec Kit from this repository. The CLI needs no agent or provider; Python is its runtime, not a choice of the project's language. MIT license; the package is not on PyPI yet.
 
-## Requisitos y build
+## Requirements and build
 
-Entorno comprobado: macOS, Python 3.15.2, pip y Make. El paquete declara Python >=3.11; las demás versiones todavía no se han probado. Se requieren operaciones POSIX con descriptores de directorio y `O_NOFOLLOW`. Windows no está soportado en B1. La primera instalación de Setuptools requiere red; el build y las instalaciones de los artefactos locales funcionan sin consultar un índice.
+Tested environment: macOS, Python 3.15.2, pip and Make. The package declares Python >=3.11; the other versions have not been tested yet. POSIX operations with directory descriptors and `O_NOFOLLOW` are required. Windows is not supported in B1. The first installation of Setuptools requires network access; the build and the installations of the local artifacts work without querying an index.
 
-Desde la raíz del repositorio:
+From the repository root:
 
 ```sh
 python3 -m venv .venv
@@ -16,11 +16,11 @@ python3 -m venv .venv
 make verify
 ```
 
-`make verify` construye wheel y sdist, comprueba sintaxis/catálogos y ejecuta todas las pruebas. Las pruebas de distribución reconstruyen el wheel desde sdist e instalan ambos en entornos temporales limpios con `--no-index --no-deps`; después prueban los comandos y el Makefile generado. `make package` solo construye los artefactos. `make test` ejecuta únicamente los casos de `test_local_core.py`; no sustituye la verificación completa.
+`make verify` builds wheel and sdist, checks syntax/catalogs and runs all tests. The distribution tests rebuild the wheel from sdist and install both in clean temporary environments with `--no-index --no-deps`; then they test the commands and the generated Makefile. `make package` only builds the artifacts. `make test` runs only the cases in `test_local_core.py`; it does not replace the full verification.
 
-Setuptools 84.2.1 es la única dependencia externa de build; está fijada por hash en `requirements-build.txt`. Procedencia y comprobación en el [contrato B1](../07-contracts/commands/local-core-contract.md). El runtime usa biblioteca estándar.
+Setuptools 84.2.1 is the only external build dependency; it is pinned by hash in `requirements-build.txt`. Provenance and verification are in the [B1 contract](../07-contracts/commands/local-core-contract.md). The runtime uses the standard library.
 
-## Instalar y probar
+## Install and test
 
 ```sh
 .venv/bin/python -m pip --isolated install --no-index --no-deps --force-reinstall dist/dixi_spec_kit-*-py3-none-any.whl
@@ -35,51 +35,40 @@ dixi --json check
 make verify
 ```
 
-El destino debe estar ausente o vacío y su padre debe existir. Si ya usaste `demo-sdd`, elige otro nombre: `init` rechaza la repetición y conserva archivos. Un fallo de escritura puede dejar archivos parciales y `.dixi-init.lock`; inspecciona el directorio, conserva lo útil y usa un destino nuevo. No hay recuperación automática ni borrado al reintentar.
+The destination must be absent or empty and its parent must exist. If you have already used `demo-sdd`, choose another name: `init` refuses the repetition and keeps the files. A write failure may leave partial files and `.dixi-init.lock`; inspect the directory, keep what is useful and use a new destination. There is no automatic recovery or deletion on retry.
 
-Para documentos en inglés, usa `dixi --lang en init .context/demo-en --agent none` desde la raíz. Las opciones globales (`--lang`, `--json`) preceden al subcomando. `doctor` también funciona fuera de un proyecto; `check` requiere estar en su raíz. Sin instalar, puedes consultar ayuda con `PYTHONPATH=src python3 -m dixi_spec_kit --help` desde este repositorio.
+For documents in English, use `dixi --lang en init .context/demo-en --agent none` from the root. Global options (`--lang`, `--json`) precede the subcommand. `doctor` also works outside a project; `check` requires being at its root. Without installing, you can view the help with `PYTHONPATH=src python3 -m dixi_spec_kit --help` from this repository.
 
-## Interpretar resultados
+## Interpreting results
 
-| Código | Significado |
+| Code | Meaning |
 |---|---|
-| 0 | Operación completada dentro de su alcance. |
-| 1 | Contenido, enlaces o rutas del proyecto inválidos. |
-| 2 | Uso incorrecto o proyecto ausente. |
-| 3 | Destino ocupado/inseguro; inicialización rechazada. |
-| 4 | Versión de esquema/kit o plataforma no soportada. |
-| 5 | Fallo de entrada/salida o recursos del paquete. |
+| 0 | Operation completed within its scope. |
+| 1 | Invalid project content, links or paths. |
+| 2 | Incorrect usage or missing project. |
+| 3 | Occupied/unsafe destination; initialization refused. |
+| 4 | Unsupported schema/kit version or platform. |
+| 5 | Input/output failure or package resource failure. |
 
-`check` verifica archivos inventariados y declarados en `.dixi/traceability.json`, no escanea todo el árbol. Comprueba padres/IDs y un subconjunto de enlaces Markdown inline y por referencia. Tiene límites de 1 MiB por archivo y 500 archivos/elementos/destinos según el [contrato](../07-contracts/commands/local-core-contract.md). No es un parser CommonMark completo, no visita webs ni valida anchors, completitud de specs o cobertura de negocio. El hash del inventario conserva el contenido inicial; editar una spec no debe fallar solo por cambiar ese hash.
+`check` verifies files inventoried and declared in `.dixi/traceability.json`; it does not scan the whole tree. It checks parents/IDs and a subset of inline and reference Markdown links. It has limits of 1 MiB per file and 500 files/items/targets according to the [contract](../07-contracts/commands/local-core-contract.md). It is not a full CommonMark parser, does not visit websites and does not validate anchors, spec completeness or business coverage. The inventory hash preserves the initial content; editing a spec must not fail merely because that hash changes.
 
-El mismo paquete ya incluye `dixi workflow list/show/prepare`: consulta procedimientos y prepara contexto para un objetivo explícito. Sigue el [recorrido es/en de B2a](workflow-quickstart.md). Las recetas están disponibles sin instalar un agente; preparar no equivale a ejecutarlas.
+The same package already includes `dixi workflow list/show/prepare`: it looks up procedures and prepares context for an explicit target. Follow the [B2a es/en walkthrough](workflow-quickstart.md). The recipes are available without installing an agent; preparing is not the same as executing them.
 
-Los documentos son borradores. El elemento `test` inicial es un plan, no una prueba ejecutable. El `make verify` generado llama a `dixi check`; cada proyecto debe conectar sus propias pruebas antes de afirmar calidad de aplicación. Las instrucciones de `AGENTS.md` son reglas documentales: B1 no instala hooks ni automatiza revisión humana, promoción o despliegue. `dixi init --agent claude` instala además los diez comandos `/dixi.*` para Claude Code; `upgrade` y Codex llegan en v1.1.
+The documents are drafts. The initial `test` element is a plan, not an executable test. The generated `make verify` calls `dixi check`; each project must connect its own tests before claiming application quality. The instructions in `AGENTS.md` are documentary rules: B1 does not install hooks or automate human review, promotion or deployment. `dixi init --agent claude` additionally installs the ten `/dixi.*` commands for Claude Code; `upgrade` and Codex arrive in v1.1.
 
-## English quickstart
+## Related
 
-Purpose: build and exercise the local B1 development package without an agent. Tested on macOS with Python 3.15.2 and Make; Python >=3.11 is the declared floor, not a tested compatibility matrix. POSIX directory descriptors and `O_NOFOLLOW` are required. Windows is unsupported in B1.
+- [B1 evidence](b1-verification.md)
+- [Contract](../07-contracts/commands/local-core-contract.md)
+- [Threat model](../13-security/local-core-threat-model.md)
+- [Roadmap](../ROADMAP.md)
 
-Run the build commands above from the repository root. Setuptools is a verified, hash-pinned build dependency; the CLI has no third-party runtime dependencies. `make verify` builds wheel/sdist, checks source and catalogs, runs the suite, rebuilds from sdist, and installs both wheels into clean temporary environments without an index. License: MIT.
+## Resumen en español
 
-After installing the local wheel and activating `.venv` as shown above:
+Propósito: construir y probar el paquete local de desarrollo B1 sin agente. Probado en macOS con Python 3.15.2 y Make; Python >=3.11 es el mínimo declarado, no una matriz de compatibilidad probada. Se requieren descriptores de directorio POSIX y `O_NOFOLLOW`. Windows no está soportado en B1.
 
-```sh
-dixi --lang en --help
-dixi --lang en init .context/demo-en --agent none
-cd .context/demo-en
-dixi --lang en doctor
-dixi --lang en --json check
-make verify
-```
+Ejecuta los comandos de build anteriores desde la raíz del repositorio. Setuptools es una dependencia de build verificada y fijada por hash; la CLI no tiene dependencias de ejecución de terceros. `make verify` construye wheel/sdist, comprueba código y catálogos, ejecuta la suite, reconstruye desde sdist e instala ambos wheels en entornos temporales limpios sin índice. Licencia: MIT.
 
-The parent directory must exist and the destination must be new or empty. Repeating initialization refuses to overwrite files. Interrupted writes may leave partial files and a lock marker; inspect and preserve useful content, then use a new destination. Global options precede the command.
+Tras instalar el wheel local y activar `.venv`, `dixi init <destino> --agent none`, `dixi doctor`, `dixi --json check` y `make verify` crean y comprueban un proyecto documental; usa `--lang es` o `--lang en` (antes del subcomando) para elegir el idioma. El directorio padre debe existir y el destino debe ser nuevo o estar vacío; repetir la inicialización no sobrescribe archivos. Una escritura interrumpida puede dejar archivos parciales y un marcador de bloqueo: inspecciona, conserva lo útil y usa un destino nuevo.
 
-Exit codes: 0 success, 1 invalid project content, 2 usage/missing project, 3 destination conflict, 4 unsupported version/platform, 5 I/O or package resource failure. Checks inspect declared files and graph references only, use a limited Markdown link syntax, and do not execute application code or access the network. Draft specs and test plans remain drafts even when checks pass. Connect application tests to the generated Makefile before claiming application verification. `--agent claude` installs ten `/dixi.*` Claude Code commands; upgrade and Codex are planned for v1.1.
-
-## Relacionados / Related
-
-- [Evidencia B1 / Verification](b1-verification.md)
-- [Contrato / Contract](../07-contracts/commands/local-core-contract.md)
-- [Amenazas / Threat model](../13-security/local-core-threat-model.md)
-- [Plan / Roadmap](../ROADMAP.md)
+Códigos de salida: 0 éxito, 1 contenido de proyecto inválido, 2 uso/proyecto ausente, 3 conflicto de destino, 4 versión/plataforma no soportada, 5 fallo de E/S o de recursos del paquete. Las comprobaciones inspeccionan solo archivos declarados y referencias del grafo, con una sintaxis limitada de enlaces Markdown, sin ejecutar código de aplicación ni acceder a la red. Las specs y planes de prueba en borrador siguen siendo borradores aunque pasen las comprobaciones. `--agent claude` instala diez comandos `/dixi.*` de Claude Code; upgrade y Codex están previstos para v1.1.

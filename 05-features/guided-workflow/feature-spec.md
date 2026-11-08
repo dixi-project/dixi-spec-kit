@@ -1,44 +1,44 @@
-# Feature — Recorrido guiado y evolución de una funcionalidad
+# Feature — Guided workflow and evolution of a feature
 
-## Propósito
+## Purpose
 
-Definir cómo una persona usa los comandos del kit desde una necesidad hasta una revisión preparada y cómo retoma o cambia ese trabajo. Estado: borrador de aceptación, sin implementación ni pruebas ejecutadas.
+Define how a person uses the kit's commands from a need to a prepared review, and how they resume or change that work. Status: acceptance draft, with no implementation and no tests executed.
 
-## Historia y alcance
+## Story and scope
 
-Como persona que desarrolla con Dixi, quiero comandos que mantengan conectadas mis decisiones, especificaciones, tareas y comprobaciones, para construir y evolucionar una funcionalidad conservando su contexto y sus controles.
+As a person who develops with Dixi, I want commands that keep my decisions, specifications, tasks and checks connected, so I can build and evolve a feature while preserving its context and its controls.
 
-Esta feature desarrolla los criterios 10 a 16 de TASK-001 y depende de instalación local verificada. La preparación/publicación del paquete y los controles del repositorio oficial siguen en TASK-001; los escenarios de esta feature no acreditan esos otros criterios.
+This feature develops criteria 10 to 16 of TASK-001 and depends on a verified local installation. Package preparation/publication and the official repository's controls remain in TASK-001; the scenarios of this feature do not certify those other criteria.
 
-## Criterios de aceptación
+## Acceptance criteria
 
-- WF-01: discovery y especificación producen artefactos enlazados y preguntas explícitas ante información faltante.
-- WF-02: dominio, arquitectura, contratos y amenazas alimentan el mismo plan tanto por entrada directa como por el recorrido guiado; cada amenaza aplicable queda enlazada a una mitigación y prueba prevista.
-- WF-03: las tareas cubren criterios del plan, tienen nivel y verificación, y no contienen dependencias circulares.
-- WF-04: build respeta el gate de historia nivel 3 y TDD; no altera pruebas congeladas.
-- WF-05: analyze, verify y review distinguen contradicciones, controles no ejecutados y evidencia desactualizada, sin aprobar el cambio.
-- WF-06: repetir, interrumpir y retomar preserva identificadores y cambios locales; status no escribe y handoff queda privado.
-- WF-07: change documenta impacto y bloqueos de compatibilidad sin aplicar automáticamente cambios a contratos publicados o pruebas congeladas.
-- WF-08: los comandos instalados tienen recursos completos y su ayuda no anuncia capacidades aplazadas; el recorrido funciona en el adaptador y matriz anunciados.
-- WF-09: la persona puede elegir una integración distribuida o ninguna; el núcleo y sus validaciones no exigen un agente y los artefactos canónicos tienen el mismo formato.
-- WF-10: los ejemplos acreditan el recorrido en dos lenguajes, evaluados con cada adaptador anunciado; las diferencias de capacidades/controles se muestran y un control obligatorio ausente bloquea la operación dependiente si no hay mecanismo equivalente verificado.
+- WF-01: discovery and specification produce linked artifacts and explicit questions when information is missing.
+- WF-02: domain, architecture, contracts and threats feed the same plan both through direct entry and through the guided workflow; each applicable threat is linked to a mitigation and a planned test.
+- WF-03: tasks cover the plan's criteria, have a level and verification, and contain no circular dependencies.
+- WF-04: build respects the level 3 story gate and TDD; it does not alter frozen tests.
+- WF-05: analyze, verify and review distinguish contradictions, unexecuted controls and stale evidence, without approving the change.
+- WF-06: repeating, interrupting and resuming preserve identifiers and local changes; status does not write and handoff stays private.
+- WF-07: change documents impact and compatibility blockers without automatically applying changes to published contracts or frozen tests.
+- WF-08: the installed commands have complete resources and their help does not announce deferred capabilities; the workflow works in the announced adapter and matrix.
+- WF-09: the person can choose a distributed integration or none; the core and its validations do not require an agent and the canonical artifacts have the same format.
+- WF-10: the examples certify the workflow in two languages, evaluated with each announced adapter; differences in capabilities/controls are shown, and a missing mandatory control blocks the dependent operation if there is no verified equivalent mechanism.
 
-## Ejemplo de evaluación propuesto
+## Proposed evaluation example
 
-Una biblioteca local de notas ficticias, sin cuentas ni datos personales, permite crear y listar notas. La evolución añade un filtro compatible y después solicita cambiar un contrato publicado de forma incompatible para comprobar que el gate se respeta. Los textos es/en y las comprobaciones se declaran en su plan. Se preparan ejemplos equivalentes en dos lenguajes y se evalúa cada adaptador anunciado contra ambos; los stacks y ubicaciones se fijan antes del bloque de construcción. La matriz acreditará esas combinaciones, no soporte universal.
+A local library of fictitious notes, with no accounts or personal data, allows creating and listing notes. The evolution adds a compatible filter and then requests an incompatible change to a published contract to check that the gate is respected. The es/en texts and the checks are declared in its plan. Equivalent examples are prepared in two languages and each announced adapter is evaluated against both; the stacks and locations are fixed before the build block. The matrix will certify those combinations, not universal support.
 
-No se usa información de clientes. La versión publicada del contrato se representa con una fixture de evaluación identificada, sin publicar un servicio real. La evidencia incluye entradas, artefactos, estado de archivos, controles ejecutados y dictamen humano sobre la rúbrica.
+No customer information is used. The published version of the contract is represented by an identified evaluation fixture, without publishing a real service. The evidence includes inputs, artifacts, file state, executed controls and the human verdict on the rubric.
 
-## Estrategia de verificación
+## Verification strategy
 
-Los [escenarios](scenarios.feature) son especificaciones BDD aún sin step definitions ni runner. [acceptance.yaml](acceptance.yaml) es una matriz de diseño local, no afirma conformidad con un schema heredado todavía no seleccionado. Antes de implementar se añaden pruebas ejecutables en rojo en su propio commit y casos de seguridad por comando.
+The [scenarios](scenarios.feature) are BDD specifications still without step definitions or a runner. [acceptance.yaml](acceptance.yaml) is a local design matrix; it does not claim conformance with an inherited schema not yet selected. Before implementing, executable red tests are added in their own commit, along with security cases per command.
 
-Las pruebas deterministas verifican rutas, estructura, inventarios, duplicados y resultados de scripts. Las evaluaciones del agente verifican decisiones, artefactos y respeto de gates con una rúbrica, sin comparar texto literal. Cada uno de los 16 comandos necesita además sus casos particulares antes de su bloque de implementación; estos escenarios de recorrido no sustituyen esa cobertura.
+Deterministic tests verify paths, structure, inventories, duplicates and script results. Agent evaluations verify decisions, artifacts and respect for gates with a rubric, without comparing literal text. Each of the 16 commands also needs its specific cases before its implementation block; these workflow scenarios do not replace that coverage.
 
-## Relacionados
+## Related
 
-- [Módulo padre](../../04-modules/command-workflow/module-spec.md)
-- [Historia TASK-001](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
-- [Contrato](../../07-contracts/commands/command-contract.md)
-- [Escenarios BDD](scenarios.feature)
-- [Matriz de aceptación](acceptance.yaml)
+- [Parent module](../../04-modules/command-workflow/module-spec.md)
+- [Story TASK-001](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [Contract](../../07-contracts/commands/command-contract.md)
+- [BDD scenarios](scenarios.feature)
+- [Acceptance matrix](acceptance.yaml)

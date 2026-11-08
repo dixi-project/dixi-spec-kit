@@ -1,48 +1,48 @@
-# TASK-003 — Adaptador de Claude Code y comandos del recorrido principal
+# TASK-003 — Claude Code adapter and main-flow commands
 
-## Propósito
+## Purpose
 
-Concretar B3 de TASK-001 bajo la propuesta de [ADR-102](../../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md): instalar en Claude Code los comandos del recorrido principal para que una persona recorra el método dentro de su agente.
+Deliver B3 of TASK-001 under the proposal of [ADR-102](../../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md): install the main-flow commands in Claude Code so that a person can walk through the method inside their agent.
 
-## Registro e historia
+## Record and story
 
-- Tipo: feature; prioridad P1; nivel 3, estructural (nuevo adaptador, controles y superficie de ejecución del agente).
-- Estado: en curso desde el 2026-11-08.
-- Dependencia resuelta: ADR-102 validado y licencia MIT + DCO decidida el 2026-11-08 en la validación conjunta de nivel 3.
-- Como persona que usa Claude Code quiero instalar los comandos de DIXI Spec Kit en mi proyecto para recorrer descubrimiento, especificación, plan, tareas, construcción, verificación y preparación de revisión, conservando trazabilidad y los gates humanos.
+- Type: feature; priority P1; level 3, structural (new adapter, controls and agent execution surface).
+- Status: in progress since 2026-11-08.
+- Dependency resolved: ADR-102 validated and MIT + DCO license decided on 2026-11-08 in the joint level 3 validation.
+- As a person who uses Claude Code I want to install the DIXI Spec Kit commands in my project so that I can walk through discovery, specification, plan, tasks, build, verification and review preparation, keeping traceability and the human gates.
 
-## Criterios de aceptación
+## Acceptance criteria
 
-1. Existe un contrato de adaptador que declara versión y sintaxis de Claude Code comprobadas, capacidades, controles que automatiza, controles que quedan en CI o revisión y los que no soporta.
-2. `dixi init` con el adaptador instala solo archivos del producto, sin sobrescribir los existentes, sin hooks activados implícitamente y sin consumir IA ni red. Se eligen de forma explícita.
-3. Cada uno de los diez comandos (`discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`) tiene contrato de entradas, escrituras, errores, gates, repetición e interrupción, y referencia solo recursos distribuidos.
-4. Los comandos no modifican pruebas congeladas, no firman, atestan, aprueban ni integran, y no saltan un gate cuando falta información o hay conflicto entre specs.
-5. Pruebas deterministas cubren instalación, conflictos, symlinks y recursos; evaluaciones con entradas controladas cubren los comandos sin exigir texto idéntico.
-6. Un ejemplo público recorre idea → código verificado → revisión preparada y una evolución con análisis de impacto, con `make verify` en verde.
-7. La matriz de soporte publicada no anuncia capacidades sin evidencia, ni sistemas no probados.
+1. There is an adapter contract that declares the verified Claude Code version and syntax, capabilities, controls it automates, controls that remain in CI or review and those it does not support.
+2. `dixi init` with the adapter installs only product files, without overwriting existing ones, without implicitly enabled hooks and without consuming AI or network. They are chosen explicitly.
+3. Each of the ten commands (`discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`) has a contract for inputs, writes, errors, gates, repetition and interruption, and references only distributed resources.
+4. The commands do not modify frozen tests, do not sign, attest, approve or merge, and do not skip a gate when information is missing or there is a conflict between specs.
+5. Deterministic tests cover installation, conflicts, symlinks and resources; evaluations with controlled inputs cover the commands without requiring identical text.
+6. A public example walks through idea → verified code → prepared review and an evolution with impact analysis, with `make verify` green.
+7. The published support matrix does not announce capabilities without evidence, nor untested systems.
 
-## Reglas de negocio
+## Business rules
 
-1. Las pruebas de aceptación se registran en rojo en su propio commit antes de implementar.
-2. No se anuncia un comando, adaptador o control que no esté verificado.
-3. AWS/Bedrock y las normas del origen no se relajan sin ADR propio; el adaptador público sigue ADR-101.
+1. Acceptance tests are recorded red in their own commit before implementing.
+2. No command, adapter or control is announced unless it is verified.
+3. AWS/Bedrock and the origin's rules are not relaxed without their own ADR; the public adapter follows ADR-101.
 
-## La historia se considera terminada cuando
+## The story is considered done when
 
-1. ADR-102 fue validado y TASK-001 actualizado.
-2. Los criterios tienen pruebas y evaluaciones, con el rojo previo registrado.
-3. `make verify` pasa, incluido wheel/sdist instalados en entornos limpios.
-4. La matriz de soporte y la documentación es/en reflejan la implementación real.
+1. ADR-102 was validated and TASK-001 updated.
+2. The criteria have tests and evaluations, with the prior red recorded.
+3. `make verify` passes, including wheel/sdist installed in clean environments.
+4. The support matrix and the es/en documentation reflect the actual implementation.
 
-## Avance — 2026-11-08
+## Progress — 2026-11-08
 
-Implementado con pruebas primero: contrato, feature y amenazas (commit propio), 15 pruebas en rojo (commit propio), adaptador, recursos es/en, ejemplo `examples/notes` con evolución e impacto. Evidencia en [B3](../../docs/b3-verification.md). Pendiente de revisión humana del PR.
+Implemented tests-first: contract, feature and threats (own commit), 15 red tests (own commit), adapter, es/en resources, `examples/notes` example with evolution and impact. Evidence in [B3](../../docs/b3-verification.md). Pending human review of the PR.
 
-## Relacionados
+## Related
 
-- [Historia principal](TASK-001-lanzamiento-v1.md)
+- [Main story](TASK-001-lanzamiento-v1.md)
 - [ADR-102](../../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md)
 - [ADR-101](../../09-architecture/adr/ADR-101-nucleo-sdd-portable-e-integraciones.md)
-- [Catálogo de comandos](../../docs/command-catalog.md)
-- [Contrato de comandos](../../07-contracts/commands/command-contract.md)
-- [Comparación con GitHub Spec Kit](../../docs/spec-kit-comparison.md)
+- [Command catalog](../../docs/command-catalog.md)
+- [Command contract](../../07-contracts/commands/command-contract.md)
+- [Comparison with GitHub Spec Kit](../../docs/spec-kit-comparison.md)

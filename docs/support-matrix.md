@@ -1,49 +1,49 @@
-# Matriz de soporte v1.0.0 / Support matrix
+# v1.0.0 support matrix
 
-## Propósito
+## Purpose
 
-Declarar qué soporta DIXI Spec Kit v1.0.0, con qué evidencia y qué controles son automáticos o solo instrucciones. Nada fuera de esta tabla se anuncia como soportado.
+Declare what DIXI Spec Kit v1.0.0 supports, with what evidence, and which controls are automatic or only instructions. Nothing outside this table is announced as supported.
 
-## Sistemas y Python
+## Systems and Python
 
-| Plataforma | Estado | Evidencia |
+| Platform | Status | Evidence |
 |---|---|---|
-| macOS + Python 3.15 | Soportado | `make verify` local, instalación limpia desde wheel y sdist ([B3](b3-verification.md)). |
-| macOS / Linux + Python 3.11 y 3.13 | Soportado al pasar la CI | Job `verify` en `ubuntu-latest` y `macos-latest` ([ADR-103](../09-architecture/adr/ADR-103-ci-publica-en-github-actions.md)). |
-| Windows | No soportado | Requiere operaciones POSIX (`O_NOFOLLOW`, descriptores de directorio); `dixi` sale con código 4. |
+| macOS + Python 3.15 | Supported | Local `make verify`, clean install from wheel and sdist ([B3](b3-verification.md)). |
+| macOS / Linux + Python 3.11 and 3.13 | Supported when CI passes | `verify` job on `ubuntu-latest` and `macos-latest` ([ADR-103](../09-architecture/adr/ADR-103-ci-publica-en-github-actions.md)). |
+| Windows | Not supported | Requires POSIX operations (`O_NOFOLLOW`, directory descriptors); `dixi` exits with code 4. |
 
-## Integraciones
+## Integrations
 
-| Integración | Estado | Qué instala |
+| Integration | Status | What it installs |
 |---|---|---|
-| `--agent none` | Soportada | Base documental, `AGENTS.md` y guía. Úsala con cualquier editor o agente, sin comandos instalados. |
-| `--agent claude` | Soportada (Claude Code 2.1.319) | Lo anterior más `CLAUDE.md` y diez comandos `/dixi.*` en `.claude/commands/`. |
-| Codex y otros | No incluidos en v1.0.0 | Previsto Codex para v1.1. Tener `AGENTS.md` no equivale a soporte. |
+| `--agent none` | Supported | Documentary base, `AGENTS.md` and guide. Use it with any editor or agent, without installed commands. |
+| `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and ten `/dixi.*` commands in `.claude/commands/`. |
+| Codex and others | Not included in v1.0.0 | Codex planned for v1.1. Having `AGENTS.md` does not amount to support. |
 
-## Controles del adaptador Claude Code
+## Claude Code adapter controls
 
-| Control | Mecanismo | ¿Automático? |
+| Control | Mechanism | Automatic? |
 |---|---|---|
-| No sobrescribir al instalar | `dixi init` | Sí |
-| Estructura, enlaces y trazabilidad | `dixi check` / `make verify` | Sí |
-| Pruebas primero y congeladas | Instrucción en cada comando + revisión del PR | **No** |
-| No firmar, aprobar ni integrar | Instrucción + protección de rama en tu repositorio | **No** en el agente |
-| Validar decisiones estructurales | Instrucción (el comando se detiene) | **No** |
-| Permisos de herramientas | Tu configuración de Claude Code; el kit no la cambia | — |
-| No leer secretos | Instrucción; `dixi` rechaza rutas sensibles | Parcial |
+| Do not overwrite on install | `dixi init` | Yes |
+| Structure, links and traceability | `dixi check` / `make verify` | Yes |
+| Tests first and frozen | Instruction in each command + PR review | **No** |
+| Do not sign, approve or merge | Instruction + branch protection in your repository | **No** in the agent |
+| Validate structural decisions | Instruction (the command stops) | **No** |
+| Tool permissions | Your Claude Code configuration; the kit does not change it | — |
+| Do not read secrets | Instruction; `dixi` rejects sensitive paths | Partial |
 
-## Capacidades
+## Capabilities
 
-Incluidas: `init`, `doctor`, `check`, `workflow list/show/prepare`, los diez comandos `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, y documentos es/en.
+Included: `init`, `doctor`, `check`, `workflow list/show/prepare`, the ten commands `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, and es/en documents.
 
-No incluidas en v1.0.0: `dixi upgrade`, `/dixi.handoff`, `/dixi.change`, comandos especializados (datos, calidad, IA, release, operación, FinOps, compliance, due diligence), extensiones o presets y un segundo lenguaje de ejemplo.
+Not included in v1.0.0: `dixi upgrade`, `/dixi.handoff`, `/dixi.change`, specialized commands (data, quality, AI, release, operations, FinOps, compliance, due diligence), extensions or presets, and a second example language.
 
-## English summary
+## Related
 
-Supported: macOS and Linux with Python ≥ 3.11 (local evidence on macOS/3.15; CI on Ubuntu and macOS with 3.11 and 3.13). Windows is unsupported. Integrations: `--agent none` and `--agent claude` (Claude Code 2.1.319). The Claude Code adapter installs ten commands and `CLAUDE.md`, and no hooks, permissions or MCP servers. Test-first, no-sign/approve/merge and structural-decision gates are **instructions**, not automatic controls; only install safety and `dixi check` are automated. Not in v1.0.0: upgrade, handoff, change, specialized commands, extensions, Codex, Windows.
-
-## Relacionados
-
-- [Contrato del adaptador](../07-contracts/commands/claude-code-adapter-contract.md)
+- [Adapter contract](../07-contracts/commands/claude-code-adapter-contract.md)
 - [ADR-102](../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md)
-- [Plan](../ROADMAP.md)
+- [Roadmap](../ROADMAP.md)
+
+## Resumen en español
+
+Soportado: macOS y Linux con Python ≥ 3.11 (evidencia local en macOS/3.15; CI en Ubuntu y macOS con 3.11 y 3.13). Windows no está soportado. Integraciones: `--agent none` y `--agent claude` (Claude Code 2.1.319). El adaptador de Claude Code instala diez comandos y `CLAUDE.md`, sin hooks, permisos ni servidores MCP. Las reglas de pruebas primero, no firmar/aprobar/integrar y validar decisiones estructurales son **instrucciones**, no controles automáticos; solo la instalación segura y `dixi check` están automatizados. Fuera de v1.0.0: upgrade, handoff, change, comandos especializados, extensiones, Codex y Windows.

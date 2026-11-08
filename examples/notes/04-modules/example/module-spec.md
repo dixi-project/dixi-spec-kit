@@ -1,17 +1,17 @@
-# MODULE-001 — Paquete `notes`
+# MODULE-001 — `notes` package
 
-## Propósito
+## Purpose
 
-Implementar el dominio de notas como paquete Python `notes` con API (`NoteStore`) y CLI (`python3 -m notes`).
+Implement the notes domain as the Python package `notes` with an API (`NoteStore`) and a CLI (`python3 -m notes`).
 
-## Responsabilidades
+## Responsibilities
 
-- Validar texto y etiquetas antes de guardar.
-- Persistir de forma atómica (escritura temporal y reemplazo).
-- Mensajes de la CLI en catálogos `notes/locales/es.json` y `en.json`.
+- Validate text and tags before saving.
+- Persist atomically (temporary write and replace).
+- CLI messages in the catalogs `notes/locales/es.json` and `en.json`.
 
-## Relacionados
+## Related
 
-- [Dominio](../../03-domains/example/domain-spec.md)
-- [Funcionalidad: capturar y buscar](../../05-features/example/feature-spec.md)
-- [Funcionalidad: etiquetas](../../05-features/tags/feature-spec.md)
+- [Domain](../../03-domains/example/domain-spec.md)
+- [Feature: capture and search](../../05-features/example/feature-spec.md)
+- [Feature: tags](../../05-features/tags/feature-spec.md)

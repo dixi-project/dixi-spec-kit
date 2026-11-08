@@ -1,33 +1,33 @@
-# language: es
-Característica: Núcleo local sin dependencia de agente
+# language: en
+Feature: Local core without agent dependency
   @LC-01
-  Escenario: Consultar capacidades reales
-    Dado un directorio sin proyecto ni agente
-    Cuando se consulta ayuda y versión
-    Entonces solo se anuncian operaciones disponibles y una versión de desarrollo
+  Scenario: View the real capabilities
+    Given a directory with no project and no agent
+    When help and version are requested
+    Then only available operations and a development version are announced
 
   @LC-02 @LC-04
-  Escenario: Crear y comprobar un proyecto documental
-    Dado un destino ausente y recursos locales es/en
-    Cuando se ejecuta init con agent none y luego check y doctor
-    Entonces la estructura es válida y el baseline identifica los archivos generados
-    Y no se requiere agente ni se afirma verificación de código de aplicación
+  Scenario: Create and check a documentation-only project
+    Given a missing destination and local es/en resources
+    When init is run with agent none and then check and doctor
+    Then the structure is valid and the baseline identifies the generated files
+    And no agent is required and no verification of application code is claimed
 
   @LC-03
-  Escenario: Preservar un destino ocupado
-    Dado un destino con archivos del usuario o un enlace simbólico
-    Cuando se intenta inicializarlo
-    Entonces se informa conflicto y el contenido permanece idéntico
+  Scenario: Preserve an occupied destination
+    Given a destination with user files or a symbolic link
+    When an attempt is made to initialize it
+    Then a conflict is reported and the content remains identical
 
   @LC-04 @LC-05
-  Escenario: Comprobar datos no confiables sin ejecutar instrucciones
-    Dado metadata alterada y enlaces a rutas inseguras
-    Cuando se ejecuta check
-    Entonces se informan errores sin leer fuera de la raíz ni ejecutar código del proyecto
+  Scenario: Check untrusted data without executing instructions
+    Given tampered metadata and links to unsafe paths
+    When check is run
+    Then errors are reported without reading outside the root or executing project code
 
   @LC-06
-  Escenario: Instalar artefactos locales limpios
-    Dado wheel y sdist construidos con inventario explícito
-    Cuando se instalan sin índice en entornos temporales
-    Entonces la CLI genera un proyecto verificable
-    Y no hay recursos privados ni dependencias externas de ejecución en los artefactos
+  Scenario: Install clean local artifacts
+    Given a wheel and an sdist built from an explicit inventory
+    When they are installed without an index in temporary environments
+    Then the CLI generates a verifiable project
+    And there are no private resources or external runtime dependencies in the artifacts

@@ -1,152 +1,152 @@
-# language: es
-Característica: Recorrido guiado con trazabilidad y evidencia
-  Como persona que desarrolla con Dixi
-  Quiero comandos que mantengan conectados mis artefactos
-  Para construir y evolucionar funcionalidades sin perder contexto ni controles
+# language: en
+Feature: Guided workflow with traceability and evidence
+  As a person who develops with Dixi
+  I want commands that keep my artifacts connected
+  So that I can build and evolve features without losing context or controls
 
   @WF-01 @S01
-  Escenario: Descubrir y especificar con información incompleta
-    Dado un proyecto inicializado y una idea sin reglas de retención definidas
-    Cuando la persona recorre discover y specify
-    Entonces quedan visión, historia y criterios enlazados
-    Y la retención aparece como pregunta pendiente y no como decisión confirmada
+  Scenario: Discover and specify with incomplete information
+    Given an initialized project and an idea with no defined retention rules
+    When the person walks through discover and specify
+    Then vision, story and criteria are left linked
+    And retention appears as a pending question and not as a confirmed decision
 
   @WF-02 @S02
-  Escenario: Reutilizar diseño al preparar el plan
-    Dado un dominio, un ADR propuesto y un contrato creados por comandos directos
-    Cuando la persona ejecuta plan sobre la feature que los referencia
-    Entonces el plan utiliza los mismos identificadores y documentos
-    Y no crea copias contradictorias ni declara aceptado el ADR
+  Scenario: Reuse design when preparing the plan
+    Given a domain, a proposed ADR and a contract created by direct commands
+    When the person runs plan on the feature that references them
+    Then the plan uses the same identifiers and documents
+    And it creates no contradictory copies and does not declare the ADR accepted
 
   @WF-02 @S03
-  Escenario: Incorporar amenazas al plan
-    Dado una feature con entrada externa y un límite de confianza documentado
-    Cuando se ejecuta threat-model y se prepara su plan
-    Entonces cada amenaza aplicable referencia una mitigación y una prueba prevista
-    Y ninguna prueba prevista aparece como ejecutada
+  Scenario: Incorporate threats into the plan
+    Given a feature with external input and a documented trust boundary
+    When threat-model is run and its plan is prepared
+    Then each applicable threat references a mitigation and a planned test
+    And no planned test appears as executed
 
   @WF-03 @S04
-  Escenario: Detectar criterios sin tareas y dependencias circulares
-    Dado un plan con un criterio sin tarea y dos tareas que dependen entre sí
-    Cuando se ejecuta tasks sobre ese plan
-    Entonces se informan el criterio descubierto y el ciclo
-    Y el conjunto no se declara listo para construir
+  Scenario: Detect criteria without tasks and circular dependencies
+    Given a plan with a criterion without a task and two tasks that depend on each other
+    When tasks is run on that plan
+    Then the uncovered criterion and the cycle are reported
+    And the set is not declared ready to build
 
   @WF-04 @S05
-  Escenario: Respetar la validación estructural
-    Dado una historia de nivel 3 y su ADR pendientes de validación humana
-    Cuando se solicita build para esa historia
-    Entonces se informa el gate pendiente
-    Y no se escribe implementación ni se registra una aprobación humana
+  Scenario: Respect structural validation
+    Given a level 3 story and its ADR pending human validation
+    When build is requested for that story
+    Then the pending gate is reported
+    And no implementation is written and no human approval is recorded
 
   @WF-04 @S06
-  Escenario: Construir con pruebas primero
-    Dado una tarea validada con criterio verificable y los gates resueltos
-    Cuando se ejecuta build
-    Entonces una prueba nueva falla por el comportamiento pendiente
-    Y el rojo se registra en un commit de pruebas antes de implementar
-    Y el resultado final incluye la evidencia real de verificación
+  Scenario: Build with tests first
+    Given a validated task with a verifiable criterion and the gates resolved
+    When build is run
+    Then a new test fails because of the pending behavior
+    And the red is recorded in a test commit before implementing
+    And the final result includes the real verification evidence
 
   @WF-04 @S07
-  Escenario: Preservar una prueba congelada
-    Dado una prueba commiteada que contradice la nueva solicitud
-    Cuando build detecta que requeriría cambiar esa prueba
-    Entonces conserva la prueba sin cambios
-    Y pide resolver la contradicción a la persona
+  Scenario: Preserve a frozen test
+    Given a committed test that contradicts the new request
+    When build detects that it would require changing that test
+    Then it keeps the test unchanged
+    And it asks the person to resolve the contradiction
 
   @WF-05 @S08
-  Escenario: Analizar specs contradictorias
-    Dado una regla de negocio y un contrato con comportamientos incompatibles
-    Cuando se ejecuta analyze
-    Entonces el informe identifica ambos artefactos y la contradicción
-    Y no modifica las fuentes para resolverla silenciosamente
+  Scenario: Analyze contradictory specs
+    Given a business rule and a contract with incompatible behaviors
+    When analyze is run
+    Then the report identifies both artifacts and the contradiction
+    And it does not modify the sources to resolve it silently
 
   @WF-05 @S09
-  Escenario: Informar verificación incompleta
-    Dado un proyecto sin make verify y con una prueba obligatoria no ejecutada
-    Cuando se ejecuta verify
-    Entonces el resultado es partial y enumera lo que falta
-    Y no declara verificación completa ni inventa resultados
+  Scenario: Report incomplete verification
+    Given a project without make verify and with a mandatory test not executed
+    When verify is run
+    Then the result is partial and lists what is missing
+    And it does not declare complete verification or invent results
 
   @WF-05 @S10
-  Escenario: Revisar con evidencia de otra revisión
-    Dado un diff con base explícita y evidencia anterior a un cambio del contrato
-    Cuando se ejecuta review
-    Entonces el informe marca la evidencia afectada como desactualizada
-    Y no aprueba ni integra el cambio
+  Scenario: Review with evidence from another revision
+    Given a diff with an explicit base and evidence prior to a contract change
+    When review is run
+    Then the report marks the affected evidence as stale
+    And it neither approves nor integrates the change
 
   @WF-06 @S11
-  Escenario: Retomar una escritura interrumpida
-    Dado una ejecución interrumpida después de crear una historia
-    Y una edición local posterior de esa historia
-    Cuando se retoma la operación con el mismo objetivo
-    Entonces se reutiliza el identificador de la historia
-    Y se conserva la edición local o se informa un conflicto sin sobrescribirla
+  Scenario: Resume an interrupted write
+    Given an execution interrupted after creating a story
+    And a later local edit of that story
+    When the operation is resumed with the same target
+    Then the story identifier is reused
+    And the local edit is preserved or a conflict is reported without overwriting it
 
   @WF-06 @S12
-  Escenario: Consultar estado sin modificar archivos
-    Dado un proyecto con trabajo parcial y sin acceso a GitHub
-    Cuando se ejecuta status
-    Entonces se muestra el avance real y el siguiente paso
-    Y los archivos del proyecto permanecen idénticos
+  Scenario: Check status without modifying files
+    Given a project with partial work and no access to GitHub
+    When status is run
+    Then the real progress and the next step are shown
+    And the project files remain identical
 
   @WF-06 @S13
-  Escenario: Impedir un handoff privado en una ruta versionada
-    Dado que .context está incluido en el índice de Git
-    Cuando se ejecuta handoff
-    Entonces se bloquea la escritura del contexto privado
-    Y no se hace push ni se alteran tareas para declararlas terminadas
+  Scenario: Prevent a private handoff in a versioned path
+    Given that .context is included in the Git index
+    When handoff is run
+    Then writing the private context is blocked
+    And no push is made and tasks are not altered to declare them done
 
   @WF-07 @S14
-  Escenario: Proponer una evolución compatible
-    Dado el ejemplo de notas verificado y una solicitud de filtro opcional
-    Cuando se ejecuta change para esa funcionalidad
-    Entonces se identifican specs, contrato, tareas y pruebas afectados
-    Y se produce una propuesta enlazada sin aplicar el cambio automáticamente
+  Scenario: Propose a compatible evolution
+    Given the verified notes example and a request for an optional filter
+    When change is run for that feature
+    Then the affected specs, contract, tasks and tests are identified
+    And a linked proposal is produced without applying the change automatically
 
   @WF-07 @S15
-  Escenario: Proponer un cambio incompatible
-    Dado una fixture que representa un contrato publicado y una solicitud incompatible
-    Cuando se ejecuta change
-    Entonces se identifica el gate de compatibilidad y la decisión requerida
-    Y el contrato publicado y las pruebas congeladas quedan sin modificar
+  Scenario: Propose an incompatible change
+    Given a fixture that represents a published contract and an incompatible request
+    When change is run
+    Then the compatibility gate and the required decision are identified
+    And the published contract and the frozen tests remain unmodified
 
   @WF-08 @S16
-  Escenario: Ejecutar el recorrido desde recursos instalados
-    Dado el paquete instalado en un entorno limpio con el agente soportado
-    Cuando una persona completa el ejemplo de notas y prepara su revisión
-    Entonces todos los comandos encuentran sus recursos dentro de la distribución
-    Y la evidencia identifica el entorno y los controles ejecutados
-    Y la ayuda solo anuncia los comandos incluidos y verificados
+  Scenario: Run the workflow from installed resources
+    Given the package installed in a clean environment with the supported agent
+    When a person completes the notes example and prepares its review
+    Then all commands find their resources inside the distribution
+    And the evidence identifies the environment and the executed controls
+    And the help only announces the included and verified commands
 
   @WF-09 @S17
-  Escenario: Elegir una integración sin imponer su formato al núcleo
-    Dado recursos del núcleo y dos adaptadores incluidos en la distribución
-    Cuando se inicializan proyectos equivalentes eligiendo un adaptador distinto en cada uno
-    Entonces los artefactos canónicos conservan el mismo formato e identificadores
-    Y solo los recursos de integración y su configuración reflejan la elección
-    Y no se instala ni autentica el ejecutable de otro agente
+  Scenario: Choose an integration without imposing its format on the core
+    Given core resources and two adapters included in the distribution
+    When equivalent projects are initialized choosing a different adapter in each one
+    Then the canonical artifacts keep the same format and identifiers
+    And only the integration resources and their configuration reflect the choice
+    And the other agent's executable is neither installed nor authenticated
 
   @WF-09 @S18
-  Escenario: Usar el método sin integración de agente
-    Dado una instalación de la CLI sin agentes instalados
-    Cuando se inicializa un proyecto sin seleccionar integración
-    Entonces se entregan núcleo, plantillas y guías de las operaciones
-    Y doctor no exige un agente y check puede validar la estructura
-    Y no se presenta build como automatización disponible sin integración
+  Scenario: Use the method without an agent integration
+    Given a CLI installation with no agents installed
+    When a project is initialized without selecting an integration
+    Then the core, templates and operation guides are delivered
+    And doctor does not require an agent and check can validate the structure
+    And build is not presented as automation available without an integration
 
   @WF-10 @S19
-  Escenario: Verificar ejemplos en lenguajes distintos al runtime del instalador
-    Dado dos ejemplos equivalentes en lenguajes distintos y al menos uno diferente al runtime de la CLI
-    Cuando se ejecuta el recorrido de cada ejemplo con cada adaptador que se pretende anunciar
-    Entonces sus perfiles conectan las comprobaciones del stack con make verify
-    Y las evidencias identifican lenguaje, sistema y versión de cada integración evaluada
-    Y el kit no exige convertir el código del usuario al lenguaje del instalador
+  Scenario: Verify examples in languages other than the installer's runtime
+    Given two equivalent examples in different languages and at least one different from the CLI runtime
+    When the workflow of each example is run with each adapter intended to be announced
+    Then their profiles connect the stack's checks with make verify
+    And the evidence identifies language, system and version of each evaluated integration
+    And the kit does not require converting the user's code to the installer's language
 
   @WF-10 @S20
-  Escenario: Detectar un control obligatorio no disponible en una integración
-    Dado un adaptador sin un mecanismo requerido de protección de pruebas
-    Y ningún mecanismo equivalente documentado y verificado
-    Cuando se consulta doctor y se solicita build
-    Entonces doctor informa la limitación y build bloquea la operación dependiente
-    Y unas instrucciones en Markdown no se presentan como un hook implementado
+  Scenario: Detect a mandatory control unavailable in an integration
+    Given an adapter without a required test-protection mechanism
+    And no documented and verified equivalent mechanism
+    When doctor is consulted and build is requested
+    Then doctor reports the limitation and build blocks the dependent operation
+    And Markdown instructions are not presented as an implemented hook

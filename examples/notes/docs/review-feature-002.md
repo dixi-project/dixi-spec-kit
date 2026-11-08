@@ -1,34 +1,34 @@
-# Revisión preparada — FEATURE-002
+# Prepared review — FEATURE-002
 
-## Propósito
+## Purpose
 
-Informe de `/dixi.review` para la persona revisora del cambio de etiquetas. No aprueba nada.
+`/dixi.review` report for the reviewer of the tags change. It approves nothing.
 
-## Riesgo
+## Risk
 
-Bajo: cambia validación de entrada y lectura de datos locales; no toca persistencia, red ni permisos.
+Low: it changes input validation and reading of local data; it does not touch persistence, network or permissions.
 
-## Criterio → cambio → prueba
+## Criterion → change → test
 
-| Criterio | Cambio | Prueba |
+| Criterion | Change | Test |
 |---|---|---|
-| 1 Normalizar | `normalize_tags` en `notes/store.py` | `test_tags_are_normalized` |
-| 2 Rechazar inválidas | `TAG` y `NoteError("invalid_tag")` | `test_invalid_tags_rejected_without_writing` |
-| 3 Filtrar | `NoteStore.list(tag)` y `list --tag` | `test_filter_by_tag`, `test_cli_filter_and_invalid_tag` |
-| 4 Datos antiguos | `normalize_tags(..., strict=False)` al leer | `test_legacy_tags_normalized_on_read` |
+| 1 Normalize | `normalize_tags` in `notes/store.py` | `test_tags_are_normalized` |
+| 2 Reject invalid | `TAG` and `NoteError("invalid_tag")` | `test_invalid_tags_rejected_without_writing` |
+| 3 Filter | `NoteStore.list(tag)` and `list --tag` | `test_filter_by_tag`, `test_cli_filter_and_invalid_tag` |
+| 4 Old data | `normalize_tags(..., strict=False)` on read | `test_legacy_tags_normalized_on_read` |
 
-## Hallazgos
+## Findings
 
-- Ninguno bloqueante. `tests/test_notes.py` (congelada) no cambió.
-- Observación: una etiqueta antigua inválida se descarta al leer en lugar de fallar; coherente con el criterio 4, conviene confirmarlo con la persona.
+- None blocking. `tests/test_notes.py` (frozen) did not change.
+- Observation: an invalid old tag is discarded on read instead of failing; consistent with criterion 4, it is worth confirming with the person.
 
-## Para la persona revisora
+## For the reviewer
 
-- [ ] Los criterios de FEATURE-002 reflejan lo pedido.
-- [ ] `make verify` en verde en tu entorno.
-- [ ] La observación sobre etiquetas antiguas inválidas es aceptable.
+- [ ] The criteria of FEATURE-002 reflect what was requested.
+- [ ] `make verify` green in your environment.
+- [ ] The observation about invalid old tags is acceptable.
 
-## Relacionados
+## Related
 
-- [Funcionalidad](../05-features/tags/feature-spec.md)
-- [Impacto](../05-features/tags/impact.md)
+- [Feature](../05-features/tags/feature-spec.md)
+- [Impact](../05-features/tags/impact.md)

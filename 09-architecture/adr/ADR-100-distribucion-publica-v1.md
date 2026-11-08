@@ -1,43 +1,43 @@
-# ADR-100 — DIXI Spec Kit como distribución pública independiente
+# ADR-100 — DIXI Spec Kit as an independent public distribution
 
-## Propósito
+## Purpose
 
-Proponer la arquitectura y los límites de la primera distribución pública, sin cambiar las normas del repositorio privado.
+Propose the architecture and boundaries of the first public distribution, without changing the rules of the private repository.
 
-## Estado
+## Status
 
-Aceptado para ejecución incremental local el 2026-11-06. Tras aclarar el enfoque abierto a agentes y lenguajes, el usuario indicó «ok, pues vamos a darle adelante» y autorizó el primer bloque funcional: paquete/CLI Python, modo sin agente, ayuda, diagnóstico, comprobación y pruebas primero. Esto valida la dirección y el inicio de TASK-001; no confirma licencia, derechos, soporte de adaptadores ni disponibilidad de los comandos posteriores.
+Accepted for incremental local execution on 2026-11-06. After clarifying the approach open to any agent and language, the user stated "ok, then let's go ahead with it" and authorized the first functional block: Python package/CLI, no-agent mode, help, diagnostics, checking and tests first. This validates the direction and the start of TASK-001; it does not confirm the license, rights, adapter support or availability of the later commands.
 
-## Contexto
+## Context
 
-EIS-IA contiene método, scripts y configuración interna. Cambiar su visibilidad expondría un historial y una operación que no forman parte del producto público. El usuario dispone de una carpeta vacía dedicada a DIXI Spec Kit y pidió crear el repositorio público cuando esté listo.
+EIS-IA contains method, scripts and internal configuration. Changing its visibility would expose a history and an operation that are not part of the public product. The user has an empty folder dedicated to DIXI Spec Kit and asked for the public repository to be created when it is ready.
 
-## Decisión y alcance de ejecución
+## Decision and execution scope
 
-1. Mantener el repositorio privado de EIS-IA privado y crear una distribución pública independiente con historial nuevo y selección explícita de materiales.
-2. Iniciar la numeración pública en v1.0.0, sin heredar la numeración de EIS-IA.
-3. Paquete Python, ejecutable `dixi` y recursos incluidos en el artefacto; sin necesidad de credenciales privadas para generar proyectos.
-4. Definir un núcleo SDD independiente del agente y stack, separado de adaptadores, perfiles de stack y conjuntos de políticas. ADR-101 concreta la dirección de apertura indicada por el usuario y propone la excepción para proveedores de proyectos externos; no se anuncian integraciones sin evidencia ni se cambian las normas heredadas silenciosamente.
-5. Licencia MIT para el producto público, con DCO para contribuciones (decisión de la persona, 2026-11-08). Solo se distribuyen materiales escritos para este producto; la licencia propietaria de EIS-IA no cambia. Los proyectos generados pertenecen a quien los crea; los archivos iniciales que produce `dixi init` pueden usarse sin atribución, como declara la licencia.
-6. Reservar escritura a mantenedores de Dixi y permitir forks. `main` es público y cualquiera puede descargarlo o instalarlo; nadie fuera de los mantenedores puede modificarlo. Las contribuciones llegan desde forks por PR y se incorporan solo revisadas y con checks en verde (confirmado por la persona el 2026-11-08).
-7. Una vez extraído, el núcleo público es la fuente oficial de los materiales compartidos; la operación privada consume versiones de ese núcleo y conserva extensiones propias. No crear dos copias editadas manualmente del mismo núcleo.
-8. Distribuir un flujo de trabajo por comandos: CLI determinista, contratos y plantillas compartidos, validadores y adaptador del agente. El catálogo cubre las capacidades propias de Dixi; los pasos guiados y las invocaciones directas reutilizan el mismo contrato para evitar divergencia. Cada comando distribuido necesita pruebas y evaluación en el agente soportado.
-9. El plan inicial concreta 16 comandos del agente y cuatro operaciones CLI, con actualización limitada a previsualización local. Las nueve entradas especializadas quedan por priorizar; las normas que cubren siguen vigentes dentro del recorrido principal. El contrato B1 concreta solo ayuda/versión, `init --agent none`, `doctor` y `check`; el resto necesita contratos detallados y evidencia en sus bloques.
+1. Keep the private EIS-IA repository private and create an independent public distribution with a new history and an explicit selection of materials.
+2. Start the public numbering at v1.0.0, without inheriting EIS-IA's numbering.
+3. Python package, `dixi` executable and resources included in the artifact; no private credentials needed to generate projects.
+4. Define an SDD core independent of agent and stack, separate from adapters, stack profiles and policy sets. ADR-101 specifies the openness direction set by the user and proposes the exception for external project providers; integrations are not announced without evidence and inherited rules are not changed silently.
+5. MIT license for the public product, with DCO for contributions (the person's decision, 2026-11-08). Only materials written for this product are distributed; the proprietary EIS-IA license does not change. Generated projects belong to whoever creates them; the initial files produced by `dixi init` may be used without attribution, as the license states.
+6. Reserve write access to Dixi maintainers and allow forks. `main` is public and anyone can download or install it; nobody outside the maintainers can modify it. Contributions arrive from forks via PR and are merged only after review and with checks green (confirmed by the person on 2026-11-08).
+7. Once extracted, the public core is the official source of the shared materials; the private operation consumes versions of that core and keeps its own extensions. Do not create two manually edited copies of the same core.
+8. Distribute a command-based workflow: deterministic CLI, shared contracts and templates, validators and the agent adapter. The catalog covers Dixi's own capabilities; guided steps and direct invocations reuse the same contract to avoid divergence. Every distributed command needs tests and evaluation in the supported agent.
+9. The initial plan specifies 16 agent commands and four CLI operations, with upgrade limited to a local preview. The nine specialized entries remain to be prioritized; the rules they cover remain in force within the main journey. The B1 contract specifies only help/version, `init --agent none`, `doctor` and `check`; the rest needs detailed contracts and evidence in their blocks.
 
-## Consecuencias
+## Consequences
 
-La extracción y el soporte inicial cuestan trabajo adicional, pero no exponen el historial interno. El producto necesita sus propias pruebas, documentación, releases y controles de seguridad. La interfaz CLI será un contrato publicado y sus cambios posteriores deberán respetar compatibilidad o versionarse.
+Extraction and initial support take additional work, but do not expose the internal history. The product needs its own tests, documentation, releases and security controls. The CLI interface will be a published contract and later changes to it must respect compatibility or be versioned.
 
-## Decisiones pendientes
+## Pending decisions
 
-Resueltas el 2026-11-08 por [ADR-102](ADR-102-recorte-de-alcance-v1.md): licencia (MIT + DCO), alcance del catálogo (diez comandos), un adaptador (Claude Code) y actualización aplazada a v1.1. Siguen abiertas: plataforma de build y CI del producto conforme a normas heredadas. La excepción propuesta para proveedores de proyectos públicos se revisa en ADR-101, sin afectar automáticamente la operación de este repositorio.
+Resolved on 2026-11-08 by [ADR-102](ADR-102-recorte-de-alcance-v1.md): license (MIT + DCO), catalog scope (ten commands), one adapter (Claude Code) and upgrade deferred to v1.1. Still open: the product's build and CI platform in line with inherited rules. The proposed exception for public project providers is reviewed in ADR-101, without automatically affecting the operation of this repository.
 
-## Relacionados
+## Related
 
-- [Historia](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
-- [ADR-101: núcleo portable](ADR-101-nucleo-sdd-portable-e-integraciones.md)
-- [Especificación](../../docs/product-spec.md)
-- [Catálogo propuesto](../../docs/command-catalog.md)
-- [Revisión conjunta](../../docs/v1-design-review.md)
-- [Contrato propuesto](../../07-contracts/commands/command-contract.md)
-- [Exportador por lista permitida](../../docs/repository-settings.md)
+- [Story](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [ADR-101: portable core](ADR-101-nucleo-sdd-portable-e-integraciones.md)
+- [Specification](../../docs/product-spec.md)
+- [Proposed catalog](../../docs/command-catalog.md)
+- [Joint review](../../docs/v1-design-review.md)
+- [Proposed contract](../../07-contracts/commands/command-contract.md)
+- [Allowlist exporter](../../docs/repository-settings.md)

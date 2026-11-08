@@ -1,31 +1,31 @@
-# ADR-103 — CI pública de verificación en GitHub Actions, sin credenciales
+# ADR-103 — Public verification CI on GitHub Actions, without credentials
 
-## Propósito
+## Purpose
 
-Decidir dónde se ejecutan los checks de los PR del repositorio público, incluidos los que llegan desde forks, sin exponer infraestructura ni credenciales de Dixi.
+Decide where the checks for pull requests to the public repository run, including those coming from forks, without exposing Dixi infrastructure or credentials.
 
-## Estado
+## Status
 
-Aceptado el 2026-11-08 por la persona responsable. Primera ejecución en verde en el repositorio público (Ubuntu y macOS, Python 3.11 y 3.13); los checks son obligatorios en el ruleset de `main`.
+Accepted on 2026-11-08 by the responsible person. First green run in the public repository (Ubuntu and macOS, Python 3.11 and 3.13); the checks are required in the `main` ruleset.
 
-## Contexto
+## Context
 
-La norma heredada de EIS-IA ejecuta los checks en runners CodeBuild de la cuenta de Dixi y despliega por CodePipeline (ADR-006 del origen). Un repositorio público recibe PRs de forks: ejecutarlos en runners de la organización expondría infraestructura interna a código de terceros. DIXI Spec Kit no despliega nada: su release es un tag y unos artefactos que publica una persona.
+The inherited EIS-IA rule runs checks on CodeBuild runners in Dixi's account and deploys through CodePipeline (ADR-006 of the origin). A public repository receives PRs from forks: running them on the organization's runners would expose internal infrastructure to third-party code. DIXI Spec Kit deploys nothing: its release is a tag and some artifacts published by a person.
 
-## Decisión
+## Decision
 
-1. Los checks públicos corren en runners alojados por GitHub (`ubuntu-latest` y `macos-latest`), con `permissions: contents: read`, sin secretos, sin OIDC y sin acceso a AWS.
-2. El evento es `pull_request` (nunca `pull_request_target`) y `push` a `main`. Las acciones se fijan por SHA.
-3. El job `verify` instala solo Setuptools fijado por hash y ejecuta `make verify` en Python 3.11 y 3.13.
-4. El job `dco` exige `Signed-off-by` en cada commit del PR (ADR-010 del origen).
-5. No hay despliegue automático. La release v1.0.0 la crea una persona desde un commit en verde.
+1. Public checks run on GitHub-hosted runners (`ubuntu-latest` and `macos-latest`), with `permissions: contents: read`, no secrets, no OIDC and no AWS access.
+2. The event is `pull_request` (never `pull_request_target`) and `push` to `main`. Actions are pinned by SHA.
+3. The `verify` job installs only hash-pinned Setuptools and runs `make verify` on Python 3.11 and 3.13.
+4. The `dco` job requires `Signed-off-by` on every commit in the PR (ADR-010 of the origin).
+5. There is no automatic deployment. The v1.0.0 release is created by a person from a green commit.
 
-## Consecuencias
+## Consequences
 
-Excepción acotada a este repositorio público: no cambia las normas del origen ni de los proyectos Dixi privados. Los minutos de CI corren por cuenta de GitHub para repositorios públicos. Si en el futuro se publica en PyPI desde CI, requerirá otro ADR (por ejemplo, publicación confiable con aprobación manual).
+A narrowly scoped exception for this public repository: it does not change the rules of the origin or of private Dixi projects. CI minutes are covered by GitHub for public repositories. If publishing to PyPI from CI happens in the future, it will require another ADR (for example, trusted publishing with manual approval).
 
-## Relacionados
+## Related
 
 - [ADR-100](ADR-100-distribucion-publica-v1.md)
-- [Configuración del repositorio](../../docs/repository-settings.md)
+- [Repository settings](../../docs/repository-settings.md)
 - [Workflow](../../.github/workflows/verify.yml)
