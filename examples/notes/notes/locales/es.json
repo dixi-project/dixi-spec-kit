@@ -1,0 +1,5 @@
+{
+  "invalid_text": "Texto inválido: debe tener entre 1 y 1000 caracteres.",
+  "invalid_tag": "Etiqueta inválida: usa de 1 a 32 caracteres a-z, 0-9, - o _.",
+  "added": "Nota #{id} guardada."
+}

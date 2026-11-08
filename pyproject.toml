@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools==84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dixi-spec-kit"
+version = "1.0.0"
+description = "Specification-driven development kit with traceability, verification and Claude Code commands"
+readme = "packaging/README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["src/dixi_spec_kit/LICENSE"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/dixi-project/dixi-spec-kit"
+
+[project.scripts]
+dixi = "dixi_spec_kit.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["dixi_spec_kit"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+dixi_spec_kit = ["locales/es.json", "locales/en.json", "resources/project.es.json", "resources/project.en.json", "resources/workflows.json", "resources/workflows.es.json", "resources/workflows.en.json",
+    "resources/claude/es/CLAUDE.md",
+    "resources/claude/es/dixi.discover.md",
+    "resources/claude/es/dixi.specify.md",
+    "resources/claude/es/dixi.clarify.md",
+    "resources/claude/es/dixi.plan.md",
+    "resources/claude/es/dixi.tasks.md",
+    "resources/claude/es/dixi.build.md",
+    "resources/claude/es/dixi.verify.md",
+    "resources/claude/es/dixi.review.md",
+    "resources/claude/es/dixi.analyze.md",
+    "resources/claude/es/dixi.status.md",
+    "resources/claude/en/CLAUDE.md",
+    "resources/claude/en/dixi.discover.md",
+    "resources/claude/en/dixi.specify.md",
+    "resources/claude/en/dixi.clarify.md",
+    "resources/claude/en/dixi.plan.md",
+    "resources/claude/en/dixi.tasks.md",
+    "resources/claude/en/dixi.build.md",
+    "resources/claude/en/dixi.verify.md",
+    "resources/claude/en/dixi.review.md",
+    "resources/claude/en/dixi.analyze.md",
+    "resources/claude/en/dixi.status.md"]

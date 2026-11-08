@@ -1,0 +1,5 @@
+{
+  "invalid_text": "Invalid text: it must have between 1 and 1000 characters.",
+  "invalid_tag": "Invalid tag: use 1 to 32 characters a-z, 0-9, - or _.",
+  "added": "Note #{id} saved."
+}

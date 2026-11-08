@@ -1,0 +1,19 @@
+schema_status: draft_local
+feature_id: claude-code-adapter
+task: ../../tasks/backlog/TASK-003-adaptador-claude-code.md
+module: ../../04-modules/command-workflow/module-spec.md
+contract: ../../07-contracts/commands/claude-code-adapter-contract.md
+scenarios: scenarios.feature
+criteria:
+  - id: CC-01
+    tests: [tests/test_claude_adapter.py]
+  - id: CC-02
+    tests: [tests/test_claude_adapter.py]
+  - id: CC-03
+    tests: [tests/test_claude_adapter.py]
+  - id: CC-04
+    tests: [tests/test_claude_adapter.py]
+  - id: CC-05
+    tests: [tests/test_claude_adapter.py]
+  - id: CC-06
+    tests: [tests/test_claude_adapter.py]

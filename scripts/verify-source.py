@@ -1,0 +1,36 @@
+import ast
+import json
+from pathlib import Path
+import re
+import subprocess
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def main():
+    for path in (ROOT / "src").rglob("*.py"):
+        ast.parse(path.read_text(), filename=str(path))
+    catalogs = [json.loads((ROOT / "src/dixi_spec_kit/locales" / f"{lang}.json").read_text())
+                for lang in ("es", "en")]
+    assert catalogs[0].keys() == catalogs[1].keys(), "Message catalogs differ"
+    for key in catalogs[0]:
+        assert set(re.findall(r"\{(\w+)\}", catalogs[0][key])) == set(
+            re.findall(r"\{(\w+)\}", catalogs[1][key])), f"Placeholder mismatch: {key}"
+    resources = [json.loads((ROOT / "src/dixi_spec_kit/resources" / f"project.{lang}.json").read_text())
+                 for lang in ("es", "en")]
+    assert resources[0].keys() == resources[1].keys(), "Resource paths differ"
+    for tree in resources:
+        for name, text in tree.items():
+            if name.endswith(".md"):
+                assert text.startswith("# "), name
+    adapter = ROOT / "src/dixi_spec_kit/resources/claude"
+    names = [sorted(p.name for p in (adapter / lang).glob("*.md")) for lang in ("es", "en")]
+    assert names[0] == names[1] and len(names[0]) == 11, "Claude adapter resources differ"
+    assert (ROOT / "LICENSE").read_bytes() == (ROOT / "src/dixi_spec_kit/LICENSE").read_bytes(), "LICENSE copies differ"
+    subprocess.run(["git", "diff", "--check"], cwd=ROOT, check=True)
+    print("Source syntax, es/en catalogs, resource parity and license: OK")
+
+
+if __name__ == "__main__":
+    main()

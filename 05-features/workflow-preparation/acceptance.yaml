@@ -1,0 +1,17 @@
+schema_status: draft_local
+feature_id: workflow-preparation
+task: ../../tasks/backlog/TASK-002-operaciones-compartidas-b2.md
+module: ../../04-modules/command-workflow/module-spec.md
+contract: ../../07-contracts/commands/workflow-preparation-contract.md
+scenarios: scenarios.feature
+criteria:
+  - id: WP-01
+    tests: [tests/test_workflows.py]
+  - id: WP-02
+    tests: [tests/test_workflows.py]
+  - id: WP-03
+    tests: [tests/test_workflows.py, tests/test_workflow_edges.py]
+  - id: WP-04
+    tests: [tests/test_workflows.py]
+  - id: WP-05
+    tests: [tests/test_workflow_distribution.py]

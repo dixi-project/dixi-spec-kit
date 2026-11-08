@@ -1,0 +1,59 @@
+schema_status: draft_local
+feature_id: guided-workflow
+task: ../../tasks/backlog/TASK-001-lanzamiento-v1.md
+module: ../../04-modules/command-workflow/module-spec.md
+contract: ../../07-contracts/commands/command-contract.md
+scenarios: scenarios.feature
+execution_status: not_implemented
+evidence: []
+criteria:
+  - id: WF-01
+    task_criteria: [10, 11]
+    scenarios: [S01]
+    commands: [A01, A02, A03]
+    verification: [artifact_checks, agent_evaluation]
+  - id: WF-02
+    task_criteria: [10, 12]
+    scenarios: [S02, S03]
+    commands: [A04, A05, A06, A07, A08]
+    verification: [artifact_checks, agent_evaluation]
+  - id: WF-03
+    task_criteria: [10]
+    scenarios: [S04]
+    commands: [A09]
+    verification: [artifact_checks, agent_evaluation]
+  - id: WF-04
+    task_criteria: [10, 12]
+    scenarios: [S05, S06, S07]
+    commands: [A11]
+    verification: [git_history_checks, agent_evaluation]
+  - id: WF-05
+    task_criteria: [10, 12]
+    scenarios: [S08, S09, S10]
+    commands: [A10, A12, A13]
+    verification: [evidence_checks, agent_evaluation]
+  - id: WF-06
+    task_criteria: [11, 13]
+    scenarios: [S11, S12, S13]
+    commands: [A02, A15, A16]
+    verification: [file_preservation_checks, agent_evaluation]
+  - id: WF-07
+    task_criteria: [12]
+    scenarios: [S14, S15]
+    commands: [A14]
+    verification: [file_preservation_checks, agent_evaluation]
+  - id: WF-08
+    task_criteria: [10, 13]
+    scenarios: [S16]
+    commands: [A01, A02, A08, A09, A11, A12, A13, C01, C05]
+    verification: [installation_checks, agent_evaluation]
+  - id: WF-09
+    task_criteria: [14, 16]
+    scenarios: [S17, S18]
+    commands: [C01, C02, C03, C05]
+    verification: [installation_checks, artifact_checks]
+  - id: WF-10
+    task_criteria: [15, 16]
+    scenarios: [S19, S20]
+    commands: [A08, A11, A12, C02]
+    verification: [stack_matrix_checks, control_checks, agent_evaluation]

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "operations": {
+    "discover": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "domain",
+        "clarify"
+      ]
+    },
+    "specify": {
+      "target_kinds": [
+        "module"
+      ],
+      "next_operations": [
+        "clarify",
+        "contract",
+        "plan"
+      ]
+    },
+    "clarify": {
+      "target_kinds": [
+        "goal",
+        "domain",
+        "module",
+        "feature",
+        "contract",
+        "test"
+      ],
+      "next_operations": [
+        "specify",
+        "plan"
+      ]
+    },
+    "domain": {
+      "target_kinds": [
+        "goal",
+        "domain"
+      ],
+      "next_operations": [
+        "architecture",
+        "specify"
+      ]
+    },
+    "architecture": {
+      "target_kinds": [
+        "domain",
+        "module",
+        "feature"
+      ],
+      "next_operations": [
+        "contract",
+        "threat-model",
+        "plan"
+      ]
+    },
+    "contract": {
+      "target_kinds": [
+        "module",
+        "feature"
+      ],
+      "next_operations": [
+        "threat-model",
+        "plan"
+      ]
+    },
+    "threat-model": {
+      "target_kinds": [
+        "module",
+        "feature"
+      ],
+      "next_operations": [
+        "plan"
+      ]
+    },
+    "plan": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": []
+    }
+  }
+}

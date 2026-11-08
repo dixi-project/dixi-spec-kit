@@ -1,0 +1,19 @@
+schema_status: draft_local
+feature_id: local-core
+task: ../../tasks/backlog/TASK-001-lanzamiento-v1.md
+module: ../../04-modules/command-workflow/module-spec.md
+contract: ../../07-contracts/commands/local-core-contract.md
+scenarios: scenarios.feature
+criteria:
+  - id: LC-01
+    tests: [tests/test_local_core.py]
+  - id: LC-02
+    tests: [tests/test_local_core.py]
+  - id: LC-03
+    tests: [tests/test_local_core.py, tests/test_safety_edges.py]
+  - id: LC-04
+    tests: [tests/test_local_core.py, tests/test_safety_edges.py, tests/test_link_destinations.py]
+  - id: LC-05
+    tests: [tests/test_local_core.py, tests/test_safety_edges.py, tests/test_link_destinations.py]
+  - id: LC-06
+    tests: [tests/test_distribution.py]
