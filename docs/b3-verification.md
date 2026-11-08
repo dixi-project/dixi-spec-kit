@@ -34,9 +34,15 @@ Los hashes identifican este build local; no se promete reproducción bit a bit. 
 
 El ejemplo se produjo siguiendo los pasos de cada comando en una sesión de Claude Code 2.1.319, incluida la evolución con análisis de impacto y pruebas en rojo antes del código ([recorrido](../examples/notes/docs/walkthrough.md)). **No** es una evaluación independiente: falta que una persona invoque los diez comandos `/dixi.*` instalados en una sesión nueva y confirme que se comportan según el [contrato](../07-contracts/commands/claude-code-adapter-contract.md).
 
+## Publicación
+
+- Repositorio público nuevo `dixi-project/dixi-spec-kit`, solo con `main` (`f317065`, firmado por la persona). CI en verde en `ubuntu-latest` y `macos-latest` con Python 3.11 y 3.13.
+- Ruleset `main-protegida` activo y reporte privado de vulnerabilidades activado.
+- Release v1.0.0 con artefactos construidos desde `f317065` (89 pruebas en verde): wheel `46947a0fd4c2175fda70b8adae65ae86af67c4ea160349ae103bcce72d3ca6ff`, sdist `46c6a217190968cb4feddc53e8ba6928b3cc67a83790839dd885bd019e37eec2`.
+- Instalación externa comprobada en entornos limpios: `pip install git+…@v1.0.0`, `uv tool install git+…@v1.0.0` y el wheel descargado de la release (con `init --agent claude`, `check` y `make verify` del proyecto generado).
+
 ## Pendiente
 
-- Primera ejecución de la CI en GitHub (Linux y macOS, Python 3.11 y 3.13).
 - Evaluación manual de los comandos en una sesión nueva de Claude Code.
 
 ## Relacionados
