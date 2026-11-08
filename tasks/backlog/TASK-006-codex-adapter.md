@@ -37,7 +37,7 @@ so that I can follow discover → specify → plan → tasks → build → verif
 
 ## Progress — 2026-11-08
 
-Contract, authorized frozen-test update and red tests committed first. Skills derived from the Claude Code commands by `scripts/generate-codex-skills.py` (kept in sync by `make verify`). Also fixed a YAML frontmatter bug in the Claude Code commands found while deriving them. `make verify` green with 117 tests. Pending: a person runs at least one skill in Codex before support is announced.
+Contract, authorized frozen-test update and red tests committed first. Skills derived from the Claude Code commands by `scripts/generate-codex-skills.py` (kept in sync by `make verify`). Also fixed a YAML frontmatter bug in the Claude Code commands found while deriving them. `make verify` green with 117 tests. A person ran `$dixi-status` in Codex CLI 0.167.0 on 2026-11-08 without file changes ([evidence](../../07-contracts/commands/codex-adapter-contract.md#manual-run)); support announced.
 
 ## Related
 

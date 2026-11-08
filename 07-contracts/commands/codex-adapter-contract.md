@@ -6,7 +6,7 @@ Specify what `dixi init --agent codex` installs and how the DIXI operations beha
 
 ## Checked versions and syntax
 
-- Codex CLI **0.167.0** (macOS), checked on 2026-11-08 with `codex --version`.
+- Codex CLI **0.167.0** (macOS), checked on 2026-11-08 with `codex --version` and a [manual run](#manual-run).
 - Project skills: `.agents/skills/<name>/SKILL.md`, scanned from the working directory up to the repository root ([Codex skills documentation](https://learn.chatgpt.com/docs/build-skills)). Custom prompts are deprecated and user-level only, so they are not used.
 - Frontmatter per the [Agent Skills specification](https://agentskills.io/specification): `name` 1–64 characters, lowercase `a-z`, `0-9` and single hyphens, equal to the parent directory; `description` 1–1024 characters.
 - Optional `agents/openai.yaml` per skill: `policy.allow_implicit_invocation: false` disables implicit invocation; explicit `$name` keeps working.
@@ -42,6 +42,17 @@ Same goal, steps, gates, common limits and closing as the [Claude Code commands]
 | No implicit start of a DIXI skill | `allow_implicit_invocation: false` (Codex setting; checked statically by tests). |
 | Tests first and frozen; no sign, approve or merge; structural decisions validated by a person | Instruction in every skill + human review and branch protection. **Not enforced in Codex.** |
 | Sandbox and approvals | The person's Codex configuration; the kit does not change it. |
+
+## Manual run
+
+On 2026-11-08 a person ran the adapter end to end on macOS with Codex CLI 0.167.0 (model GPT-6.1-Sol, default settings), from a kit installed with `uv tool install` from the `feat/specialized-commands` branch:
+
+1. `dixi init test --agent codex` created the project; `dixi doctor` reported "Integration: Codex. Installed skills: 25 of 25" and `dixi check` passed.
+2. Typing `$` in Codex listed the twenty-five `dixi-*` skills with their descriptions.
+3. `$dixi-status` loaded the skill, ran `dixi doctor` and `dixi check` at the start and the end, excluded `.env*`, credential and key files from its searches, reported pending markers, tasks and untested features, stated that no application tests were run, suggested `$dixi-discover` and asked one question.
+4. `git status --short` was empty afterwards: no file was touched.
+
+A follow-up question without `$` in the same session was answered without loading a skill. That observation is weak, because the session already held the status; implicit invocation stays covered by the static `agents/openai.yaml` check.
 
 ## Errors
 

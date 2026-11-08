@@ -14,7 +14,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ### Added
 
-- Codex adapter (preview): `dixi init --agent codex` installs sixteen Agent Skills in `.agents/skills/dixi-<operation>/`, invoked as `$dixi-<operation>`, with implicit invocation disabled. Same steps and limits as the Claude Code commands; `doctor`, `check` and `upgrade --dry-run` support it.
+- Codex adapter: `dixi init --agent codex` installs sixteen Agent Skills in `.agents/skills/dixi-<operation>/`, invoked as `$dixi-<operation>`, with implicit invocation disabled. Same steps and limits as the Claude Code commands; `doctor`, `check` and `upgrade --dry-run` support it.
 
 ### Fixed
 

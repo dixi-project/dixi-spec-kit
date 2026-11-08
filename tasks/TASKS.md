@@ -18,7 +18,7 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 
 ## v1.2.0
 
-- [ ] **Codex adapter** _(P1, level 3)_ — [TASK-006](backlog/TASK-006-codex-adapter.md). Implemented in preview; manual run in Codex pending.
+- [ ] **Codex adapter** _(P1, level 3)_ — [TASK-006](backlog/TASK-006-codex-adapter.md). Implemented; manual run in Codex recorded; pull request pending review.
 
 ## v1.3.0
 

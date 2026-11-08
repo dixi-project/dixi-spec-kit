@@ -67,7 +67,7 @@ Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 oc
 
 ## What is and is not included
 
-See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) is in preview until its first manual run is recorded. Applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
+See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) installs the same operations as Agent Skills, with implicit invocation disabled. Applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
 
 ## Contributing
 
