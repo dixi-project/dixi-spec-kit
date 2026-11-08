@@ -18,7 +18,7 @@ Show what each public release includes and what comes next. Only what has tests 
 
 Codex integration evaluated against its own capability and control matrix.
 
-## v1.3.0 — specialized commands
+## v1.3.0 — specialized commands (in progress)
 
 `/dixi.data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance` and `duediligence`, each with an explicit contract and limits.
 

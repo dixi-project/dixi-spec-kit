@@ -46,7 +46,7 @@ Open Claude Code in `my-project` and walk through:
 /dixi.review main
 ```
 
-`/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Design with `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` and `/dixi.threat-model`; propose changes with `/dixi.change`; leave a resumable handoff with `/dixi.handoff`. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
+`/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Design with `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` and `/dixi.threat-model`; propose changes with `/dixi.change`; leave a resumable handoff with `/dixi.handoff`. Specialized operations: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` and `/dixi.duediligence` write documents only; they never run migrations, deploy, change `MODE` or claim certifications. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
 
 ## Terminal commands
 
@@ -67,7 +67,7 @@ Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 oc
 
 ## What is and is not included
 
-See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) is in preview until its first manual run is recorded. Planned: specialized commands in v1.3; applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
+See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) is in preview until its first manual run is recorded. Applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
 
 ## Contributing
 

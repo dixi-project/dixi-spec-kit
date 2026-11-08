@@ -19,7 +19,7 @@
     "11-quality/test-plan.md": "365b5e32fb58f49a080448e62c9945e73ee36a635b9fdf9edb374f7c7e7b86d2",
     "AGENTS.md": "76740dff195b73615d11d80284f1f954e0f597d3c3e689a563c2501d6f751703",
     "docs/guide.md": "2d24a500ea066913e4ef84c1dea6f32d53e95e888b50641b52f93ce13d4d4dcb",
-    "CLAUDE.md": "7fb817ff33e4d661fd852201b32b3803f835e9df34d25aba18639a66736d65fb",
+    "CLAUDE.md": "98412d04aa069f04f3c75662b897a6413467e640ccb047778a808f347d5e6909",
     ".claude/commands/dixi.discover.md": "6c007413bb3c61653e3d6837c719c7d2659b276f34713fb55ee1c6cb79f02ae4",
     ".claude/commands/dixi.specify.md": "63cf4ff19dd84ef5b1fd6353d75b269de6f8eefb452f19ded4bd80533e3043bb",
     ".claude/commands/dixi.clarify.md": "db232c78d220bf9360ce4d41786cd1ad6f7333ea6ee49fb0aa2d73e64426847d",
@@ -35,6 +35,15 @@
     ".claude/commands/dixi.contract.md": "0f59fc4a3c288bea8a83dd3d764cc288668d28ecea1a2b12ef60435480cc89c8",
     ".claude/commands/dixi.domain.md": "c379d5bd0964910ce0272704f314a2633b2d957841ff4110430ca723e25f7f4f",
     ".claude/commands/dixi.handoff.md": "5d72e1794f09a0197be129f33d8b08baff934320c7289a38dbeb63ec4f6eea2b",
-    ".claude/commands/dixi.threat-model.md": "49479ed5380c23bac777eb26e47ad92e3f89ed4af54f9932d524274da744a4eb"
+    ".claude/commands/dixi.threat-model.md": "49479ed5380c23bac777eb26e47ad92e3f89ed4af54f9932d524274da744a4eb",
+    ".claude/commands/dixi.ai.md": "d84b724d7a104beeab76bfc6a1f4592d3deb61d85f58fa112ed9e6c974e385f5",
+    ".claude/commands/dixi.compliance.md": "8492cf3467dd0eeb7fb47b67828a702df3347dcd44c4e35ddeb020ead2a3b410",
+    ".claude/commands/dixi.data.md": "3371e81df4653703c1f913b5af2874f2691d557c3e735f0e9452c7b23f45d6f3",
+    ".claude/commands/dixi.duediligence.md": "aeadea6ae13246d3a678918f28e715db2565633dcf7708e6d21d1088cf93708b",
+    ".claude/commands/dixi.finops.md": "adf71ff8c62273949e76c595edeec6f223471345849b8671f4ab993886b0c688",
+    ".claude/commands/dixi.operate.md": "3c278560bc355c69a6b686954f6848047932fbaf7942baa534532361302ca434",
+    ".claude/commands/dixi.promote.md": "35bf23b7294bd60b22b4da1d3496f319e354bd6543a9cc07d61ddc217ed21bcf",
+    ".claude/commands/dixi.quality.md": "adedf28e51bf3c750c59ef9ea1472775a488adda2d3827ed2c52eddcfa8c87e9",
+    ".claude/commands/dixi.release.md": "6cba779fe9b78ec890fd8cc1defe8d5be0f6470057619f805a12585f9cc3f039"
   }
 }

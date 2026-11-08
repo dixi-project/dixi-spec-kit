@@ -20,7 +20,9 @@ METADATA = ".dixi/project.json"
 AGENTS = ("none", "claude", "codex")
 CODEX_POLICY = b"policy:\n  allow_implicit_invocation: false\n"
 CLAUDE_REQUIRED = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
-CLAUDE_COMMANDS = CLAUDE_REQUIRED + ("domain", "architecture", "contract", "threat-model", "handoff", "change")
+CLAUDE_COMMANDS = CLAUDE_REQUIRED + ("domain", "architecture", "contract", "threat-model", "handoff", "change",
+                                     "data", "quality", "ai", "release", "promote", "operate", "finops",
+                                     "compliance", "duediligence")
 TRACE = ".dixi/traceability.json"
 INLINE_LINK = re.compile(r"!?\[[^\[\]\n]{0,999}\]\(([^)\n]{1,4096})\)")
 KIT_VERSION = re.compile(r"(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})(?:\.dev[0-9]{1,4}|rc[0-9]{1,4})?")

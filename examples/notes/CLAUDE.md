@@ -10,6 +10,8 @@ This project includes commands in `.claude/commands/`:
 
 Design: `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.threat-model`. Continuity and change: `/dixi.handoff` (writes `.context/handoff.md`, ignored by Git) and `/dixi.change`.
 
+Specialized: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance`, `/dixi.duediligence`. They write documents only; they never run migrations, deploy, change `MODE` or claim certifications.
+
 In the terminal: `dixi check`, `dixi doctor`, `dixi workflow list` and `dixi upgrade --dry-run` (preview what a newer kit version would change, without writing).
 
 ## What this adapter does not do

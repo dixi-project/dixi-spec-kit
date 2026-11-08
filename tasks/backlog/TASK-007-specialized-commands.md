@@ -27,6 +27,10 @@ so that these concerns are specified and evidenced with the same traceability as
 1. Contract and tests were committed red before the implementation.
 2. `make verify` passes and CI is green.
 
+## Progress — 2026-11-08
+
+Contract, authorized test update and red tests first; nine operations in English and Spanish for both adapters; `examples/notes` updated through its upgrade plan. `make verify` green with 119 tests. Pull request pending review.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/specialized-commands-contract.md)
