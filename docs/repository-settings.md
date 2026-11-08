@@ -2,7 +2,7 @@
 
 ## Propósito
 
-Dejar escrita la configuración de `dixi-project/dixi-spec-kit` que garantiza: `main` público y descargable por cualquiera, forks y PRs abiertos, e integración reservada a los mantenedores con revisión y checks. Una persona con rol de administración la aplica y la comprueba **antes** de hacer público el repositorio.
+Dejar escrita la configuración de `dixi-project/dixi-spec-kit` que garantiza: `main` público y descargable por cualquiera, forks y PRs abiertos, e integración reservada a los mantenedores con revisión y checks. Aplicada y comprobada el 2026-11-08.
 
 ## Ajustes
 
@@ -18,40 +18,21 @@ Dejar escrita la configuración de `dixi-project/dixi-spec-kit` que garantiza: `
 
 ## Protección de `main` (ruleset)
 
-```sh
-gh api -X POST repos/dixi-project/dixi-spec-kit/rulesets --input - <<'JSON'
-{
-  "name": "main-protegida",
-  "target": "branch",
-  "enforcement": "active",
-  "conditions": {"ref_name": {"include": ["~DEFAULT_BRANCH"], "exclude": []}},
-  "rules": [
-    {"type": "deletion"},
-    {"type": "non_fast_forward"},
-    {"type": "pull_request", "parameters": {
-      "required_approving_review_count": 1,
-      "require_code_owner_review": true,
-      "dismiss_stale_reviews_on_push": true,
-      "require_last_push_approval": true,
-      "required_review_thread_resolution": true}},
-    {"type": "required_status_checks", "parameters": {
-      "strict_required_status_checks_policy": true,
-      "required_status_checks": [
-        {"context": "make verify (ubuntu-latest, Python 3.11)"},
-        {"context": "make verify (ubuntu-latest, Python 3.13)"},
-        {"context": "make verify (macos-latest, Python 3.11)"},
-        {"context": "make verify (macos-latest, Python 3.13)"},
-        {"context": "DCO sign-off"}]}}
-  ]
-}
-JSON
-```
+Aplicado el 2026-11-08 como ruleset `main-protegida` (rama por defecto, sin `bypass_actors`):
 
-Sin `bypass_actors`: nadie, tampoco administradores, puede saltarse la regla. Con un solo mantenedor, `require_last_push_approval` impide que se apruebe su propio último push; mientras no haya un segundo mantenedor, la persona responsable decide si relajarlo y lo deja registrado.
+| Regla | Valor |
+|---|---|
+| Borrado de `main` | Prohibido |
+| Force push | Prohibido |
+| Pull request | Obligatorio; hilos resueltos; revisiones obsoletas se descartan al hacer push |
+| Aprobaciones | 0 mientras haya un solo mantenedor (GitHub no permite aprobar el propio PR). Los PRs externos los revisa el mantenedor antes de integrar. Subir a 1 con CODEOWNERS cuando haya un segundo mantenedor |
+| Checks obligatorios | `make verify` (ubuntu/macos × Python 3.11/3.13) y `DCO sign-off`, con la rama al día |
+
+Consultar: `gh api repos/dixi-project/dixi-spec-kit/rulesets`. Los rulesets requieren repositorio público o GitHub Pro.
 
 ## Historial limpio antes de hacerlo público
 
-Las ramas de preparación (`preparation/v1`, `alfdixi/v1-spec-kit-dixi-project`) contienen material heredado no distribuible. `main` se construye con `scripts/export-release.py`, que copia solo la lista permitida, en un historial nuevo. Antes de cambiar la visibilidad, esas ramas se borran del remoto (o se conservan en un repositorio privado aparte) y se comprueba con `git ls-remote` que solo queda `main` y el tag `v1.0.0`.
+La preparación (con material heredado no distribuible y un PR que no puede borrarse) se archivó en un repositorio privado aparte. Este repositorio se creó nuevo, con `main` construido por una lista explícita de inclusión, y antes de hacerlo público se comprobó con `git ls-remote` que solo contenía `main`.
 
 ## Relacionados
 

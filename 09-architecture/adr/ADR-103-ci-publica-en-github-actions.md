@@ -6,13 +6,13 @@ Decidir dónde se ejecutan los checks de los PR del repositorio público, inclui
 
 ## Estado
 
-Propuesto el 2026-11-08. Requiere validación de la persona responsable antes de exigir el check en la protección de `main`.
+Aceptado el 2026-11-08 por la persona responsable. Primera ejecución en verde en el repositorio público (Ubuntu y macOS, Python 3.11 y 3.13); los checks son obligatorios en el ruleset de `main`.
 
 ## Contexto
 
 La norma heredada de EIS-IA ejecuta los checks en runners CodeBuild de la cuenta de Dixi y despliega por CodePipeline (ADR-006 del origen). Un repositorio público recibe PRs de forks: ejecutarlos en runners de la organización expondría infraestructura interna a código de terceros. DIXI Spec Kit no despliega nada: su release es un tag y unos artefactos que publica una persona.
 
-## Decisión propuesta
+## Decisión
 
 1. Los checks públicos corren en runners alojados por GitHub (`ubuntu-latest` y `macos-latest`), con `permissions: contents: read`, sin secretos, sin OIDC y sin acceso a AWS.
 2. El evento es `pull_request` (nunca `pull_request_target`) y `push` a `main`. Las acciones se fijan por SHA.
