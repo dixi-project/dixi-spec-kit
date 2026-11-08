@@ -4,11 +4,22 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
-## [Unreleased] — target 1.2.0
+## [1.3.0] — unreleased
 
 ### Added
 
-- Codex adapter (preview): `dixi init --agent codex` installs sixteen Agent Skills in `.agents/skills/dixi-<operation>/`, invoked as `$dixi-<operation>`, with implicit invocation disabled. Same steps and limits as the Claude Code commands; `doctor`, `check` and `upgrade --dry-run` support it.
+- Nine specialized operations for Claude Code (`/dixi.<operation>`) and Codex (`$dixi-<operation>`), in English and Spanish: `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`. Each writes documents in its area only and never runs migrations, deploys, edits `MODE`, queries billing or claims certifications. Optional for projects from earlier versions (`dixi upgrade --dry-run` lists them as new).
+- `dixi init .` initializes the current directory when it is empty.
+
+### Changed
+
+- An unsafe `init` destination now reports how to choose a valid one instead of a generic unsafe-path message.
+
+## [1.2.0] — unreleased
+
+### Added
+
+- Codex adapter: `dixi init --agent codex` installs sixteen Agent Skills in `.agents/skills/dixi-<operation>/`, invoked as `$dixi-<operation>`, with implicit invocation disabled. Same steps and limits as the Claude Code commands; `doctor`, `check` and `upgrade --dry-run` support it.
 
 ### Fixed
 

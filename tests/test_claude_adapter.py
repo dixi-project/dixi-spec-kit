@@ -14,7 +14,8 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status",
-            "domain", "architecture", "contract", "threat-model", "handoff", "change")
+            "domain", "architecture", "contract", "threat-model", "handoff", "change",
+            "data", "quality", "ai", "release", "promote", "operate", "finops", "compliance", "duediligence")
 WORKFLOW_OPERATIONS = {"discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan"}
 CLI_COMMANDS = {"init", "doctor", "check", "workflow", "--help", "--version", "--lang", "--json"}
 LIMITS = {

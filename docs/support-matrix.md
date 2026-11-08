@@ -17,8 +17,8 @@ Declare what DIXI Spec Kit v1.0.0 supports, with what evidence, and which contro
 | Integration | Status | What it installs |
 |---|---|---|
 | `--agent none` | Supported | Documentary base, `AGENTS.md` and guide. Use it with any editor or agent, without installed commands. |
-| `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and sixteen `/dixi.*` commands in `.claude/commands/` (ten in projects created with v1.0.0; see `dixi upgrade --dry-run`). |
-| `--agent codex` | Preview (Codex CLI 0.167.0); supported once a manual run is recorded | Baseline plus sixteen skills in `.agents/skills/dixi-<operation>/SKILL.md`, each with `agents/openai.yaml` disabling implicit invocation. Invoke them as `$dixi-<operation>`. Codex reads `AGENTS.md` itself. |
+| `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and twenty-five `/dixi.*` commands in `.claude/commands/` (fewer in projects created with earlier versions; see `dixi upgrade --dry-run`). |
+| `--agent codex` | Supported (Codex CLI 0.167.0; [manual run](../07-contracts/commands/codex-adapter-contract.md#manual-run)) | Baseline plus twenty-five skills in `.agents/skills/dixi-<operation>/SKILL.md`, each with `agents/openai.yaml` disabling implicit invocation. Invoke them as `$dixi-<operation>`. Codex reads `AGENTS.md` itself. |
 | Others | Not included | Having `AGENTS.md` does not amount to support. |
 
 ## Claude Code adapter controls
@@ -45,9 +45,9 @@ Declare what DIXI Spec Kit v1.0.0 supports, with what evidence, and which contro
 
 ## Capabilities
 
-Included: `init`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, the sixteen commands `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, and es/en documents.
+Included: `init`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, the twenty-five operations `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`, and es/en documents.
 
-Not included yet: applying upgrades, specialized commands (data, quality, AI, release, operations, FinOps, compliance, due diligence), extensions or presets, and a second example language.
+Not included yet: applying upgrades, extensions or presets, and a second example language.
 
 ## Related
 
@@ -57,4 +57,4 @@ Not included yet: applying upgrades, specialized commands (data, quality, AI, re
 
 ## Resumen en español
 
-Soportado: macOS y Linux con Python ≥ 3.11 (evidencia local en macOS/3.15; CI en Ubuntu y macOS con 3.11 y 3.13). Windows no está soportado. Integraciones: `--agent none`, `--agent claude` (Claude Code 2.1.319) y `--agent codex` en vista previa (Codex CLI 0.167.0, dieciséis skills con invocación implícita desactivada). El adaptador de Claude Code instala dieciséis comandos y `CLAUDE.md`, sin hooks, permisos ni servidores MCP. Las reglas de pruebas primero, no firmar/aprobar/integrar y validar decisiones estructurales son **instrucciones**, no controles automáticos; solo la instalación segura y `dixi check` están automatizados. Aún no incluidos: aplicar upgrades, comandos especializados, extensiones y Windows.
+Soportado: macOS y Linux con Python ≥ 3.11 (evidencia local en macOS/3.15; CI en Ubuntu y macOS con 3.11 y 3.13). Windows no está soportado. Integraciones: `--agent none`, `--agent claude` (Claude Code 2.1.319) y `--agent codex` (Codex CLI 0.167.0, veinticinco skills con invocación implícita desactivada; ejecución manual registrada). El adaptador de Claude Code instala veinticinco comandos y `CLAUDE.md`, sin hooks, permisos ni servidores MCP. Las reglas de pruebas primero, no firmar/aprobar/integrar y validar decisiones estructurales son **instrucciones**, no controles automáticos; solo la instalación segura y `dixi check` están automatizados. Aún no incluidos: aplicar upgrades, extensiones y Windows.
