@@ -1,6 +1,6 @@
 ---
-description: Dejar un traspaso local para retomar el trabajo
-argument-hint: [nota opcional]
+description: "Dejar un traspaso local para retomar el trabajo"
+argument-hint: "[nota opcional]"
 ---
 
 # /dixi.handoff

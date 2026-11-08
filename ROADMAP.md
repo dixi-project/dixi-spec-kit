@@ -14,7 +14,7 @@ Show what each public release includes and what comes next. Only what has tests 
 - Agent commands `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.threat-model`, `/dixi.handoff` and `/dixi.change`.
 - `dixi upgrade --dry-run`: compare the project with its original inventory and list updatable files and conflicts without writing.
 
-## v1.2.0 — Codex adapter
+## v1.2.0 — Codex adapter (in progress)
 
 Codex integration evaluated against its own capability and control matrix.
 

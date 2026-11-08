@@ -1,6 +1,6 @@
 ---
-description: Plan contracts, decisions, risks and tests for a feature
-argument-hint: <feature ID>
+description: "Plan contracts, decisions, risks and tests for a feature"
+argument-hint: "<feature ID>"
 ---
 
 # /dixi.plan

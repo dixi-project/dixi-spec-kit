@@ -1,6 +1,6 @@
 ---
-description: Model STRIDE threats with mitigations and planned tests
-argument-hint: <module or feature ID>
+description: "Model STRIDE threats with mitigations and planned tests"
+argument-hint: "<module or feature ID>"
 ---
 
 # /dixi.threat-model

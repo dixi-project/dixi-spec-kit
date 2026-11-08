@@ -1,6 +1,6 @@
 ---
-description: Prepare a risk-based human review of a change
-argument-hint: [base branch or commit, default main]
+description: "Prepare a risk-based human review of a change"
+argument-hint: "[base branch or commit, default main]"
 ---
 
 # /dixi.review

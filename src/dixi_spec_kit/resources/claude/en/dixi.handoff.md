@@ -1,6 +1,6 @@
 ---
-description: Leave a local handoff to resume the work
-argument-hint: [optional note]
+description: "Leave a local handoff to resume the work"
+argument-hint: "[optional note]"
 ---
 
 # /dixi.handoff

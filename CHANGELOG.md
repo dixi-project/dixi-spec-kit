@@ -4,6 +4,16 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
+## [Unreleased] — target 1.2.0
+
+### Added
+
+- Codex adapter (preview): `dixi init --agent codex` installs sixteen Agent Skills in `.agents/skills/dixi-<operation>/`, invoked as `$dixi-<operation>`, with implicit invocation disabled. Same steps and limits as the Claude Code commands; `doctor`, `check` and `upgrade --dry-run` support it.
+
+### Fixed
+
+- Claude Code command frontmatter values are now double-quoted, valid YAML: the `build` description contained `: ` and several argument hints were bracketed (parsed as lists by strict YAML parsers). Existing projects see these files as updatable in `dixi upgrade --dry-run`.
+
 ## [1.1.0] — 2026-11-08
 
 ### Changed

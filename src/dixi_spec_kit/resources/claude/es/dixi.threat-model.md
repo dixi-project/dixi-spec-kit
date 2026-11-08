@@ -1,6 +1,6 @@
 ---
-description: Modelar amenazas STRIDE con mitigaciones y pruebas previstas
-argument-hint: <ID de módulo o feature>
+description: "Modelar amenazas STRIDE con mitigaciones y pruebas previstas"
+argument-hint: "<ID de módulo o feature>"
 ---
 
 # /dixi.threat-model

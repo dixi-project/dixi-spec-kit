@@ -1,6 +1,6 @@
 ---
-description: Construir una tarea con pruebas primero: rojo, verde y verificación
-argument-hint: <ID de la tarea>
+description: "Construir una tarea con pruebas primero: rojo, verde y verificación"
+argument-hint: "<ID de la tarea>"
 ---
 
 # /dixi.build

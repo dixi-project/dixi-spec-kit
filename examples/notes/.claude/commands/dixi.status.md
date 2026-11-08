@@ -1,6 +1,6 @@
 ---
-description: Show project status and a justified next step
-argument-hint: [optional area]
+description: "Show project status and a justified next step"
+argument-hint: "[optional area]"
 ---
 
 # /dixi.status

@@ -1,6 +1,6 @@
 ---
-description: Build a task test-first: red, green and verification
-argument-hint: <task ID>
+description: "Build a task test-first: red, green and verification"
+argument-hint: "<task ID>"
 ---
 
 # /dixi.build

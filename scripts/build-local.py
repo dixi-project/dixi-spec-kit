@@ -15,7 +15,7 @@ SOURCES = ["pyproject.toml", "MANIFEST.in", "packaging/README.md",
            "src/dixi_spec_kit/resources/workflows.es.json", "src/dixi_spec_kit/resources/workflows.en.json",
            "src/dixi_spec_kit/LICENSE"]
 SOURCES += sorted(p.relative_to(ROOT).as_posix()
-                  for p in (ROOT / "src/dixi_spec_kit/resources/claude").glob("*/*.md"))
+                  for p in (ROOT / "src/dixi_spec_kit/resources").glob("*/*/*.md"))
 
 
 def main():

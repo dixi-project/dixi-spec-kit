@@ -17,7 +17,8 @@ PARENTS = {"goal": set(), "domain": {"goal"}, "module": {"domain"},
            "feature": {"module"}, "contract": {"feature", "module"},
            "test": {"feature", "contract"}}
 METADATA = ".dixi/project.json"
-AGENTS = ("none", "claude")
+AGENTS = ("none", "claude", "codex")
+CODEX_POLICY = b"policy:\n  allow_implicit_invocation: false\n"
 CLAUDE_REQUIRED = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
 CLAUDE_COMMANDS = CLAUDE_REQUIRED + ("domain", "architecture", "contract", "threat-model", "handoff", "change")
 TRACE = ".dixi/traceability.json"
@@ -36,9 +37,29 @@ def templates(language):
     return payload
 
 
+def codex_files(language):
+    folder = files("dixi_spec_kit").joinpath("resources", "codex", language)
+    payload = {}
+    for name in CLAUDE_COMMANDS:
+        payload[f".agents/skills/dixi-{name}/SKILL.md"] = folder.joinpath(f"dixi-{name}.md").read_bytes()
+        payload[f".agents/skills/dixi-{name}/agents/openai.yaml"] = CODEX_POLICY
+    return payload
+
+
+def required_adapter_files(agent):
+    if agent == "claude":
+        return {"CLAUDE.md"} | {f".claude/commands/dixi.{name}.md" for name in CLAUDE_REQUIRED}
+    if agent == "codex":
+        return {f".agents/skills/dixi-{name}/{suffix}" for name in CLAUDE_REQUIRED
+                for suffix in ("SKILL.md", "agents/openai.yaml")}
+    return set()
+
+
 def adapter_files(agent, language):
     if agent == "none":
         return {}
+    if agent == "codex":
+        return codex_files(language)
     folder = files("dixi_spec_kit").joinpath("resources", "claude", language)
     payload = {"CLAUDE.md": folder.joinpath("CLAUDE.md").read_bytes()}
     for name in CLAUDE_COMMANDS:
@@ -112,9 +133,7 @@ def project_metadata(root):
     for name, digest in inventory.items():
         if not safe_path(name) or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
             raise Issue("invalid_metadata")
-    required = set(templates(data["language"]))
-    if data["agent"] == "claude":
-        required |= {"CLAUDE.md"} | {f".claude/commands/dixi.{name}.md" for name in CLAUDE_REQUIRED}
+    required = set(templates(data["language"])) | required_adapter_files(data["agent"])
     if not required <= set(inventory):
         raise Issue("invalid_metadata")
     return data
@@ -210,6 +229,13 @@ def doctor(path, language):
                                 for name in CLAUDE_COMMANDS)
                 results.append(message("agent_claude", language=metadata["language"],
                                        commands=installed, available=len(CLAUDE_COMMANDS)))
+                if installed < len(CLAUDE_COMMANDS):
+                    results.append(message("upgrade_hint"))
+            elif metadata["agent"] == "codex":
+                installed = sum(f".agents/skills/dixi-{name}/SKILL.md" in metadata["managed_files"]
+                                for name in CLAUDE_COMMANDS)
+                results.append(message("agent_codex", language=metadata["language"],
+                                       skills=installed, available=len(CLAUDE_COMMANDS)))
                 if installed < len(CLAUDE_COMMANDS):
                     results.append(message("upgrade_hint"))
             else:

@@ -1,6 +1,6 @@
 ---
-description: Resolve doubts in a spec with questions and record decisions and assumptions
-argument-hint: <spec ID or path>
+description: "Resolve doubts in a spec with questions and record decisions and assumptions"
+argument-hint: "<spec ID or path>"
 ---
 
 # /dixi.clarify

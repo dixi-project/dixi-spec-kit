@@ -1,6 +1,6 @@
 ---
-description: Specify domain, module and feature with verifiable criteria
-argument-hint: <feature to specify>
+description: "Specify domain, module and feature with verifiable criteria"
+argument-hint: "<feature to specify>"
 ---
 
 # /dixi.specify

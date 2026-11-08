@@ -83,7 +83,7 @@ class LocalCoreTests(unittest.TestCase):
         self.assertEqual(self.metadata()["agent"], "none")
 
     def test_unknown_agent_no_write(self):
-        result = self.cli("init", str(self.project), "--agent", "codex")
+        result = self.cli("init", str(self.project), "--agent", "cursor")
         self.assertEqual(result.returncode, 2)
         self.assertFalse(self.project.exists())
 

@@ -1,6 +1,6 @@
 ---
-description: Run project verification and map criteria to tests
-argument-hint: [feature ID]
+description: "Run project verification and map criteria to tests"
+argument-hint: "[feature ID]"
 ---
 
 # /dixi.verify

@@ -52,7 +52,7 @@ Open Claude Code in `my-project` and walk through:
 
 | Command | What it does |
 |---|---|
-| `dixi init <dir> [--agent none\|claude]` | Creates the documentary baseline in a new or empty directory; never overwrites. |
+| `dixi init <dir> [--agent none\|claude\|codex]` | Creates the documentary baseline in a new or empty directory; never overwrites. |
 | `dixi doctor` | Diagnoses environment and project without network or credentials. |
 | `dixi check` | Checks structure, links and traceability. Runs no code. |
 | `dixi workflow list\|show\|prepare` | Lists and prepares the discover, specify, clarify, domain, architecture, contract, threat-model and plan procedures. |
@@ -67,7 +67,7 @@ Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 oc
 
 ## What is and is not included
 
-See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Planned: a Codex adapter in v1.2 and specialized commands in v1.3; applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
+See the [support matrix](docs/support-matrix.md). In short: the Claude Code adapter installs commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) is in preview until its first manual run is recorded. Planned: specialized commands in v1.3; applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
 
 ## Contributing
 

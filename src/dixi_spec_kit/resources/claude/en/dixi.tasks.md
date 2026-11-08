@@ -1,6 +1,6 @@
 ---
-description: Split a plan into tasks with criteria, dependencies and risk level
-argument-hint: <feature ID>
+description: "Split a plan into tasks with criteria, dependencies and risk level"
+argument-hint: "<feature ID>"
 ---
 
 # /dixi.tasks

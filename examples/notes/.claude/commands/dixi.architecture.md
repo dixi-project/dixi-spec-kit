@@ -1,6 +1,6 @@
 ---
-description: Propose design and architecture decisions as ADRs
-argument-hint: <domain, module or feature ID>
+description: "Propose design and architecture decisions as ADRs"
+argument-hint: "<domain, module or feature ID>"
 ---
 
 # /dixi.architecture

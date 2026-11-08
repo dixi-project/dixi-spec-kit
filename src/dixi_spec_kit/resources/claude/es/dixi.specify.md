@@ -1,6 +1,6 @@
 ---
-description: Especificar dominio, módulo y feature con criterios verificables
-argument-hint: <funcionalidad a especificar>
+description: "Especificar dominio, módulo y feature con criterios verificables"
+argument-hint: "<funcionalidad a especificar>"
 ---
 
 # /dixi.specify

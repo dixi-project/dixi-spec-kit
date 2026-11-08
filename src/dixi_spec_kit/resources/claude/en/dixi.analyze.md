@@ -1,6 +1,6 @@
 ---
-description: Analyze spec chain consistency and the impact of a change
-argument-hint: [ID or change description]
+description: "Analyze spec chain consistency and the impact of a change"
+argument-hint: "[ID or change description]"
 ---
 
 # /dixi.analyze

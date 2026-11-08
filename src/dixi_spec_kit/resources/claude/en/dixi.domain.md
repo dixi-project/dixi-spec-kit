@@ -1,6 +1,6 @@
 ---
-description: Design domains, bounded contexts and ubiquitous language
-argument-hint: <goal or domain>
+description: "Design domains, bounded contexts and ubiquitous language"
+argument-hint: "<goal or domain>"
 ---
 
 # /dixi.domain
