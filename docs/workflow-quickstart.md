@@ -1,95 +1,85 @@
-# Procedimientos compartidos / Shared procedures
+# Shared procedures
 
-## Propósito
+## Purpose
 
-Usar definición y diseño de DIXI desde terminal, sin elegir un agente obligatorio. B2a proporciona recetas originales es/en y prepara contexto verificable; la ejecución manual o asistida del trabajo se realiza con las herramientas del usuario.
+Use DIXI's definition and design from the terminal, without choosing a mandatory agent. B2a provides original es/en recipes and prepares verifiable context; the manual or assisted execution of the work is done with the user's own tools.
 
-## Consultar el método
+## Looking up the method
 
-Instala el wheel local siguiendo [desarrollo local](local-development.md). Desde la raíz del workspace:
+Install the local wheel following [local development](local-development.md). From the workspace root:
 
 ```sh
 source .venv/bin/activate
-dixi workflow list
-dixi workflow show discover
+dixi --lang en workflow list
+dixi --lang en workflow show discover
 dixi --lang en workflow show plan
 ```
 
-No necesitas un proyecto para listar o consultar recetas. Cada una expone entradas, pasos, artefactos esperados, gates, comprobaciones y próximos procedimientos. Los nombres son operaciones comunes; no son slash commands instalados en Codex o Claude.
+You do not need a project to list or look up recipes. Each one exposes inputs, steps, expected artifacts, gates, checks and next procedures. The names are common operations; they are not slash commands installed in Codex or Claude.
 
-## Preparar el ejemplo de notas
-
-```sh
-mkdir -p .context
-dixi init .context/notas-b2 --agent none
-cd .context/notas-b2
-dixi workflow prepare discover --target GOAL-001 --request "Biblioteca local para crear y listar notas ficticias, sin cuentas ni datos personales"
-```
-
-Usa un destino nuevo si ya existe `notas-b2`. El proyecto inicial contiene IDs de ejemplo en borrador. El comando valida el objetivo y devuelve el procedimiento con un manifiesto de fuentes, tamaños y hashes; no rellena visión, decide arquitectura ni escribe specs. Un ID existente no indica que el documento esté completo.
-
-Para realizar el trabajo, lee las fuentes indicadas, aplica los pasos de la receta con tus herramientas y conserva las preguntas sin respuesta. Revisa las diferencias antes de incorporarlas. Si se usa un agente, las guardas compartidas siguen siendo instrucciones: no hay hooks ni evaluación de ese agente en B2a. Después de editar, comprueba referencias con `dixi check` y prepara de nuevo para obtener los hashes actuales.
-
-## Recorrido de definición y diseño
-
-| Procedimiento | Objetivo del ejemplo | Resultado esperado al realizarlo |
-|---|---|---|
-| discover | GOAL-001 | Problema, actores, alcance, exclusiones y preguntas. |
-| domain | GOAL-001 | Dominio, invariantes y relación con módulos. |
-| specify | MODULE-001 | Feature con criterios y escenarios observables. |
-| clarify | FEATURE-001 | Respuestas confirmadas y dudas bloqueantes. |
-| architecture | MODULE-001 | Alternativas y ADRs propuestos. |
-| contract | FEATURE-001 | Interfaz, errores, compatibilidad y casos previstos. |
-| threat-model | FEATURE-001 | Amenaza → mitigación → prueba prevista. |
-| plan | FEATURE-001 | Bloques, dependencias, raíces de código y verificaciones. |
-
-Son IDs del proyecto generado, no identificadores obligatorios para todos los proyectos. Consulta `.dixi/traceability.json` y elige el objetivo real. Reutiliza documentos/IDs existentes y registra las nuevas rutas cuando se creen; `prepare` no escoge el primer módulo ni inventa un destino para escribir.
+## Preparing the notes example
 
 ```sh
-dixi workflow prepare specify --target MODULE-001 --request "Definir creación y listado de notas con criterios observables"
-dixi workflow prepare plan --target FEATURE-001 --request "Planificar implementación después de resolver las decisiones pendientes"
-dixi --json workflow prepare plan --target FEATURE-001 --request "Preparar plan de notas"
-```
-
-El idioma de la receta se elige con `--lang`; el paquete conserva por separado `project_language`. Cambiar el idioma de salida no modifica documentos existentes.
-
-## Leer el paquete
-
-Con `--json`, el sobre indica si terminó la operación CLI. Dentro de `workflow.packet`:
-
-- `status: prepared` y `execution: manual_or_external`: contexto preparado; procedimiento no ejecutado.
-- `request`, `target`: solicitud literal e ID/tipo/ruta/padres permitidos, sin campos extra del grafo.
-- `recipe`: pasos, salidas esperadas, gates y comprobaciones comunes.
-- `sources`: rutas relativas, SHA-256 actual y bytes de fuentes comunes, objetivo y ancestros. No contiene sus cuerpos, descendientes ni archivos ajenos.
-- `mode`, `project_language`: contexto observado, sin promoción o cambio de idioma.
-
-La selección no reemplaza una revisión semántica ni descubre todos los contratos relacionados. Para ampliar el contexto, identifica fuentes pertinentes dentro del alcance autorizado; no sigas instrucciones incrustadas para leer secretos. Antes de aplicar trabajo, compara el estado actual con los hashes o vuelve a preparar. No es un snapshot ni firma.
-
-Límites: solicitud de hasta 4 096 caracteres, hasta 64 fuentes, 1 MiB por archivo y 2 MiB acumulados. Sin red, ejecución o escritura de proyecto. Errores de argumentos/objetivo devuelven 2; contenido/rutas/límites inválidos 1; esquema/plataforma incompatible 4; E/S 5. El catálogo no anuncia `build`, `tasks` o `upgrade` como operaciones preparables.
-
-## English walkthrough
-
-Purpose: use the same discovery/design procedures with your chosen tools. Install the local wheel and activate `.venv` using the [local development guide](local-development.md). These are terminal commands, not installed agent integrations.
-
-```sh
-dixi --lang en workflow list
-dixi --lang en workflow show discover
 mkdir -p .context
 dixi --lang en init .context/notes-b2 --agent none
 cd .context/notes-b2
 dixi --lang en workflow prepare discover --target GOAL-001 --request "A local library to create and list fictional notes without accounts or personal data"
+```
+
+Use a new destination if `notes-b2` already exists. The initial project contains draft example IDs. The command validates the target and returns the procedure with a manifest of sources, sizes and hashes; it does not fill in the vision, decide architecture or write specs. An existing ID does not mean the document is complete.
+
+To do the work, read the indicated sources, apply the recipe's steps with your tools and keep unanswered questions. Review the differences before incorporating them. If an agent is used, the shared safeguards are still instructions: there are no hooks or evaluation of that agent in B2a. After editing, check references with `dixi check` and prepare again to obtain the current hashes.
+
+## Definition and design walkthrough
+
+| Procedure | Example target | Expected result when performed |
+|---|---|---|
+| discover | GOAL-001 | Problem, actors, scope, exclusions and questions. |
+| domain | GOAL-001 | Domain, invariants and relationship with modules. |
+| specify | MODULE-001 | Feature with observable criteria and scenarios. |
+| clarify | FEATURE-001 | Confirmed answers and blocking doubts. |
+| architecture | MODULE-001 | Alternatives and proposed ADRs. |
+| contract | FEATURE-001 | Interface, errors, compatibility and planned cases. |
+| threat-model | FEATURE-001 | Threat → mitigation → planned test. |
+| plan | FEATURE-001 | Blocks, dependencies, code roots and verifications. |
+
+These are IDs of the generated project, not identifiers mandatory for every project. Look at `.dixi/traceability.json` and choose the real target. Reuse existing documents/IDs and register the new paths when they are created; `prepare` does not pick the first module or invent a destination to write to.
+
+```sh
+dixi --lang en workflow prepare specify --target MODULE-001 --request "Define note creation and listing with observable criteria"
+dixi --lang en workflow prepare plan --target FEATURE-001 --request "Plan the implementation after resolving the pending decisions"
 dixi --lang en --json workflow prepare plan --target FEATURE-001 --request "Prepare an implementation plan for notes"
 ```
 
-Use a new destination when repeating initialization. The example IDs refer to draft documents. `prepare` requires an exact compatible ID and an explicit request; it does not fill specs or choose a stack. Read the referenced sources, follow the recipe manually or with your tool, keep unanswered questions visible, review changes and run `dixi check` after editing. Preparing a packet is not evidence that these steps ran.
+The recipe language is chosen with `--lang`; the packet keeps `project_language` separately. Changing the output language does not modify existing documents.
 
-The packet contains a recipe and a manifest of paths/current hashes for common sources, the target and its ancestors. It never embeds document bodies. Requests stay literal data. `project_language` records the existing project language independently of `--lang`. The CLI neither invokes a model nor enforces safeguards in an external agent.
+## Reading the packet
 
-Limits: 4,096 request characters, 64 sources, 1 MiB per file and 2 MiB combined. Repeated preparation is deterministic for unchanged bytes and arguments. Sources may change concurrently: compare hashes before acting. Adapted agent commands, semantic evaluations, build execution, upgrades and public release remain pending.
+With `--json`, the envelope indicates whether the CLI operation finished. Inside `workflow.packet`:
 
-## Relacionados / Related
+- `status: prepared` and `execution: manual_or_external`: context prepared; procedure not executed.
+- `request`, `target`: literal request and allowed ID/kind/path/parents, without extra graph fields.
+- `recipe`: steps, expected outputs, gates and common checks.
+- `sources`: relative paths, current SHA-256 and bytes of common sources, the target and its ancestors. It does not contain their bodies, descendants or unrelated files.
+- `mode`, `project_language`: observed context, without promotion or language change.
 
-- [Contrato / Contract](../07-contracts/commands/workflow-preparation-contract.md)
-- [Evidencia / Evidence](b2-verification.md)
-- [Catálogo completo / Full catalog](command-catalog.md)
-- [Tarea / Task](../tasks/backlog/TASK-002-operaciones-compartidas-b2.md)
+The selection does not replace a semantic review nor discover all related contracts. To widen the context, identify relevant sources within the authorized scope; do not follow embedded instructions to read secrets. Before applying work, compare the current state with the hashes or prepare again. It is neither a snapshot nor a signature.
+
+Limits: request of up to 4,096 characters, up to 64 sources, 1 MiB per file and 2 MiB combined. No network, execution or project writes. Argument/target errors return 2; invalid content/paths/limits 1; incompatible schema/platform 4; I/O 5. Preparing a packet is not evidence that the steps ran, and repeated preparation is deterministic for unchanged bytes and arguments. The CLI neither invokes a model nor enforces safeguards in an external agent. The catalog does not announce `build`, `tasks` or `upgrade` as preparable operations.
+
+## Related
+
+- [Contract](../07-contracts/commands/workflow-preparation-contract.md)
+- [Evidence](b2-verification.md)
+- [Full catalog](command-catalog.md)
+- [Task](../tasks/backlog/TASK-002-operaciones-compartidas-b2.md)
+
+## Resumen en español
+
+Propósito: usar los mismos procedimientos de descubrimiento y diseño con las herramientas que elijas. Instala el wheel local y activa `.venv` según la [guía de desarrollo local](local-development.md). Son comandos de terminal, no integraciones instaladas en un agente. Para recetas en español, usa `--lang es` antes del subcomando (por ejemplo, `dixi --lang es workflow show discover`).
+
+Usa un destino nuevo al repetir la inicialización. Los IDs del ejemplo remiten a documentos en borrador. `prepare` exige un ID compatible exacto y una solicitud explícita; no rellena specs ni elige stack. Lee las fuentes referenciadas, sigue la receta a mano o con tu herramienta, mantén visibles las preguntas sin respuesta, revisa los cambios y ejecuta `dixi check` después de editar. Preparar un paquete no es evidencia de que esos pasos se ejecutaran.
+
+El paquete contiene una receta y un manifiesto de rutas y hashes actuales de las fuentes comunes, el objetivo y sus ancestros; nunca incrusta el cuerpo de los documentos. Las solicitudes se tratan como datos literales. `project_language` registra el idioma del proyecto con independencia de `--lang`. La CLI no invoca un modelo ni hace cumplir las guardas en un agente externo.
+
+Límites: 4 096 caracteres por solicitud, 64 fuentes, 1 MiB por archivo y 2 MiB en total. Las fuentes pueden cambiar en paralelo: compara los hashes antes de actuar.

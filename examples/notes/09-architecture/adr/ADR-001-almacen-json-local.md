@@ -1,21 +1,21 @@
-# ADR-001 — Almacén JSON local
+# ADR-001 — Local JSON store
 
-## Propósito
+## Purpose
 
-Decidir cómo se persisten las notas.
+Decide how notes are persisted.
 
-## Estado
+## Status
 
-Aceptado. Decisión (persona del ejemplo, 2026-11-08), propuesta por `/dixi.plan`.
+Accepted. Decision (example owner, 2026-11-08), proposed by `/dixi.plan`.
 
-## Decisión
+## Decision
 
-Un archivo JSON con versión de esquema, escrito de forma atómica. Sin base de datos ni dependencias.
+A JSON file with a schema version, written atomically. No database or dependencies.
 
-## Consecuencias
+## Consequences
 
-Simple y portable; no escala a miles de notas ni a acceso concurrente, fuera de alcance.
+Simple and portable; it does not scale to thousands of notes or concurrent access, which are out of scope.
 
-## Relacionados
+## Related
 
-- [Contrato](../../07-contracts/example.md)
+- [Contract](../../07-contracts/example.md)

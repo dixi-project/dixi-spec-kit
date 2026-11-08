@@ -1,74 +1,74 @@
-# Revisión de diseño de DIXI Spec Kit v1.0.0
+# DIXI Spec Kit v1.0.0 design review
 
-## Propósito
+## Purpose
 
-Registrar el diseño, el alcance autorizado y las decisiones pendientes. El 2026-11-06 el usuario aceptó avanzar tras aclarar la independencia del agente y del stack. El primer bloque autorizado es CLI/paquete local, `init --agent none`, `doctor`, `check`, ayuda/versión y pruebas primero. La elección anterior del modelo del asistente era contexto; la autorización posterior de implementación es la que habilita B1. No supone confirmar licencia ni toda la matriz futura.
+Record the design, the authorized scope and the pending decisions. On 2026-11-06 the user agreed to proceed after clarifying independence from agent and stack. The first authorized block is the local CLI/package, `init --agent none`, `doctor`, `check`, help/version and tests first. The earlier choice of the assistant's model was context; the later implementation authorization is what enables B1. It does not imply confirming the license or the whole future matrix.
 
-## Propuesta para revisar
+## Proposal for review
 
-Un ecosistema público de desarrollo SDD que acompaña desde la idea hasta una revisión preparada y permite evolucionar el trabajo. El usuario pidió que cada persona pueda elegir agente y lenguajes; esa dirección reemplaza la preferencia anterior por Claude Code. Propuesta de v1: cuatro operaciones CLI (`init`, `doctor`, `check`, `upgrade --dry-run`), ayuda/versión y 16 operaciones compartidas por las integraciones. Nombres y sintaxis de cada adaptador se verifican antes de anunciar disponibilidad.
+A public SDD development ecosystem that accompanies the work from idea to a prepared review and allows that work to evolve. The user asked that each person be able to choose agent and languages; that direction replaces the earlier preference for Claude Code. v1 proposal: four CLI operations (`init`, `doctor`, `check`, `upgrade --dry-run`), help/version and 16 operations shared by the integrations. The names and syntax of each adapter are verified before announcing availability.
 
-## Dirección validada
+## Validated direction
 
-DIXI Spec Kit v1 será un ecosistema SDD con núcleo independiente del agente y del stack, donde cada usuario elige sus herramientas. Las integraciones opcionales operan sobre las mismas especificaciones y conservan garantías comunes de trazabilidad, seguridad, pruebas y revisión humana.
+DIXI Spec Kit v1 will be an SDD ecosystem with a core independent of agent and stack, where each user chooses their tools. Optional integrations operate on the same specifications and preserve common guarantees of traceability, security, testing and human review.
 
-La decisión estructural es separar núcleo, adaptadores, perfiles de stack y conjuntos de políticas. Elegir Python para implementar la CLI no obliga a desarrollar proyectos en Python. Proponer Codex y Claude Code para verificar portabilidad no los convierte en las únicas herramientas admisibles. La libertad de proveedor del conjunto público se concreta en ADR-101; no cambia automáticamente las políticas de desarrollo/publicación de este repositorio.
+The structural decision is to separate core, adapters, stack profiles and policy sets. Choosing Python to implement the CLI does not force projects to be developed in Python. Proposing Codex and Claude Code to verify portability does not make them the only admissible tools. The provider freedom of the public set is specified in ADR-101; it does not automatically change the development/publication policies of this repository.
 
-| Grupo | Comandos propuestos |
+| Group | Proposed commands |
 |---|---|
-| Definir | `discover`, `specify`, `clarify` |
-| Diseñar | `domain`, `architecture`, `contract`, `threat-model`, `plan` |
-| Construir y comprobar | `tasks`, `build`, `analyze`, `verify`, `review` |
-| Evolucionar y retomar | `change`, `status`, `handoff` |
+| Define | `discover`, `specify`, `clarify` |
+| Design | `domain`, `architecture`, `contract`, `threat-model`, `plan` |
+| Build and check | `tasks`, `build`, `analyze`, `verify`, `review` |
+| Evolve and resume | `change`, `status`, `handoff` |
 
-Las capacidades especializadas `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance` y `duediligence` permanecen en el catálogo. Propongo evaluar sus entradas independientes después del primer recorrido completo; si se quieren todas como requisito de v1, hay que ampliar contratos, escenarios y bloques antes de construir. Los controles aplicables de esas áreas permanecen en el plan y la verificación, cualquiera que sea el número de comandos expuestos.
+The specialized capabilities `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance` and `duediligence` remain in the catalog. I propose evaluating their independent entries after the first complete walkthrough; if all of them are wanted as a v1 requirement, contracts, scenarios and blocks must be expanded before building. The applicable controls of those areas remain in the plan and verification, whatever the number of exposed commands.
 
-## Decisiones y evidencia pendiente
+## Decisions and pending evidence
 
-| Decisión | Propuesta | Estado y efecto |
+| Decision | Proposal | Status and effect |
 |---|---|---|
-| Resultado y alcance | Recorrido completo, 16 comandos y cambio posterior con trazabilidad. | Dirección e inicio incremental aceptados; B1 implementado. Los contratos posteriores siguen por concretar. |
-| Runtime de la CLI | Python, sin dependencias de ejecución externas; recursos dentro del paquete. | Adoptado en B1; no impone el lenguaje del proyecto. Build local con Setuptools verificado. |
-| Integraciones | Núcleo sin agente obligatorio; Codex y Claude Code como candidatos de igual prioridad. | S3 revisado por dirección del usuario; cada adaptador necesita evidencia y matriz de controles. |
-| Stack del usuario | Elegible por proyecto, con perfiles opcionales de comprobación. | Evaluar dos lenguajes para detectar acoplamientos; elegir ejemplos antes de implementar ese bloque. |
-| Actualización | Solo plan local sin escritura en v1; aplicar cambios queda fuera de esta propuesta. | Concretar S5 al validar; evita prometer una operación aún sin contrato de recuperación. |
-| Licencia y derechos | MIT para material con derechos confirmados. | Confirmación humana pendiente por selección; no incorporar material heredado a la distribución ni publicar mientras falte. |
-| Compatibilidad | Matriz explícita de Python, sistemas y versiones del agente. | B1 evaluado en macOS/Python 3.15.2, sin agente. Otras combinaciones siguen pendientes. |
-| Políticas públicas | Conjunto portable con proveedores elegibles y conjunto Dixi con decisiones organizativas. | Dirección de separación aceptada; mecanismos y excepciones operativas siguen propuestos. B1 no consume IA ni despliega. |
-| Infraestructura de este repositorio | Reglas heredadas CodeBuild/CodePipeline, sin credenciales AWS en GitHub Actions. | La apertura del producto no altera su plataforma de build/publicación; aislamiento pendiente antes de ese bloque. |
-| Nombre | `dixi-spec-kit` y `dixi`. | Disponibilidad pendiente antes de fijar distribución; no se ha reservado ningún nombre. |
+| Outcome and scope | Complete walkthrough, 16 commands and later change with traceability. | Direction and incremental start accepted; B1 implemented. Later contracts are still to be specified. |
+| CLI runtime | Python, without external runtime dependencies; resources inside the package. | Adopted in B1; does not impose the project's language. Local build with verified Setuptools. |
+| Integrations | Core without a mandatory agent; Codex and Claude Code as candidates of equal priority. | S3 revised by the user's direction; each adapter needs evidence and a controls matrix. |
+| User's stack | Chosen per project, with optional checking profiles. | Evaluate two languages to detect couplings; choose examples before implementing that block. |
+| Upgrade | Only a local plan without writes in v1; applying changes is outside this proposal. | Specify S5 on validation; avoids promising an operation still without a recovery contract. |
+| License and rights | MIT for material with confirmed rights. | Human confirmation pending per selection; do not include inherited material in the distribution nor publish while it is missing. |
+| Compatibility | Explicit matrix of Python, systems and agent versions. | B1 evaluated on macOS/Python 3.15.2, without an agent. Other combinations remain pending. |
+| Public policies | Portable set with eligible providers and Dixi set with organizational decisions. | Separation direction accepted; operational mechanisms and exceptions remain proposed. B1 consumes no AI and does not deploy. |
+| Infrastructure of this repository | Inherited CodeBuild/CodePipeline rules, without AWS credentials in GitHub Actions. | Opening the product does not alter its build/publication platform; isolation pending before that block. |
+| Name | `dixi-spec-kit` and `dixi`. | Availability pending before fixing the distribution; no name has been reserved. |
 
-## Trazabilidad preparada
+## Prepared traceability
 
-`GOAL-001 → spec-driven-delivery → command-workflow → guided-workflow → command-contract → escenarios WF-01…WF-08`
+`GOAL-001 → spec-driven-delivery → command-workflow → guided-workflow → command-contract → scenarios WF-01…WF-08`
 
-Hay 20 escenarios BDD y una matriz de aceptación en borrador para el flujo guiado; todavía no tienen runner. B1 añade su propia feature, contrato, threat model, inventario de distribución y pruebas ejecutables. Su [informe](b1-verification.md) distingue esa evidencia de la validación todavía pendiente del recorrido completo.
+There are 20 BDD scenarios and a draft acceptance matrix for the guided workflow; they do not have a runner yet. B1 adds its own feature, contract, threat model, distribution inventory and executable tests. Its [report](b1-verification.md) distinguishes that evidence from the still-pending validation of the complete walkthrough.
 
-## Entrega por bloques
+## Delivery by blocks
 
-Cada bloque puede requerir varios PRs; se respeta el límite de 1 500 líneas de código y las pruebas se registran primero en su propio commit.
+Each block may require several PRs; the 1,500-line code limit is respected and tests are recorded first in their own commit.
 
-| Bloque | Entregable | Evidencia para avanzar |
+| Block | Deliverable | Evidence to advance |
 |---|---|---|
-| B0 — Diseño | Historia/ADRs validados, separación del núcleo y políticas, contrato del bloque, threat model y selección distribuible. | Decisiones registradas y escenarios revisables; sin afirmar aceptación del agente. |
-| B1 — Instalación | CLI mínima, núcleo, elección explícita de integración o ninguna, ayuda, diagnóstico y comprobaciones estructurales. | Instalación limpia, recursos sin dependencia exclusiva de agente y rechazo seguro de destinos/conflictos. |
-| B2 — Definición y diseño | `discover`, `specify`, `clarify`, `domain`, `architecture`, `contract`, `threat-model`, `plan`. | Artefactos del ejemplo enlazados, entradas faltantes visibles y uso común desde plan o comandos directos. |
-| B3 — Construcción y revisión | `tasks`, `build`, `analyze`, `verify`, `review`. | TDD y controles reales; gates y evidencia incompleta/desactualizada detectados. |
-| B4 — Continuidad y evolución | `change`, `status`, `handoff`, plan de actualización y evaluación de comandos especializados. | Repetición, interrupción, cambios locales, contrato incompatible y dry-run sin escritura. |
-| B5 — Distribución | Docs es/en, ejemplos en dos lenguajes, evaluaciones cruzadas de adaptadores, CI, paquete, licencia y protección del repositorio. | Matriz y controles por combinación verificados; condiciones de publicación cumplidas en su fase correspondiente. |
+| B0 — Design | Validated story/ADRs, separation of core and policies, block contract, threat model and distributable selection. | Recorded decisions and reviewable scenarios; without claiming agent acceptance. |
+| B1 — Installation | Minimal CLI, core, explicit choice of integration or none, help, diagnostics and structural checks. | Clean installation, resources without exclusive agent dependency and safe rejection of destinations/conflicts. |
+| B2 — Definition and design | `discover`, `specify`, `clarify`, `domain`, `architecture`, `contract`, `threat-model`, `plan`. | Linked example artifacts, visible missing inputs and common use from plan or direct commands. |
+| B3 — Build and review | `tasks`, `build`, `analyze`, `verify`, `review`. | Real TDD and controls; gates and incomplete/outdated evidence detected. |
+| B4 — Continuity and evolution | `change`, `status`, `handoff`, upgrade plan and evaluation of specialized commands. | Repetition, interruption, local changes, incompatible contract and dry-run without writes. |
+| B5 — Distribution | es/en docs, examples in two languages, cross-evaluations of adapters, CI, package, license and repository protection. | Matrix and controls per combination verified; publication conditions met in their corresponding phase. |
 
-## Resultado de esta revisión
+## Outcome of this review
 
-Continuación del 2026-11-07: el usuario pidió seguir tras entregar B1. TASK-002 concreta B2a dentro del núcleo aceptado: consulta y preparación determinista de ocho procedimientos comunes, con pruebas propias. No modifica la decisión de agentes elegibles ni acredita todavía generación/evaluación de artefactos por adaptador.
+Continuation of 2026-11-07: the user asked to continue after B1 was delivered. TASK-002 specifies B2a within the accepted core: deterministic lookup and preparation of eight common procedures, with their own tests. It does not modify the eligible-agents decision nor yet accredit per-adapter generation/evaluation of artifacts.
 
-Registrada la autorización para avanzar con el enfoque abierto y B1; no volver a pedirla. B2 concreta definición/diseño sobre contratos comunes, seguido de adaptadores opcionales y evaluaciones. Licencia/derechos, políticas operativas, alcance final de comandos especializados y matriz de soporte permanecen abiertos. La autorización general de publicar cuando se cumplan las condiciones ya existe; B1 no satisface por sí solo la puerta de publicación.
+The authorization to proceed with the open approach and B1 is recorded; do not ask for it again. B2 specifies definition/design over common contracts, followed by optional adapters and evaluations. License/rights, operational policies, final scope of specialized commands and the support matrix remain open. The general authorization to publish when the conditions are met already exists; B1 alone does not satisfy the publication gate.
 
-## Relacionados
+## Related
 
-- [Historia](../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [Story](../tasks/backlog/TASK-001-lanzamiento-v1.md)
 - [ADR-100](../09-architecture/adr/ADR-100-distribucion-publica-v1.md)
 - [ADR-101](../09-architecture/adr/ADR-101-nucleo-sdd-portable-e-integraciones.md)
-- [Contrato de comandos](../07-contracts/commands/command-contract.md)
-- [Feature y escenarios](../05-features/guided-workflow/feature-spec.md)
-- [Catálogo completo](command-catalog.md)
-- [Publicación](publication-readiness.md)
+- [Command contract](../07-contracts/commands/command-contract.md)
+- [Feature and scenarios](../05-features/guided-workflow/feature-spec.md)
+- [Full catalog](command-catalog.md)
+- [Publication](publication-readiness.md)

@@ -1,66 +1,66 @@
-# ADR-101 — Núcleo SDD portable e integraciones elegibles
+# ADR-101 — Portable SDD core and eligible integrations
 
-## Propósito
+## Purpose
 
-Diseñar DIXI Spec Kit como un ecosistema público de desarrollo SDD cuyo método no dependa de un agente, modelo, lenguaje o proveedor de infraestructura específico.
+Design DIXI Spec Kit as a public SDD development ecosystem whose method does not depend on a specific agent, model, language or infrastructure provider.
 
-## Estado
+## Status
 
-Dirección aceptada para implementación incremental el 2026-11-06: núcleo independiente del agente/stack, integraciones opcionales y comienzo por modo documental sin agente. La autorización de B1 se registra en ADR-100 y TASK-001. Los mecanismos operativos de los conjuntos de políticas y sus excepciones de proveedor continúan propuestos para sus bloques; B1 no ejecuta IA ni configura infraestructura. No se han cambiado las normas heredadas de este repositorio.
+Direction accepted for incremental implementation on 2026-11-06: a core independent of agent/stack, optional integrations, and starting with a documentary no-agent mode. The B1 authorization is recorded in ADR-100 and TASK-001. The operational mechanisms of the policy sets and their provider exceptions remain proposed for their blocks; B1 does not run AI or configure infrastructure. The inherited rules of this repository have not been changed.
 
-## Contexto
+## Context
 
-La propuesta anterior privilegiaba Claude Code porque hay comandos aprovechables en el origen. Esa base no debe convertirse en un requisito del producto público. Python como runtime de la CLI tampoco determina el lenguaje del software generado.
+The previous proposal favored Claude Code because there are reusable commands in the origin. That base must not become a requirement of the public product. Python as the CLI runtime does not determine the language of the generated software either.
 
-Ofrecer distintas interfaces de agente no resuelve por sí solo las dependencias de proveedor: las normas heredadas fijan Bedrock, CodePipeline, CodeBuild y servicios de secretos de AWS. La portabilidad pública requiere expresar explícitamente cuáles son garantías del método y cuáles son implementaciones organizativas de esas garantías.
+Offering different agent interfaces does not by itself resolve provider dependencies: the inherited rules mandate Bedrock, CodePipeline, CodeBuild and AWS secrets services. Public portability requires stating explicitly which items are guarantees of the method and which are organizational implementations of those guarantees.
 
-## Decisión propuesta
+## Proposed decision
 
-1. **Núcleo SDD compartido.** Historias, dominios, módulos, features, contratos, tareas, decisiones y evidencias usan formatos abiertos y referencias estables. Las operaciones del catálogo tienen una definición común, independiente de cómo se invocan en un agente.
-2. **Integraciones elegibles.** La persona selecciona un adaptador publicado o el modo sin integración. Ningún agente se instala, autentica o selecciona de forma implícita. Codex y Claude Code son candidatos iniciales de igual prioridad para demostrar portabilidad; su soporte se anuncia solo después de evaluar cada uno.
-3. **Uso documental sin agente obligatorio.** El modo sin integración entrega estructura, plantillas, guías de las operaciones y validaciones locales. Permite aplicar el método con edición manual o herramientas propias. No promete la automatización, hooks o ejecución de `build` de un adaptador verificado.
-4. **Lenguaje del producto separado del runtime del kit.** Python implementa el núcleo local B1. Los proyectos pueden elegir su lenguaje y framework, incluso combinar varios. Un perfil de stack conectará sus comprobaciones con `make verify`; no convierte un lenguaje concreto en requisito del método ni promete generar cualquier aplicación completa.
-5. **Políticas explícitas.** Proponer un conjunto público portable y un conjunto organizativo Dixi. Ambos conservan trazabilidad, validación de decisiones por riesgo, TDD, protección de pruebas, revisión humana, protección de secretos y evidencia de verificación. Las opciones y requisitos efectivos se muestran al inicializar.
-6. **Proveedor elegido por el proyecto.** En el conjunto público, agente/modelo, autenticación, proveedor de IA, alojamiento y herramientas de CI/CD se documentan como decisiones del proyecto. El kit no crea cuentas ni obtiene credenciales. No se deduce proveedor de IA a partir del nombre del agente.
-7. **Garantías equivalentes, mecanismos declarados.** Cada adaptador identifica qué controles automatiza, cuáles quedan en CI o revisión y cuáles no soporta. No declara que un hook existe solo por haber escrito instrucciones en Markdown. Si falta un control obligatorio, se bloquea la operación dependiente o se requiere un mecanismo equivalente previamente documentado y verificable.
-8. **Cambio de adaptador preservando el proyecto.** Specs, IDs, contratos, tareas y evidencias pertenecen al núcleo. Una futura operación de cambio de adaptador debe preservar esos artefactos y señalar capacidades perdidas; no se añade todavía un nuevo comando público de migración ni se presupone que `init` puede sobrescribir un proyecto existente.
+1. **Shared SDD core.** Stories, domains, modules, features, contracts, tasks, decisions and evidence use open formats and stable references. Catalog operations have a common definition, independent of how they are invoked in an agent.
+2. **Eligible integrations.** The person selects a published adapter or the no-integration mode. No agent is installed, authenticated or selected implicitly. Codex and Claude Code are initial candidates of equal priority to demonstrate portability; their support is announced only after each one is evaluated.
+3. **Documentary use without a mandatory agent.** The no-integration mode delivers structure, templates, operation guides and local validations. It allows the method to be applied with manual editing or one's own tools. It does not promise the automation, hooks or `build` execution of a verified adapter.
+4. **Product language separate from the kit runtime.** Python implements the B1 local core. Projects can choose their language and framework, even combine several. A stack profile will connect its checks to `make verify`; it does not turn a specific language into a requirement of the method, nor does it promise to generate any complete application.
+5. **Explicit policies.** Propose a portable public set and a Dixi organizational set. Both preserve traceability, risk-based validation of decisions, TDD, test protection, human review, secret protection and verification evidence. The effective options and requirements are shown at initialization.
+6. **Provider chosen by the project.** In the public set, agent/model, authentication, AI provider, hosting and CI/CD tools are documented as project decisions. The kit does not create accounts or obtain credentials. The AI provider is not inferred from the agent's name.
+7. **Equivalent guarantees, declared mechanisms.** Each adapter identifies which controls it automates, which remain in CI or review and which it does not support. It does not claim a hook exists merely because instructions were written in Markdown. If a mandatory control is missing, the dependent operation is blocked or an equivalent mechanism, previously documented and verifiable, is required.
+8. **Switching adapters while preserving the project.** Specs, IDs, contracts, tasks and evidence belong to the core. A future adapter-switch operation must preserve those artifacts and flag lost capabilities; no new public migration command is added yet, and `init` is not assumed to be able to overwrite an existing project.
 
-## Excepción propuesta y límites
+## Proposed exception and limits
 
-La excepción propuesta se limita a la distribución pública y a los proyectos externos que eligen el conjunto portable. No cambia las políticas del origen privado ni autoriza otras plataformas para construir/publicar este propio repositorio. Las reglas heredadas de este repositorio permanecen efectivas. La etiqueta `policy: portable` de B1 identifica una base documental sin proveedor configurado; no certifica controles operativos ni implementa aún selección de conjuntos.
+The proposed exception is limited to the public distribution and to external projects that choose the portable set. It does not change the policies of the private origin nor authorize other platforms to build/publish this repository itself. The inherited rules of this repository remain in effect. B1's `policy: portable` label identifies a documentary base with no configured provider; it does not certify operational controls nor yet implement policy set selection.
 
-| Norma o acoplamiento | Conjunto público propuesto | Conjunto Dixi y desarrollo de este repositorio |
+| Rule or coupling | Proposed public set | Dixi set and development of this repository |
 |---|---|---|
-| ADR-012 / regla 15: IA por Bedrock con IAM. | Proveedor y autenticación elegidos/documentados por el proyecto, con protección de credenciales y límites de datos. | Conserva Bedrock e IAM salvo otra excepción propia. |
-| ADR-006 y ADR-014 / reglas 10–12: CodePipeline, CodeBuild y runners AWS. | Herramientas elegibles con PR revisado, checks, build y deployment separados, artefacto trazable y gate humano de producción. Ningún deploy productivo desde el agente. | Conserva la cadena y separación de credenciales heredadas. |
-| Regla 14: Secrets Manager/SSM. | Almacén de secretos equivalente elegido por el proyecto; secretos fuera del repo y fuera de la lectura del agente. | Conserva servicios AWS definidos por la norma. |
-| Supuestos de stack en comandos/plantillas del origen. | Plantillas neutrales y perfiles opcionales de stack; validación conectada a las herramientas del proyecto. | Preferencias Dixi se mantienen en su conjunto, sin trasladarlas como requisito universal. |
+| ADR-012 / rule 15: AI via Bedrock with IAM. | Provider and authentication chosen/documented by the project, with credential protection and data limits. | Keeps Bedrock and IAM unless there is another exception of its own. |
+| ADR-006 and ADR-014 / rules 10–12: CodePipeline, CodeBuild and AWS runners. | Eligible tools with reviewed PR, checks, separate build and deployment, traceable artifact and a human production gate. No production deploy from the agent. | Keeps the inherited chain and credential separation. |
+| Rule 14: Secrets Manager/SSM. | Equivalent secret store chosen by the project; secrets outside the repo and outside the agent's reach. | Keeps the AWS services defined by the rule. |
+| Stack assumptions in the origin's commands/templates. | Neutral templates and optional stack profiles; validation connected to the project's tools. | Dixi preferences remain in its set, without carrying them over as a universal requirement. |
 
-No se propone quitar firmas humanas, atestación, revisión, límites de riesgo, i18n, MODE, pruebas congeladas ni la escalera `make verify`. Elegir un proveedor distinto no equivale a desactivar controles. La promoción de MODE y los demás gates siguen supervisados.
+Removing human sign-offs, attestation, review, risk limits, i18n, MODE, frozen tests or the `make verify` ladder is not proposed. Choosing a different provider is not the same as disabling controls. MODE promotion and the other gates remain supervised.
 
-Los conjuntos de políticas no son los perfiles S/A/P heredados: son una dimensión distinta. Su formato, nombres de opciones y mecanismo de selección se concretan antes de implementar. No se publica una combinación portable con cláusulas contradictorias que sigan exigiendo exclusivamente AWS.
+Policy sets are not the inherited S/A/P profiles: they are a different dimension. Their format, option names and selection mechanism are specified before implementation. No portable combination is published with contradictory clauses that still require AWS exclusively.
 
-## Compatibilidad y evidencia
+## Compatibility and evidence
 
-| Nivel | Qué puede afirmarse | Evidencia necesaria |
+| Level | What can be claimed | Evidence required |
 |---|---|---|
-| Método portable | Las operaciones y artefactos se comprenden sin un agente o stack concreto. | Revisión del núcleo, guías y recorrido documental sin integración. |
-| Adaptador verificado | Los comandos funcionan en una herramienta/versiones indicadas. | Recorrido, interrupciones, gates, preservación de artefactos y matriz de controles por adaptador. |
-| Perfil de stack verificado | El ejemplo y sus comprobaciones funcionan en un stack/sistemas indicados. | Ejecución real de `make verify` y del ejemplo en la matriz declarada. |
-| Integración comunitaria o manual | Existe una ruta de adaptación documentada. | Identificación de procedencia, limitaciones y estado sin equipararlo a soporte oficial. |
+| Portable method | The operations and artifacts can be understood without a specific agent or stack. | Review of the core, guides and a documentary walkthrough without integration. |
+| Verified adapter | The commands work in a stated tool/versions. | Walkthrough, interruptions, gates, artifact preservation and a per-adapter control matrix. |
+| Verified stack profile | The example and its checks work on a stated stack/systems. | Real execution of `make verify` and of the example on the declared matrix. |
+| Community or manual integration | A documented adaptation path exists. | Identification of provenance, limitations and status, without equating it to official support. |
 
-Propuesta de validación de neutralidad: el mismo caso de uso con Codex y Claude Code y ejemplos equivalentes en dos lenguajes diferentes, a elegir antes de implementar esos bloques. Cada adaptador se prueba contra ambos ejemplos para detectar acoplamientos. Esto acredita esas combinaciones, no compatibilidad universal. Los adaptadores pueden traducir la misma operación a distintas sintaxis.
+Proposed neutrality validation: the same use case with Codex and Claude Code, and equivalent examples in two different languages, to be chosen before implementing those blocks. Each adapter is tested against both examples to detect couplings. This accredits those combinations, not universal compatibility. Adapters may translate the same operation into different syntaxes.
 
-## Consecuencias
+## Consequences
 
-El producto necesita una matriz de compatibilidad y controles, además del catálogo de operaciones. Mantener dos adaptadores y perfiles de ejemplo aumenta pruebas y documentación. A cambio, el núcleo conserva una sola fuente de verdad y los usuarios pueden elegir herramientas sin rehacer sus specs.
+The product needs a compatibility and controls matrix, in addition to the operations catalog. Maintaining two adapters and example profiles increases testing and documentation. In return, the core keeps a single source of truth and users can choose tools without redoing their specs.
 
-La disponibilidad de una integración no implica ausencia de costos ni permisos adicionales. Instalar y validar estructura siguen sin consumir IA; usar un agente requiere su entorno y proveedor elegidos conforme a las políticas del proyecto.
+The availability of an integration does not imply the absence of costs or additional permissions. Installing and validating structure still consume no AI; using an agent requires its chosen environment and provider in accordance with the project's policies.
 
-## Relacionados
+## Related
 
 - [ADR-100](ADR-100-distribucion-publica-v1.md)
-- [Producto](../../docs/product-spec.md)
-- [Revisión conjunta](../../docs/v1-design-review.md)
-- [Contrato](../../07-contracts/commands/command-contract.md)
-- [Historia](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [Product](../../docs/product-spec.md)
+- [Joint review](../../docs/v1-design-review.md)
+- [Contract](../../07-contracts/commands/command-contract.md)
+- [Story](../../tasks/backlog/TASK-001-lanzamiento-v1.md)

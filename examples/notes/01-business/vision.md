@@ -1,22 +1,22 @@
-# GOAL-001 — Capturar y recuperar ideas sin fricción
+# GOAL-001 — Capture and retrieve ideas without friction
 
-## Propósito
+## Purpose
 
-Permitir que una persona registre una idea en menos de cinco segundos desde terminal y la recupere por texto o etiqueta.
+Allow a person to record an idea in under five seconds from the terminal and retrieve it by text or tag.
 
-## Actores
+## Actors
 
-- Persona usuaria de terminal (única).
+- Terminal user (single).
 
-## Métricas de éxito
+## Success metrics
 
-- Añadir una nota es un solo comando.
-- Buscar devuelve todas las notas que contienen el término, sin distinguir mayúsculas.
+- Adding a note is a single command.
+- Searching returns all notes containing the term, case-insensitively.
 
-## Preguntas abiertas
+## Open questions
 
-- ¿Exportar a Markdown? Pendiente: fuera de esta versión.
+- Export to Markdown? Pending: out of this version.
 
-## Relacionados
+## Related
 
-- [Dominio](../03-domains/example/domain-spec.md)
+- [Domain](../03-domains/example/domain-spec.md)

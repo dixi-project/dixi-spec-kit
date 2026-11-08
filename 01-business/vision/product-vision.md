@@ -1,23 +1,23 @@
-# Visión de DIXI Spec Kit
+# DIXI Spec Kit Vision
 
-## Propósito
+## Purpose
 
-Definir el objetivo de negocio al que se enlazan las capacidades públicas del kit. Dirección aceptada para v1.0.0 y ejecución incremental; B1 local implementado, recorrido completo pendiente.
+Define the business goal to which the kit's public capabilities are linked. Direction accepted for v1.0.0 with incremental execution; local B1 implemented, full workflow pending.
 
-## Objetivo GOAL-001
+## Goal GOAL-001
 
-Una persona externa a Dixi puede instalar el kit y transformar una necesidad en especificaciones, tareas, código verificado y una revisión preparada, mediante comandos documentados y sin depender de recursos privados de Dixi.
+A person outside Dixi can install the kit and turn a need into specifications, tasks, verified code and a prepared review, through documented commands and without depending on Dixi's private resources.
 
-El método es un ecosistema público de desarrollo SDD independiente del agente y stack. Cada persona elige sus herramientas; el uso documental no requiere agente y la automatización depende de integraciones verificadas. El lenguaje de la CLI no determina el lenguaje del producto del usuario.
+The method is a public SDD development ecosystem independent of agent and stack. Each person chooses their tools; documentation-only use does not require an agent, and automation depends on verified integrations. The language of the CLI does not determine the language of the user's product.
 
-El valor se comprueba con un ejemplo reproducible y su evolución: desde la idea hasta evidencia de verificación y análisis del impacto de un cambio. No se fija una promesa de velocidad ni una métrica comercial sin datos. El método conserva trazabilidad, gobernanza y responsabilidad humana.
+The value is demonstrated with a reproducible example and its evolution: from the idea to verification evidence and analysis of the impact of a change. No speed promise or commercial metric is set without data. The method preserves traceability, governance and human accountability.
 
-## Alcance y evidencia
+## Scope and evidence
 
-La propuesta de v1 incluye la CLI local y 16 comandos del agente para el recorrido principal, diseño, continuidad y cambios. Las capacidades especializadas están identificadas en el catálogo y pendientes de priorización. La publicación exige instalación limpia, recursos distribuibles y comandos con evidencia real en el agente anunciado.
+The v1 proposal includes the local CLI and 16 agent commands for the main workflow, design, continuity and changes. Specialized capabilities are identified in the catalog and pending prioritization. Publication requires a clean installation, distributable resources and commands with real evidence in the announced agent.
 
-## Relacionados
+## Related
 
-- [Producto](../../docs/product-spec.md)
-- [Dominio](../../03-domains/spec-driven-delivery/domain-spec.md)
-- [Historia](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [Product](../../docs/product-spec.md)
+- [Domain](../../03-domains/spec-driven-delivery/domain-spec.md)
+- [Story](../../tasks/backlog/TASK-001-lanzamiento-v1.md)

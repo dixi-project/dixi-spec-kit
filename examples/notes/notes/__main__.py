@@ -18,7 +18,7 @@ def line(note):
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="notes")
     parser.add_argument("--file", default="notes.json")
-    parser.add_argument("--lang", choices=("es", "en"), default="es")
+    parser.add_argument("--lang", choices=("es", "en"), default="en")
     commands = parser.add_subparsers(dest="command", required=True)
     add = commands.add_parser("add")
     add.add_argument("text")

@@ -1,31 +1,31 @@
-# Dominio — Desarrollo guiado por especificaciones
+# Domain — Specification-driven development
 
-## Propósito
+## Purpose
 
-Definir las reglas del recorrido público de DIXI Spec Kit. Estado: propuesta para GOAL-001; no describe una implementación existente.
+Define the rules of the public workflow of DIXI Spec Kit. Status: proposal for GOAL-001; it does not describe an existing implementation.
 
-## Límites y conceptos
+## Boundaries and concepts
 
-El dominio coordina proyecto, objetivo, artefacto, decisión, tarea, evidencia y gate. Un comando transforma o inspecciona esos elementos con un alcance explícito. La interfaz del agente y la CLI comparten sus reglas, aunque solo el agente interpreta necesidades en lenguaje natural.
+The domain coordinates project, goal, artifact, decision, task, evidence and gate. A command transforms or inspects those elements with an explicit scope. The agent interface and the CLI share their rules, although only the agent interprets needs expressed in natural language.
 
-Quedan fuera la ejecución de producción, la aprobación humana, la certificación de cumplimiento y los servicios internos de Dixi. Un proyecto puede tener repos de código separados; el plan identifica las raíces autorizadas antes de construir.
+Out of scope: production execution, human approval, compliance certification and Dixi's internal services. A project may have separate code repos; the plan identifies the authorized roots before building.
 
-## Reglas de negocio
+## Business rules
 
-- BR-001: toda tarea enlaza su objetivo de negocio, dominio, módulo y feature; los contratos y pruebas completan la cadena según la etapa. Los enlaces pendientes impiden declarar preparación para construir.
-- BR-002: instalar y generar no requiere credenciales privadas, registro en el sistema interno de tareas ni consumo de IA/AWS. Usar el agente sí requiere el entorno autorizado documentado.
-- BR-003: repetir o retomar preserva decisiones, identificadores y cambios locales. Un conflicto no se resuelve sobrescribiendo silenciosamente.
-- BR-004: una evidencia corresponde a una revisión o estado concreto y distingue ejecución, fallo y ausencia de ejecución. Un cambio posterior obliga a reevaluar la evidencia afectada.
-- BR-005: la validación de una historia estructural, la aceptación de ADRs, las firmas, atestaciones, aprobaciones e integración corresponden a la persona según la norma; el kit registra su estado, no lo suplanta.
-- BR-006: el cambio incompatible de un contrato publicado y la revisión de una prueba congelada requieren resolver el gate correspondiente antes de aplicar el cambio.
-- BR-007: las normas heredadas siguen vigentes y las excepciones necesitan ADR propio. Un comando especializado aplazado no elimina sus controles obligatorios.
-- BR-008: ayuda, documentación y publicación anuncian solo capacidades verificadas y materiales con derechos resueltos.
-- BR-009: agente, stack y políticas son elecciones explícitas y separadas del núcleo. La ausencia de integración no impide el uso documental; no implica automatización del flujo. Un cambio de herramienta conserva los artefactos canónicos y sus identificadores.
-- BR-010: cada adaptador declara sus controles efectivos; una capacidad ausente no se presenta como implementada. La separación de proveedores para proyectos externos se aplica solo tras validar ADR-101.
+- BR-001: every task links its business goal, domain, module and feature; contracts and tests complete the chain depending on the stage. Pending links prevent declaring readiness to build.
+- BR-002: installing and generating do not require private credentials, registration in the internal task system or AI/AWS consumption. Using the agent does require the documented authorized environment.
+- BR-003: repeating or resuming preserves decisions, identifiers and local changes. A conflict is not resolved by silently overwriting.
+- BR-004: a piece of evidence corresponds to a specific revision or state and distinguishes execution, failure and absence of execution. A later change requires re-evaluating the affected evidence.
+- BR-005: validation of a structural story, acceptance of ADRs, signatures, attestations, approvals and integration belong to the person according to the standard; the kit records their status, it does not impersonate them.
+- BR-006: an incompatible change to a published contract and the revision of a frozen test require resolving the corresponding gate before applying the change.
+- BR-007: inherited standards remain in force and exceptions need their own ADR. A deferred specialized command does not remove its mandatory controls.
+- BR-008: help, documentation and publication announce only verified capabilities and materials with resolved rights.
+- BR-009: agent, stack and policies are explicit choices, separate from the core. The absence of an integration does not prevent documentation-only use; it does not imply workflow automation. A change of tool preserves the canonical artifacts and their identifiers.
+- BR-010: each adapter declares its effective controls; a missing capability is not presented as implemented. Provider separation for external projects applies only after ADR-101 is validated.
 
-## Relacionados
+## Related
 
-- [Objetivo GOAL-001](../../01-business/vision/product-vision.md)
-- [Módulo](../../04-modules/command-workflow/module-spec.md)
-- [Historia](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [Goal GOAL-001](../../01-business/vision/product-vision.md)
+- [Module](../../04-modules/command-workflow/module-spec.md)
+- [Story](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
 - [ADR-101](../../09-architecture/adr/ADR-101-nucleo-sdd-portable-e-integraciones.md)

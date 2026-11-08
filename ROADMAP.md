@@ -1,27 +1,32 @@
-# Plan de DIXI Spec Kit
+# DIXI Spec Kit roadmap
 
-## Propósito
+## Purpose
 
-Mostrar qué incluye cada versión pública y qué viene después. Solo se anuncia como disponible lo que tiene pruebas y evidencia.
+Show what each public release includes and what comes next. Only what has tests and evidence is announced as available.
 
-## v1.0.0 — primera versión pública
+## v1.0.0 — first public release (2026-11-08)
 
-CLI `dixi` (`init`, `doctor`, `check`, `workflow`), modo sin agente, adaptador de Claude Code con diez comandos, documentación es/en, ejemplo `examples/notes`, CI pública y licencia MIT. Alcance fijado en [ADR-102](09-architecture/adr/ADR-102-recorte-de-alcance-v1.md).
+`dixi` CLI (`init`, `doctor`, `check`, `workflow`), no-agent mode, Claude Code adapter with ten commands, Spanish/English documentation, the `examples/notes` example, public CI and MIT license. Scope set in [ADR-102](09-architecture/adr/ADR-102-recorte-de-alcance-v1.md).
 
-## v1.1 — previsto
+## v1.1.0 — English first and design, continuity and change commands
 
-- `dixi upgrade --dry-run`: comparar el proyecto con el inventario original y listar archivos actualizables y conflictos sin escribir.
-- Adaptador de Codex, evaluado con su propia matriz de controles.
-- `/dixi.handoff` y `/dixi.change`.
-- Ejemplo en un segundo lenguaje.
-- Publicación en PyPI (requiere ADR propio).
+- English as the repository's primary language and the CLI default (`--lang es` remains available).
+- Agent commands `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.threat-model`, `/dixi.handoff` and `/dixi.change`.
+- `dixi upgrade --dry-run`: compare the project with its original inventory and list updatable files and conflicts without writing.
 
-## Después
+## v1.2.0 — Codex adapter
 
-Comandos especializados (datos, calidad, IA, release, operación, FinOps, compliance, due diligence) según demanda, y soporte de Windows si se resuelven las operaciones seguras de filesystem.
+Codex integration evaluated against its own capability and control matrix.
 
-## Relacionados
+## v1.3.0 — specialized commands
 
-- [Matriz de soporte](docs/support-matrix.md)
-- [Historia de lanzamiento](tasks/backlog/TASK-001-lanzamiento-v1.md)
+`/dixi.data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance` and `duediligence`, each with an explicit contract and limits.
+
+## Later
+
+PyPI publication (requires its own ADR), a second example language and Windows support if safe filesystem operations can be guaranteed.
+
+## Related
+
+- [Support matrix](docs/support-matrix.md)
 - [Changelog](CHANGELOG.md)

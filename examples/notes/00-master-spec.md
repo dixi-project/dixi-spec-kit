@@ -1,19 +1,19 @@
-# Proyecto — Notas locales
+# Project — Local notes
 
-## Propósito
+## Purpose
 
-Ejemplo público de DIXI Spec Kit: una biblioteca y CLI pequeña para guardar notas de texto con etiquetas en un archivo local. Muestra el recorrido idea → specs → pruebas → código verificado → revisión, y una evolución con análisis de impacto. La persona responsable es ficticia; sus decisiones se marcan como «Decisión (persona del ejemplo)».
+Public DIXI Spec Kit example: a small library and CLI to store text notes with tags in a local file. It shows the flow idea → specs → tests → verified code → review, and an evolution with impact analysis. The responsible person is fictitious; their decisions are marked as "Decision (example owner)".
 
-## Problema y alcance
+## Problem and scope
 
-- Problema: apuntar ideas rápidas desde terminal y encontrarlas después sin depender de un servicio en red.
-- Alcance: añadir, listar y buscar notas; etiquetas normalizadas y filtro por etiqueta (evolución, FEATURE-002).
-- Fuera de alcance: sincronización, cifrado, varios usuarios, interfaz web.
-- Stack: Python 3.11+ con biblioteca estándar y `unittest`. Decisión (persona del ejemplo, 2026-11-08).
-- Restricciones: sin red, sin dependencias de terceros, datos en un único JSON elegido por quien usa la CLI.
+- Problem: jot down quick ideas from the terminal and find them later without depending on a network service.
+- Scope: add, list and search notes; normalized tags and filtering by tag (evolution, FEATURE-002).
+- Out of scope: sync, encryption, multiple users, web interface.
+- Stack: Python 3.11+ with the standard library and `unittest`. Decision (example owner, 2026-11-08).
+- Constraints: no network, no third-party dependencies, data in a single JSON file chosen by whoever uses the CLI.
 
-## Relacionados
+## Related
 
-- [Objetivo](01-business/vision.md)
-- [Guía](docs/guide.md)
-- [Recorrido del ejemplo](docs/walkthrough.md)
+- [Goal](01-business/vision.md)
+- [Guide](docs/guide.md)
+- [Example walkthrough](docs/walkthrough.md)

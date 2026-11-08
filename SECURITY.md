@@ -1,22 +1,22 @@
-# Política de seguridad / Security policy
+# Security policy
 
-## Propósito
+## Purpose
 
-Explicar cómo reportar vulnerabilidades de DIXI Spec Kit de forma responsable.
+Explain how to report DIXI Spec Kit vulnerabilities responsibly.
 
-## Versiones soportadas
+## Supported versions
 
-| Versión | Soporte |
+| Version | Supported |
 |---|---|
-| 1.0.x | Sí |
+| 1.x | Yes |
 | < 1.0 | No |
 
-## Reportar una vulnerabilidad
+## Reporting a vulnerability
 
-No abras una issue pública. Usa **Report a vulnerability** en la pestaña *Security* del repositorio (GitHub private vulnerability reporting). Incluye versión, sistema, pasos para reproducir e impacto. Responderemos en un plazo objetivo de 5 días hábiles y coordinaremos la divulgación tras publicar la corrección.
+Do not open a public issue. Use **Report a vulnerability** in the repository's *Security* tab (GitHub private vulnerability reporting). Include version, operating system, reproduction steps and impact. Target first response: 5 business days; disclosure is coordinated after a fix ships.
 
-Dentro del alcance: la CLI `dixi` (rutas, symlinks, sobrescrituras, lectura fuera del proyecto, recursos empaquetados) y los comandos instalados del adaptador. Fuera del alcance: el comportamiento del modelo de IA que ejecuta los comandos y los proyectos generados por terceros.
+In scope: the `dixi` CLI (paths, symlinks, overwrites, reads outside the project, packaged resources) and the installed adapter commands. Out of scope: the behavior of the AI model running the commands and third-party generated projects.
 
-## English
+## Resumen en español
 
-Do not open a public issue. Use **Report a vulnerability** in the repository's *Security* tab (GitHub private vulnerability reporting) with version, OS, reproduction steps and impact. Target first response: 5 business days; disclosure is coordinated after a fix ships. In scope: the `dixi` CLI and the installed adapter commands. Out of scope: the AI model's behavior and third-party generated projects.
+No abras una issue pública. Usa **Report a vulnerability** en la pestaña *Security* del repositorio con versión, sistema, pasos para reproducir e impacto. Primera respuesta objetivo: 5 días hábiles; la divulgación se coordina tras publicar la corrección.

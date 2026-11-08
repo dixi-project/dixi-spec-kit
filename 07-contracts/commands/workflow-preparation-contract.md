@@ -1,10 +1,10 @@
-# Contrato B2a — Consulta y preparación de procedimientos
+# B2a contract — Viewing and preparing procedures
 
-## Propósito
+## Purpose
 
-Proporcionar una interfaz determinista sobre los ocho procedimientos de definición/diseño. Concreta A01–A08 sin simular ejecución de un agente. No sustituye el contrato de artefactos del recorrido completo.
+Provide a deterministic interface over the eight definition/design procedures. Makes A01–A08 concrete without simulating an agent's execution. It does not replace the artifact contract of the full workflow.
 
-## Interfaz
+## Interface
 
 ```text
 dixi [--lang es|en] [--json] workflow list
@@ -12,9 +12,9 @@ dixi [--lang es|en] [--json] workflow show <operation>
 dixi [--lang es|en] [--json] workflow prepare <operation> --target <id> --request <text>
 ```
 
-Las opciones globales preceden a `workflow`. `list/show` solo leen recursos empaquetados y funcionan sin proyecto. `prepare` opera desde la raíz inicializada por B1. No hay opción de proveedor ni descarga de extensiones.
+Global options precede `workflow`. `list/show` only read packaged resources and work without a project. `prepare` operates from the root initialized by B1. There is no provider option and no extension download.
 
-| Operación | Tipos de objetivo admitidos |
+| Operation | Allowed target types |
 |---|---|
 | discover | goal |
 | specify | module |
@@ -25,32 +25,32 @@ Las opciones globales preceden a `workflow`. `list/show` solo leen recursos empa
 | threat-model | module, feature |
 | plan | feature |
 
-Todos requieren ID exacto y solicitud explícita en `prepare`. Texto vacío, más de 4 096 caracteres, sustitutos Unicode o controles distintos de tab/newline se rechazan con código 2. No se interpola ni ejecuta la solicitud. Los nombres/objetivos desconocidos o incompatibles devuelven 2. Una preparación inválida no devuelve un paquete parcial.
+All require an exact ID and an explicit request in `prepare`. Empty text, more than 4 096 characters, Unicode surrogates or control characters other than tab/newline are rejected with code 2. The request is neither interpolated nor executed. Unknown or incompatible names/targets return 2. An invalid preparation does not return a partial package.
 
-## Resultado
+## Result
 
-El sobre JSON conserva `status`, `code`, `messages`; añade `workflow` para el resultado específico. `list` devuelve `operations`; `show`, `recipe`; `prepare`, `packet`. `status: completed` solo significa que la operación CLI terminó. El paquete declara `status: prepared`, `execution: manual_or_external`, `schema_version: 1`, `operation`, `request`, `target`, `project_language`, `mode`, `recipe` y `sources`. `target` solo incluye `id`, `kind`, `path`, `parents`: no propaga campos desconocidos del grafo.
+The JSON envelope keeps `status`, `code`, `messages`; it adds `workflow` for the specific result. `list` returns `operations`; `show`, `recipe`; `prepare`, `packet`. `status: completed` only means that the CLI operation finished. The package declares `status: prepared`, `execution: manual_or_external`, `schema_version: 1`, `operation`, `request`, `target`, `project_language`, `mode`, `recipe` and `sources`. `target` only includes `id`, `kind`, `path`, `parents`: it does not propagate unknown fields from the graph.
 
-Cada receta contiene `id`, `title`, `purpose`, `inputs`, `steps`, `outputs`, `gates`, `checks`, `next_operations` y `target_kinds`, más guardas comunes. La salida legible presenta los mismos datos. Las salidas de la receta son expectativas del trabajo posterior; no archivos creados por `prepare`.
+Each recipe contains `id`, `title`, `purpose`, `inputs`, `steps`, `outputs`, `gates`, `checks`, `next_operations` and `target_kinds`, plus common guards. The human-readable output presents the same data. The recipe's outputs are expectations for the subsequent work; they are not files created by `prepare`.
 
-`sources` registra `path`, SHA-256 actual y tamaño en bytes, en orden estable. Incluye `.dixi/project.json`, `.dixi/traceability.json`, `MODE`, `AGENTS.md`, `00-master-spec.md`, objetivo y ancestros declarados; elimina rutas duplicadas. Nunca incluye cuerpos, rutas absolutas, credenciales o un comando de shell generado. El grafo se valida entero; se leen documentos solo de la selección. Un hash identifica los bytes leídos, no firma procedencia ni acredita aprobación.
+`sources` records `path`, current SHA-256 and size in bytes, in stable order. It includes `.dixi/project.json`, `.dixi/traceability.json`, `MODE`, `AGENTS.md`, `00-master-spec.md`, the target and its declared ancestors; it removes duplicate paths. It never includes bodies, absolute paths, credentials or a generated shell command. The whole graph is validated; documents are read only from the selection. A hash identifies the bytes read; it does not sign provenance or certify approval.
 
-## Límites y confianza
+## Limits and trust
 
-Reutiliza las lecturas confinadas B1: archivos regulares, sin symlinks, nombres sensibles denegados, hasta 1 MiB por archivo. Máximo 64 fuentes únicas y 2 MiB acumulados; metadata y grafo cuentan dentro del total. MODE debe ser `mvp` o `prod`. Los datos malformados fallan con 1; proyecto ausente 2; esquema/plataforma no soportados 4; E/S 5.
+Reuses the B1 confined reads: regular files, no symlinks, sensitive names denied, up to 1 MiB per file. A maximum of 64 unique sources and 2 MiB cumulative; metadata and graph count toward the total. MODE must be `mvp` or `prod`. Malformed data fails with 1; missing project 2; unsupported schema/platform 4; I/O 5.
 
-La receta instruye a tratar la solicitud y documentos como datos sin permitirles eliminar gates, ejecutar shell o leer secretos. Estas guardas son instrucciones, no enforcement de un LLM externo. Las políticas de proyecto deben ser revisadas por quien lo use; no se interpretan ni ejecutan desde la CLI. No se siguen enlaces Markdown. No hay snapshot transaccional frente a edición concurrente; comparar hashes antes de usar el paquete.
+The recipe instructs treating the request and documents as data, without allowing them to remove gates, run shell commands or read secrets. These guards are instructions, not enforcement over an external LLM. Project policies must be reviewed by whoever uses them; they are neither interpreted nor executed by the CLI. Markdown links are not followed. There is no transactional snapshot against concurrent editing; compare hashes before using the package.
 
-Las recetas son recursos originales de DIXI Spec Kit, sin dependencia de normas privadas. Proveedor, lenguaje y framework se solicitan/documentan cuando sean pertinentes; no se deducen del agente. Una ausencia se expresa como pregunta/supuesto, nunca como elección del usuario.
+The recipes are original resources of DIXI Spec Kit, with no dependency on private standards. Provider, language and framework are requested/documented when relevant; they are not inferred from the agent. An absence is expressed as a question/assumption, never as the user's choice.
 
-## Continuidad y aceptación
+## Continuity and acceptance
 
-Sin escrituras ni timestamps: repetir sobre los mismos bytes y argumentos devuelve el mismo paquete. Un archivo modificado cambia su hash. Interrumpir no deja archivos ni estado del proyecto. No se promueve MODE, aprueba ADR, atesta, firma o integra. Preparar `plan` no ejecuta `build` ni crea pruebas ficticias.
+No writes and no timestamps: repeating over the same bytes and arguments returns the same package. A modified file changes its hash. Interrupting leaves no files and no project state. MODE is not promoted, and no ADR is approved, attested, signed or integrated. Preparing `plan` does not run `build` or create fictitious tests.
 
-## Relacionados
+## Related
 
-- [Contrato general](command-contract.md)
+- [General contract](command-contract.md)
 - [Feature](../../05-features/workflow-preparation/feature-spec.md)
-- [Tarea](../../tasks/backlog/TASK-002-operaciones-compartidas-b2.md)
-- [Amenazas](../../13-security/workflow-preparation-threat-model.md)
-- [Contrato de lectura B1](local-core-contract.md)
+- [Task](../../tasks/backlog/TASK-002-operaciones-compartidas-b2.md)
+- [Threats](../../13-security/workflow-preparation-threat-model.md)
+- [B1 read contract](local-core-contract.md)

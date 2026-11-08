@@ -1,16 +1,16 @@
-# DOMAIN-001 — Notas personales
+# DOMAIN-001 — Personal notes
 
-## Propósito
+## Purpose
 
-Delimitar el lenguaje del dominio de notas.
+Define the language of the notes domain.
 
-## Lenguaje ubicuo
+## Ubiquitous language
 
-- **Nota:** texto de 1 a 1 000 caracteres con un ID entero creciente.
-- **Etiqueta:** palabra que clasifica una nota; normalizada en minúsculas (FEATURE-002).
-- **Almacén:** archivo JSON local con todas las notas.
+- **Note:** text of 1 to 1,000 characters with an increasing integer ID.
+- **Tag:** word that classifies a note; normalized to lowercase (FEATURE-002).
+- **Store:** local JSON file with all the notes.
 
-## Relacionados
+## Related
 
-- [Objetivo](../../01-business/vision.md)
-- [Módulo](../../04-modules/example/module-spec.md)
+- [Goal](../../01-business/vision.md)
+- [Module](../../04-modules/example/module-spec.md)

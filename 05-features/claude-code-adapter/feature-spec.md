@@ -1,28 +1,28 @@
-# Feature — Adaptador Claude Code B3
+# Feature — Claude Code adapter B3
 
-## Propósito
+## Purpose
 
-Instalar en un proyecto nuevo los diez comandos `/dixi.*` para que una persona recorra el método dentro de Claude Code, con trazabilidad y gates humanos. Concreta [TASK-003](../../tasks/backlog/TASK-003-adaptador-claude-code.md).
+Install the ten `/dixi.*` commands in a new project so that a person can walk through the method inside Claude Code, with traceability and human gates. Makes [TASK-003](../../tasks/backlog/TASK-003-adaptador-claude-code.md) concrete.
 
-## Historia y criterios
+## Story and criteria
 
-Como persona que usa Claude Code quiero instalar los comandos de DIXI Spec Kit en mi proyecto para recorrer descubrimiento, especificación, plan, tareas, construcción, verificación y revisión sin perder trazabilidad ni control humano.
+As a person who uses Claude Code I want to install the DIXI Spec Kit commands in my project to walk through discovery, specification, plan, tasks, build, verification and review without losing traceability or human control.
 
-- CC-01: `init --agent claude` crea la base B1, `CLAUDE.md` y exactamente diez comandos en `.claude/commands/`, sin hooks, settings, MCP ni permisos; sin red. La ayuda de `init` anuncia `claude`.
-- CC-02: un destino ocupado (incluido un `.claude/` previo) se rechaza sin cambios.
-- CC-03: cada comando tiene frontmatter con `description` y `argument-hint`, usa `$ARGUMENTS`, declara los límites comunes (pruebas congeladas; no firmar, aprobar ni integrar) y solo invoca operaciones `dixi` y procedimientos existentes. No contiene `git push`, `--no-verify` ni rutas absolutas.
-- CC-04: `doctor` informa la integración y el número de comandos; `check` falla si falta un comando instalado o si la metadata declara un agente desconocido o un inventario incompleto.
-- CC-05: los recursos del adaptador viajan en wheel/sdist y tienen paridad es/en.
-- CC-06: el ejemplo público `examples/notes` pasa `dixi check` y su `make verify` ejecuta pruebas reales de aplicación.
+- CC-01: `init --agent claude` creates the B1 baseline, `CLAUDE.md` and exactly ten commands in `.claude/commands/`, with no hooks, settings, MCP or permissions; no network. The `init` help announces `claude`.
+- CC-02: an occupied destination (including a pre-existing `.claude/`) is rejected without changes.
+- CC-03: each command has frontmatter with `description` and `argument-hint`, uses `$ARGUMENTS`, declares the common limits (frozen tests; do not sign, approve or integrate) and only invokes existing `dixi` operations and procedures. It does not contain `git push`, `--no-verify` or absolute paths.
+- CC-04: `doctor` reports the integration and the number of commands; `check` fails if an installed command is missing or if the metadata declares an unknown agent or an incomplete inventory.
+- CC-05: the adapter resources ship in wheel/sdist and have es/en parity.
+- CC-06: the public example `examples/notes` passes `dixi check` and its `make verify` runs real application tests.
 
-## Verificación
+## Verification
 
-`tests/test_claude_adapter.py` cubre CC-01 a CC-06 de forma determinista. El recorrido del ejemplo dentro de Claude Code se registra en [la evidencia B3](../../docs/b3-verification.md); no exige igualdad literal del texto generado.
+`tests/test_claude_adapter.py` covers CC-01 to CC-06 deterministically. The walkthrough of the example inside Claude Code is recorded in [the B3 evidence](../../docs/b3-verification.md); it does not require literal equality of the generated text.
 
-## Relacionados
+## Related
 
-- [Módulo padre](../../04-modules/command-workflow/module-spec.md)
-- [Contrato B3](../../07-contracts/commands/claude-code-adapter-contract.md)
-- [Escenarios](scenarios.feature)
-- [Aceptación](acceptance.yaml)
-- [Amenazas](../../13-security/claude-code-adapter-threat-model.md)
+- [Parent module](../../04-modules/command-workflow/module-spec.md)
+- [B3 contract](../../07-contracts/commands/claude-code-adapter-contract.md)
+- [Scenarios](scenarios.feature)
+- [Acceptance](acceptance.yaml)
+- [Threats](../../13-security/claude-code-adapter-threat-model.md)

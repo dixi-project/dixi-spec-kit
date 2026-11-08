@@ -1,62 +1,62 @@
-# Evidencia B1 — Núcleo local de DIXI Spec Kit
+# B1 evidence — DIXI Spec Kit local core
 
-## Propósito
+## Purpose
 
-Registrar el resultado técnico del primer bloque autorizado de TASK-001 y sus límites. Fecha: 2026-11-06. Versión local `1.0.0.dev0`; objetivo de lanzamiento `v1.0.0`. Este informe no constituye aprobación humana de PR ni habilita publicación.
+Record the technical result of the first authorized block of TASK-001 and its limits. Date: 2026-11-06. Local version `1.0.0.dev0`; launch target `v1.0.0`. This report does not constitute human PR approval nor enable publication.
 
-## Resultado observado
+## Observed result
 
-`make verify` terminó con código 0: **43 pruebas, todas correctas**, en 8,434 segundos de suite. Entorno observado: macOS 27.2, arm64, Python 3.15.2; entorno de build `.venv` con Setuptools 84.2.1. Se comprobó sintaxis Python, paridad de catálogos/recursos es/en y diferencias de whitespace con Git.
+`make verify` finished with exit code 0: **43 tests, all passing**, in an 8.434-second suite. Observed environment: macOS 27.2, arm64, Python 3.15.2; build environment `.venv` with Setuptools 84.2.1. Python syntax, es/en catalog/resource parity and whitespace differences with Git were checked.
 
-| Conjunto | Casos | Evidencia |
+| Set | Cases | Evidence |
 |---|---:|---|
-| Contrato CLI | 33 | Ayuda/versión, es/en, creación sin agente, errores, preservación de archivos, metadata, enlaces, grafo, symlinks/FIFO, ausencia de ejecución y sockets bloqueados. |
-| Distribución | 2 | Inventario de wheel/sdist; reconstrucción desde sdist, instalaciones limpias sin índice/dependencias, CLI instalada y Makefile del proyecto generado. |
-| Seguridad adicional | 7 | Unicode inválido, nombres sensibles con mayúsculas, 501 enlaces, Markdown incompleto, referencias válidas/rotas e interrupción de escritura. |
-| Destinos Markdown | 1 | Destino vacío, fragmento y rutas con espacios en enlaces inline/por referencia. |
+| CLI contract | 33 | Help/version, es/en, no-agent creation, errors, file preservation, metadata, links, graph, symlinks/FIFO, absence of execution and blocked sockets. |
+| Distribution | 2 | Wheel/sdist inventory; rebuild from sdist, clean installs without index/dependencies, installed CLI and Makefile of the generated project. |
+| Additional security | 7 | Invalid Unicode, uppercase sensitive names, 501 links, incomplete Markdown, valid/broken references and write interruption. |
+| Markdown targets | 1 | Empty target, fragment and paths with spaces in inline/reference links. |
 
-Los tests de distribución usan dos entornos temporales: uno instala el wheel original y otro el reconstruido desde sdist. En ambos funcionan versión, `init`, `check`, `doctor` y el `make verify` generado. La reconstrucción usa el entorno de build local; esto no acredita builds reproducibles bit a bit ni toda la matriz de Python.
+The distribution tests use two temporary environments: one installs the original wheel and the other the one rebuilt from sdist. In both, version, `init`, `check`, `doctor` and the generated `make verify` work. The rebuild uses the local build environment; this does not accredit bit-for-bit reproducible builds nor the whole Python matrix.
 
-Después de actualizar las guías se comprobaron los enlaces locales de 24 documentos Markdown nuevos/modificados y la conservación íntegra de las reglas heredadas de `AGENTS.md`. Se repitió la comprobación de sintaxis/catálogos/whitespace. El wheel quedó instalado en `.venv` con `--no-index --no-deps`; `.venv/bin/dixi --version` confirmó `1.0.0.dev0`.
+After updating the guides, the local links of 24 new/modified Markdown documents were checked, along with full preservation of the inherited rules of `AGENTS.md`. The syntax/catalogs/whitespace check was repeated. The wheel was installed in `.venv` with `--no-index --no-deps`; `.venv/bin/dixi --version` confirmed `1.0.0.dev0`.
 
-## Pruebas antes de implementación
+## Tests before implementation
 
-| Commit local | Cambio y rojo observado |
+| Local commit | Change and observed red |
 |---|---|
-| `e768a2a` | 33 casos CLI inicialmente fallaron frente al stub; incluye los dos contratos de distribución. |
-| `d80ee0c` | Añade siete casos de seguridad antes de corregir referencias, Unicode/rutas sensibles y exceso de enlaces. Hubo once fallos contando subcasos. |
-| `a5143b5` | Añade el caso de destinos vacíos/espaciados; detectó un `IndexError` antes de corregirlo. |
+| `e768a2a` | 33 CLI cases initially failed against the stub; includes the two distribution contracts. |
+| `d80ee0c` | Adds seven security cases before fixing references, Unicode/sensitive paths and excess links. There were eleven failures counting subcases. |
+| `a5143b5` | Adds the empty/spaced targets case; it detected an `IndexError` before it was fixed. |
 
-Los tres commits contienen solo pruebas nuevas, sin firma ni `Signed-off-by` de una persona. Ninguna prueba congelada se modificó para alcanzar verde. Implementación y documentación permanecen en el working tree para revisión; no hay push, merge ni release realizados por este bloque. La persona responsable deberá completar la procedencia y revisión requeridas antes de integrar.
+The three commits contain only new tests, with no signature or `Signed-off-by` from a person. No frozen test was modified to reach green. Implementation and documentation remain in the working tree for review; no push, merge or release was performed by this block. The responsible person must complete the required provenance and review before merging.
 
-Logs privados: `.context/b1-red.log`, `.context/b1-safety-red.log`, `.context/b1-links-red.log` y `.context/b1-verify.log`. No se distribuyen.
+Private logs: `.context/b1-red.log`, `.context/b1-safety-red.log`, `.context/b1-links-red.log` and `.context/b1-verify.log`. They are not distributed.
 
-## Artefactos de esta ejecución
+## Artifacts of this run
 
-Registro histórico del build B1 del 2026-11-06. Los archivos locales en `dist/` fueron sustituidos por el incremento B2a; consultar sus [hashes actuales](b2-verification.md).
+Historical record of the B1 build of 2026-11-06. The local files in `dist/` were superseded by the B2a increment; see its [current hashes](b2-verification.md).
 
-| Archivo en `dist/` | Bytes | SHA-256 |
+| File in `dist/` | Bytes | SHA-256 |
 |---|---:|---|
 | `dixi_spec_kit-1.0.0.dev0-py3-none-any.whl` | 14 663 | `d0c7e932b4d2b200a9c349e88fab1b9d53a011108a3e29d5ea248c47718851ab` |
 | `dixi_spec_kit-1.0.0.dev0.tar.gz` | 11 663 | `5170f32706f21fe62ad76bb6ec05fa33d07968315df9aa2bff7cc5ac7d3a0a99` |
 
-Los hashes identifican esta construcción local; una nueva construcción puede cambiar por timestamps. `scripts/build-local.py` copia una lista explícita a staging temporal y `MANIFEST.in` restringe sdist. Los artefactos contienen código y recursos nuevos de B1, metadata de empaquetado y README de uso local; excluyen normas heredadas, contexto, historial, configuración de trabajo y pruebas del repositorio. La licencia de publicación continúa pendiente.
+The hashes identify this local build; a new build may differ because of timestamps. `scripts/build-local.py` copies an explicit list to a temporary staging area and `MANIFEST.in` restricts the sdist. The artifacts contain new B1 code and resources, packaging metadata and a local-use README; they exclude inherited rules, context, history, working configuration and the repository's tests. The publication license remains pending.
 
-## Alcance y pendientes
+## Scope and pending items
 
-- Solo `init --agent none`, `doctor`, `check`, ayuda/versión. Sin comandos de agente, actualización ni perfiles de stack implementados.
-- Python >=3.11 es un requisito declarado; solo se probó 3.15.2/macOS. Otras versiones y Linux no tienen evidencia aún. Windows carece del soporte requerido en B1. El tag `py3-none-any` del wheel no certifica sistemas operativos.
-- `check` acredita estructura sobre archivos y grafo declarados. No acredita contenido completo, cobertura del negocio, pruebas ejecutadas o preparación para producción. El parser Markdown es limitado; detalles en el contrato.
-- El inventario registra hashes originales para una futura actualización; no autentica procedencia. No hay transacción multiarchivo ni snapshot frente a edición concurrente.
-- Las pruebas no se modifican desde el CLI. Las reglas para agentes son documentales; B1 no instala hooks, CI, revisión humana ni controles de proveedores.
-- No se ejecutaron gitleaks, semgrep, cobertura, mutation testing ni evaluaciones de agentes. El inventario y las pruebas de distribución no sustituyen el escaneo de contenido/historial exigido antes de publicar.
-- TASK-001 permanece abierta: B2–B5, derechos/licencia, mecanismos operativos, matriz de soporte, documentación pública, controles de contribución y lanzamiento siguen pendientes.
+- Only `init --agent none`, `doctor`, `check`, help/version. No agent commands, upgrade or stack profiles implemented.
+- Python >=3.11 is a declared requirement; only 3.15.2/macOS was tested. Other versions and Linux have no evidence yet. Windows lacks the support required in B1. The wheel's `py3-none-any` tag does not certify operating systems.
+- `check` accredits structure over declared files and graph. It does not accredit complete content, business coverage, executed tests or production readiness. The Markdown parser is limited; details in the contract.
+- The inventory records original hashes for a future upgrade; it does not authenticate provenance. There is no multi-file transaction nor snapshot against concurrent editing.
+- Tests are not modified from the CLI. The rules for agents are documentary; B1 does not install hooks, CI, human review or provider controls.
+- Gitleaks, semgrep, coverage, mutation testing and agent evaluations were not run. The inventory and distribution tests do not replace the content/history scan required before publishing.
+- TASK-001 remains open: B2–B5, rights/license, operational mechanisms, support matrix, public documentation, contribution controls and launch remain pending.
 
-## Relacionados
+## Related
 
-- [Guía local es/en](local-development.md)
-- [Feature y aceptación](../05-features/local-core/feature-spec.md)
-- [Contrato B1](../07-contracts/commands/local-core-contract.md)
-- [Amenazas](../13-security/local-core-threat-model.md)
-- [Historia](../tasks/backlog/TASK-001-lanzamiento-v1.md)
-- [Puerta de publicación](publication-readiness.md)
+- [Local es/en guide](local-development.md)
+- [Feature and acceptance](../05-features/local-core/feature-spec.md)
+- [B1 contract](../07-contracts/commands/local-core-contract.md)
+- [Threats](../13-security/local-core-threat-model.md)
+- [Story](../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [Publication gate](publication-readiness.md)

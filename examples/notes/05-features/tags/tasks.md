@@ -1,13 +1,13 @@
-# Tareas — FEATURE-002
+# Tasks — FEATURE-002
 
-## Propósito
+## Purpose
 
-Tareas producidas con `/dixi.tasks` para FEATURE-002.
+Tasks produced with `/dixi.tasks` for FEATURE-002.
 
-- [x] **T-004** Normalización y validación de etiquetas · criterios 1–2 · nivel 1 · [contrato](../../07-contracts/example.md)
-- [x] **T-005** Filtro `list(tag)` y `list --tag` · criterio 3 · depende de T-004 · nivel 1
-- [x] **T-006** Normalizar datos antiguos al leer · criterio 4 · depende de T-004 · nivel 1
+- [x] **T-004** Tag normalization and validation · criteria 1–2 · level 1 · [contract](../../07-contracts/example.md)
+- [x] **T-005** `list(tag)` filter and `list --tag` · criterion 3 · depends on T-004 · level 1
+- [x] **T-006** Normalize old data on read · criterion 4 · depends on T-004 · level 1
 
-## Relacionados
+## Related
 
-- [Funcionalidad](feature-spec.md)
+- [Feature](feature-spec.md)
