@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +28,10 @@ def main():
     adapter = ROOT / "src/dixi_spec_kit/resources/claude"
     names = [sorted(p.name for p in (adapter / lang).glob("*.md")) for lang in ("es", "en")]
     assert names[0] == names[1] and len(names[0]) == 17, "Claude adapter resources differ"
+    skills = [sorted(p.name for p in (ROOT / "src/dixi_spec_kit/resources/codex" / lang).glob("*.md"))
+              for lang in ("es", "en")]
+    assert skills[0] == skills[1] and len(skills[0]) == 16, "Codex adapter resources differ"
+    subprocess.run([sys.executable, str(ROOT / "scripts/generate-codex-skills.py"), "--check"], check=True)
     assert (ROOT / "LICENSE").read_bytes() == (ROOT / "src/dixi_spec_kit/LICENSE").read_bytes(), "LICENSE copies differ"
     subprocess.run(["git", "diff", "--check"], cwd=ROOT, check=True)
     print("Source syntax, es/en catalogs, resource parity and license: OK")

@@ -16,6 +16,10 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 - [ ] **English as the primary language** _(P1, level 2)_ — [TASK-004](backlog/TASK-004-english-primary.md). Implemented; pull request pending review.
 - [ ] **Design, continuity and change commands + `upgrade --dry-run`** _(P1, level 3)_ — [TASK-005](backlog/TASK-005-design-continuity-change-upgrade.md). Implemented; pull request pending review.
 
+## v1.2.0
+
+- [ ] **Codex adapter** _(P1, level 3)_ — [TASK-006](backlog/TASK-006-codex-adapter.md). Implemented in preview; manual run in Codex pending.
+
 ## Related
 
 - [Roadmap](../ROADMAP.md)

@@ -37,7 +37,7 @@ def parser_for(catalog):
         child.add_argument("--help", "-h", action="help", help=catalog["help"])
         if command == "init":
             child.add_argument("directory", help=catalog["directory"])
-            child.add_argument("--agent", choices=("none", "claude"), default="none", help=catalog["agent"])
+            child.add_argument("--agent", choices=("none", "claude", "codex"), default="none", help=catalog["agent"])
         elif command == "upgrade":
             child.add_argument("--dry-run", action="store_true", help=catalog["upgrade_dry_run"])
         elif command == "workflow":

@@ -1,6 +1,6 @@
 ---
-description: Dividir un plan en tareas con criterio, dependencias y nivel de riesgo
-argument-hint: <ID de la feature>
+description: "Dividir un plan en tareas con criterio, dependencias y nivel de riesgo"
+argument-hint: "<ID de la feature>"
 ---
 
 # /dixi.tasks

@@ -1,6 +1,6 @@
 ---
-description: Planificar contratos, decisiones, riesgos y pruebas de una feature
-argument-hint: <ID de la feature>
+description: "Planificar contratos, decisiones, riesgos y pruebas de una feature"
+argument-hint: "<ID de la feature>"
 ---
 
 # /dixi.plan

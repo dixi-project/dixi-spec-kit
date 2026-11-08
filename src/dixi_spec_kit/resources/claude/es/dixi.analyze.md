@@ -1,6 +1,6 @@
 ---
-description: Analizar coherencia de la cadena de specs e impacto de un cambio
-argument-hint: [ID o descripción del cambio]
+description: "Analizar coherencia de la cadena de specs e impacto de un cambio"
+argument-hint: "[ID o descripción del cambio]"
 ---
 
 # /dixi.analyze

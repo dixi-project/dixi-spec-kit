@@ -1,6 +1,6 @@
 ---
-description: Mostrar el estado del proyecto y el siguiente paso justificado
-argument-hint: [área opcional]
+description: "Mostrar el estado del proyecto y el siguiente paso justificado"
+argument-hint: "[área opcional]"
 ---
 
 # /dixi.status

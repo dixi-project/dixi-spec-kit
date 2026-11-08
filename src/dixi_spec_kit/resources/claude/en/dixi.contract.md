@@ -1,6 +1,6 @@
 ---
-description: Define or change a contract and its impact on consumers
-argument-hint: <module or feature ID>
+description: "Define or change a contract and its impact on consumers"
+argument-hint: "<module or feature ID>"
 ---
 
 # /dixi.contract

@@ -1,6 +1,6 @@
 ---
-description: Diseñar dominios, contextos delimitados y lenguaje ubicuo
-argument-hint: <objetivo o dominio>
+description: "Diseñar dominios, contextos delimitados y lenguaje ubicuo"
+argument-hint: "<objetivo o dominio>"
 ---
 
 # /dixi.domain

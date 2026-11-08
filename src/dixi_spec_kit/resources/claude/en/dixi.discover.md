@@ -1,6 +1,6 @@
 ---
-description: Discover the product vision, actors, scope and open questions
-argument-hint: <idea or need>
+description: "Discover the product vision, actors, scope and open questions"
+argument-hint: "<idea or need>"
 ---
 
 # /dixi.discover

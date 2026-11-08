@@ -1,6 +1,6 @@
 ---
-description: Resolver dudas de una spec con preguntas y registrar decisiones y supuestos
-argument-hint: <ID o ruta de la spec>
+description: "Resolver dudas de una spec con preguntas y registrar decisiones y supuestos"
+argument-hint: "<ID o ruta de la spec>"
 ---
 
 # /dixi.clarify

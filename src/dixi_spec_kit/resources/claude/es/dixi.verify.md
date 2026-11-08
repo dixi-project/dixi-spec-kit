@@ -1,6 +1,6 @@
 ---
-description: Ejecutar la verificación del proyecto y relacionar criterios con pruebas
-argument-hint: [ID de la feature]
+description: "Ejecutar la verificación del proyecto y relacionar criterios con pruebas"
+argument-hint: "[ID de la feature]"
 ---
 
 # /dixi.verify

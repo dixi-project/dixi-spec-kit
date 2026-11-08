@@ -1,6 +1,6 @@
 ---
-description: Preparar la revisión humana de un cambio por riesgo
-argument-hint: [rama o commit base, por defecto main]
+description: "Preparar la revisión humana de un cambio por riesgo"
+argument-hint: "[rama o commit base, por defecto main]"
 ---
 
 # /dixi.review

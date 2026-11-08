@@ -18,6 +18,8 @@ make verify
 
 In Claude Code: `/dixi.discover`, `/dixi.specify`, `/dixi.clarify`, `/dixi.plan`, `/dixi.tasks`, `/dixi.build`, `/dixi.verify`, `/dixi.review`, `/dixi.analyze`, `/dixi.status`, `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.threat-model`, `/dixi.handoff`, `/dixi.change`.
 
+Codex (preview): `dixi init my-project --agent codex` installs the same operations as skills, invoked as `$dixi-specify`, `$dixi-plan`, etc.
+
 Preview what a newer kit version would change, without writing: `dixi upgrade --dry-run`.
 
 Terminal: `dixi init`, `dixi doctor`, `dixi check`, `dixi workflow list|show|prepare`. Global options `--lang es|en` and `--json` go before the command. Exit codes: 0 success, 1 invalid content, 2 usage, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O.

@@ -1,6 +1,6 @@
 ---
-description: Proponer un cambio a una funcionalidad con su impacto
-argument-hint: <descripción del cambio>
+description: "Proponer un cambio a una funcionalidad con su impacto"
+argument-hint: "<descripción del cambio>"
 ---
 
 # /dixi.change
