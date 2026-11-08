@@ -7,7 +7,7 @@ Deliver block E: templates for governance, business, platform, flows, contracts,
 ## Record
 
 - Type: feature; priority P2; level 2 (content on the block D mechanism; compliance and due diligence content carries legal-sounding material). Created 2026-11-08. Product owner: Alfredo Castillejos.
-- Depends on [TASK-008](TASK-008-profiles-and-core-templates.md). Contract pending validation.
+- Depends on [TASK-008](TASK-008-profiles-and-core-templates.md). Contract validated on 2026-11-08 ("Approve the three" deviations: `14-delivery`, no `mode` operation, opt-in controls).
 
 ## Story
 

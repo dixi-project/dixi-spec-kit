@@ -6,7 +6,7 @@ Decide whether and how DIXI Spec Kit installs automatic controls (agent hooks) t
 
 ## Status
 
-Proposed on 2026-11-08. Requires validation by the responsible person before implementation ([TASK-010](../../tasks/backlog/TASK-010-automated-controls.md)).
+Accepted on 2026-11-08 by the responsible person, including exit 2 for `--agent codex --controls` when Codex has no project hooks. Implementation in [TASK-010](../../tasks/backlog/TASK-010-automated-controls.md).
 
 ## Context
 

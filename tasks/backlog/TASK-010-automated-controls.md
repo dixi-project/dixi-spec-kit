@@ -7,7 +7,7 @@ Deliver block F: opt-in agent hooks that enforce frozen tests, no secrets, no si
 ## Record
 
 - Type: feature; priority P1; level 3 (code that runs on every agent tool call; changes the adapter contract). Created 2026-11-08. Product owner: Alfredo Castillejos.
-- Contract and [ADR-105](../../09-architecture/adr/ADR-105-opt-in-automated-controls.md) pending validation. Independent of TASK-008 and TASK-009 except for the `interview` operation, which follows the project's profile.
+- Contract and [ADR-105](../../09-architecture/adr/ADR-105-opt-in-automated-controls.md) validated on 2026-11-08 ("Approve the three" deviations: `14-delivery`, no `mode` operation, opt-in controls). Independent of TASK-008 and TASK-009 except for the `interview` operation, which follows the project's profile.
 
 ## Story
 

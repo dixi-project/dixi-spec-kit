@@ -7,7 +7,7 @@ Deliver block D: `dixi init --profile site|app|platform [--regulated]` with gene
 ## Record
 
 - Type: feature; priority P1; level 3 (new CLI options, new metadata, ~100 templates per language, packaging change). Created 2026-11-08. Product owner: Alfredo Castillejos.
-- Scope requested on 2026-11-08 ("let's develop the whole proposal") after reviewing the gap with the private ecosystem. Story, contract and [ADR-104](../../09-architecture/adr/ADR-104-project-profiles-and-content.md) pending validation.
+- Scope requested on 2026-11-08 ("let's develop the whole proposal") after reviewing the gap with the private ecosystem. Story, contract and [ADR-104](../../09-architecture/adr/ADR-104-project-profiles-and-content.md) validated on 2026-11-08 ("Approve the three" deviations: `14-delivery`, no `mode` operation, opt-in controls).
 
 ## Story
 

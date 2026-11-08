@@ -6,7 +6,7 @@ Decide how DIXI Spec Kit grows from a minimal documentary baseline (16 files) to
 
 ## Status
 
-Proposed on 2026-11-08. Requires validation by the responsible person before implementation ([TASK-008](../../tasks/backlog/TASK-008-profiles-and-core-templates.md), [TASK-009](../../tasks/backlog/TASK-009-remaining-content.md)).
+Accepted on 2026-11-08 by the responsible person, who, on behalf of Dixi Project as owner of the ecosystem, authorized publishing generic rewrites under MIT and kept `minimal` as the default profile. Implementation in ([TASK-008](../../tasks/backlog/TASK-008-profiles-and-core-templates.md), [TASK-009](../../tasks/backlog/TASK-009-remaining-content.md)).
 
 ## Context
 
