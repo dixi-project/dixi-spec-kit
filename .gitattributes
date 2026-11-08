@@ -1,0 +1,2 @@
+# Gherkin scenarios are specifications without a runner; count them as documentation.
+*.feature linguist-documentation

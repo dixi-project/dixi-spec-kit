@@ -4,7 +4,7 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
-## [Unreleased] — target 1.1.0
+## [1.1.0] — 2026-11-08
 
 ### Changed
 

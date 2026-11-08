@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "kit_version": "1.0.0",
+  "kit_version": "1.1.0",
   "language": "en",
   "agent": "claude",
   "policy": "portable",
@@ -19,7 +19,7 @@
     "11-quality/test-plan.md": "365b5e32fb58f49a080448e62c9945e73ee36a635b9fdf9edb374f7c7e7b86d2",
     "AGENTS.md": "76740dff195b73615d11d80284f1f954e0f597d3c3e689a563c2501d6f751703",
     "docs/guide.md": "2d24a500ea066913e4ef84c1dea6f32d53e95e888b50641b52f93ce13d4d4dcb",
-    "CLAUDE.md": "3310fa536f8893f3b9460951377dd661e3d6558e7157884e2f4471202afcd232",
+    "CLAUDE.md": "7fb817ff33e4d661fd852201b32b3803f835e9df34d25aba18639a66736d65fb",
     ".claude/commands/dixi.discover.md": "24b0e5d4c700fe7c5edb22e5f9a80cceeb555ae99879e47607dbbb85e3a41efc",
     ".claude/commands/dixi.specify.md": "d4487f00c77c87b51c2be03e0d5f229230bcba31b152f86a8040c23b927079cf",
     ".claude/commands/dixi.clarify.md": "072f9a7108ea09f565b25aac0170820cbeef2d7a9b39bf2c76021d61ab45a440",
@@ -29,6 +29,12 @@
     ".claude/commands/dixi.verify.md": "826403cca0c40acc4e504fcb2c6d2091656e2ce8ac431cb19d202464a34dbaa4",
     ".claude/commands/dixi.review.md": "a39c9c1c11149ffaab0bda59c39eb825811fd86321923059c73fc1c300dd6390",
     ".claude/commands/dixi.analyze.md": "36bbc6a46f7701dce386165f886174b12b5b5716d88734e9ac808b5f24eb6403",
-    ".claude/commands/dixi.status.md": "06d4d5b71be19e91259f7fc433bb7a5e75c322ed990ac00b2b47e753c42fc8fd"
+    ".claude/commands/dixi.status.md": "06d4d5b71be19e91259f7fc433bb7a5e75c322ed990ac00b2b47e753c42fc8fd",
+    ".claude/commands/dixi.architecture.md": "97528994c2f070100ded8526411adca2b2b49e70e8840fe553e7f2d62597560f",
+    ".claude/commands/dixi.change.md": "d601432b7225aa65b2975bdd658d6a6cbe7d0c9148f91ddd34885d8188410704",
+    ".claude/commands/dixi.contract.md": "8f71efcad83b36c9c722ac71562b8424982b65b9955efb390dba024244418895",
+    ".claude/commands/dixi.domain.md": "5cd20f1a252f210b52f2b3dfa4c7e0a50c3a2acc6df733d850bca31540ce644c",
+    ".claude/commands/dixi.handoff.md": "ef89bcb896c19e32c7b85ccb63f28941fe585c4828b13b59114ebc96d32f38a9",
+    ".claude/commands/dixi.threat-model.md": "e42d649434c1e1ceb391dfecff91ee066f16d2d04abd071dec6c2b6482ebeb42"
   }
 }
