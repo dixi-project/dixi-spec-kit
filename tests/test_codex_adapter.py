@@ -12,7 +12,8 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 OPERATIONS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status",
-              "domain", "architecture", "contract", "threat-model", "handoff", "change")
+              "domain", "architecture", "contract", "threat-model", "handoff", "change",
+              "data", "quality", "ai", "release", "promote", "operate", "finops", "compliance", "duediligence")
 V1 = OPERATIONS[:10]
 NAME = re.compile(r"[a-z0-9]+(-[a-z0-9]+)*")
 LIMITS = {
