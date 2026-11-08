@@ -63,7 +63,7 @@ class ClaudeAdapterTests(unittest.TestCase):
         result = self.cli("init", "--help")
         self.assertEqual(result.returncode, 0)
         self.assertIn("claude", result.stdout)
-        self.assertNotIn("codex", result.stdout)
+        self.assertNotIn("cursor", result.stdout)
 
     def test_installs_only_commands(self):
         self.init()
