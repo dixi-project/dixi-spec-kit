@@ -95,7 +95,7 @@ class ControlsTests(unittest.TestCase):
                     self.assertIn("$CLAUDE_PROJECT_DIR", handler["command"])
                     wiring.setdefault((event, group.get("matcher", "")), []).extend(SCRIPT.findall(handler["command"]))
         self.assertEqual(wiring, {
-            ("PreToolUse", "Bash"): ["mode_gate.py", "guard_secrets.py", "guard_attestation.py"],
+            ("PreToolUse", "Bash"): ["mode_gate.py", "guard_secrets.py", "guard_attestation.py", "protect_tests.py"],
             ("PreToolUse", "Read|Grep"): ["guard_secrets.py"],
             ("PreToolUse", "Edit|Write|MultiEdit|NotebookEdit"): ["protect_tests.py"],
             ("Stop", ""): ["verify_on_stop.py"],
@@ -118,7 +118,7 @@ class ControlsTests(unittest.TestCase):
                     self.assertIn("git rev-parse --show-toplevel", handler["command"])
                     wiring.setdefault((event, group.get("matcher", "")), []).extend(SCRIPT.findall(handler["command"]))
         self.assertEqual(wiring, {
-            ("PreToolUse", "^Bash$"): ["mode_gate.py", "guard_secrets.py", "guard_attestation.py"],
+            ("PreToolUse", "^Bash$"): ["mode_gate.py", "guard_secrets.py", "guard_attestation.py", "protect_tests.py"],
             ("PreToolUse", "^apply_patch$"): ["protect_tests.py"],
             ("Stop", ""): ["verify_on_stop.py"],
             ("SubagentStop", ""): ["verify_on_stop.py"]})
