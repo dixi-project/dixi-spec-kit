@@ -55,7 +55,16 @@ CLI, metadata, template rules, inventory, checks and packaging are those of the 
 
 ### `02-platform/` (platform only)
 
-`platform-overview.md`, `product-map.md`, `ecosystem-landscape.md`, `shared-services-map.md`, `cross-product-integrations.md`, `identity-and-access-strategy.md`, `tenant-strategy.md`, `products/README.md` (how to add one folder per product, with capabilities, context boundaries and dependencies). All — / — / ✓.
+| File | S | A | P |
+|---|---|---|---|
+| `platform-overview.md` | — | — | ✓ |
+| `product-map.md` | — | — | ✓ |
+| `ecosystem-landscape.md` | — | — | ✓ |
+| `shared-services-map.md` | — | — | ✓ |
+| `cross-product-integrations.md` | — | — | ✓ |
+| `identity-and-access-strategy.md` | — | — | ✓ |
+| `tenant-strategy.md` | — | — | ✓ |
+| `products/README.md` (how to add one folder per product, with capabilities, context boundaries and dependencies) | — | — | ✓ |
 
 ### `06-flows/` and `07-contracts/`
 
@@ -230,7 +239,17 @@ Every compliance template states at the top that it is a working aid, not legal 
 |---|---|---|---|
 | `dd-strategy.md` | — | R | R |
 | `dd-report-template.md` | — | R | R |
-| `checklist/01-infrastructure.md` … `checklist/11-final-report.md` (11 files: infrastructure, architecture, source code, security, data management, processes, team, financial, vendors and partners, innovation, final report) | — | R | R |
+| `checklist/01-infrastructure.md` | — | R | R |
+| `checklist/02-architecture.md` | — | R | R |
+| `checklist/03-source-code.md` | — | R | R |
+| `checklist/04-security.md` | — | R | R |
+| `checklist/05-data-management.md` | — | R | R |
+| `checklist/06-processes.md` | — | R | R |
+| `checklist/07-team.md` | — | R | R |
+| `checklist/08-financial.md` | — | R | R |
+| `checklist/09-vendors-partners.md` | — | R | R |
+| `checklist/10-innovation.md` | — | R | R |
+| `checklist/11-final-report.md` | — | R | R |
 | `playbooks/buyer-dd-playbook.md` | — | R | R |
 | `playbooks/enterprise-customer-dd-playbook.md` | — | R | R |
 | `playbooks/internal-audit-dd-playbook.md` | — | R | R |
