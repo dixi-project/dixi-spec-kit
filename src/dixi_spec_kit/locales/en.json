@@ -75,5 +75,17 @@
   "upgrade_heading_conflict": "Conflicts (local edits or existing file)",
   "upgrade_heading_new": "New in this kit version",
   "upgrade_heading_missing": "Missing locally (not recreated)",
-  "upgrade_heading_obsolete": "No longer shipped (kept)"
+  "upgrade_heading_obsolete": "No longer shipped (kept)",
+  "controls_option": "Install opt-in agent hooks that enforce frozen tests, no secrets, no signing or merging, production-mode safety and verification before stopping (requires --agent claude or codex).",
+  "placeholders": "List the {{pending: …}} markers left in the project's documents.",
+  "placeholders_strict": "Exit 1 if any marker remains.",
+  "pr-size": "Measure the current branch against a base: changed lines, without documentation, lockfiles, generated files or tests.",
+  "pr_size_base": "Base branch or commit (default: main).",
+  "pr_size_max": "Maximum counted lines (default: 1500).",
+  "controls_require_agent": "--controls needs an agent: --agent claude or --agent codex.",
+  "controls": "Automated controls installed: {controls}.",
+  "placeholders_found": "{total} pending markers in {files} files.",
+  "pr_size_result": "Change against {base}: {counted} counted lines (limit {max}); tests {tests}; excluded {excluded}.",
+  "pr_size_exceeded": "The change has {counted} counted lines, over the limit of {max}: split it so a person can review it.",
+  "pr_size_git": "Could not measure the change: Git is missing, this is not a repository or the base {base} does not exist."
 }

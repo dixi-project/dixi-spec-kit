@@ -9,5 +9,7 @@ include src/dixi_spec_kit/LICENSE
 include src/dixi_spec_kit/resources/claude/es/*.md src/dixi_spec_kit/resources/claude/en/*.md
 include src/dixi_spec_kit/resources/codex/es/*.md src/dixi_spec_kit/resources/codex/en/*.md
 include src/dixi_spec_kit/resources/profiles.json
+include src/dixi_spec_kit/resources/hooks/*.py
+include src/dixi_spec_kit/resources/claude/es/agents/*.md src/dixi_spec_kit/resources/claude/en/agents/*.md
 recursive-include src/dixi_spec_kit/resources/templates *.md *.yaml *.json
 include src/dixi_spec_kit/resources/workflows.json src/dixi_spec_kit/resources/workflows.es.json src/dixi_spec_kit/resources/workflows.en.json

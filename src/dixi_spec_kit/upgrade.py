@@ -1,7 +1,7 @@
 import hashlib
 
 from . import __version__
-from .core import (KIT_VERSION, adapter_files, check_profile, profile_files, project_metadata,
+from .core import (KIT_VERSION, adapter_files, check_profile, control_files, profile_files, project_metadata,
                    recorded_profile, templates)
 from .filesystem import Issue, read_file, root_directory
 
@@ -22,7 +22,7 @@ def local_digest(root, name):
         raise
 
 
-def plan(path, profile=None, regulated=None):
+def plan(path, profile=None, regulated=None, controls=None):
     with root_directory(path) as root:
         metadata = project_metadata(root)
         current_profile, current_regulated = recorded_profile(metadata)
@@ -35,6 +35,8 @@ def plan(path, profile=None, regulated=None):
         shipped = {name: text.encode("utf-8") for name, text in templates(metadata["language"]).items()}
         shipped.update(profile_files(metadata["language"], profile, bool(regulated)))
         shipped.update(adapter_files(metadata["agent"], metadata["language"]))
+        if metadata.get("controls", False) if controls is None else controls:
+            shipped.update(control_files(metadata["agent"]))
         recorded = metadata["managed_files"]
         files = {status: [] for status in STATUSES}
         for name in sorted(set(shipped) | set(recorded)):

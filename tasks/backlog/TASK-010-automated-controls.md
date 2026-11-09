@@ -31,6 +31,10 @@ so that a forgotten instruction does not end in an edited test, a leaked secret 
 2. `make verify` passes and CI is green.
 3. A person ran Claude Code with `--controls` and recorded at least one blocked edit of a committed test and one blocked `--signoff`.
 
+## Progress — 2026-11-08
+
+Codex project hooks verified (Codex CLI 0.167.0, `.codex/hooks.json`) and recorded in the contract. Authorized frozen-test extension and red tests committed first. Five standalone controls, Claude Code and Codex wiring, four subagents, `interview` and `risk-review` in both adapters, `dixi placeholders`, `dixi pr-size` and `wip_limit`. `make verify` green with 160 tests. Pending: a person runs Claude Code with `--controls` and records a blocked edit of a committed test and a blocked `--signoff`.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/automated-controls-contract.md)

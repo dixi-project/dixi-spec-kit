@@ -70,11 +70,13 @@ Las plantillas son guías con huecos `{{pending: …}}`, no decisiones: borra la
 
 | Comando | Qué hace |
 |---|---|
-| `dixi init <dir> [--agent none\|claude\|codex] [--profile …] [--regulated]` | Crea la base documental, más las plantillas del perfil, en un directorio nuevo o vacío (`.` para el actual); nunca sobrescribe. |
+| `dixi init <dir> [--agent none\|claude\|codex] [--profile …] [--regulated] [--controls]` | Crea la base documental, más las plantillas del perfil, en un directorio nuevo o vacío (`.` para el actual); nunca sobrescribe. |
 | `dixi doctor` | Diagnostica el entorno y el proyecto sin red ni credenciales. |
 | `dixi check` | Comprueba estructura, enlaces y trazabilidad. No ejecuta código. |
 | `dixi workflow list\|show\|prepare` | Consulta y prepara los procedimientos de descubrimiento, especificación, dominio, arquitectura, contrato, amenazas y plan. |
-| `dixi upgrade --dry-run [--profile …]` | Previsualiza qué cambiaría la versión instalada del kit: archivos sin cambios, actualizables, en conflicto, nuevos, ausentes y obsoletos. No escribe nada. |
+| `dixi placeholders [--strict]` | Lista los marcadores `{{pending: …}}` que quedan en los documentos del proyecto. |
+| `dixi pr-size [--base main] [--max 1500]` | Mide la rama actual: líneas cambiadas sin documentación, lockfiles, archivos generados ni pruebas (que se informan aparte). Solo lectura; sale con 1 si supera el límite. |
+| `dixi upgrade --dry-run [--profile …] [--controls]` | Previsualiza qué cambiaría la versión instalada del kit: archivos sin cambios, actualizables, en conflicto, nuevos, ausentes y obsoletos. No escribe nada. |
 | `dixi --help`, `dixi --version` | Ayuda y versión. Opciones globales: `--lang es\|en`, `--json`. |
 
 Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proyecto ausente, 3 destino ocupado o inseguro, 4 versión o plataforma no soportada, 5 fallo de entrada/salida.
@@ -85,7 +87,7 @@ Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proy
 
 ## Qué incluye y qué no
 
-Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: el adaptador de Claude Code instala comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. El adaptador de Codex (`--agent codex`, skills que se invocan como `$dixi-specify`, `$dixi-plan`, …) instala las mismas operaciones como Agent Skills, con la invocación implícita desactivada. Aplicar actualizaciones automáticamente aún no está disponible ([plan](ROADMAP.md)). Windows no está soportado.
+Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: por defecto los adaptadores instalan comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. Añade `--controls` (con `--agent claude` o `codex`) para instalar hooks que hacen cumplir pruebas congeladas, no leer secretos, no firmar ni integrar, seguridad en modo producción y verificación antes de terminar; en Codex se ejecutan cuando confías en el proyecto y los apruebas con `/hooks`. Los hooks son una segunda capa, no la última. El adaptador de Codex (`--agent codex`, skills que se invocan como `$dixi-specify`, `$dixi-plan`, …) instala las mismas operaciones como Agent Skills, con la invocación implícita desactivada. Aplicar actualizaciones automáticamente aún no está disponible ([plan](ROADMAP.md)). Windows no está soportado.
 
 ## Contribuir
 

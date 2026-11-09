@@ -75,5 +75,17 @@
   "upgrade_heading_conflict": "Conflictos (ediciones locales o archivo existente)",
   "upgrade_heading_new": "Nuevos en esta versión del kit",
   "upgrade_heading_missing": "Ausentes localmente (no se recrean)",
-  "upgrade_heading_obsolete": "Ya no se distribuyen (se conservan)"
+  "upgrade_heading_obsolete": "Ya no se distribuyen (se conservan)",
+  "controls_option": "Instala hooks opcionales para el agente que hacen cumplir pruebas congeladas, no leer secretos, no firmar ni integrar, seguridad en modo producción y verificación antes de terminar (requiere --agent claude o codex).",
+  "placeholders": "Lista los marcadores {{pending: …}} que quedan en los documentos del proyecto.",
+  "placeholders_strict": "Sale con 1 si queda algún marcador.",
+  "pr-size": "Mide la rama actual contra una base: líneas cambiadas, sin documentación, lockfiles, archivos generados ni pruebas.",
+  "pr_size_base": "Rama o commit base (por defecto: main).",
+  "pr_size_max": "Máximo de líneas contadas (por defecto: 1500).",
+  "controls_require_agent": "--controls necesita un agente: --agent claude o --agent codex.",
+  "controls": "Controles automáticos instalados: {controls}.",
+  "placeholders_found": "{total} marcadores pendientes en {files} archivos.",
+  "pr_size_result": "Cambio contra {base}: {counted} líneas contadas (límite {max}); pruebas {tests}; excluidas {excluded}.",
+  "pr_size_exceeded": "El cambio tiene {counted} líneas contadas, por encima del límite de {max}: divídelo para que una persona pueda revisarlo.",
+  "pr_size_git": "No se pudo medir el cambio: falta Git, no es un repositorio o la base {base} no existe."
 }

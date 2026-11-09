@@ -5,6 +5,7 @@ import os
 from pathlib import Path, PurePosixPath
 import posixpath
 import re
+import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 
@@ -24,7 +25,12 @@ CODEX_POLICY = b"policy:\n  allow_implicit_invocation: false\n"
 CLAUDE_REQUIRED = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
 CLAUDE_COMMANDS = CLAUDE_REQUIRED + ("domain", "architecture", "contract", "threat-model", "handoff", "change",
                                      "data", "quality", "ai", "release", "promote", "operate", "finops",
-                                     "compliance", "duediligence")
+                                     "compliance", "duediligence", "interview", "risk-review")
+SUBAGENTS = ("architect", "tester", "developer", "reviewer")
+CONTROLS = ("protect_tests", "guard_secrets", "guard_attestation", "mode_gate", "verify_on_stop")
+TEST_PATH = re.compile(r"(^|/)(tests?|__tests__|spec)/|(^|/)test_[^/]*$|_test\.[^/]+$|\.(test|spec)\.[^/]+$|\.feature$")
+EXCLUDED_PATH = re.compile(r"(\.md$|^docs/|(^|/)(package-lock\.json|yarn\.lock|pnpm-lock\.yaml|poetry\.lock|uv\.lock|"
+                           r"Cargo\.lock|go\.sum|Gemfile\.lock|composer\.lock)$|\.min\.(js|css)$|(^|/)generated/)")
 TRACE = ".dixi/traceability.json"
 INLINE_LINK = re.compile(r"!?\[[^\[\]\n]{0,999}\]\(([^)\n]{1,4096})\)")
 KIT_VERSION = re.compile(r"(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})\.(0|[1-9][0-9]{0,3})(?:\.dev[0-9]{1,4}|rc[0-9]{1,4})?")
@@ -101,6 +107,8 @@ def adapter_files(agent, language):
     payload = {"CLAUDE.md": folder.joinpath("CLAUDE.md").read_bytes()}
     for name in CLAUDE_COMMANDS:
         payload[f".claude/commands/dixi.{name}.md"] = folder.joinpath(f"dixi.{name}.md").read_bytes()
+    for name in SUBAGENTS:
+        payload[f".claude/agents/dixi-{name}.md"] = folder.joinpath("agents", f"dixi-{name}.md").read_bytes()
     try:
         for data in payload.values():
             data.decode("utf-8")
@@ -109,12 +117,50 @@ def adapter_files(agent, language):
     return payload
 
 
+def hook_command(agent, script):
+    if agent == "claude":
+        return f'python3 "$CLAUDE_PROJECT_DIR/.dixi/hooks/{script}.py"'
+    return f'python3 "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.dixi/hooks/{script}.py"'
+
+
+def hook_group(agent, scripts, matcher=None, timeout=None):
+    handlers = []
+    for script in scripts:
+        handler = {"type": "command", "command": hook_command(agent, script)}
+        if timeout:
+            handler["timeout"] = timeout
+        handlers.append(handler)
+    return ({"matcher": matcher} if matcher else {}) | {"hooks": handlers}
+
+
+def control_files(agent):
+    if agent not in ("claude", "codex"):
+        return {}
+    folder = files("dixi_spec_kit").joinpath("resources", "hooks")
+    payload = {f".dixi/hooks/{name}.py": folder.joinpath(f"{name}.py").read_bytes() for name in CONTROLS}
+    shell = ("mode_gate", "guard_secrets", "guard_attestation")
+    stop = [hook_group(agent, ["verify_on_stop"], timeout=300)]
+    if agent == "claude":
+        events = {"PreToolUse": [hook_group(agent, shell, "Bash"), hook_group(agent, ["guard_secrets"], "Read|Grep"),
+                                 hook_group(agent, ["protect_tests"], "Edit|Write|MultiEdit|NotebookEdit")],
+                  "Stop": stop, "SubagentStop": stop}
+        name = ".claude/settings.json"
+    else:
+        events = {"PreToolUse": [hook_group(agent, shell, "^Bash$"), hook_group(agent, ["protect_tests"], "^apply_patch$")],
+                  "Stop": stop, "SubagentStop": stop}
+        name = ".codex/hooks.json"
+    payload[name] = (json.dumps({"hooks": events}, indent=2) + "\n").encode()
+    return payload
+
+
 def message(key, **params):
     return {"key": key, "params": params}
 
 
-def initialize(destination, language, agent="none", profile="minimal", regulated=False):
+def initialize(destination, language, agent="none", profile="minimal", regulated=False, controls=False):
     check_profile(profile, regulated)
+    if controls and agent == "none":
+        raise Issue("controls_require_agent", 2)
     text = str(destination)
     path = Path(os.getcwd()) if text and text.rstrip("/") == "." else Path(text)
     if not text or ".." in path.parts or not path.name:
@@ -122,8 +168,11 @@ def initialize(destination, language, agent="none", profile="minimal", regulated
     payload = {name: text.encode("utf-8") for name, text in templates(language).items()}
     payload.update(profile_files(language, profile, regulated))
     payload.update(adapter_files(agent, language))
+    if controls:
+        payload.update(control_files(agent))
     metadata = {"schema_version": 1, "kit_version": __version__, "language": language,
                 "agent": agent, "policy": "portable", "profile": profile, "regulated": regulated,
+                "controls": bool(controls),
                 "managed_files": {name: hashlib.sha256(data).hexdigest() for name, data in payload.items()}}
     try:
         with root_directory(path.parent) as parent:
@@ -175,6 +224,9 @@ def project_metadata(root):
             raise Issue("invalid_metadata")
     profile, regulated = recorded_profile(data)
     if profile not in PROFILES or type(regulated) is not bool or (regulated and profile == "minimal"):
+        raise Issue("invalid_metadata")
+    controls = data.get("controls", False)
+    if type(controls) is not bool or (controls and data["agent"] == "none"):
         raise Issue("invalid_metadata")
     required = set(templates(data["language"])) | required_adapter_files(data["agent"])
     if not required <= set(inventory):
@@ -276,6 +328,7 @@ def doctor(path, language):
             metadata = project_metadata(root)
             profile, regulated = recorded_profile(metadata)
             results.append(message("profile", profile=profile, regulated=regulated))
+            results.append(message("controls", controls=metadata.get("controls", False)))
             if metadata["agent"] == "claude":
                 installed = sum(f".claude/commands/dixi.{name}.md" in metadata["managed_files"]
                                 for name in CLAUDE_COMMANDS)
@@ -297,3 +350,50 @@ def doctor(path, language):
                 raise
             results.append(message("no_project_optional"))
     return results
+
+
+def strip_code(text):
+    text = re.sub(r"(?ms)^ {0,3}(```|~~~).*?^ {0,3}\1[^\n]*$", "", text)
+    return re.sub(r"`[^`\n]*`", "", text)
+
+
+def placeholders(path):
+    counts = {}
+    with root_directory(path) as root:
+        metadata = project_metadata(root)
+        for name in sorted(metadata["managed_files"]):
+            if not name.endswith(".md"):
+                continue
+            try:
+                text = read_file(root, name).decode("utf-8", errors="replace")
+            except Issue as error:
+                if error.key == "missing_file":
+                    continue
+                raise
+            count = len(re.findall(r"\{\{pending:", strip_code(text)))
+            if count:
+                counts[name] = count
+    return counts
+
+
+def pr_size(path, base, limit):
+    def git(*args):
+        try:
+            result = subprocess.run(["git", *args], cwd=path, capture_output=True, text=True, timeout=60)
+        except (OSError, subprocess.SubprocessError):
+            raise Issue("pr_size_git", 2, base=base) from None
+        if result.returncode != 0:
+            raise Issue("pr_size_git", 2, base=base)
+        return result.stdout
+
+    git("rev-parse", "--verify", "--quiet", f"{base}^{{commit}}")
+    size = {"base": base, "counted": 0, "tests": 0, "excluded": 0, "max": limit}
+    for line in git("diff", "--numstat", "--no-renames", f"{base}...HEAD").splitlines():
+        parts = line.split("\t", 2)
+        if len(parts) != 3:
+            continue
+        lines = sum(int(value) for value in parts[:2] if value.isdigit())
+        name = parts[2]
+        key = "tests" if TEST_PATH.search(name) else "excluded" if EXCLUDED_PATH.search(name) else "counted"
+        size[key] += lines
+    return size
