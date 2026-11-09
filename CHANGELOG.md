@@ -8,8 +8,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ### Added
 
-- Project profiles: `dixi init --profile minimal|site|app|platform [--regulated]`. `minimal` (the default) is the unchanged baseline; the other profiles add 37, 76 or 96 generic templates for data, architecture, engineering, quality, security and AI, in English and Spanish. `.dixi/project.json` records `profile` and `regulated`; `doctor` reports them.
+- Project profiles: `dixi init --profile minimal|site|app|platform [--regulated]`. `minimal` (the default) is the unchanged baseline; the other profiles add generic templates in English and Spanish. `.dixi/project.json` records `profile` and `regulated`; `doctor` reports them.
 - `dixi upgrade --dry-run --profile <name> [--regulated]` shows the files another profile would add.
+- Templates for the remaining method areas (block E): governance, business, platform, flows, contracts, observability, delivery, operations, product, UX, knowledge base, references, stack layouts, FinOps, compliance, research, growth, customer success, fixtures and due diligence. Profile totals: `site` 77, `app` 190, `platform` 241; with `--regulated` 94, 226 and 273. Compliance templates state they are not legal advice.
+- `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1) and `SUPPORT.md` in the repository.
 
 ### Changed
 

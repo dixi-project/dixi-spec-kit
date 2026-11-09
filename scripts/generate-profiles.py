@@ -18,7 +18,7 @@ ROW = re.compile(r"^\| `([^`]+)`[^|]*\| (✓|R|—) \| (✓|R|—) \| (✓|R|—
 HEADING = re.compile(r"^### `([^`]+/)`")
 AREA = re.compile(r"^[0-9]{2}-[a-z-]+/")
 CODE = {"✓": "y", "R": "r", "—": "n"}
-ENABLED = {ROOT / "07-contracts/commands/profiles-contract.md"}
+ENABLED = set(CONTRACTS)
 
 
 def table(path):

@@ -26,11 +26,11 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 
 ## v1.4.0
 
-- [ ] **Project profiles and core templates** _(P1, level 3)_ — [TASK-008](backlog/TASK-008-profiles-and-core-templates.md). Contract and ADR-104 validated; implementation next.
+- [ ] **Project profiles and core templates** _(P1, level 3)_ — [TASK-008](backlog/TASK-008-profiles-and-core-templates.md). Merged (PR #9); release pending with v1.4.0.
 
 ## v1.5.0
 
-- [ ] **Remaining content areas** _(P2, level 2)_ — [TASK-009](backlog/TASK-009-remaining-content.md). Contract validated; depends on TASK-008.
+- [ ] **Remaining content areas** _(P2, level 2)_ — [TASK-009](backlog/TASK-009-remaining-content.md). Implemented; pull request pending review.
 
 ## v1.6.0
 
