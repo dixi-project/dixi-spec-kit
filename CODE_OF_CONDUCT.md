@@ -36,7 +36,7 @@ This Code of Conduct applies within all community spaces, and also applies when 
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at **conduct@dixi-project.com**. All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at **acastillejos@dixi-project.com**. All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the reporter of any incident.
 
@@ -78,4 +78,4 @@ For answers to common questions about this code of conduct, see the FAQ at [http
 
 ## Resumen en español
 
-Este proyecto adopta el Contributor Covenant 2.1: participación libre de acoso para todas las personas, trato respetuoso y críticas constructivas. Las conductas inaceptables se reportan de forma privada a **conduct@dixi-project.com**; quienes mantienen el proyecto investigan cada caso, protegen la privacidad de quien reporta y aplican las medidas de la guía de impacto (corrección, advertencia, suspensión temporal o expulsión permanente).
+Este proyecto adopta el Contributor Covenant 2.1: participación libre de acoso para todas las personas, trato respetuoso y críticas constructivas. Las conductas inaceptables se reportan de forma privada a **acastillejos@dixi-project.com**; quienes mantienen el proyecto investigan cada caso, protegen la privacidad de quien reporta y aplican las medidas de la guía de impacto (corrección, advertencia, suspensión temporal o expulsión permanente).
