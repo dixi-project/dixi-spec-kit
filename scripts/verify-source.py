@@ -32,6 +32,14 @@ def main():
               for lang in ("es", "en")]
     assert skills[0] == skills[1] and len(skills[0]) == 25, "Codex adapter resources differ"
     subprocess.run([sys.executable, str(ROOT / "scripts/generate-codex-skills.py"), "--check"], check=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/generate-profiles.py"), "--check"], check=True)
+    templates = ROOT / "src/dixi_spec_kit/resources/templates"
+    trees = [{p.relative_to(templates / lang).as_posix() for p in (templates / lang).rglob("*") if p.is_file()}
+             for lang in ("es", "en")]
+    assert trees[0] == trees[1], "Template paths differ between languages"
+    manifest = set(json.loads((ROOT / "src/dixi_spec_kit/resources/profiles.json").read_text())["files"])
+    assert manifest <= trees[0], f"Templates missing: {sorted(manifest - trees[0])[:5]}"
+    assert trees[0] <= manifest, f"Templates not in the manifest: {sorted(trees[0] - manifest)[:5]}"
     assert (ROOT / "LICENSE").read_bytes() == (ROOT / "src/dixi_spec_kit/LICENSE").read_bytes(), "LICENSE copies differ"
     subprocess.run(["git", "diff", "--check"], cwd=ROOT, check=True)
     print("Source syntax, es/en catalogs, resource parity and license: OK")

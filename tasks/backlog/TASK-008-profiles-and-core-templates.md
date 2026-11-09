@@ -37,6 +37,10 @@ so that I get the standards, guides and blanks my agent operations need, without
 2. `make verify` passes and CI is green.
 3. The owner ran the private customer-name check on the templates and recorded that it passed.
 
+## Progress — 2026-11-08
+
+Red tests committed first, reading their expectations from the contract tables. Profile mechanism (`profiles.json` generated from the contract by `scripts/generate-profiles.py`, checked by `make verify`), optional profile templates, the 1 000-file inventory limit and the 96 templates per language. Pending: the owner's private customer-name check.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/profiles-contract.md)

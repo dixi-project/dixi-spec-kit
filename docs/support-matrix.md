@@ -45,7 +45,7 @@ Declare what DIXI Spec Kit v1.0.0 supports, with what evidence, and which contro
 
 ## Capabilities
 
-Included: `init`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, the twenty-five operations `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`, and es/en documents.
+Included: `init` with the `minimal`, `site`, `app` and `platform` profiles and `--regulated`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, the twenty-five operations `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`, and es/en documents.
 
 Not included yet: applying upgrades, extensions or presets, and a second example language.
 

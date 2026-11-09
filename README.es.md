@@ -48,15 +48,33 @@ Abre Claude Code en `mi-proyecto` y recorre:
 
 `/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Diseña con `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` y `/dixi.threat-model`; propone cambios con `/dixi.change`; deja un traspaso con `/dixi.handoff`. Operaciones especializadas: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` y `/dixi.duediligence` solo escriben documentos; nunca ejecutan migraciones, despliegan, cambian `MODE` ni declaran certificaciones. Sin `--lang es`, documentos y mensajes salen en inglés; dentro de un proyecto, los mensajes siguen su idioma.
 
+## Perfiles
+
+`dixi init` instala por defecto una base documental mínima. Elige un perfil para recibir también estándares, guías y plantillas de datos, arquitectura, ingeniería, calidad, seguridad e IA:
+
+| Perfil | Para | Añade |
+|---|---|---|
+| `minimal` (por defecto) | Probar el método o añadir documentos a mano | Nada: la base de 16 archivos |
+| `site` | Landing o sitio de contenido sin backend propio | 37 plantillas |
+| `app` | Pocas piezas desplegables: web, admin, API, una base de datos | 76 plantillas |
+| `platform` | Varios servicios, eventos, apps o equipos | 96 plantillas |
+| `--regulated` | Pagos, salud, datos sensibles o clientes enterprise | Plantillas de seguridad y datos más estrictas sobre `site`, `app` o `platform` |
+
+```sh
+dixi init mi-app --agent claude --profile app
+```
+
+Las plantillas son guías con huecos `{{pending: …}}`, no decisiones: borra las que no apliquen (`dixi check` no las exige). La lista exacta por perfil está en el [contrato de perfiles](07-contracts/commands/profiles-contract.md). `dixi upgrade --dry-run --profile <nombre>` muestra qué añadiría otro perfil.
+
 ## Comandos de terminal
 
 | Comando | Qué hace |
 |---|---|
-| `dixi init <dir> [--agent none\|claude\|codex]` | Crea la base documental en un directorio nuevo o vacío (`.` para el actual); nunca sobrescribe. |
+| `dixi init <dir> [--agent none\|claude\|codex] [--profile …] [--regulated]` | Crea la base documental, más las plantillas del perfil, en un directorio nuevo o vacío (`.` para el actual); nunca sobrescribe. |
 | `dixi doctor` | Diagnostica el entorno y el proyecto sin red ni credenciales. |
 | `dixi check` | Comprueba estructura, enlaces y trazabilidad. No ejecuta código. |
 | `dixi workflow list\|show\|prepare` | Consulta y prepara los procedimientos de descubrimiento, especificación, dominio, arquitectura, contrato, amenazas y plan. |
-| `dixi upgrade --dry-run` | Previsualiza qué cambiaría la versión instalada del kit: archivos sin cambios, actualizables, en conflicto, nuevos, ausentes y obsoletos. No escribe nada. |
+| `dixi upgrade --dry-run [--profile …]` | Previsualiza qué cambiaría la versión instalada del kit: archivos sin cambios, actualizables, en conflicto, nuevos, ausentes y obsoletos. No escribe nada. |
 | `dixi --help`, `dixi --version` | Ayuda y versión. Opciones globales: `--lang es\|en`, `--json`. |
 
 Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proyecto ausente, 3 destino ocupado o inseguro, 4 versión o plataforma no soportada, 5 fallo de entrada/salida.

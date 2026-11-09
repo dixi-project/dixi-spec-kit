@@ -8,4 +8,6 @@ include src/dixi_spec_kit/workflows.py src/dixi_spec_kit/upgrade.py
 include src/dixi_spec_kit/LICENSE
 include src/dixi_spec_kit/resources/claude/es/*.md src/dixi_spec_kit/resources/claude/en/*.md
 include src/dixi_spec_kit/resources/codex/es/*.md src/dixi_spec_kit/resources/codex/en/*.md
+include src/dixi_spec_kit/resources/profiles.json
+recursive-include src/dixi_spec_kit/resources/templates *.md *.yaml *.json
 include src/dixi_spec_kit/resources/workflows.json src/dixi_spec_kit/resources/workflows.es.json src/dixi_spec_kit/resources/workflows.en.json
