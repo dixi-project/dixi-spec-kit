@@ -1,0 +1,158 @@
+# Plantilla de contrato de API (OpenAPI 3.1).
+# Propósito: escribir el contrato antes de la implementación y guardarlo en el repositorio.
+# Reemplaza cada valor "{{pending: ...}}" con una decisión del proyecto y elimina lo que no uses.
+# Sigue 10-engineering/api-design-standard.md para nombres, errores y versionado.
+openapi: 3.1.0
+info:
+  title: "{{pending: nombre de la API}}"
+  version: "{{pending: versión del contrato, p. ej. 1.0.0}}"
+  description: "{{pending: qué ofrece esta API y a quién}}"
+  contact:
+    email: api@example.com
+servers:
+  # Una entrada por entorno; nunca pongas aquí hosts reales de entornos privados.
+  - url: "{{pending: URL base, p. ej. https://api.example.com/v1}}"
+security:
+  - bearerAuth: []
+tags:
+  - name: resources
+    description: "{{pending: descripción del grupo de recursos}}"
+paths:
+  /resources:
+    get:
+      tags: [resources]
+      operationId: listResources
+      summary: "{{pending: listar recursos}}"
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Página de recursos.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourcePage"
+        "401":
+          $ref: "#/components/responses/Error"
+    post:
+      tags: [resources]
+      operationId: createResource
+      summary: "{{pending: crear un recurso}}"
+      parameters:
+        # Clave de idempotencia para operaciones que crean recursos.
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResourceInput"
+      responses:
+        "201":
+          description: Recurso creado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        "422":
+          $ref: "#/components/responses/Error"
+  /resources/{resource_id}:
+    get:
+      tags: [resources]
+      operationId: getResource
+      summary: "{{pending: obtener un recurso}}"
+      parameters:
+        - name: resource_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El recurso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        "404":
+          $ref: "#/components/responses/Error"
+components:
+  securitySchemes:
+    # El esquema de autenticación es una decisión del proyecto.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: "{{pending: esquema de autenticación}}"
+  parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  schemas:
+    ResourceInput:
+      type: object
+      additionalProperties: false
+      required: [name]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: "{{pending: significado del campo}}"
+    Resource:
+      type: object
+      required: [id, name, created_at]
+      properties:
+        id:
+          type: string
+          description: Identificador opaco.
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    ResourcePage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        next_cursor:
+          type: [string, "null"]
+    Error:
+      # Forma de error compartida; ver 10-engineering/error-handling-standard.md.
+      type: object
+      required: [code, message, correlation_id]
+      properties:
+        code:
+          type: string
+          examples: [RESOURCE_NOT_FOUND]
+        message:
+          type: string
+        correlation_id:
+          type: string
+  responses:
+    Error:
+      description: Respuesta de error con la forma compartida.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
