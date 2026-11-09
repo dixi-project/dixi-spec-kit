@@ -16,7 +16,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 - Profile templates are optional after creation: deleting one does not fail `dixi check`; `upgrade --dry-run` lists it as missing.
 - The project inventory accepts up to 1 000 managed files (was 500).
 
-## [1.3.0] — unreleased
+## [1.3.0] — 2026-11-08
 
 ### Added
 
@@ -27,7 +27,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 - An unsafe `init` destination now reports how to choose a valid one instead of a generic unsafe-path message.
 
-## [1.2.0] — unreleased
+## [1.2.0] — 2026-11-08 (released as part of 1.3.0)
 
 ### Added
 
