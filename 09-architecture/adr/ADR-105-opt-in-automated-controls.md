@@ -13,7 +13,7 @@ Accepted on 2026-11-08 by the responsible person, including exit 2 for `--agent 
 - The [Claude Code adapter contract](../../07-contracts/commands/claude-code-adapter-contract.md) installs no hooks, settings or permissions, and the support matrix says plainly that the rules are instructions, not controls.
 - Dixi's private ecosystem enforces the same rules with five Claude Code hooks (`PreToolUse`, `Stop`, `SubagentStop`). They have caught real mistakes, but they are Bash scripts tied to its layout and policies.
 - A hook runs code on the person's machine on every tool call. Installing one without consent would surprise users and could break their workflow.
-- Codex hook support for project-level configuration has not been verified in Codex CLI 0.167.0.
+- Codex hook support for project-level configuration was not verified when this ADR was written; it was verified during implementation (see the contract).
 
 ## Decision
 

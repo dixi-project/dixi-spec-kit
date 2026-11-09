@@ -12,7 +12,7 @@ dixi [--lang es|en] [--json] placeholders [--strict]
 dixi [--lang es|en] [--json] pr-size [--base <ref>] [--max <lines>]
 ```
 
-- `--controls` with `--agent none` exits 2 without writing. With `--agent codex` it exits 2 unless Codex project hooks were verified (see below).
+- `--controls` with `--agent none` exits 2 without writing. `--agent claude` and `--agent codex` are supported (see wiring below).
 - `.dixi/project.json` records `"controls": true|false`; absent means false.
 
 ## Controls
@@ -39,7 +39,13 @@ Common rules:
 
 ### Codex wiring
 
-TASK-010 starts by verifying, with the Codex CLI available at that time, whether project-level hooks exist and which events they expose. The result is recorded in this contract with the version and date. If hooks exist, the same scripts are wired through Codex's project configuration, covering the events Codex offers; the support matrix lists any control Codex cannot run. If they do not exist, `--agent codex --controls` exits 2 and the skills keep the rules as instructions.
+Verified on 2026-11-08 with Codex CLI 0.167.0 (feature `hooks`: stable, enabled), against the official hooks documentation and the `rust-v0.167.0` source:
+
+- Project hooks live in `.codex/hooks.json` (events → groups with a regular-expression `matcher` → `command` handlers). Codex loads them only when the project is trusted and runs each new or changed hook only after the person approves it with `/hooks`.
+- Events used: `PreToolUse` (tools `Bash`, with the command in `tool_input.command`, and `apply_patch`, with the patch text in `tool_input.command`), `Stop` and `SubagentStop` (with `stop_hook_active`). A hook blocks by exiting 2 with the reason on standard error.
+- There is no project-directory variable: commands locate the scripts with `git rev-parse --show-toplevel`, falling back to the current directory.
+
+`--agent codex --controls` therefore installs `.codex/hooks.json` with hooks only: `mode_gate`, `guard_secrets` and `guard_attestation` on `Bash`; `protect_tests` on `apply_patch`, which reads the paths from the patch headers (`*** Add File:`, `*** Update File:`, `*** Delete File:`, `*** Move to:`); `verify_on_stop` on `Stop` and `SubagentStop`. Codex has no separate read tool, so `guard_secrets` covers reads through `Bash`. The README states that the person must trust the project and approve the hooks for them to run.
 
 ## Claude Code subagents
 

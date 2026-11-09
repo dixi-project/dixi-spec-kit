@@ -27,7 +27,7 @@ Same destination guarantees as v1.0: new or empty directory, no symlinks, exclus
 | `.agents/skills/dixi-<operation>/SKILL.md` | One per operation: `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`. |
 | `.agents/skills/dixi-<operation>/agents/openai.yaml` | `policy: {allow_implicit_invocation: false}` |
 
-No `.codex/` directory, configuration, hooks, MCP servers or permission grants. `.dixi/project.json` records `"agent": "codex"` and the hash of every installed file; `check` requires the ten v1.0 operations (both files each), the six newer ones are optional for future compatibility.
+No `.codex/` directory, configuration, hooks, MCP servers or permission grants, unless the person adds `--controls` (`.codex/hooks.json` with hooks only; see the [automated controls contract](automated-controls-contract.md)). `.dixi/project.json` records `"agent": "codex"` and the hash of every installed file; `check` requires the ten v1.0 operations (both files each), the six newer ones are optional for future compatibility.
 
 ## Skill body
 
