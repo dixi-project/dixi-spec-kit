@@ -39,6 +39,8 @@ Codex project hooks verified (Codex CLI 0.167.0, `.codex/hooks.json`) and record
 
 At the owner's request, Claude Code 2.1.319 ran in a `--controls` project (`claude -p`, project hooks loaded) and recorded both blocks: an `Edit` of the committed `tests/test_ok.py` (`protect_tests`) and `git commit -s` (`guard_attestation`). Evidence in the [contract](../../07-contracts/commands/automated-controls-contract.md#claude-code-wiring). The run also showed that shell writes to a test file are not covered by `protect_tests`; recorded as a known limit, to be closed in a follow-up.
 
+Follow-up closed the same day: with the owner's authorization, the two wiring expectations add `protect_tests` to the `Bash` group, and new red tests (`tests/test_protect_tests_shell.py`) cover redirections, in-place editors, copy/move/delete, `git rm`/`mv`, wrappers and `cd`, in both adapters. Interpreter-written files remain a documented limit.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/automated-controls-contract.md)
