@@ -50,15 +50,15 @@ Abre Claude Code en `mi-proyecto` y recorre:
 
 ## Perfiles
 
-`dixi init` instala por defecto una base documental mínima. Elige un perfil para recibir también estándares, guías y plantillas de datos, arquitectura, ingeniería, calidad, seguridad e IA:
+`dixi init` instala por defecto una base documental mínima. Elige un perfil para recibir también estándares, guías y plantillas de gobierno, negocio, datos, arquitectura, ingeniería, calidad, seguridad, observabilidad, entrega, operación, producto, UX, IA, FinOps, investigación, crecimiento y éxito del cliente:
 
 | Perfil | Para | Añade |
 |---|---|---|
 | `minimal` (por defecto) | Probar el método o añadir documentos a mano | Nada: la base de 16 archivos |
-| `site` | Landing o sitio de contenido sin backend propio | 37 plantillas |
-| `app` | Pocas piezas desplegables: web, admin, API, una base de datos | 76 plantillas |
-| `platform` | Varios servicios, eventos, apps o equipos | 96 plantillas |
-| `--regulated` | Pagos, salud, datos sensibles o clientes enterprise | Plantillas de seguridad y datos más estrictas sobre `site`, `app` o `platform` |
+| `site` | Landing o sitio de contenido sin backend propio | 77 plantillas |
+| `app` | Pocas piezas desplegables: web, admin, API, una base de datos | 190 plantillas |
+| `platform` | Varios servicios, eventos, apps o equipos | 241 plantillas |
+| `--regulated` | Pagos, salud, datos sensibles o clientes enterprise | Plantillas de cumplimiento (GDPR, SOC 2, ISO 27001, HIPAA, PCI DSS), due diligence y seguridad reforzada sobre `site`, `app` o `platform` (94, 226 o 273 en total) |
 
 ```sh
 dixi init mi-app --agent claude --profile app
@@ -89,7 +89,7 @@ Lo que ofrece cada integración y sus límites están en la [matriz de soporte](
 
 ## Contribuir
 
-Cualquiera puede usar, clonar y hacer fork. Los cambios se proponen con un PR desde tu fork; solo los mantenedores integran en `main`, con revisión y checks en verde. Consulta [CONTRIBUTING.md](CONTRIBUTING.md). Las vulnerabilidades se reportan de forma privada según [SECURITY.md](SECURITY.md).
+Cualquiera puede usar, clonar y hacer fork. Los cambios se proponen con un PR desde tu fork; solo los mantenedores integran en `main`, con revisión y checks en verde. Consulta [CONTRIBUTING.md](CONTRIBUTING.md) y el [código de conducta](CODE_OF_CONDUCT.md); para ayuda, [SUPPORT.md](SUPPORT.md). Las vulnerabilidades se reportan de forma privada según [SECURITY.md](SECURITY.md).
 
 ## Licencia
 

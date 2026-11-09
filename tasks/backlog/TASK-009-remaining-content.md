@@ -29,6 +29,10 @@ so that operations such as `operate`, `finops`, `compliance` and `duediligence` 
 2. `make verify` passes and CI is green.
 3. The owner ran the private customer-name check and recorded that it passed.
 
+## Progress — 2026-11-08
+
+Contract tables reformatted (same content) so the generator and tests can read them; red tests committed first. 177 templates per language across the 20 areas, generated into `profiles.json`; `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1, reports to `conduct@dixi-project.com`) and `SUPPORT.md`. `make verify` green with 143 tests. Pending: the owner's private customer-name check and confirming the conduct mailbox exists.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/remaining-content-contract.md)

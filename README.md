@@ -50,15 +50,15 @@ Open Claude Code in `my-project` and walk through:
 
 ## Profiles
 
-`dixi init` installs a minimal documentary baseline by default. Choose a profile to also get standards, guides and blanks for data, architecture, engineering, quality, security and AI:
+`dixi init` installs a minimal documentary baseline by default. Choose a profile to also get standards, guides and blanks for governance, business, data, architecture, engineering, quality, security, observability, delivery, operations, product, UX, AI, FinOps, research, growth and customer success:
 
 | Profile | For | Adds |
 |---|---|---|
 | `minimal` (default) | Trying the method or adding documents by hand | Nothing: the 16-file baseline |
-| `site` | Landing page or content site without its own backend | 37 templates |
-| `app` | A few deployable parts: web, admin, API, one database | 76 templates |
-| `platform` | Several services, events, apps or teams | 96 templates |
-| `--regulated` | Payments, health, sensitive data or enterprise customers | Stricter security and data templates on top of `site`, `app` or `platform` |
+| `site` | Landing page or content site without its own backend | 77 templates |
+| `app` | A few deployable parts: web, admin, API, one database | 190 templates |
+| `platform` | Several services, events, apps or teams | 241 templates |
+| `--regulated` | Payments, health, sensitive data or enterprise customers | Compliance (GDPR, SOC 2, ISO 27001, HIPAA, PCI DSS), due diligence and stricter security templates on top of `site`, `app` or `platform` (94, 226 or 273 in total) |
 
 ```sh
 dixi init my-app --agent claude --profile app
@@ -89,7 +89,7 @@ See the [support matrix](docs/support-matrix.md). In short: the Claude Code adap
 
 ## Contributing
 
-Anyone can use, clone and fork. Propose changes with a pull request from your fork; only maintainers merge into `main`, after review and green checks. See [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
+Anyone can use, clone and fork. Propose changes with a pull request from your fork; only maintainers merge into `main`, after review and green checks. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md); for help, see [SUPPORT.md](SUPPORT.md). Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
 ## License
 

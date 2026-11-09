@@ -36,6 +36,8 @@ CODEOWNERS assigns the maintainers. A pull request is merged only with all requi
 
 ## Related
 
+- [Code of conduct](CODE_OF_CONDUCT.md)
+- [Support](SUPPORT.md)
 - [Security](SECURITY.md)
 - [License](LICENSE)
 - [Agent instructions](AGENTS.md)
