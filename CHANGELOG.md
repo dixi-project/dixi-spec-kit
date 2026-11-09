@@ -4,7 +4,7 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
-## [1.3.0] — unreleased
+## [1.3.0] — 2026-11-08
 
 ### Added
 
@@ -15,7 +15,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 - An unsafe `init` destination now reports how to choose a valid one instead of a generic unsafe-path message.
 
-## [1.2.0] — unreleased
+## [1.2.0] — 2026-11-08 (released as part of 1.3.0)
 
 ### Added
 
