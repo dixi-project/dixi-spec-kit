@@ -21,7 +21,7 @@ Each control is a standalone Python 3.11+ script using only the standard library
 
 | Control | Event (Claude Code) | Blocks |
 |---|---|---|
-| `protect_tests.py` | `PreToolUse` on `Edit`, `Write`, `MultiEdit`, `NotebookEdit` | Changes to a test file that exists in `HEAD`. Tests not yet committed can be written (tests first). Allowed when the person launched the agent with `DIXI_ALLOW_TEST_EDITS=1`. |
+| `protect_tests.py` | `PreToolUse` on `Edit`, `Write`, `MultiEdit`, `NotebookEdit` and `Bash` | Changes to a test file that exists in `HEAD`, through the edit tools or a shell command that writes, moves or deletes it: output redirections, `sed`/`perl -i`, `tee`, `cp`, `mv`, `install`, `ln`, `rsync`, `rm`, `unlink`, `shred`, `truncate`, `dd of=`, `git rm`/`git mv`, also inside `env`, `sudo`, `bash -c`, `eval`, command chains and after `cd`; a folder counts when it contains committed tests. Tests not yet committed can be written (tests first). Allowed when the person launched the agent with `DIXI_ALLOW_TEST_EDITS=1`. |
 | `guard_secrets.py` | `PreToolUse` on `Bash`, `Read`, `Grep` | Reading `.env*` (except `.env.example`, `.env.sample`, `.env.template`), keys (`*.pem`, `*.key`, `id_rsa`, `id_ed25519`), `.aws/`, `.ssh/` and credential files, also through shell commands such as `cat`, `grep`, `head`, `source`. |
 | `guard_attestation.py` | `PreToolUse` on `Bash` | Adding `Signed-off-by` (`commit -s`, `--signoff`, `--trailer`, a trailer in `-m` or `-F`, `rebase`/`am`/`cherry-pick`/`revert` with `--signoff`); `gh pr review --approve`; `gh pr merge`; ticking an attestation checkbox through `gh pr create/edit` or `gh api`. Also when wrapped in `env`, `bash -c`, `sh -c`, `eval` or a pipeline. |
 | `mode_gate.py` | `PreToolUse` on `Bash` | With `MODE` = `prod`: `rm -rf` outside the project's temporary folders, `git push --force`, `git reset --hard` on a shared branch, infrastructure apply/destroy commands (`terraform`, `tofu`, `pulumi`, `cdk`), `kubectl delete`/`apply` against a cluster, and SQL `DROP`/`TRUNCATE` through database clients. With `mvp`, it allows them. |
@@ -33,7 +33,7 @@ Common rules:
 2. No control writes files, uses the network or reads secrets to decide.
 3. What counts as a test file: paths under `tests/`, `test/`, `__tests__/`, `spec/`, or names matching `test_*`, `*_test.*`, `*.test.*`, `*.spec.*`, `*.feature`.
 
-Known limit: `protect_tests` watches the edit tools only. A shell command that writes a test file (`sed -i`, a `>` redirection, `tee`, `cp`, `mv`, `rm`) is not blocked in this version; the instruction in `AGENTS.md` still applies. Hooks are a second layer, never the last one.
+Known limit: `protect_tests` does not see files written by an interpreter's own code (`python -c`, `node -e`) or through shell variables. The instruction in `AGENTS.md` still applies. Hooks are a second layer, never the last one.
 
 ### Claude Code wiring
 
@@ -53,7 +53,7 @@ Verified on 2026-11-08 with Codex CLI 0.167.0 (feature `hooks`: stable, enabled)
 - Events used: `PreToolUse` (tools `Bash`, with the command in `tool_input.command`, and `apply_patch`, with the patch text in `tool_input.command`), `Stop` and `SubagentStop` (with `stop_hook_active`). A hook blocks by exiting 2 with the reason on standard error.
 - There is no project-directory variable: commands locate the scripts with `git rev-parse --show-toplevel`, falling back to the current directory.
 
-`--agent codex --controls` therefore installs `.codex/hooks.json` with hooks only: `mode_gate`, `guard_secrets` and `guard_attestation` on `Bash`; `protect_tests` on `apply_patch`, which reads the paths from the patch headers (`*** Add File:`, `*** Update File:`, `*** Delete File:`, `*** Move to:`); `verify_on_stop` on `Stop` and `SubagentStop`. Codex has no separate read tool, so `guard_secrets` covers reads through `Bash`. The README states that the person must trust the project and approve the hooks for them to run.
+`--agent codex --controls` therefore installs `.codex/hooks.json` with hooks only: `mode_gate`, `guard_secrets`, `guard_attestation` and `protect_tests` on `Bash`; `protect_tests` also on `apply_patch`, which reads the paths from the patch headers (`*** Add File:`, `*** Update File:`, `*** Delete File:`, `*** Move to:`); `verify_on_stop` on `Stop` and `SubagentStop`. Codex has no separate read tool, so `guard_secrets` covers reads through `Bash`. The README states that the person must trust the project and approve the hooks for them to run.
 
 ## Claude Code subagents
 

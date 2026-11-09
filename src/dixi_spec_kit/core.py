@@ -138,7 +138,7 @@ def control_files(agent):
         return {}
     folder = files("dixi_spec_kit").joinpath("resources", "hooks")
     payload = {f".dixi/hooks/{name}.py": folder.joinpath(f"{name}.py").read_bytes() for name in CONTROLS}
-    shell = ("mode_gate", "guard_secrets", "guard_attestation")
+    shell = ("mode_gate", "guard_secrets", "guard_attestation", "protect_tests")
     stop = [hook_group(agent, ["verify_on_stop"], timeout=300)]
     if agent == "claude":
         events = {"PreToolUse": [hook_group(agent, shell, "Bash"), hook_group(agent, ["guard_secrets"], "Read|Grep"),
