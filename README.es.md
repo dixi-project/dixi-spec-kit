@@ -16,12 +16,12 @@ DIXI Spec Kit es una herramienta de [Dixi Project](https://github.com/dixi-proje
 Requisitos: Python 3.11 o superior, macOS o Linux. Windows no está soportado.
 
 ```sh
-uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.3.0
+uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.4.0
 # o
-pipx install git+https://github.com/dixi-project/dixi-spec-kit@v1.3.0
+pipx install git+https://github.com/dixi-project/dixi-spec-kit@v1.4.0
 ```
 
-El paquete aún no está publicado en PyPI. También puedes descargar el wheel de la [release v1.3.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.3.0) e instalarlo con `pipx install dixi_spec_kit-1.3.0-py3-none-any.whl`.
+El paquete aún no está publicado en PyPI. También puedes descargar el wheel de la [release v1.4.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.4.0) e instalarlo con `pipx install dixi_spec_kit-1.3.0-py3-none-any.whl`.
 
 ## Inicio rápido
 

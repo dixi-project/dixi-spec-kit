@@ -26,15 +26,9 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 
 ## v1.4.0
 
-- [ ] **Project profiles and core templates** _(P1, level 3)_ — [TASK-008](backlog/TASK-008-profiles-and-core-templates.md). Merged (PR #9); release pending with v1.4.0.
-
-## v1.5.0
-
-- [ ] **Remaining content areas** _(P2, level 2)_ — [TASK-009](backlog/TASK-009-remaining-content.md). Implemented; pull request pending review.
-
-## v1.6.0
-
-- [ ] **Opt-in automated controls, subagents and new operations** _(P1, level 3)_ — [TASK-010](backlog/TASK-010-automated-controls.md). Implemented; pull request pending review and the manual run with `--controls`.
+- [ ] **Project profiles and core templates** _(P1, level 3)_ — [TASK-008](backlog/TASK-008-profiles-and-core-templates.md). Merged; released in v1.4.0. Private customer-name check by the owner pending.
+- [ ] **Remaining content areas** _(P2, level 2)_ — [TASK-009](backlog/TASK-009-remaining-content.md). Merged; released in v1.4.0. Private customer-name check by the owner pending.
+- [ ] **Opt-in automated controls, subagents and new operations** _(P1, level 3)_ — [TASK-010](backlog/TASK-010-automated-controls.md). Merged (PRs #13 and #14); manual Claude Code run with `--controls` recorded; released in v1.4.0.
 
 ## Related
 

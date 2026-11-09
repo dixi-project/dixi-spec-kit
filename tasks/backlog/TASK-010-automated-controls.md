@@ -1,4 +1,4 @@
-# TASK-010 — Opt-in automated controls, subagents and new operations (v1.6.0)
+# TASK-010 — Opt-in automated controls, subagents and new operations (v1.4.0)
 
 ## Purpose
 

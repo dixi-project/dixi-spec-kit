@@ -1,4 +1,4 @@
-# TASK-009 — Remaining content areas (v1.5.0)
+# TASK-009 — Remaining content areas (v1.4.0)
 
 ## Purpose
 

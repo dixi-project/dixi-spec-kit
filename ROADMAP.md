@@ -22,17 +22,13 @@ Codex integration evaluated against its own capability and control matrix.
 
 `/dixi.data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance` and `duediligence`, each with an explicit contract and limits.
 
-## v1.4.0 — project profiles and core templates
+## v1.4.0 — profiles, full content and opt-in controls (2026-11-09)
 
-`dixi init --profile site|app|platform [--regulated]` with generic templates for data, architecture, engineering, quality, security and AI ([ADR-104](09-architecture/adr/ADR-104-project-profiles-and-content.md)). Without `--profile`, nothing changes.
+Released together; originally planned as v1.4.0 to v1.6.0.
 
-## v1.5.0 — remaining content areas
-
-Templates for governance, business, platform, observability, delivery, operations, product, UX, FinOps, compliance, due diligence and the other method areas, assigned to profiles.
-
-## v1.6.0 — opt-in automated controls
-
-`dixi init --controls`: agent hooks for frozen tests, secrets, signing and approval, production mode and verification before stopping ([ADR-105](09-architecture/adr/ADR-105-opt-in-automated-controls.md)); Claude Code subagents; `interview` and `risk-review` operations; `dixi placeholders` and `dixi pr-size`.
+- `dixi init --profile site|app|platform [--regulated]` with generic templates for every method area: up to 273 per language ([ADR-104](09-architecture/adr/ADR-104-project-profiles-and-content.md)). Without `--profile`, nothing changes.
+- `dixi init --controls`: agent hooks for frozen tests (edit tools and shell), secrets, signing and approval, production mode and verification before stopping, for Claude Code and Codex ([ADR-105](09-architecture/adr/ADR-105-opt-in-automated-controls.md)).
+- Claude Code subagents, `interview` and `risk-review` operations, `dixi placeholders` and `dixi pr-size`.
 
 ## Later
 
