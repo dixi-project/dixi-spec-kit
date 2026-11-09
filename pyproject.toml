@@ -24,7 +24,7 @@ packages = ["dixi_spec_kit"]
 include-package-data = false
 
 [tool.setuptools.package-data]
-dixi_spec_kit = ["locales/es.json", "locales/en.json", "resources/project.es.json", "resources/project.en.json", "resources/workflows.json", "resources/profiles.json", "resources/templates/**/*", "resources/workflows.es.json", "resources/workflows.en.json",
+dixi_spec_kit = ["locales/es.json", "locales/en.json", "resources/project.es.json", "resources/project.en.json", "resources/workflows.json", "resources/profiles.json", "resources/templates/**/*", "resources/hooks/*.py", "resources/claude/*/agents/*.md", "resources/claude/*/dixi.interview.md", "resources/claude/*/dixi.risk-review.md", "resources/codex/*/dixi-interview.md", "resources/codex/*/dixi-risk-review.md", "resources/workflows.es.json", "resources/workflows.en.json",
     "resources/claude/es/CLAUDE.md",
     "resources/claude/es/dixi.discover.md",
     "resources/claude/es/dixi.specify.md",

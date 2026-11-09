@@ -11,7 +11,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 V1_COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
 NEW_COMMANDS = ("domain", "architecture", "contract", "threat-model", "handoff", "change",
-                "data", "quality", "ai", "release", "promote", "operate", "finops", "compliance", "duediligence")
+                "data", "quality", "ai", "release", "promote", "operate", "finops", "compliance", "duediligence",
+                "interview", "risk-review")
 
 
 def digest(data):

@@ -18,6 +18,10 @@ SOURCES += sorted(p.relative_to(ROOT).as_posix()
                   for p in (ROOT / "src/dixi_spec_kit/resources").glob("*/*/*.md"))
 SOURCES += sorted(p.relative_to(ROOT).as_posix()
                   for p in (ROOT / "src/dixi_spec_kit/resources/templates").rglob("*") if p.is_file())
+SOURCES += sorted(p.relative_to(ROOT).as_posix()
+                  for p in (ROOT / "src/dixi_spec_kit/resources").glob("claude/*/agents/*.md"))
+SOURCES += sorted(p.relative_to(ROOT).as_posix()
+                  for p in (ROOT / "src/dixi_spec_kit/resources/hooks").glob("*.py"))
 
 
 def main():

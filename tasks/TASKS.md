@@ -34,7 +34,7 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 
 ## v1.6.0
 
-- [ ] **Opt-in automated controls, subagents and new operations** _(P1, level 3)_ — [TASK-010](backlog/TASK-010-automated-controls.md). Contract and ADR-105 validated.
+- [ ] **Opt-in automated controls, subagents and new operations** _(P1, level 3)_ — [TASK-010](backlog/TASK-010-automated-controls.md). Implemented; pull request pending review and the manual run with `--controls`.
 
 ## Related
 

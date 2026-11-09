@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 
 from . import __version__
-from .core import METADATA, PROFILES, check_project, doctor, initialize, message
+from .core import METADATA, PROFILES, check_project, doctor, initialize, message, placeholders, pr_size
 from .filesystem import Issue, read_json, root_directory
 from .upgrade import STATUSES, plan as upgrade_plan
 from .workflows import OPERATIONS, workflow_result
@@ -29,7 +29,7 @@ def parser_for(catalog):
     parser.add_argument("--lang", choices=("es", "en"), default=None, help=catalog["lang"])
     parser.add_argument("--json", action="store_true", help=catalog["json"])
     commands = parser.add_subparsers(dest="command", required=True, title=catalog["commands"])
-    for command in ("init", "doctor", "check", "workflow", "upgrade"):
+    for command in ("init", "doctor", "check", "workflow", "upgrade", "placeholders", "pr-size"):
         child = commands.add_parser(command, help=catalog[command], description=catalog[command],
                                     add_help=False, formatter_class=Formatter)
         child._positionals.title = catalog["arguments"]
@@ -40,10 +40,17 @@ def parser_for(catalog):
             child.add_argument("--agent", choices=("none", "claude", "codex"), default="none", help=catalog["agent"])
             child.add_argument("--profile", choices=PROFILES, default="minimal", help=catalog["profile_option"])
             child.add_argument("--regulated", action="store_true", help=catalog["regulated_option"])
+            child.add_argument("--controls", action="store_true", help=catalog["controls_option"])
+        elif command == "placeholders":
+            child.add_argument("--strict", action="store_true", help=catalog["placeholders_strict"])
+        elif command == "pr-size":
+            child.add_argument("--base", default="main", help=catalog["pr_size_base"])
+            child.add_argument("--max", type=int, default=1500, dest="limit", help=catalog["pr_size_max"])
         elif command == "upgrade":
             child.add_argument("--dry-run", action="store_true", help=catalog["upgrade_dry_run"])
             child.add_argument("--profile", choices=PROFILES, default=None, help=catalog["profile_option"])
             child.add_argument("--regulated", action="store_true", default=None, help=catalog["regulated_option"])
+            child.add_argument("--controls", action="store_true", default=None, help=catalog["controls_option"])
         elif command == "workflow":
             actions = child.add_subparsers(dest="workflow_action", required=True, title=catalog["commands"])
             for action in ("list", "show", "prepare"):
@@ -96,11 +103,12 @@ def main(argv=None):
     code = 0
     workflow = None
     upgrade = None
+    extra = {}
     try:
         args = parser_for(catalog).parse_args(argv)
         args.lang = args.lang or language
         if args.command == "init":
-            messages = initialize(args.directory, args.lang, args.agent, args.profile, args.regulated)
+            messages = initialize(args.directory, args.lang, args.agent, args.profile, args.regulated, args.controls)
         elif args.command == "doctor":
             messages = doctor(Path.cwd(), args.lang)
         elif args.command == "workflow":
@@ -109,9 +117,22 @@ def main(argv=None):
         elif args.command == "upgrade":
             if not args.dry_run:
                 raise Issue("upgrade_requires_dry_run", 2)
-            upgrade = upgrade_plan(Path.cwd(), args.profile, args.regulated)
+            upgrade = upgrade_plan(Path.cwd(), args.profile, args.regulated, args.controls)
             messages = [message("upgrade_planned", source=upgrade["from"], target=upgrade["to"]),
                         message("upgrade_no_changes")]
+        elif args.command == "placeholders":
+            counts = placeholders(Path.cwd())
+            total = sum(counts.values())
+            extra = {"placeholders": counts, "total": total}
+            messages = [message("placeholders_found", total=total, files=len(counts))]
+            code = 1 if args.strict and total else 0
+        elif args.command == "pr-size":
+            size = pr_size(Path.cwd(), args.base, args.limit)
+            extra = {"pr_size": size}
+            messages = [message("pr_size_result", **size)]
+            if size["counted"] > size["max"]:
+                code = 1
+                messages.append(message("pr_size_exceeded", counted=size["counted"], max=size["max"]))
         else:
             code, messages = check_project(Path.cwd())
     except Issue as error:
@@ -125,6 +146,7 @@ def main(argv=None):
         result["workflow"] = workflow
     if upgrade is not None:
         result["upgrade"] = upgrade
+    result.update(extra)
     if "--json" in argv:
         print(json.dumps(result, ensure_ascii=False))
     else:
@@ -134,6 +156,8 @@ def main(argv=None):
             print(format_workflow(workflow, catalog))
         if upgrade is not None:
             print(format_upgrade(upgrade, catalog))
+        for name, count in extra.get("placeholders", {}).items():
+            print(f"  {count:4d}  {name}")
     return code
 
 

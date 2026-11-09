@@ -15,9 +15,12 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status",
             "domain", "architecture", "contract", "threat-model", "handoff", "change",
-            "data", "quality", "ai", "release", "promote", "operate", "finops", "compliance", "duediligence")
+            "data", "quality", "ai", "release", "promote", "operate", "finops", "compliance", "duediligence",
+            "interview", "risk-review")
+SUBAGENTS = ("architect", "tester", "developer", "reviewer")
 WORKFLOW_OPERATIONS = {"discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan"}
-CLI_COMMANDS = {"init", "doctor", "check", "workflow", "--help", "--version", "--lang", "--json"}
+CLI_COMMANDS = {"init", "doctor", "check", "workflow", "placeholders", "pr-size",
+                "--help", "--version", "--lang", "--json"}
 LIMITS = {
     "es": ("pruebas congeladas", "no firmes, no apruebes ni integres", "$ARGUMENTS", "dixi check"),
     "en": ("frozen tests", "do not sign, approve or merge", "$ARGUMENTS", "dixi check"),
@@ -69,8 +72,9 @@ class ClaudeAdapterTests(unittest.TestCase):
     def test_installs_only_commands(self):
         self.init()
         installed = sorted(p.name for p in (self.project / ".claude").rglob("*") if p.is_file())
-        self.assertEqual(installed, sorted(f"dixi.{name}.md" for name in COMMANDS))
-        self.assertEqual(sorted(p.name for p in (self.project / ".claude").iterdir()), ["commands"])
+        self.assertEqual(installed, sorted([f"dixi.{name}.md" for name in COMMANDS] +
+                                           [f"dixi-{name}.md" for name in SUBAGENTS]))
+        self.assertEqual(sorted(p.name for p in (self.project / ".claude").iterdir()), ["agents", "commands"])
         self.assertFalse((self.project / ".mcp.json").exists())
         self.assertFalse((self.project / ".git").exists())
         self.assertIn("@AGENTS.md", (self.project / "CLAUDE.md").read_text())
