@@ -10,7 +10,7 @@ Fix what `dixi init --agent claude` installs, what each of the `/dixi.*` command
 - Project commands: Markdown files in `.claude/commands/<name>.md`; the file name without extension is the command (`dixi.plan.md` → `/dixi.plan`). YAML frontmatter with `description` and `argument-hint`; `$ARGUMENTS` receives the text the person writes after the command.
 - `CLAUDE.md` at the root is loaded as project memory; the line `@AGENTS.md` imports the shared rules.
 
-Another version of Claude Code may work, but only this one has recorded evidence.
+Another version of Claude Code may work, but only this one has recorded evidence ([manual run](#manual-run)).
 
 ## CLI interface
 
@@ -73,6 +73,15 @@ Each command declares in its body:
 | Reading secrets | Command instruction; `dixi` denies sensitive names. No blocking in Claude Code. |
 
 An instruction in Markdown is not an automatic control. The public documentation does not present as protection what is only an instruction.
+
+## Manual run
+
+On 2026-11-08 a person ran the adapter on macOS with Claude Code 2.1.319, from the kit installed with `uv tool install` from `main` (blocks D and E included):
+
+1. `dixi init demo-claude --agent claude --profile app` created the project; `dixi doctor` reported "Profile: app. Regulated: False" and "Installed commands: 25 of 25"; `dixi check` passed.
+2. `/dixi.status` ran `dixi doctor` and `dixi check` at the start and the end, read `MODE`, the master spec and `.dixi/traceability.json`, counted pending markers, ADRs, tasks and features without tests, stated that no application tests exist to run, reported "Files modified: none" and suggested `/dixi.discover` with its reason.
+
+The run also showed that agents may suggest commands from the person's own configuration (here, a personal `/initproject` skill); the kit does not install them.
 
 ## Errors
 
