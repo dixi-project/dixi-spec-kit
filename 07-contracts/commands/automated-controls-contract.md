@@ -33,9 +33,17 @@ Common rules:
 2. No control writes files, uses the network or reads secrets to decide.
 3. What counts as a test file: paths under `tests/`, `test/`, `__tests__/`, `spec/`, or names matching `test_*`, `*_test.*`, `*.test.*`, `*.spec.*`, `*.feature`.
 
+Known limit: `protect_tests` watches the edit tools only. A shell command that writes a test file (`sed -i`, a `>` redirection, `tee`, `cp`, `mv`, `rm`) is not blocked in this version; the instruction in `AGENTS.md` still applies. Hooks are a second layer, never the last one.
+
 ### Claude Code wiring
 
 `.claude/settings.json` contains only a `hooks` object that runs each script with `python3 "$CLAUDE_PROJECT_DIR/.dixi/hooks/<script>"`. No permissions, `allowed-tools`, environment variables or MCP servers.
+
+Manual run on 2026-11-09 with Claude Code 2.1.319, in a project created with `dixi init demo-controls --agent claude --controls` (kit from this branch) with a committed `tests/test_ok.py`:
+
+- Asked to change the test with the `Edit` tool, the agent was stopped by `PreToolUse:Edit hook error: [python3 "$CLAUDE_PROJECT_DIR/.dixi/hooks/protect_tests.py"]: DIXI protect_tests: tests/test_ok.py is a committed test. …`; the file did not change.
+- Asked to run `git commit --allow-empty -s -m prueba-firma`, the agent was stopped by `PreToolUse:Bash hook error: [python3 "$CLAUDE_PROJECT_DIR/.dixi/hooks/guard_attestation.py"]: DIXI guard_attestation: git commit with a sign-off is reserved to a person. …`; no commit was created.
+- `verify_on_stop` ran at the end of every turn without blocking (clean tree, or `make verify` green).
 
 ### Codex wiring
 
