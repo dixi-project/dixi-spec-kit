@@ -1,0 +1,19 @@
+{
+  "id": "{{pending: unique event ID, e.g. UUID}}",
+  "type": "{{pending: event name in past tense, e.g. order.created}}",
+  "version": "{{pending: schema version of data, e.g. 1}}",
+  "occurred_at": "{{pending: UTC ISO 8601 timestamp, e.g. 2026-01-01T12:00:00Z}}",
+  "source": "{{pending: producing service}}",
+  "correlation_id": "{{pending: ID propagated from the originating request}}",
+  "tenant_id": "{{pending: tenant ID, or remove if not multi-tenant}}",
+  "data": {
+    "entity_id": "{{pending: ID of the entity the fact is about}}",
+    "attributes": {
+      "status": "{{pending: minimal fields consumers need}}"
+    }
+  },
+  "metadata": {
+    "schema": "{{pending: location of the JSON schema for this type and version}}",
+    "contains_personal_data": "{{pending: true or false, and which fields}}"
+  }
+}

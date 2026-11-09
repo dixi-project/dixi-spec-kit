@@ -18,6 +18,8 @@ PARENTS = {"goal": set(), "domain": {"goal"}, "module": {"domain"},
            "test": {"feature", "contract"}}
 METADATA = ".dixi/project.json"
 AGENTS = ("none", "claude", "codex")
+PROFILES = ("minimal", "site", "app", "platform")
+MAX_MANAGED = 1000
 CODEX_POLICY = b"policy:\n  allow_implicit_invocation: false\n"
 CLAUDE_REQUIRED = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status")
 CLAUDE_COMMANDS = CLAUDE_REQUIRED + ("domain", "architecture", "contract", "threat-model", "handoff", "change",
@@ -37,6 +39,39 @@ def templates(language):
     if any(not safe_path(k) or not isinstance(v, str) for k, v in payload.items()):
         raise Issue("invalid_resources", 5)
     return payload
+
+
+def profile_manifest():
+    data = decode_json(files("dixi_spec_kit").joinpath("resources", "profiles.json").read_bytes(), "resources")
+    entries = data.get("files") if isinstance(data, dict) else None
+    if (not isinstance(entries, dict) or data.get("version") != 1
+            or any(not safe_path(k) or not isinstance(v, str) or not re.fullmatch(r"[ynr]{3}", v)
+                   for k, v in entries.items())):
+        raise Issue("invalid_resources", 5)
+    return entries
+
+
+def profile_files(language, profile, regulated):
+    if profile == "minimal":
+        return {}
+    column = PROFILES.index(profile) - 1
+    folder = files("dixi_spec_kit").joinpath("resources", "templates", language)
+    payload = {}
+    for name, codes in profile_manifest().items():
+        if codes[column] == "y" or (regulated and codes[column] == "r"):
+            payload[name] = folder.joinpath(*name.split("/")).read_bytes()
+    return payload
+
+
+def check_profile(profile, regulated):
+    if profile not in PROFILES or type(regulated) is not bool:
+        raise Issue("invalid_arguments", 2)
+    if regulated and profile == "minimal":
+        raise Issue("regulated_requires_profile", 2)
+
+
+def recorded_profile(metadata):
+    return metadata.get("profile", "minimal"), metadata.get("regulated", False)
 
 
 def codex_files(language):
@@ -78,15 +113,17 @@ def message(key, **params):
     return {"key": key, "params": params}
 
 
-def initialize(destination, language, agent="none"):
+def initialize(destination, language, agent="none", profile="minimal", regulated=False):
+    check_profile(profile, regulated)
     text = str(destination)
     path = Path(os.getcwd()) if text and text.rstrip("/") == "." else Path(text)
     if not text or ".." in path.parts or not path.name:
         raise Issue("unsafe_destination", 3)
     payload = {name: text.encode("utf-8") for name, text in templates(language).items()}
+    payload.update(profile_files(language, profile, regulated))
     payload.update(adapter_files(agent, language))
     metadata = {"schema_version": 1, "kit_version": __version__, "language": language,
-                "agent": agent, "policy": "portable",
+                "agent": agent, "policy": "portable", "profile": profile, "regulated": regulated,
                 "managed_files": {name: hashlib.sha256(data).hexdigest() for name, data in payload.items()}}
     try:
         with root_directory(path.parent) as parent:
@@ -131,11 +168,14 @@ def project_metadata(root):
     if version.group(1) != __version__.split(".")[0]:
         raise Issue("unsupported_schema", 4)
     inventory = data.get("managed_files")
-    if not isinstance(inventory, dict) or not 1 <= len(inventory) <= 500:
+    if not isinstance(inventory, dict) or not 1 <= len(inventory) <= MAX_MANAGED:
         raise Issue("invalid_metadata")
     for name, digest in inventory.items():
         if not safe_path(name) or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
             raise Issue("invalid_metadata")
+    profile, regulated = recorded_profile(data)
+    if profile not in PROFILES or type(regulated) is not bool or (regulated and profile == "minimal"):
+        raise Issue("invalid_metadata")
     required = set(templates(data["language"])) | required_adapter_files(data["agent"])
     if not required <= set(inventory):
         raise Issue("invalid_metadata")
@@ -169,7 +209,7 @@ def traceability(root):
     return items, issues
 
 
-def markdown_links(root, name, data):
+def markdown_links(root, name, data, removable=frozenset()):
     try:
         text = data.decode("utf-8")
     except UnicodeError:
@@ -192,7 +232,11 @@ def markdown_links(root, name, data):
             if not link.path:
                 continue
             relative = posixpath.normpath(posixpath.join(str(PurePosixPath(name).parent), unquote(link.path)))
-            read_file(root, relative)
+            try:
+                read_file(root, relative)
+            except Issue as error:
+                if error.key != "missing_file" or relative not in removable:
+                    raise
         except (Issue, ValueError):
             issues.append(message("invalid_link", path=name))
     return issues
@@ -203,6 +247,7 @@ def check_project(path):
     with root_directory(path) as root:
         metadata = project_metadata(root)
         names = set(metadata["managed_files"])
+        optional = set(profile_manifest()) & names
         try:
             items, graph_issues = traceability(root)
             issues.extend(graph_issues)
@@ -213,8 +258,10 @@ def check_project(path):
             try:
                 data = read_file(root, name)
                 if name.endswith(".md"):
-                    issues.extend(markdown_links(root, name, data))
+                    issues.extend(markdown_links(root, name, data, optional))
             except Issue as error:
+                if error.key == "missing_file" and name in optional:
+                    continue
                 issues.append(message(error.key, **error.params))
     return (1 if issues else 0), issues + [message("structure_only")]
 
@@ -227,6 +274,8 @@ def doctor(path, language):
     with root_directory(path) as root:
         try:
             metadata = project_metadata(root)
+            profile, regulated = recorded_profile(metadata)
+            results.append(message("profile", profile=profile, regulated=regulated))
             if metadata["agent"] == "claude":
                 installed = sum(f".claude/commands/dixi.{name}.md" in metadata["managed_files"]
                                 for name in CLAUDE_COMMANDS)

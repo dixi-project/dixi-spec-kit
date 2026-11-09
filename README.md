@@ -48,15 +48,33 @@ Open Claude Code in `my-project` and walk through:
 
 `/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Design with `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` and `/dixi.threat-model`; propose changes with `/dixi.change`; leave a resumable handoff with `/dixi.handoff`. Specialized operations: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` and `/dixi.duediligence` write documents only; they never run migrations, deploy, change `MODE` or claim certifications. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
 
+## Profiles
+
+`dixi init` installs a minimal documentary baseline by default. Choose a profile to also get standards, guides and blanks for data, architecture, engineering, quality, security and AI:
+
+| Profile | For | Adds |
+|---|---|---|
+| `minimal` (default) | Trying the method or adding documents by hand | Nothing: the 16-file baseline |
+| `site` | Landing page or content site without its own backend | 37 templates |
+| `app` | A few deployable parts: web, admin, API, one database | 76 templates |
+| `platform` | Several services, events, apps or teams | 96 templates |
+| `--regulated` | Payments, health, sensitive data or enterprise customers | Stricter security and data templates on top of `site`, `app` or `platform` |
+
+```sh
+dixi init my-app --agent claude --profile app
+```
+
+Templates are guidance with `{{pending: …}}` blanks, not decisions: delete the ones that do not apply (`dixi check` does not require them). The exact list per profile is in the [profiles contract](07-contracts/commands/profiles-contract.md). `dixi upgrade --dry-run --profile <name>` shows what another profile would add.
+
 ## Terminal commands
 
 | Command | What it does |
 |---|---|
-| `dixi init <dir> [--agent none\|claude\|codex]` | Creates the documentary baseline in a new or empty directory (`.` for the current one); never overwrites. |
+| `dixi init <dir> [--agent none\|claude\|codex] [--profile …] [--regulated]` | Creates the documentary baseline, plus the profile's templates, in a new or empty directory (`.` for the current one); never overwrites. |
 | `dixi doctor` | Diagnoses environment and project without network or credentials. |
 | `dixi check` | Checks structure, links and traceability. Runs no code. |
 | `dixi workflow list\|show\|prepare` | Lists and prepares the discover, specify, clarify, domain, architecture, contract, threat-model and plan procedures. |
-| `dixi upgrade --dry-run` | Previews what the installed kit version would change: unchanged, updatable, conflicting, new, missing and obsolete files. Writes nothing. |
+| `dixi upgrade --dry-run [--profile …]` | Previews what the installed kit version would change: unchanged, updatable, conflicting, new, missing and obsolete files. Writes nothing. |
 | `dixi --help`, `dixi --version` | Help and version. Global options: `--lang es\|en`, `--json`. |
 
 Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O failure.

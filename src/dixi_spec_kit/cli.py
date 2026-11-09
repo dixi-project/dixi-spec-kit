@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 
 from . import __version__
-from .core import METADATA, check_project, doctor, initialize, message
+from .core import METADATA, PROFILES, check_project, doctor, initialize, message
 from .filesystem import Issue, read_json, root_directory
 from .upgrade import STATUSES, plan as upgrade_plan
 from .workflows import OPERATIONS, workflow_result
@@ -38,8 +38,12 @@ def parser_for(catalog):
         if command == "init":
             child.add_argument("directory", help=catalog["directory"])
             child.add_argument("--agent", choices=("none", "claude", "codex"), default="none", help=catalog["agent"])
+            child.add_argument("--profile", choices=PROFILES, default="minimal", help=catalog["profile_option"])
+            child.add_argument("--regulated", action="store_true", help=catalog["regulated_option"])
         elif command == "upgrade":
             child.add_argument("--dry-run", action="store_true", help=catalog["upgrade_dry_run"])
+            child.add_argument("--profile", choices=PROFILES, default=None, help=catalog["profile_option"])
+            child.add_argument("--regulated", action="store_true", default=None, help=catalog["regulated_option"])
         elif command == "workflow":
             actions = child.add_subparsers(dest="workflow_action", required=True, title=catalog["commands"])
             for action in ("list", "show", "prepare"):
@@ -96,7 +100,7 @@ def main(argv=None):
         args = parser_for(catalog).parse_args(argv)
         args.lang = args.lang or language
         if args.command == "init":
-            messages = initialize(args.directory, args.lang, args.agent)
+            messages = initialize(args.directory, args.lang, args.agent, args.profile, args.regulated)
         elif args.command == "doctor":
             messages = doctor(Path.cwd(), args.lang)
         elif args.command == "workflow":
@@ -105,7 +109,7 @@ def main(argv=None):
         elif args.command == "upgrade":
             if not args.dry_run:
                 raise Issue("upgrade_requires_dry_run", 2)
-            upgrade = upgrade_plan(Path.cwd())
+            upgrade = upgrade_plan(Path.cwd(), args.profile, args.regulated)
             messages = [message("upgrade_planned", source=upgrade["from"], target=upgrade["to"]),
                         message("upgrade_no_changes")]
         else:

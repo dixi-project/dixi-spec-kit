@@ -1,0 +1,158 @@
+# API contract template (OpenAPI 3.1).
+# Purpose: write the contract before the implementation and keep it in the repository.
+# Replace every "{{pending: ...}}" value with a project decision and remove unused parts.
+# Follow 10-engineering/api-design-standard.md for naming, errors and versioning.
+openapi: 3.1.0
+info:
+  title: "{{pending: API name}}"
+  version: "{{pending: contract version, e.g. 1.0.0}}"
+  description: "{{pending: what this API offers and to whom}}"
+  contact:
+    email: api@example.com
+servers:
+  # One entry per environment; never put real hostnames of private environments here.
+  - url: "{{pending: base URL, e.g. https://api.example.com/v1}}"
+security:
+  - bearerAuth: []
+tags:
+  - name: resources
+    description: "{{pending: resource group description}}"
+paths:
+  /resources:
+    get:
+      tags: [resources]
+      operationId: listResources
+      summary: "{{pending: list resources}}"
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Page of resources.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourcePage"
+        "401":
+          $ref: "#/components/responses/Error"
+    post:
+      tags: [resources]
+      operationId: createResource
+      summary: "{{pending: create a resource}}"
+      parameters:
+        # Idempotency key for operations that create resources.
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResourceInput"
+      responses:
+        "201":
+          description: Resource created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        "422":
+          $ref: "#/components/responses/Error"
+  /resources/{resource_id}:
+    get:
+      tags: [resources]
+      operationId: getResource
+      summary: "{{pending: get a resource}}"
+      parameters:
+        - name: resource_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The resource.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        "404":
+          $ref: "#/components/responses/Error"
+components:
+  securitySchemes:
+    # Authentication scheme is a project decision.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: "{{pending: authentication scheme}}"
+  parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  schemas:
+    ResourceInput:
+      type: object
+      additionalProperties: false
+      required: [name]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: "{{pending: field meaning}}"
+    Resource:
+      type: object
+      required: [id, name, created_at]
+      properties:
+        id:
+          type: string
+          description: Opaque identifier.
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    ResourcePage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        next_cursor:
+          type: [string, "null"]
+    Error:
+      # Shared error shape; see 10-engineering/error-handling-standard.md.
+      type: object
+      required: [code, message, correlation_id]
+      properties:
+        code:
+          type: string
+          examples: [RESOURCE_NOT_FOUND]
+        message:
+          type: string
+        correlation_id:
+          type: string
+  responses:
+    Error:
+      description: Error response with the shared shape.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"

@@ -13,9 +13,11 @@ SOURCES = ["pyproject.toml", "MANIFEST.in", "packaging/README.md",
            "src/dixi_spec_kit/resources/project.es.json", "src/dixi_spec_kit/resources/project.en.json",
            "src/dixi_spec_kit/workflows.py", "src/dixi_spec_kit/upgrade.py", "src/dixi_spec_kit/resources/workflows.json",
            "src/dixi_spec_kit/resources/workflows.es.json", "src/dixi_spec_kit/resources/workflows.en.json",
-           "src/dixi_spec_kit/LICENSE"]
+           "src/dixi_spec_kit/LICENSE", "src/dixi_spec_kit/resources/profiles.json"]
 SOURCES += sorted(p.relative_to(ROOT).as_posix()
                   for p in (ROOT / "src/dixi_spec_kit/resources").glob("*/*/*.md"))
+SOURCES += sorted(p.relative_to(ROOT).as_posix()
+                  for p in (ROOT / "src/dixi_spec_kit/resources/templates").rglob("*") if p.is_file())
 
 
 def main():

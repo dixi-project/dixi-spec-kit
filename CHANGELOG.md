@@ -4,6 +4,18 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
+## [1.4.0] — unreleased
+
+### Added
+
+- Project profiles: `dixi init --profile minimal|site|app|platform [--regulated]`. `minimal` (the default) is the unchanged baseline; the other profiles add 37, 76 or 96 generic templates for data, architecture, engineering, quality, security and AI, in English and Spanish. `.dixi/project.json` records `profile` and `regulated`; `doctor` reports them.
+- `dixi upgrade --dry-run --profile <name> [--regulated]` shows the files another profile would add.
+
+### Changed
+
+- Profile templates are optional after creation: deleting one does not fail `dixi check`; `upgrade --dry-run` lists it as missing.
+- The project inventory accepts up to 1 000 managed files (was 500).
+
 ## [1.3.0] — 2026-11-08
 
 ### Added
