@@ -4,7 +4,7 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
-## [1.4.0] — unreleased
+## [1.4.0] — 2026-11-09
 
 ### Added
 
@@ -21,6 +21,11 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 - Profile templates are optional after creation: deleting one does not fail `dixi check`; `upgrade --dry-run` lists it as missing.
 - The project inventory accepts up to 1 000 managed files (was 500).
+
+### Known limitations
+
+- Hooks are a second layer, not the last one: `protect_tests` does not see files written by an interpreter's own code (`python -c`, `node -e`) or through shell variables. In Codex, hooks run only in a trusted project after the person approves them with `/hooks`.
+- Windows unsupported; not on PyPI.
 
 ## [1.3.0] — 2026-11-08
 
