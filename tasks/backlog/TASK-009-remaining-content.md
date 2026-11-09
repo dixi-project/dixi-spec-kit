@@ -31,7 +31,7 @@ so that operations such as `operate`, `finops`, `compliance` and `duediligence` 
 
 ## Progress — 2026-11-08
 
-Contract tables reformatted (same content) so the generator and tests can read them; red tests committed first. 177 templates per language across the 20 areas, generated into `profiles.json`; `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1, reports to `conduct@dixi-project.com`) and `SUPPORT.md`. `make verify` green with 143 tests. Pending: the owner's private customer-name check and confirming the conduct mailbox exists.
+Contract tables reformatted (same content) so the generator and tests can read them; red tests committed first. 177 templates per language across the 20 areas, generated into `profiles.json`; `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1, reports to the maintainer's address `acastillejos@dixi-project.com` until a dedicated alias exists) and `SUPPORT.md`. `make verify` green with 143 tests. Pending: the owner's private customer-name check.
 
 ## Related
 
