@@ -39,6 +39,10 @@ so that I can follow discover → specify → plan → tasks → build → verif
 
 Contract, authorized frozen-test update and red tests committed first. Skills derived from the Claude Code commands by `scripts/generate-codex-skills.py` (kept in sync by `make verify`). Also fixed a YAML frontmatter bug in the Claude Code commands found while deriving them. `make verify` green with 117 tests. A person ran `$dixi-status` in Codex CLI 0.167.0 on 2026-11-08 without file changes ([evidence](../../07-contracts/commands/codex-adapter-contract.md#manual-run)); support announced.
 
+## Closed — 2026-11-09
+
+Released in [v1.3.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.3.0).
+
 ## Related
 
 - [Contract](../../07-contracts/commands/codex-adapter-contract.md)

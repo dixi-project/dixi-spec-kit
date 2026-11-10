@@ -31,6 +31,10 @@ so that these concerns are specified and evidenced with the same traceability as
 
 Contract, authorized test update and red tests first; nine operations in English and Spanish for both adapters; `examples/notes` updated through its upgrade plan. `make verify` green with 119 tests. Pull request pending review.
 
+## Closed — 2026-11-09
+
+Released in [v1.3.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.3.0).
+
 ## Related
 
 - [Contract](../../07-contracts/commands/specialized-commands-contract.md)

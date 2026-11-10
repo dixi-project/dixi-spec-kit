@@ -40,6 +40,10 @@ so that I can evolve a project safely without losing local work.
 
 Contract, authorized frozen-test updates and red acceptance tests committed before the implementation. Six commands (es/en), inventory compatibility, `doctor` hint and `dixi upgrade --dry-run` implemented; `make verify` green with 105 tests. Pull request pending review.
 
+## Closed — 2026-11-09
+
+Released in [v1.1.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.1.0).
+
 ## Related
 
 - [Contract](../../07-contracts/commands/block-a-contract.md)

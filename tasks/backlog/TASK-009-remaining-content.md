@@ -33,6 +33,10 @@ so that operations such as `operate`, `finops`, `compliance` and `duediligence` 
 
 Contract tables reformatted (same content) so the generator and tests can read them; red tests committed first. 177 templates per language across the 20 areas, generated into `profiles.json`; `CODE_OF_CONDUCT.md` (Contributor Covenant 2.1, reports to the maintainer's address `acastillejos@dixi-project.com` until a dedicated alias exists) and `SUPPORT.md`. `make verify` green with 143 tests. Pending: the owner's private customer-name check.
 
+## Closed — 2026-11-09
+
+Released in [v1.4.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.4.0). The owner's private customer-name check passed on 2026-11-09: no matches in the current files or in the public history of `main`.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/remaining-content-contract.md)
