@@ -6,7 +6,7 @@ Decide whether DIXI Spec Kit can run on Windows with the same safety guarantees 
 
 ## Status
 
-**Proposed** on 2026-11-10. Requires validation by the responsible person before any change to code, tests, CI or the [support matrix](../../docs/support-matrix.md). Until then [ADR-102](ADR-102-recorte-de-alcance-v1.md) item 5 stands: Windows is declared unsupported.
+**Accepted** on 2026-11-10 by the responsible person: Windows is supported through WSL 2 (option D) once phase 1 is done; native Windows keeps exit 4 (option A); option B is rejected; option C stays conditional and needs a new validation before it starts. Proposed the same day. Until phase 1 is done, [ADR-102](ADR-102-recorte-de-alcance-v1.md) item 5 stands: Windows is declared unsupported.
 
 ## Context
 
@@ -81,7 +81,7 @@ A Windows backend (separate module, same interface as `directory`, `read_file`, 
 
 Run `dixi`, the agent and its hooks inside a WSL 2 Linux distribution, with the project on the Linux filesystem (for example `~/project`, not `/mnt/c/...`). The code path is the Linux one already covered by CI, so the guarantees are identical with no code change. Projects under `/mnt/c` are reachable from Windows processes that can create junctions and are served through a translation layer whose link semantics are not the ext4 ones; they stay out of the supported scope. Cost: documentation, one recorded manual run and, optionally, a CI job.
 
-## Decision (proposed)
+## Decision
 
 1. **Adopt D now.** Declare "Windows through WSL 2, project on the Linux filesystem" as supported once phase 1 is done, with the same evidence standard as Linux.
 2. **Keep A for native Windows.** `dixi` keeps exiting 4 natively. Phase 0 adds a native Windows CI job that proves the refusal is explicit and writes nothing, without announcing support.
