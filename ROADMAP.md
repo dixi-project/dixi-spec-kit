@@ -30,9 +30,17 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - `dixi init --controls`: agent hooks for frozen tests (edit tools and shell), secrets, signing and approval, production mode and verification before stopping, for Claude Code and Codex ([ADR-105](09-architecture/adr/ADR-105-opt-in-automated-controls.md)).
 - Claude Code subagents, `interview` and `risk-review` operations, `dixi placeholders` and `dixi pr-size`.
 
+## v1.5.0 — PyPI, second example and the Windows decision (2026-11-10)
+
+- First release on PyPI, published by CI through Trusted Publishing ([ADR-106](09-architecture/adr/ADR-106-pypi-trusted-publishing.md)).
+- `examples/i18n-site`: a Next.js site in English and Spanish, traced from goal to tests.
+- `protect_tests` also stops inline interpreter code that rewrites committed tests.
+- Windows through WSL 2 accepted ([ADR-107](09-architecture/adr/ADR-107-windows-support.md)); phase 0 verifies the native refusal in CI.
+
 ## Later
 
-PyPI publication through Trusted Publishing ([ADR-106](09-architecture/adr/ADR-106-pypi-trusted-publishing.md)): the workflow is ready and the first upload happens with the next release. A second example language and Windows support if safe filesystem operations can be guaranteed.
+- Windows through WSL 2, phase 1: a recorded manual run and the support matrix row ([ADR-107](09-architecture/adr/ADR-107-windows-support.md)).
+- A native Windows backend only with real demand and a new validation.
 
 ## Related
 
