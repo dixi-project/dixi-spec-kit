@@ -4,14 +4,18 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
-## [Unreleased]
+## [1.5.0] — 2026-11-10
 
 ### Added
+
+- Publication on PyPI through Trusted Publishing ([ADR-106](09-architecture/adr/ADR-106-pypi-trusted-publishing.md)): `.github/workflows/publish.yml` uploads the verified wheel and sdist when a release is published, with no stored token and a protected `pypi` environment. This is the first release published there.
+- Windows decision ([ADR-107](09-architecture/adr/ADR-107-windows-support.md)): Windows will be supported through WSL 2; native Windows keeps exit 4. Phase 0: tests of the explicit refusal on every platform and a `windows-latest` CI job that proves `dixi` exits 4 and writes nothing.
 
 - Second public example, `examples/i18n-site`: a Next.js (TypeScript) site in English and Spanish created with `dixi init --agent claude --profile site`, with language-prefixed routes, a root redirect by `Accept-Language`, `hreflang` and canonical URLs per language, and JSON catalogs, traced from goal to `node --test` tests. No dependencies or `npm install`; its `make verify` skips the Node tests with a message when `node` is missing.
 
 ### Changed
 
+- `.gitattributes` forces LF and `scripts/verify-source.py` reads text as UTF-8, so checkouts and hashes are the same on every platform.
 - `protect_tests` also blocks inline interpreter code (`python -c`, heredocs, `node -e`, `ruby`/`perl -e`, `php -r`) that writes, moves or deletes a committed test named in quotes.
 
 ## [1.4.0] — 2026-11-09
