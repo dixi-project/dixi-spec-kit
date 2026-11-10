@@ -33,7 +33,9 @@ Common rules:
 2. No control writes files, uses the network or reads secrets to decide.
 3. What counts as a test file: paths under `tests/`, `test/`, `__tests__/`, `spec/`, or names matching `test_*`, `*_test.*`, `*.test.*`, `*.spec.*`, `*.feature`.
 
-Known limit: `protect_tests` does not see files written by an interpreter's own code (`python -c`, `node -e`) or through shell variables. The instruction in `AGENTS.md` still applies. Hooks are a second layer, never the last one.
+Inline interpreter code (`python -c`, a heredoc fed to `python3 -`, `node -e`, `ruby -e`, `perl -e`, `php -r`, also `deno` and `bun`) is blocked when it contains a write, move or delete operation and names a committed test (or a folder that contains one) in quotes.
+
+Known limit: `protect_tests` does not see files written by a script run from a file, or through paths built at run time or held in shell variables. The instruction in `AGENTS.md` still applies. Hooks are a second layer, never the last one.
 
 ### Claude Code wiring
 
