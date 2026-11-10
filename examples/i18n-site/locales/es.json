@@ -1,0 +1,9 @@
+{
+  "meta.title": "Example Studio — diseño en cada idioma",
+  "meta.description": "Un sitio pequeño de estudio servido en inglés y español, con una URL indexable por idioma.",
+  "home.heading": "Diseño que habla tu idioma",
+  "home.intro": "Construimos sitios accesibles para equipos que trabajan en varios idiomas y mercados.",
+  "nav.languages": "Idiomas",
+  "language.en": "English",
+  "language.es": "Español"
+}

@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- Second public example, `examples/i18n-site`: a Next.js (TypeScript) site in English and Spanish created with `dixi init --agent claude --profile site`, with language-prefixed routes, a root redirect by `Accept-Language`, `hreflang` and canonical URLs per language, and JSON catalogs, traced from goal to `node --test` tests. No dependencies or `npm install`; its `make verify` skips the Node tests with a message when `node` is missing.
+
 ### Changed
 
 - `protect_tests` also blocks inline interpreter code (`python -c`, heredocs, `node -e`, `ruby`/`perl -e`, `php -r`) that writes, moves or deletes a committed test named in quotes.

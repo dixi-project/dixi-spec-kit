@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "GOAL-001",
+      "kind": "goal",
+      "path": "01-business/vision.md",
+      "parents": []
+    },
+    {
+      "id": "DOMAIN-001",
+      "kind": "domain",
+      "path": "03-domains/example/domain-spec.md",
+      "parents": [
+        "GOAL-001"
+      ]
+    },
+    {
+      "id": "MODULE-001",
+      "kind": "module",
+      "path": "04-modules/example/module-spec.md",
+      "parents": [
+        "DOMAIN-001"
+      ]
+    },
+    {
+      "id": "FEATURE-001",
+      "kind": "feature",
+      "path": "05-features/example/feature-spec.md",
+      "parents": [
+        "MODULE-001"
+      ]
+    },
+    {
+      "id": "CONTRACT-001",
+      "kind": "contract",
+      "path": "07-contracts/example.md",
+      "parents": [
+        "FEATURE-001"
+      ]
+    },
+    {
+      "id": "TEST-001",
+      "kind": "test",
+      "path": "11-quality/test-plan.md",
+      "parents": [
+        "CONTRACT-001"
+      ]
+    },
+    {
+      "id": "TEST-002",
+      "kind": "test",
+      "path": "tests/i18n.test.mjs",
+      "parents": [
+        "FEATURE-001",
+        "CONTRACT-001"
+      ]
+    },
+    {
+      "id": "TEST-003",
+      "kind": "test",
+      "path": "tests/catalog.test.mjs",
+      "parents": [
+        "FEATURE-001",
+        "CONTRACT-001"
+      ]
+    }
+  ]
+}
