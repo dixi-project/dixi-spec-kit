@@ -4,6 +4,12 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- `protect_tests` also blocks inline interpreter code (`python -c`, heredocs, `node -e`, `ruby`/`perl -e`, `php -r`) that writes, moves or deletes a committed test named in quotes.
+
 ## [1.4.0] — 2026-11-09
 
 ### Added
