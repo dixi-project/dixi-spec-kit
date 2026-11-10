@@ -10,7 +10,7 @@ Declare what DIXI Spec Kit v1.4.0 supports, with what evidence, and which contro
 |---|---|---|
 | macOS + Python 3.15 | Supported | Local `make verify`, clean install from wheel and sdist ([B3](b3-verification.md)). |
 | macOS / Linux + Python 3.11 and 3.13 | Supported when CI passes | `verify` job on `ubuntu-latest` and `macos-latest` ([ADR-103](../09-architecture/adr/ADR-103-ci-publica-en-github-actions.md)). |
-| Windows | Not supported | Requires POSIX operations (`O_NOFOLLOW`, directory descriptors); `dixi` exits with code 4. |
+| Windows (native) | Not supported | Requires POSIX operations (`O_NOFOLLOW`, directory descriptors); `dixi` exits with code 4 and writes nothing, verified on `windows-latest` by the `windows-refusal` CI job. WSL 2 support is planned (ADR-107). |
 
 ## Integrations
 
