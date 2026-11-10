@@ -7,7 +7,7 @@ Deliver B2a of TASK-001: local access to the eight B2 procedures and verifiable 
 ## Record and story
 
 - Type: feature; priority P1; level 2. Medium risk: reading external documents and preparing instructions, without execution or writing to the project.
-- Status: implemented and verified locally; human review pending. Date: 2026-11-07.
+- Status: closed on 2026-11-09; released in v1.0.0.
 - Authorization: the user asked to continue after delivering B1 and to present B2 as the next block. It implements the core separation accepted in ADR-100/101; it does not change provider, operational policies or license.
 - As a user I want to consult procedures and prepare an explicit target so that I can apply the same method with my tools and keep traceability of the sources reviewed.
 
@@ -29,6 +29,10 @@ B2a prepares instructions and context; it does not generate decisions through in
 ## Technical evidence
 
 New tests frozen in `ca43f17` before implementing; unknown-fields regression in `d4d6f93` before fixing it. See [results, artifacts and limits](../../docs/b2-verification.md). No frozen tests were altered and no publication, signing or human approval was performed.
+
+## Closed — 2026-11-09
+
+Released in [v1.0.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.0.0).
 
 ## Related
 

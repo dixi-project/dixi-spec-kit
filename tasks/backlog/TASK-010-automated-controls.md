@@ -41,6 +41,10 @@ At the owner's request, Claude Code 2.1.319 ran in a `--controls` project (`clau
 
 Follow-up closed the same day: with the owner's authorization, the two wiring expectations add `protect_tests` to the `Bash` group, and new red tests (`tests/test_protect_tests_shell.py`) cover redirections, in-place editors, copy/move/delete, `git rm`/`mv`, wrappers and `cd`, in both adapters. Interpreter-written files remain a documented limit.
 
+## Closed — 2026-11-09
+
+Released in [v1.4.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.4.0).
+
 ## Related
 
 - [Contract](../../07-contracts/commands/automated-controls-contract.md)

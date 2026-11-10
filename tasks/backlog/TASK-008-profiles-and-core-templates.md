@@ -41,6 +41,10 @@ so that I get the standards, guides and blanks my agent operations need, without
 
 Red tests committed first, reading their expectations from the contract tables. Profile mechanism (`profiles.json` generated from the contract by `scripts/generate-profiles.py`, checked by `make verify`), optional profile templates, the 1 000-file inventory limit and the 96 templates per language. Pending: the owner's private customer-name check.
 
+## Closed — 2026-11-09
+
+Released in [v1.4.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.4.0). The owner's private customer-name check passed on 2026-11-09: no matches in the current files or in the public history of `main`.
+
 ## Related
 
 - [Contract](../../07-contracts/commands/profiles-contract.md)

@@ -28,6 +28,10 @@ so that an international audience can adopt it without translating.
 1. `tests/test_default_language.py` was committed red before the implementation and is green.
 2. `make verify` passes and the CI is green on the pull request.
 
+## Closed — 2026-11-09
+
+Released in [v1.1.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.1.0).
+
 ## Related
 
 - [Board](../TASKS.md)

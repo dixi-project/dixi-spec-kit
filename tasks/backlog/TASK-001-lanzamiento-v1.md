@@ -7,7 +7,7 @@ Define a verifiable story before implementing a public distribution derived from
 ## Metadata
 
 - Type: feature. Priority: P1. Level: 3, structural.
-- Status: in progress; B1 and B2a implemented; B3 (Claude Code adapter, [TASK-003](TASK-003-adaptador-claude-code.md)) in progress.
+- Status: closed on 2026-11-09; released in v1.0.0.
 - Created: 2026-11-06. Product Owner: Alfredo Castillejos.
 - Validation: on 2026-11-06 the user agreed to continue with the approach open to agents/languages and the first functional block with tests first. Incremental implementation of TASK-001 is authorized, starting with CLI/package, `init --agent none`, `doctor`, `check`, help/version. The prior authorization to publish when ready still stands. On 2026-11-08 the responsible person validated the set story + [ADR-102](../../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md) + assumptions: scope cut, MIT + DCO license and `upgrade --dry-run` deferred to v1.1. Criteria 5, 12, 13, 15 and 16 were adjusted to that cut.
 
@@ -85,6 +85,10 @@ This provides partial evidence for criteria 1–4, 6, 11 and 14. It does not com
 ## v1.0.0 progress — 2026-11-08
 
 Claude Code adapter, example, public documentation, CI (ADR-103 proposed), allowlist exporter, MIT license and version 1.0.0 verified ([evidence](../../docs/b3-verification.md)). The actions reserved to a person in the [publication gate](../../docs/publication-readiness.md) remain.
+
+## Closed — 2026-11-09
+
+Released in [v1.0.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.0.0).
 
 ## Traceability
 

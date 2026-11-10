@@ -7,7 +7,7 @@ Deliver B3 of TASK-001 under the proposal of [ADR-102](../../09-architecture/adr
 ## Record and story
 
 - Type: feature; priority P1; level 3, structural (new adapter, controls and agent execution surface).
-- Status: in progress since 2026-11-08.
+- Status: closed on 2026-11-09; released in v1.0.0.
 - Dependency resolved: ADR-102 validated and MIT + DCO license decided on 2026-11-08 in the joint level 3 validation.
 - As a person who uses Claude Code I want to install the DIXI Spec Kit commands in my project so that I can walk through discovery, specification, plan, tasks, build, verification and review preparation, keeping traceability and the human gates.
 
@@ -37,6 +37,10 @@ Deliver B3 of TASK-001 under the proposal of [ADR-102](../../09-architecture/adr
 ## Progress — 2026-11-08
 
 Implemented tests-first: contract, feature and threats (own commit), 15 red tests (own commit), adapter, es/en resources, `examples/notes` example with evolution and impact. Evidence in [B3](../../docs/b3-verification.md). Pending human review of the PR.
+
+## Closed — 2026-11-09
+
+Released in [v1.0.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.0.0).
 
 ## Related
 
