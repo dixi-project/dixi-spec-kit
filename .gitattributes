@@ -1,2 +1,5 @@
 # Gherkin scenarios are specifications without a runner; count them as documentation.
 *.feature linguist-documentation
+
+# Same bytes on every platform: hashes in .dixi/project.json and test expectations depend on LF.
+* text=auto eol=lf

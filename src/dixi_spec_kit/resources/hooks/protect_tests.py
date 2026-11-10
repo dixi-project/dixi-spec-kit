@@ -4,8 +4,10 @@ Committed test = a test path that exists in HEAD. Tests not yet committed can be
 The person may allow edits by launching the agent with DIXI_ALLOW_TEST_EDITS=1.
 Reads Claude Code input (Edit, Write, MultiEdit, NotebookEdit), Codex input (apply_patch) and shell
 commands from both (Bash): redirections, sed/perl -i, tee, cp, mv, rm, truncate, dd and git rm/mv,
-also inside env, sudo, bash -c, eval, command chains and after cd. An interpreter that writes files
-from its own code (python -c, node -e) is not detected: a hook is a second layer, never the last one.
+also inside env, sudo, bash -c, eval, command chains and after cd; and inline interpreter code
+(python -c, heredocs, node -e, ruby/perl -e, php -r) that writes and names a committed test in quotes.
+Scripts run from a file and paths built at run time are not detected: a hook is a second layer,
+never the last one.
 Exit 0 allows; exit 2 blocks with the reason on stderr. Unreadable input blocks.
 Standard library only; installed by `dixi init --controls`.
 """
@@ -25,6 +27,12 @@ WRAPPERS = {"env", "sudo", "command", "exec", "nohup", "time", "nice"}
 IN_PLACE = {"sed", "gsed", "perl"}
 REMOVERS = {"rm", "unlink", "shred", "truncate"}
 COPIERS = {"cp", "mv", "install", "ln", "rsync"}
+INTERPRETER = re.compile(r"(^|[\s;&|(])(python[0-9.]*|node|nodejs|deno|bun|ruby|perl|php)(?=[\s;&|)]|$)")
+WRITE_CODE = re.compile(
+    r"""open\([^)]*,\s*['"][^'"]*[wax+]|\.write_(text|bytes)\(|\bos\.(remove|unlink|rename|replace|truncate)\("""
+    r"""|\bshutil\.(copy\w*|move|rmtree)\(|\.(unlink|rename|rmdir)\(|\b(writeFile|appendFile|rm|unlink|rename|copyFile"""
+    r"""|truncate|cp)(Sync)?\(|\bFile\.(write|delete|rename|open\([^)]*['"][wa])|\bFileUtils\.|\bunlink\b|\brename\b"""
+    r"""|file_put_contents|fopen\([^)]*['"][wax]""")
 
 
 def block(reason):
@@ -145,6 +153,14 @@ def shell_targets(command, cwd, depth=0):
     return found
 
 
+def interpreter_targets(command, cwd):
+    """Quoted names in inline interpreter code that writes, moves or deletes files."""
+    if not INTERPRETER.search(command) or not WRITE_CODE.search(command):
+        return []
+    names = re.findall(r"'([^'\n]{1,500})'", command) + re.findall(r'"([^"\n]{1,500})"', command)
+    return [(cwd, name) for name in names if "/" in name or TEST.search(name) or name in ("tests", "test", "spec")]
+
+
 def tool_targets(data, root):
     tool_input = data.get("tool_input")
     if not isinstance(tool_input, dict):
@@ -155,7 +171,7 @@ def tool_targets(data, root):
         if not isinstance(command, str):
             return None
         cwd = Path(data["cwd"]) if isinstance(data.get("cwd"), str) and data["cwd"] else root
-        return shell_targets(command, cwd)
+        return shell_targets(command, cwd) + interpreter_targets(command, cwd)
     if tool == "apply_patch":
         patch = tool_input.get("command") or tool_input.get("input") or tool_input.get("patch")
         return [(root, p) for p in PATCH.findall(patch)] if isinstance(patch, str) else None

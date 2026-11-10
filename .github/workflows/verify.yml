@@ -37,6 +37,36 @@ jobs:
       - name: make verify
         run: make verify
 
+  windows-refusal:
+    name: Windows refuses explicitly (Python ${{ matrix.python }})
+    runs-on: windows-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.13"]
+    env:
+      PYTHONPATH: src
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Platform refusal tests (ADR-107 phase 0)
+        run: python -m unittest -v tests.test_platform_refusal
+      - name: Native init exits 4 and writes nothing
+        shell: pwsh
+        run: |
+          $target = Join-Path $env:RUNNER_TEMP "dixi-native"
+          python -m dixi_spec_kit init $target
+          $code = $LASTEXITCODE
+          if ($code -ne 4) { Write-Error "expected exit 4, got $code"; exit 1 }
+          if (Test-Path $target) { Write-Error "destination was created"; exit 1 }
+          exit 0
+
   dco:
     name: DCO sign-off
     if: github.event_name == 'pull_request'
