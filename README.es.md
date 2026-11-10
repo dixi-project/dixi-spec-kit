@@ -81,9 +81,11 @@ Las plantillas son guías con huecos `{{pending: …}}`, no decisiones: borra la
 
 Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proyecto ausente, 3 destino ocupado o inseguro, 4 versión o plataforma no soportada, 5 fallo de entrada/salida.
 
-## Ejemplo
+## Ejemplos
 
 [`examples/notes`](examples/notes) es una biblioteca y CLI de notas construida con este recorrido, con una evolución y su análisis de impacto. `make verify` ejecuta `dixi check` y 12 pruebas reales.
+
+[`examples/i18n-site`](examples/i18n-site) es un sitio Next.js (TypeScript) en inglés y español creado con `--profile site`: rutas con prefijo de idioma, redirección de la raíz según `Accept-Language`, `hreflang` y URL canónicas por idioma, y catálogos JSON. Su lógica son módulos ES sin dependencias; `make verify` ejecuta `dixi check` y 18 pruebas con `node --test` si Node.js está instalado, sin `npm install`.
 
 ## Qué incluye y qué no
 
