@@ -11,14 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     for path in (ROOT / "src").rglob("*.py"):
-        ast.parse(path.read_text(), filename=str(path))
-    catalogs = [json.loads((ROOT / "src/dixi_spec_kit/locales" / f"{lang}.json").read_text())
+        ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    catalogs = [json.loads((ROOT / "src/dixi_spec_kit/locales" / f"{lang}.json").read_text(encoding="utf-8"))
                 for lang in ("es", "en")]
     assert catalogs[0].keys() == catalogs[1].keys(), "Message catalogs differ"
     for key in catalogs[0]:
         assert set(re.findall(r"\{(\w+)\}", catalogs[0][key])) == set(
             re.findall(r"\{(\w+)\}", catalogs[1][key])), f"Placeholder mismatch: {key}"
-    resources = [json.loads((ROOT / "src/dixi_spec_kit/resources" / f"project.{lang}.json").read_text())
+    resources = [json.loads((ROOT / "src/dixi_spec_kit/resources" / f"project.{lang}.json").read_text(encoding="utf-8"))
                  for lang in ("es", "en")]
     assert resources[0].keys() == resources[1].keys(), "Resource paths differ"
     for tree in resources:
@@ -41,7 +41,7 @@ def main():
     trees = [{p.relative_to(templates / lang).as_posix() for p in (templates / lang).rglob("*") if p.is_file()}
              for lang in ("es", "en")]
     assert trees[0] == trees[1], "Template paths differ between languages"
-    manifest = set(json.loads((ROOT / "src/dixi_spec_kit/resources/profiles.json").read_text())["files"])
+    manifest = set(json.loads((ROOT / "src/dixi_spec_kit/resources/profiles.json").read_text(encoding="utf-8"))["files"])
     assert manifest <= trees[0], f"Templates missing: {sorted(manifest - trees[0])[:5]}"
     assert trees[0] <= manifest, f"Templates not in the manifest: {sorted(trees[0] - manifest)[:5]}"
     assert (ROOT / "LICENSE").read_bytes() == (ROOT / "src/dixi_spec_kit/LICENSE").read_bytes(), "LICENSE copies differ"
