@@ -39,4 +39,5 @@ The preparation work (with non-distributable inherited material and a PR that ca
 - [ADR-100](../09-architecture/adr/ADR-100-distribucion-publica-v1.md)
 - [ADR-103](../09-architecture/adr/ADR-103-ci-publica-en-github-actions.md)
 - [Publication gate](publication-readiness.md)
+- [PyPI publishing](pypi-publishing.md)
 - [Contributing](../CONTRIBUTING.md)

@@ -32,7 +32,7 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 
 ## Later
 
-PyPI publication (requires its own ADR), a second example language and Windows support if safe filesystem operations can be guaranteed.
+PyPI publication through Trusted Publishing ([ADR-106](09-architecture/adr/ADR-106-pypi-trusted-publishing.md)): the workflow is ready and the first upload happens with the next release. A second example language and Windows support if safe filesystem operations can be guaranteed.
 
 ## Related
 
