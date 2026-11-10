@@ -81,9 +81,11 @@ Templates are guidance with `{{pending: …}}` blanks, not decisions: delete the
 
 Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O failure.
 
-## Example
+## Examples
 
 [`examples/notes`](examples/notes) is a notes library and CLI built with this flow, including an evolution with its impact analysis. `make verify` runs `dixi check` and 12 real tests.
+
+[`examples/i18n-site`](examples/i18n-site) is a Next.js (TypeScript) site in English and Spanish created with `--profile site`: language-prefixed routes, a root redirect by `Accept-Language`, `hreflang` and canonical URLs per language, and JSON catalogs. Its logic is dependency-free ES modules; `make verify` runs `dixi check` and 18 `node --test` tests when Node.js is installed, with no `npm install`.
 
 ## What is and is not included
 
