@@ -25,12 +25,14 @@ def main():
         for name, text in tree.items():
             if name.endswith(".md"):
                 assert text.startswith("# "), name
+    sys.path.insert(0, str(ROOT / "src"))
+    from dixi_spec_kit.core import CLAUDE_COMMANDS
     adapter = ROOT / "src/dixi_spec_kit/resources/claude"
     names = [sorted(p.name for p in (adapter / lang).glob("*.md")) for lang in ("es", "en")]
-    assert names[0] == names[1] and len(names[0]) == 28, "Claude adapter resources differ"
+    assert names[0] == names[1] and len(names[0]) == len(CLAUDE_COMMANDS) + 1, "Claude adapter resources differ"
     skills = [sorted(p.name for p in (ROOT / "src/dixi_spec_kit/resources/codex" / lang).glob("*.md"))
               for lang in ("es", "en")]
-    assert skills[0] == skills[1] and len(skills[0]) == 27, "Codex adapter resources differ"
+    assert skills[0] == skills[1] and len(skills[0]) == len(CLAUDE_COMMANDS), "Codex adapter resources differ"
     agents = [sorted(p.name for p in (adapter / lang / "agents").glob("*.md")) for lang in ("es", "en")]
     assert agents[0] == agents[1] and len(agents[0]) == 4, "Claude subagent resources differ"
     hooks = sorted(p.name for p in (ROOT / "src/dixi_spec_kit/resources/hooks").glob("*.py"))
