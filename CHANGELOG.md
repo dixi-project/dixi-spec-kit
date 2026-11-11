@@ -6,6 +6,8 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+## [1.6.0] — 2026-11-10
+
 ### Added
 
 - Windows is supported through WSL 2 with the project on the Linux filesystem ([ADR-107](09-architecture/adr/ADR-107-windows-support.md) phase 1 done): support matrix row, a Windows (WSL 2) section in `docs/local-development.md`, README notes and the recorded CI run in the local core contract. Projects under `/mnt/c` and native Windows (exit 4) stay unsupported.
