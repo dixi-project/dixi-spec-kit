@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Fixed
+
+- The support matrix says twenty-seven commands and skills (it still said twenty-five), and its Spanish summary states Windows support through WSL 2. The PyPI description (`packaging/README.md`) lists the twenty-seven commands, every CLI command, `--controls`, Codex without "preview", PyPI installation and WSL 2. `tests/test_doc_counts.py` derives the count from the packaged commands so these texts cannot drift again.
+
 ## [1.6.0] — 2026-11-10
 
 ### Added
