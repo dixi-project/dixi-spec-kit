@@ -42,6 +42,14 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - Windows supported through WSL 2 with the project on the Linux filesystem, verified in CI on every pull request ([ADR-107](09-architecture/adr/ADR-107-windows-support.md) phase 1). Native Windows keeps exit 4; `/mnt/c` is unsupported.
 - READMEs install from PyPI; `examples/i18n-site` uses the Next.js 16 `proxy.ts` convention.
 
+## Next: Spec Kit parity and beyond ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md))
+
+- v1.7.0: `constitution`, `checklist` and `converge`; public comparison and a "Coming from Spec Kit" guide.
+- v1.8.0: `dixi workflow` recipes for every operation.
+- v1.9.0: `onboard` for existing projects, `bugfix`, `issues` and `dixi upgrade --apply`.
+- v1.10.0: a generic Agent Skills adapter for more agents.
+- Then: local presets and extensions, and a documentation site in English and Spanish.
+
 ## Later
 
 - A native Windows backend only with real demand and a new validation.
