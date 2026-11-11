@@ -46,7 +46,7 @@ Abre Claude Code en `mi-proyecto` y recorre:
 /dixi.review main
 ```
 
-`/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Diseña con `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` y `/dixi.threat-model`; propone cambios con `/dixi.change`; deja un traspaso con `/dixi.handoff`. Operaciones especializadas: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` y `/dixi.duediligence` solo escriben documentos; nunca ejecutan migraciones, despliegan, cambian `MODE` ni declaran certificaciones. Sin `--lang es`, documentos y mensajes salen en inglés; dentro de un proyecto, los mensajes siguen su idioma.
+`/dixi.constitution` fija los principios versionados del proyecto, que lee cada operación; `/dixi.checklist` prueba la calidad de los requisitos de una feature antes de construir; `/dixi.converge` compara el código con sus specs y añade lo que falta como tareas. `/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Diseña con `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` y `/dixi.threat-model`; propone cambios con `/dixi.change`; deja un traspaso con `/dixi.handoff`. Operaciones especializadas: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` y `/dixi.duediligence` solo escriben documentos; nunca ejecutan migraciones, despliegan, cambian `MODE` ni declaran certificaciones. Sin `--lang es`, documentos y mensajes salen en inglés; dentro de un proyecto, los mensajes siguen su idioma.
 
 ## Perfiles
 
@@ -90,6 +90,10 @@ Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proy
 ## Qué incluye y qué no
 
 Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: por defecto los adaptadores instalan comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. Añade `--controls` (con `--agent claude` o `codex`) para instalar hooks que hacen cumplir pruebas congeladas, no leer secretos, no firmar ni integrar, seguridad en modo producción y verificación antes de terminar; en Codex se ejecutan cuando confías en el proyecto y los apruebas con `/hooks`. Los hooks son una segunda capa, no la última. El adaptador de Codex (`--agent codex`, skills que se invocan como `$dixi-specify`, `$dixi-plan`, …) instala las mismas operaciones como Agent Skills, con la invocación implícita desactivada. Aplicar actualizaciones automáticamente aún no está disponible ([plan](ROADMAP.md)). Windows funciona solo a través de WSL 2.
+
+## Si vienes de GitHub Spec Kit
+
+Cada comando de Spec Kit tiene su equivalente en DIXI (`/speckit.implement` es `/dixi.build`), más veintiuna operaciones adicionales. Consulta el [mapa de comandos](docs/coming-from-spec-kit.md) y una [comparación](docs/spec-kit-comparison.md) fechada y con fuentes, que incluye las carencias que DIXI aún tiene.
 
 ## Contribuir
 

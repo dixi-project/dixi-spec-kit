@@ -72,6 +72,33 @@
       "outputs": ["Plan alongside the feature with blocks, dependencies, authorized repos, risks, contracts and ADRs.", "Criteria/check matrix, open questions and inputs for the future tasks operation."],
       "gates": ["Structural stories and ADRs need human validation before building.", "A pending gate or ambiguous code root blocks dependent implementation."],
       "checks": ["Every criterion has a block and verification; dependencies are acyclic.", "Distinguish proposed plans, authorization and evidence; do not claim a build ran."]
+    },
+    "constitution": {
+      "title": "Amend the constitution",
+      "purpose": "Create or amend the project's versioned principles in 00-governance/principles.md, which every other operation reads.",
+      "inputs": ["The goal, the master spec and the current principles, if any.", "The requested change and the ADRs that cite a principle."],
+      "steps": ["Apply only the requested change; keep IDs and never reuse a retired one.", "Version the document: MAJOR for a removed or redefined principle, MINOR for an added one, PATCH for wording; add a dated change-log line.", "List specs, plans, tasks, ADRs and instructions affected by the change, without editing them.", "Draft a proposed ADR for a removed or redefined principle and stop until a person approves it."],
+      "outputs": ["00-governance/principles.md with version, date and change log.", "An impact list and, for structural changes, a proposed ADR."],
+      "gates": ["Removing or redefining a principle needs a person's approval through an ADR."],
+      "checks": ["No code, spec, task or test changed.", "Every undecided value is a {{pending: …}} marker, not an invented principle."]
+    },
+    "checklist": {
+      "title": "Check requirement quality",
+      "purpose": "Write unchecked checklist items that test whether a feature's requirements are complete, clear, consistent, measurable and traced.",
+      "inputs": ["The feature spec, plan, contracts and test plan.", "The domain to check and the project's principles."],
+      "steps": ["Ask up to three questions when the feature or the domain is unclear.", "Write 05-features/<slug>/checklists/<domain>.md with CHK-NNN items as unchecked boxes, each classified and traced to a spec section or principle.", "Keep existing items and their state; append new ones with the next free IDs.", "Point each gap to the operation that closes it; do not answer it here."],
+      "outputs": ["A checklist per domain with traced, unchecked items and marked gaps."],
+      "gates": ["A person ticks items; the build operation stops while a checklist of the feature has open items."],
+      "checks": ["No item was ticked, reworded or deleted.", "Every item cites its source or is marked as a gap."]
+    },
+    "converge": {
+      "title": "Converge code and specs",
+      "purpose": "Compare the code with the feature's spec, contracts, plan, tasks and principles and append one traced task per gap.",
+      "inputs": ["The feature spec and criteria, contracts, plan, tasks and principles.", "The authorized code roots and the project's real test results."],
+      "steps": ["Check each criterion, contract clause and principle against the code, citing file and line.", "Type each gap as missing, partial, contradicts or unrequested; a conflict with a principle is the highest severity.", "Append a dated convergence section to 05-features/<slug>/tasks.md with T-NNN tasks, each with source, evidence, first test and risk.", "If nothing is missing, leave tasks.md unchanged and report that the feature has converged."],
+      "outputs": ["Convergence tasks appended to the feature's tasks, or a converged report with evidence."],
+      "gates": ["Unrequested code is specified or removed only by a person's decision."],
+      "checks": ["Specs, contracts, code, existing tasks and tests are unchanged.", "Checks are reported as run, failed or not run; none is claimed without running."]
     }
   }
 }

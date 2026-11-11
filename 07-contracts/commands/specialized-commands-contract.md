@@ -22,7 +22,7 @@ Each operation reads `AGENTS.md`, `00-master-spec.md`, `MODE` and the relevant s
 
 ## Compatibility
 
-Inventory requirements do not change: the nine operations are optional, so projects from v1.0–v1.2 keep passing `check` and see them as `new` in `dixi upgrade --dry-run`. `doctor` reports installed of available (25).
+Inventory requirements do not change: the nine operations are optional, so projects from v1.0–v1.2 keep passing `check` and see them as `new` in `dixi upgrade --dry-run`. `doctor` reports installed of available (25 at the time; see the [support matrix](../../docs/support-matrix.md) for the current count).
 
 ## Related
 

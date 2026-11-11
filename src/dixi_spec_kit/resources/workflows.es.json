@@ -72,6 +72,33 @@
       "outputs": ["Plan junto a la feature con bloques, dependencias, repos autorizados, riesgos, contratos y ADRs.", "Matriz de criterios y comprobaciones, pendientes y base para la futura operación tasks."],
       "gates": ["Historia estructural y ADR deben contar con validación humana antes de construir.", "Un gate pendiente o raíz de código ambigua bloquea la implementación dependiente."],
       "checks": ["Todos los criterios tienen bloque y verificación; las dependencias no son circulares.", "Se distinguen propuesta de plan, autorización y evidencia; no se anuncia build ejecutado."]
+    },
+    "constitution": {
+      "title": "Modificar la constitución",
+      "purpose": "Crear o modificar los principios versionados del proyecto en 00-governance/principles.md, que leen todas las demás operaciones.",
+      "inputs": ["El objetivo, la spec maestra y los principios actuales, si existen.", "El cambio pedido y los ADR que citan algún principio."],
+      "steps": ["Aplica solo el cambio pedido; conserva los IDs y nunca reutilices uno retirado.", "Versiona el documento: MAJOR si se elimina o redefine un principio, MINOR si se añade, PATCH para redacción; añade una línea fechada al registro de cambios.", "Enumera specs, planes, tareas, ADR e instrucciones afectados por el cambio, sin editarlos.", "Redacta un ADR propuesto para un principio eliminado o redefinido y detente hasta que una persona lo apruebe."],
+      "outputs": ["00-governance/principles.md con versión, fecha y registro de cambios.", "Una lista de impacto y, en cambios estructurales, un ADR propuesto."],
+      "gates": ["Eliminar o redefinir un principio necesita la aprobación de una persona mediante un ADR."],
+      "checks": ["No cambió código, specs, tareas ni pruebas.", "Todo valor no decidido es una marca {{pending: …}}, no un principio inventado."]
+    },
+    "checklist": {
+      "title": "Comprobar la calidad de los requisitos",
+      "purpose": "Escribir ítems de checklist sin marcar que prueban si los requisitos de una feature están completos, claros, coherentes, medibles y trazados.",
+      "inputs": ["La spec de la feature, su plan, contratos y plan de pruebas.", "El dominio a revisar y los principios del proyecto."],
+      "steps": ["Haz hasta tres preguntas si la feature o el dominio no están claros.", "Escribe 05-features/<slug>/checklists/<dominio>.md con ítems CHK-NNN como casillas sin marcar, cada uno clasificado y trazado a una sección de la spec o a un principio.", "Conserva los ítems existentes y su estado; añade los nuevos con los siguientes IDs libres.", "Indica para cada hueco la operación que lo cierra; no lo respondas aquí."],
+      "outputs": ["Un checklist por dominio con ítems trazados sin marcar y huecos señalados."],
+      "gates": ["Una persona marca los ítems; la operación build se detiene mientras un checklist de la feature tenga ítems abiertos."],
+      "checks": ["Ningún ítem se marcó, reescribió ni borró.", "Cada ítem cita su origen o está marcado como hueco."]
+    },
+    "converge": {
+      "title": "Hacer converger código y specs",
+      "purpose": "Comparar el código con la spec, los contratos, el plan, las tareas y los principios de la feature y añadir una tarea trazada por hueco.",
+      "inputs": ["La spec y los criterios de la feature, contratos, plan, tareas y principios.", "Las raíces de código autorizadas y los resultados reales de las pruebas del proyecto."],
+      "steps": ["Comprueba cada criterio, cláusula de contrato y principio frente al código, citando archivo y línea.", "Clasifica cada hueco como missing, partial, contradicts o unrequested; un choque con un principio es la máxima gravedad.", "Añade una sección de convergencia fechada a 05-features/<slug>/tasks.md con tareas T-NNN, cada una con origen, evidencia, primera prueba y riesgo.", "Si no falta nada, deja tasks.md sin cambios e informa de que la feature ha convergido."],
+      "outputs": ["Tareas de convergencia añadidas a las tareas de la feature, o un informe de convergencia con evidencia."],
+      "gates": ["El código no pedido solo se especifica o retira por decisión de una persona."],
+      "checks": ["Specs, contratos, código, tareas existentes y pruebas no cambian.", "Las comprobaciones se informan como ejecutadas, fallidas o no ejecutadas; ninguna se afirma sin ejecutarla."]
     }
   }
 }

@@ -80,6 +80,16 @@ They are included in the product map. Their inclusion as independent commands in
 | `/dixi.compliance` | Map of obligations and pending evidence; without declaring certifications. |
 | `/dixi.duediligence` | Report backed by artifacts and gaps, for human evaluation. |
 
+## Spec Kit parity (v1.7.0)
+
+Added by [ADR-108](../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) so that every GitHub Spec Kit command has a DIXI counterpart ([contract](../07-contracts/commands/parity-commands-contract.md), [command map](coming-from-spec-kit.md)).
+
+| Command | Observable result | Limit |
+|---|---|---|
+| `/dixi.constitution` | `00-governance/principles.md` versioned, with change log and impact list; every operation reads it. | Governance only; removing or redefining a principle needs an approved ADR. |
+| `/dixi.checklist` | `05-features/<slug>/checklists/<domain>.md` with unchecked, traced `CHK-NNN` requirement-quality items. | Never ticks items; `/dixi.build` stops while items are open. |
+| `/dixi.converge` | Convergence tasks appended to `05-features/<slug>/tasks.md`, typed and traced, or a converged report. | Never edits specs, contracts, code, existing tasks or tests. |
+
 ## Supporting CLI
 
 | Command | Contract and status |

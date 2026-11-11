@@ -16,9 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status",
             "domain", "architecture", "contract", "threat-model", "handoff", "change",
             "data", "quality", "ai", "release", "promote", "operate", "finops", "compliance", "duediligence",
-            "interview", "risk-review")
+            "interview", "risk-review", "constitution", "checklist", "converge")
 SUBAGENTS = ("architect", "tester", "developer", "reviewer")
-WORKFLOW_OPERATIONS = {"discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan"}
+WORKFLOW_OPERATIONS = {"discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan",
+                       "constitution", "checklist", "converge"}
 CLI_COMMANDS = {"init", "doctor", "check", "workflow", "placeholders", "pr-size",
                 "--help", "--version", "--lang", "--json"}
 LIMITS = {

@@ -6,7 +6,8 @@ from .core import METADATA, PARENTS, TRACE, project_metadata, traceability
 from .filesystem import Issue, decode_json, read_file, root_directory
 
 
-OPERATIONS = ("discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan")
+OPERATIONS = ("discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan",
+              "constitution", "checklist", "converge")
 COMMON_SOURCES = (METADATA, TRACE, "MODE", "AGENTS.md", "00-master-spec.md")
 
 

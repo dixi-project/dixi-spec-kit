@@ -8,6 +8,8 @@ This project includes commands in `.claude/commands/`:
 
 `/dixi.discover` → `/dixi.specify` → `/dixi.clarify` → `/dixi.plan` → `/dixi.tasks` → `/dixi.build` → `/dixi.verify` → `/dixi.review`, plus `/dixi.analyze` and `/dixi.status` at any time.
 
+Principles and quality: `/dixi.constitution` (versioned principles in `00-governance/principles.md`, read by every command), `/dixi.checklist` (requirement-quality checklists; `/dixi.build` stops on open items) and `/dixi.converge` (compares code with specs and appends convergence tasks).
+
 Design: `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.threat-model`. Continuity and change: `/dixi.handoff` (writes `.context/handoff.md`, ignored by Git) and `/dixi.change`.
 
 Specialized: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance`, `/dixi.duediligence`. They write documents only; they never run migrations, deploy, change `MODE` or claim certifications.

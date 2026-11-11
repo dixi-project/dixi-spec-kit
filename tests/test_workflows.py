@@ -13,6 +13,7 @@ OPERATIONS = {
     "discover": "GOAL-001", "specify": "MODULE-001", "clarify": "FEATURE-001",
     "domain": "GOAL-001", "architecture": "MODULE-001", "contract": "FEATURE-001",
     "threat-model": "FEATURE-001", "plan": "FEATURE-001",
+    "constitution": "GOAL-001", "checklist": "FEATURE-001", "converge": "FEATURE-001",
 }
 
 
@@ -67,7 +68,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         operations = json.loads(result.stdout)["workflow"]["operations"]
         self.assertEqual({op["id"] for op in operations}, set(OPERATIONS))
-        self.assertEqual(len(operations), 8)
+        self.assertEqual(len(operations), len(OPERATIONS))
 
     def test_complete_recipes_in_both_languages(self):
         for operation in OPERATIONS:

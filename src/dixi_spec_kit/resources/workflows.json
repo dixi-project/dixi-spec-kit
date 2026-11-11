@@ -80,6 +80,31 @@
         "feature"
       ],
       "next_operations": []
+    },
+    "constitution": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": []
+    },
+    "checklist": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "clarify",
+        "specify",
+        "contract",
+        "plan"
+      ]
+    },
+    "converge": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "clarify"
+      ]
     }
   }
 }
