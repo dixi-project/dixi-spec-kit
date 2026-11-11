@@ -14,6 +14,11 @@ OPERATIONS = {
     "domain": "GOAL-001", "architecture": "MODULE-001", "contract": "FEATURE-001",
     "threat-model": "FEATURE-001", "plan": "FEATURE-001",
     "constitution": "GOAL-001", "checklist": "FEATURE-001", "converge": "FEATURE-001",
+    "tasks": "FEATURE-001", "build": "FEATURE-001", "verify": "FEATURE-001", "review": "FEATURE-001",
+    "analyze": "FEATURE-001", "status": "GOAL-001", "handoff": "GOAL-001", "change": "FEATURE-001",
+    "data": "MODULE-001", "quality": "MODULE-001", "ai": "GOAL-001", "release": "GOAL-001",
+    "promote": "GOAL-001", "operate": "MODULE-001", "finops": "GOAL-001", "compliance": "GOAL-001",
+    "duediligence": "GOAL-001", "interview": "GOAL-001", "risk-review": "FEATURE-001",
 }
 
 
