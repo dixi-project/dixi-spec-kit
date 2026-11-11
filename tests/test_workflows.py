@@ -19,6 +19,7 @@ OPERATIONS = {
     "data": "MODULE-001", "quality": "MODULE-001", "ai": "GOAL-001", "release": "GOAL-001",
     "promote": "GOAL-001", "operate": "MODULE-001", "finops": "GOAL-001", "compliance": "GOAL-001",
     "duediligence": "GOAL-001", "interview": "GOAL-001", "risk-review": "FEATURE-001",
+    "onboard": "GOAL-001", "bugfix": "FEATURE-001", "issues": "FEATURE-001",
 }
 
 

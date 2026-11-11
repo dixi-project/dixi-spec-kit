@@ -27,6 +27,7 @@ Add `--profile site|app|platform` for fuller templates and `--controls` to have 
 | `/speckit.tasks` | `/dixi.tasks` | `05-features/<slug>/tasks.md` with `T-NNN`, risk levels and links to criteria. |
 | `/speckit.analyze` | `/dixi.analyze` | Plus `dixi check` for the mechanical rules. |
 | `/speckit.implement` | `/dixi.build` | One task at a time: failing tests first, committed, then code; `make verify` must be green. |
+| `/speckit.github.taskstoissues` | `/dixi.issues` | Creates issues with `gh` after you confirm a preview; records them in `05-features/<slug>/issues.md`. |
 | `/speckit.converge` | `/dixi.converge` | Appends `## Convergence` tasks typed `missing`, `partial`, `contradicts` or `unrequested`. |
 | — | `/dixi.verify`, `/dixi.review` | Report checks run, failed and not run; prepare a human review. DIXI never approves or merges. |
 | — | `/dixi.status`, `/dixi.handoff` | Next step and a resumable handoff between sessions. |
@@ -51,7 +52,7 @@ Add `--profile site|app|platform` for fuller templates and `--controls` to have 
 3. For each `specs/NNN-name/`, run `/dixi.specify` with the existing spec as input and place the feature under its module; move contracts and data models to `07-contracts/` and `08-data/`.
 4. Run `dixi check` and `/dixi.analyze`, then `/dixi.converge` per feature to see what the code already covers.
 
-Nothing is converted automatically: a person reviews each step. `/dixi.onboard` (planned for v1.9.0) will derive drafts from an existing codebase.
+Nothing is converted automatically: a person reviews each step. `/dixi.onboard` drafts modules and features from an existing codebase for you to validate, as a starting point for those steps.
 
 ## Related
 

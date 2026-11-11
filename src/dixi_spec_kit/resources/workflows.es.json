@@ -270,6 +270,33 @@
       "outputs": ["Un informe de revisión de riesgo con tabla de criterios (criterio, prueba, estado), hallazgos por severidad y preguntas para el autor."],
       "gates": ["La aprobación y la integración son de la persona.", "Una prueba congelada modificada o una prueba nueva omitida es un hallazgo bloqueante."],
       "checks": ["No se modificó nada para obtener el diff.", "El riesgo se sube, nunca se baja; cada hallazgo cita archivo y línea."]
+    },
+    "onboard": {
+      "title": "Incorporar un código existente",
+      "purpose": "Proponer dominios, módulos y features a partir del código existente como borradores que valida la persona, con evidencia file:line.",
+      "inputs": ["Las raíces de código a leer, manifiestos, pruebas y specs existentes.", "Los principios del proyecto y su grafo de trazabilidad."],
+      "steps": ["Mapea raíces de código, puntos de entrada, almacenes de datos e integraciones, citando file:line.", "Propón una división en dominios y módulos con evidencia y detente hasta que la persona la valide.", "Escribe borradores de specs de módulo y feature marcados Status: draft, con criterios solo para el comportamiento que muestran el código o las pruebas y marcas pendientes para la intención.", "Registra los dominios, módulos y features nuevos en .dixi/traceability.json; conserva las specs y los IDs existentes."],
+      "outputs": ["Borradores de specs de módulo y feature con evidencia y marcas pendientes.", "Entradas de trazabilidad de la división validada."],
+      "gates": ["No se escribe ninguna spec antes de que la persona valide la división en módulos."],
+      "checks": ["No cambió código, pruebas, archivos de build ni configuración.", "Cada afirmación cita file:line o es una marca pendiente."]
+    },
+    "bugfix": {
+      "title": "Corregir un bug con trazabilidad",
+      "purpose": "Llevar un bug del reporte al arreglo con una prueba en rojo commiteada antes del código y un registro trazado del bug.",
+      "inputs": ["El reporte del bug y una reproducción.", "Las specs, contratos y principios de la feature."],
+      "steps": ["Reproduce el bug y localiza el criterio, cláusula o principio que rompe; un comportamiento no especificado es un hueco de la spec para clarify o change.", "Escribe 05-features/<slug>/bugs/BUG-NNN.md con reporte, reproducción y criterio roto.", "Escribe una prueba que falle por la razón reportada y propón commitearla sola, sin Signed-off-by.", "Escribe el arreglo mínimo, ejecuta make verify y actualiza la spec solo con el acuerdo de la persona."],
+      "outputs": ["Un registro del bug con causa, prueba y arreglo.", "Una prueba en rojo commiteada antes del arreglo y después el arreglo con make verify en verde."],
+      "gates": ["Cambiar un comportamiento especificado necesita el acuerdo de la persona."],
+      "checks": ["Las pruebas congeladas no cambian.", "El arreglo está hecho solo con una prueba que reproduce el bug y make verify en verde."]
+    },
+    "issues": {
+      "title": "Publicar tareas como issues de GitHub",
+      "purpose": "Crear issues de GitHub para las tareas abiertas de una feature con gh, tras una vista previa que confirma la persona.",
+      "inputs": ["Las tareas de la feature, su spec y la lista de issues existentes.", "Un gh autenticado y el repositorio de destino."],
+      "steps": ["Selecciona las tareas abiertas que aún no figuran en 05-features/<slug>/issues.md.", "Comprueba gh auth status y busca issues existentes con el mismo título.", "Muestra una tabla de vista previa y espera una confirmación explícita.", "Crea los issues confirmados uno a uno y añade sus números y URL a issues.md; detente en el primer error."],
+      "outputs": ["Issues de GitHub para las tareas confirmadas.", "05-features/<slug>/issues.md con la relación entre tareas e issues."],
+      "gates": ["No se crea nada sin la confirmación explícita de la vista previa por la persona."],
+      "checks": ["Los issues existentes nunca se editan ni se cierran.", "No se pide ni se maneja ningún token."]
     }
   }
 }

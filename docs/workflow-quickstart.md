@@ -89,6 +89,9 @@ Every operation installed by the Claude Code and Codex adapters has a recipe ([A
 | `constitution` | goal | — |
 | `checklist` | feature | clarify, specify, contract, plan |
 | `converge` | feature | clarify |
+| `onboard` | goal | constitution, clarify, converge |
+| `bugfix` | feature | clarify, change, verify, review |
+| `issues` | feature | build |
 
 A recipe describes the procedure; it does not run it. Preparing `build`, `verify` or `release` does not run `make verify` or any other check: whoever performs the procedure runs them and reports the real result. No recipe signs, approves, merges, deploys or changes `MODE`.
 
@@ -115,7 +118,7 @@ Limits: request of up to 4,096 characters, up to 64 sources, 1 MiB per file and 
 
 ## Resumen en español
 
-Propósito: usar los mismos procedimientos de todas las operaciones (las treinta de la tabla «All operations», de `discover` a `converge`) con las herramientas que elijas. Instala el wheel local y activa `.venv` según la [guía de desarrollo local](local-development.md). Son comandos de terminal, no integraciones instaladas en un agente. Para recetas en español, usa `--lang es` antes del subcomando (por ejemplo, `dixi --lang es workflow show discover`).
+Propósito: usar los mismos procedimientos de todas las operaciones (las treinta y tres de la tabla «All operations», de `discover` a `issues`) con las herramientas que elijas. Instala el wheel local y activa `.venv` según la [guía de desarrollo local](local-development.md). Son comandos de terminal, no integraciones instaladas en un agente. Para recetas en español, usa `--lang es` antes del subcomando (por ejemplo, `dixi --lang es workflow show discover`).
 
 Usa un destino nuevo al repetir la inicialización. Los IDs del ejemplo remiten a documentos en borrador. `prepare` exige un ID compatible exacto y una solicitud explícita; no rellena specs ni elige stack. Lee las fuentes referenciadas, sigue la receta a mano o con tu herramienta, mantén visibles las preguntas sin respuesta, revisa los cambios y ejecuta `dixi check` después de editar. Preparar un paquete no es evidencia de que esos pasos se ejecutaran.
 

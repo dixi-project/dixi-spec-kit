@@ -21,7 +21,8 @@ Read on **2026-11-11**. GitHub Spec Kit **v1.4.0** (released 2026-11-10): reposi
 | `/speckit.analyze` | `/dixi.analyze` | Both read only and report. |
 | `/speckit.implement` | `/dixi.build` | DIXI requires a failing test committed before code and treats committed tests as frozen. |
 | `/speckit.converge` | `/dixi.converge` | Both append convergence tasks without editing specs or code. |
-| `/speckit.github.taskstoissues` (extension) | — | Planned in DIXI as `/dixi.issues` (v1.9.0). |
+| `/speckit.github.taskstoissues` (extension) | `/dixi.issues` | DIXI uses `gh` instead of an MCP server and creates nothing before the person confirms a preview. |
+| — | `/dixi.onboard`, `/dixi.bugfix` | Adopting an existing codebase as validated drafts; traced bug fixes with a failing test first. |
 | — | 21 more operations | Domain, architecture, contracts, data, threat model, AI, quality, verification, review, status, handoff, change, interview, risk review, release, promotion, operation, FinOps, compliance and due diligence. |
 
 ## CLI and platform

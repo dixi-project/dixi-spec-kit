@@ -270,6 +270,33 @@
       "outputs": ["A risk review report with criteria table (criterion, test, status), findings by severity and questions for the author."],
       "gates": ["Approval and merge belong to the person.", "A changed frozen test or a newly skipped test is a blocking finding."],
       "checks": ["Nothing was modified to obtain the diff.", "Risk goes up, never down; every finding cites file and line."]
+    },
+    "onboard": {
+      "title": "Onboard an existing codebase",
+      "purpose": "Propose domains, modules and features from existing code as drafts the person validates, with file:line evidence.",
+      "inputs": ["The code roots to read, manifests, tests and existing specs.", "The project's principles and traceability graph."],
+      "steps": ["Map code roots, entry points, data stores and integrations, citing file:line.", "Propose a domain and module split with evidence and stop until the person validates it.", "Write draft module and feature specs marked Status: draft, with criteria only for behaviour the code or tests show and pending markers for intent.", "Register the new domains, modules and features in .dixi/traceability.json; keep existing specs and IDs."],
+      "outputs": ["Draft module and feature specs with evidence and pending markers.", "Traceability entries for the validated split."],
+      "gates": ["No spec is written before the person validates the module split."],
+      "checks": ["No code, test, build file or configuration changed.", "Every claim cites file:line or is a pending marker."]
+    },
+    "bugfix": {
+      "title": "Fix a bug with traceability",
+      "purpose": "Take a bug from report to fix with a failing test committed before the code and a traced bug record.",
+      "inputs": ["The bug report and a reproduction.", "The feature's specs, contracts and principles."],
+      "steps": ["Reproduce the bug and find the criterion, clause or principle it breaks; an unspecified behaviour is a spec gap for clarify or change.", "Write 05-features/<slug>/bugs/BUG-NNN.md with report, reproduction and broken criterion.", "Write a test that fails for the reported reason and propose committing it alone, without Signed-off-by.", "Write the minimal fix, run make verify, and update the spec only with the person's agreement."],
+      "outputs": ["A bug record with cause, test and fix.", "A failing test committed before the fix, then the fix with make verify green."],
+      "gates": ["Changing specified behaviour needs the person's agreement."],
+      "checks": ["Frozen tests are unchanged.", "The fix is done only with a reproducing test and make verify green."]
+    },
+    "issues": {
+      "title": "Publish tasks as GitHub issues",
+      "purpose": "Create GitHub issues for a feature's open tasks with gh, after a preview the person confirms.",
+      "inputs": ["The feature's tasks, spec and existing issues list.", "An authenticated gh and the target repository."],
+      "steps": ["Select open tasks not yet listed in 05-features/<slug>/issues.md.", "Check gh auth status and search for existing issues with the same title.", "Show a preview table and wait for an explicit confirmation.", "Create confirmed issues one at a time and append their numbers and URLs to issues.md; stop at the first error."],
+      "outputs": ["GitHub issues for the confirmed tasks.", "05-features/<slug>/issues.md mapping tasks to issues."],
+      "gates": ["Nothing is created without the person's explicit confirmation of the preview."],
+      "checks": ["Existing issues are never edited or closed.", "No token is requested or handled."]
     }
   }
 }

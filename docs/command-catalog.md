@@ -90,6 +90,16 @@ Added by [ADR-108](../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)
 | `/dixi.checklist` | `05-features/<slug>/checklists/<domain>.md` with unchecked, traced `CHK-NNN` requirement-quality items. | Never ticks items; `/dixi.build` stops while items are open. |
 | `/dixi.converge` | Convergence tasks appended to `05-features/<slug>/tasks.md`, typed and traced, or a converged report. | Never edits specs, contracts, code, existing tasks or tests. |
 
+## DIXI's own commands (ADR-108 phase C)
+
+Where DIXI goes beyond Spec Kit ([contract](../07-contracts/commands/own-commands-contract.md)).
+
+| Command | Observable result | Limit |
+|---|---|---|
+| `/dixi.onboard` | Draft module and feature specs from an existing codebase, with `file:line` evidence and traceability. | Writes documentation only, and only after the person validates the module split. |
+| `/dixi.bugfix` | `05-features/<slug>/bugs/BUG-NNN.md`, a failing test committed first, the minimal fix, spec updated with agreement. | No fix without a reproducing test; frozen tests unchanged. |
+| `/dixi.issues` | GitHub issues for a feature's open tasks, recorded in `05-features/<slug>/issues.md`. | Creates nothing before the person confirms; never edits or closes existing issues. |
+
 ## Supporting CLI
 
 | Command | Contract and status |

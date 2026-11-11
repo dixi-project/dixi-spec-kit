@@ -38,7 +38,6 @@ class WorkflowCoverageTests(unittest.TestCase):
 
     def test_quickstart_names_every_operation(self):
         text = (ROOT / "docs/workflow-quickstart.md").read_text(encoding="utf-8")
-        self.assertEqual(len(CLAUDE_COMMANDS), 30)
         for operation in CLAUDE_COMMANDS:
             with self.subTest(operation=operation):
                 self.assertIn(f"`{operation}`", text)

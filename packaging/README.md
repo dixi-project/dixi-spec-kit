@@ -26,7 +26,7 @@ make verify
 
 Optional: `--profile site|app|platform` (and `--regulated`) for fuller templates, `--controls` (with `--agent claude` or `codex`) for hooks that enforce frozen tests, no secrets, no signing or merging, production-mode safety and verification before stopping. Without `--controls`, these rules are instructions; hooks are a second layer, not the last one.
 
-In Claude Code, thirty commands: `/dixi.constitution`, `/dixi.discover`, `/dixi.interview`, `/dixi.specify`, `/dixi.clarify`, `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.data`, `/dixi.threat-model`, `/dixi.ai`, `/dixi.plan`, `/dixi.tasks`, `/dixi.build`, `/dixi.verify`, `/dixi.review`, `/dixi.analyze`, `/dixi.checklist`, `/dixi.converge`, `/dixi.quality`, `/dixi.status`, `/dixi.handoff`, `/dixi.change`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance`, `/dixi.duediligence`, `/dixi.risk-review`, plus four subagents.
+In Claude Code, thirty-three commands: `/dixi.constitution`, `/dixi.onboard`, `/dixi.discover`, `/dixi.interview`, `/dixi.specify`, `/dixi.clarify`, `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.data`, `/dixi.threat-model`, `/dixi.ai`, `/dixi.plan`, `/dixi.tasks`, `/dixi.build`, `/dixi.verify`, `/dixi.review`, `/dixi.analyze`, `/dixi.checklist`, `/dixi.converge`, `/dixi.bugfix`, `/dixi.issues`, `/dixi.quality`, `/dixi.status`, `/dixi.handoff`, `/dixi.change`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance`, `/dixi.duediligence`, `/dixi.risk-review`, plus four subagents.
 
 In Codex, `--agent codex` installs the same operations as skills, invoked as `$dixi-specify`, `$dixi-plan`, etc., with implicit invocation disabled.
 
