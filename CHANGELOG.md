@@ -6,12 +6,15 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- `dixi workflow show/prepare` recipes, in English and Spanish, for the nineteen operations that had none (tasks, build, verify, review, analyze, status, handoff, change, data, quality, ai, release, promote, operate, finops, compliance, duediligence, interview, risk-review), so all thirty operations have one ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase B, [TASK-012](tasks/backlog/TASK-012-workflow-recipes.md)); the workflow quickstart lists every operation with its target kinds, and `tests/test_workflow_coverage.py` fails if a command lacks a complete recipe.
+
 ## [1.7.0] — 2026-11-11
 
 ### Added
 
 - Spec Kit parity ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase A, [contract](07-contracts/commands/parity-commands-contract.md)): `/dixi.constitution` (versioned principles in `00-governance/principles.md`, read by every operation), `/dixi.checklist` (unchecked, traced requirement-quality items; `/dixi.build` stops on open items) and `/dixi.converge` (compares code with specs and appends typed, traced convergence tasks), in English and Spanish, for Claude Code and Codex, with `dixi workflow` recipes. Thirty operations in total.
-- `dixi workflow show/prepare` recipes, in English and Spanish, for the nineteen operations that had none (tasks, build, verify, review, analyze, status, handoff, change, data, quality, ai, release, promote, operate, finops, compliance, duediligence, interview, risk-review), so all thirty operations have one ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase B, [TASK-012](tasks/backlog/TASK-012-workflow-recipes.md)); the workflow quickstart lists every operation with its target kinds, and `tests/test_workflow_coverage.py` fails if a command lacks a complete recipe.
 - `docs/coming-from-spec-kit.md`, a command map and migration guide; `docs/spec-kit-comparison.md` rewritten as a public, dated and sourced comparison (GitHub Spec Kit v1.4.0, read on 2026-11-11), including DIXI's gaps.
 
 ### Changed
