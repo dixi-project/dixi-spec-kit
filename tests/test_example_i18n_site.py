@@ -48,7 +48,7 @@ class I18nSiteExampleTests(unittest.TestCase):
     def test_example_ships_no_dependencies_and_no_hardcoded_copy(self):
         package = json.loads((self.work / "package.json").read_text())
         self.assertFalse(package.get("dependencies"), "runtime code must not need npm install")
-        for name in ("lib/i18n.mjs", "app/[lang]/page.tsx", "middleware.ts"):
+        for name in ("lib/i18n.mjs", "app/[lang]/page.tsx", "proxy.ts"):
             self.assertTrue((self.work / name).is_file(), name)
         catalogs = [json.loads((self.work / "locales" / f"{lang}.json").read_text()) for lang in ("en", "es")]
         self.assertEqual(catalogs[0].keys(), catalogs[1].keys(), "catalogs differ")
