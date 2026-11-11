@@ -3,6 +3,7 @@ import errno
 import json
 import os
 from pathlib import Path, PurePosixPath
+import secrets
 import stat
 import unicodedata
 
@@ -18,7 +19,8 @@ class Issue(Exception):
 
 def supported():
     return (os.name == "posix" and hasattr(os, "O_NOFOLLOW")
-            and os.open in os.supports_dir_fd and os.mkdir in os.supports_dir_fd)
+            and os.open in os.supports_dir_fd and os.mkdir in os.supports_dir_fd
+            and os.rename in os.supports_dir_fd)
 
 
 def safe_path(name):
@@ -102,6 +104,38 @@ def write_file(root, name, data):
                      0o600, dir_fd=parent)
         with os.fdopen(fd, "wb") as stream:
             stream.write(data)
+
+
+def replace_file(root, name, data):
+    """Write data to name atomically: exclusive temporary file in the same directory, then rename.
+
+    Never follows symlinks; refuses to replace anything but a regular file. Renaming replaces a link
+    swapped in at the last moment instead of writing through it.
+    """
+    if not safe_path(name):
+        raise Issue("unsafe_path", 3)
+    path = PurePosixPath(name)
+    with directory(root, path.parts[:-1], create=True) as parent:
+        try:
+            info = os.stat(path.name, dir_fd=parent, follow_symlinks=False)
+            if not stat.S_ISREG(info.st_mode):
+                raise Issue("unsafe_path", 3, path=name)
+        except FileNotFoundError:
+            pass
+        temporary = f".{path.name}.dixi-{secrets.token_hex(8)}"
+        fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=parent)
+        try:
+            with os.fdopen(fd, "wb") as stream:
+                stream.write(data)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.rename(temporary, path.name, src_dir_fd=parent, dst_dir_fd=parent)
+        except BaseException:
+            try:
+                os.unlink(temporary, dir_fd=parent)
+            except FileNotFoundError:
+                pass
+            raise
 
 
 def unique_keys(pairs):

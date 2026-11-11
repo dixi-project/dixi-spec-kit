@@ -16,7 +16,7 @@ Especializados: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/di
 
 Guía y revisión: `/dixi.interview` rellena los huecos `{{pending: …}}` con una pregunta a la vez; `/dixi.risk-review` prepara una revisión por riesgo para una persona. Subagentes en `.claude/agents/`: `dixi-architect`, `dixi-tester`, `dixi-developer`, `dixi-reviewer`.
 
-En terminal: `dixi check`, `dixi doctor`, `dixi workflow list`, `dixi placeholders`, `dixi pr-size` y `dixi upgrade --dry-run` (previsualiza qué cambiaría una versión nueva del kit, sin escribir).
+En terminal: `dixi check`, `dixi doctor`, `dixi workflow list`, `dixi placeholders`, `dixi pr-size` `dixi upgrade --dry-run` (previsualiza qué cambiaría una versión nueva del kit, sin escribir) y `dixi upgrade --apply` (escribe solo los archivos del kit que no has editado).
 
 ## Qué no hace este adaptador
 
