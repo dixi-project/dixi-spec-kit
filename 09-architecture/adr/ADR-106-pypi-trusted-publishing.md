@@ -6,7 +6,7 @@ Decide how DIXI Spec Kit reaches PyPI, so that `pipx install dixi-spec-kit` and 
 
 ## Status
 
-Accepted on 2026-11-10 by the responsible person (Trusted Publishing chosen over manual uploads). The first upload happens with the first release published after the PyPI side is configured ([guide](../../docs/pypi-publishing.md)).
+Accepted on 2026-11-10 by the responsible person (Trusted Publishing chosen over manual uploads). First upload: 1.5.0 on 2026-11-10, approved by a maintainer in the `pypi` environment and installed from PyPI in a clean virtual environment (`dixi --version`, `init`, `check`) ([guide](../../docs/pypi-publishing.md)).
 
 ## Context
 

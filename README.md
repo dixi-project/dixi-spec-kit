@@ -16,12 +16,12 @@ DIXI Spec Kit is a [Dixi Project](https://github.com/dixi-project) tool for spec
 Requirements: Python 3.11 or later, macOS or Linux. Windows is not supported.
 
 ```sh
-uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.5.0
+uv tool install dixi-spec-kit
 # or
-pipx install git+https://github.com/dixi-project/dixi-spec-kit@v1.5.0
+pipx install dixi-spec-kit
 ```
 
-The package is not on PyPI yet. You can also download the wheel from the [v1.5.0 release](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.5.0) and install it with `pipx install dixi_spec_kit-1.3.0-py3-none-any.whl`.
+The package is on [PyPI](https://pypi.org/project/dixi-spec-kit/). To pin a tag from Git instead: `uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.5.0`. Without network access to PyPI, download the wheel from the [v1.5.0 release](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.5.0) and install it with `pipx install dixi_spec_kit-1.5.0-py3-none-any.whl`.
 
 ## Quickstart
 

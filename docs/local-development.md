@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Build, install and test DIXI Spec Kit from this repository. The CLI needs no agent or provider; Python is its runtime, not a choice of the project's language. MIT license; the package is not on PyPI yet.
+Build, install and test DIXI Spec Kit from this repository. The CLI needs no agent or provider; Python is its runtime, not a choice of the project's language. MIT license; released versions are on [PyPI](https://pypi.org/project/dixi-spec-kit/) ([publishing](pypi-publishing.md)).
 
 ## Requirements and build
 
