@@ -6,6 +6,16 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- Spec Kit parity ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase A, [contract](07-contracts/commands/parity-commands-contract.md)): `/dixi.constitution` (versioned principles in `00-governance/principles.md`, read by every operation), `/dixi.checklist` (unchecked, traced requirement-quality items; `/dixi.build` stops on open items) and `/dixi.converge` (compares code with specs and appends typed, traced convergence tasks), in English and Spanish, for Claude Code and Codex, with `dixi workflow` recipes. Thirty operations in total.
+- `docs/coming-from-spec-kit.md`, a command map and migration guide; `docs/spec-kit-comparison.md` rewritten as a public, dated and sourced comparison (GitHub Spec Kit v1.4.0, read on 2026-11-11), including DIXI's gaps.
+
+### Changed
+
+- Every operation follows `00-governance/principles.md` when it exists and reports conflicts instead of resolving them silently.
+- Tests: the operation lists of `test_claude_adapter`, `test_codex_adapter`, `test_block_a` and `test_workflows` include the three operations, and the workflow catalogue size is derived from the list (both authorized by the owner on 2026-11-11, in their own commits).
+
 ### Fixed
 
 - The support matrix says twenty-seven commands and skills (it still said twenty-five), and its Spanish summary states Windows support through WSL 2. The PyPI description (`packaging/README.md`) lists the twenty-seven commands, every CLI command, `--controls`, Codex without "preview", PyPI installation and WSL 2. `tests/test_doc_counts.py` derives the count from the packaged commands so these texts cannot drift again.

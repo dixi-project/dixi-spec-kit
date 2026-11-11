@@ -18,8 +18,8 @@ Declare what DIXI Spec Kit v1.6.0 supports, with what evidence, and which contro
 | Integration | Status | What it installs |
 |---|---|---|
 | `--agent none` | Supported | Documentary base, `AGENTS.md` and guide. Use it with any editor or agent, without installed commands. |
-| `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and twenty-seven `/dixi.*` commands in `.claude/commands/` (fewer in projects created with earlier versions; see `dixi upgrade --dry-run`). |
-| `--agent codex` | Supported (Codex CLI 0.167.0; [manual run](../07-contracts/commands/codex-adapter-contract.md#manual-run)) | Baseline plus twenty-seven skills in `.agents/skills/dixi-<operation>/SKILL.md`, each with `agents/openai.yaml` disabling implicit invocation. Invoke them as `$dixi-<operation>`. Codex reads `AGENTS.md` itself. |
+| `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and thirty `/dixi.*` commands in `.claude/commands/` (fewer in projects created with earlier versions; see `dixi upgrade --dry-run`). |
+| `--agent codex` | Supported (Codex CLI 0.167.0; [manual run](../07-contracts/commands/codex-adapter-contract.md#manual-run)) | Baseline plus thirty skills in `.agents/skills/dixi-<operation>/SKILL.md`, each with `agents/openai.yaml` disabling implicit invocation. Invoke them as `$dixi-<operation>`. Codex reads `AGENTS.md` itself. |
 | Others | Not included | Having `AGENTS.md` does not amount to support. |
 
 ## Claude Code adapter controls
@@ -51,7 +51,7 @@ Hooks are a second layer, not the last one: an agent can reach a file through a 
 
 ## Capabilities
 
-Included: `init` with the `minimal`, `site`, `app` and `platform` profiles and `--regulated`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, `placeholders`, `pr-size`, opt-in `--controls`, Claude Code subagents, the twenty-seven operations `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`, `interview`, `risk-review`, and es/en documents.
+Included: `init` with the `minimal`, `site`, `app` and `platform` profiles and `--regulated`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, `placeholders`, `pr-size`, opt-in `--controls`, Claude Code subagents, the thirty operations `constitution`, `checklist`, `converge`, `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`, `interview`, `risk-review`, and es/en documents.
 
 Not included yet: applying upgrades, extensions or presets, and a second example language.
 
@@ -63,4 +63,4 @@ Not included yet: applying upgrades, extensions or presets, and a second example
 
 ## Resumen en español
 
-Soportado: macOS y Linux con Python ≥ 3.11 (evidencia local en macOS/3.15; CI en Ubuntu y macOS con 3.11 y 3.13). Windows: soportado a través de WSL 2 con el proyecto en el filesystem de Linux (bajo `~`; `/mnt/c` no está soportado), verificado en CI; Windows nativo sale con código 4. Integraciones: `--agent none`, `--agent claude` (Claude Code 2.1.319) y `--agent codex` (Codex CLI 0.167.0, veintisiete skills con invocación implícita desactivada; ejecución manual registrada). El adaptador de Claude Code instala veintisiete comandos, cuatro subagentes y `CLAUDE.md`, sin permisos ni servidores MCP. Por defecto, las reglas de pruebas congeladas, no firmar/aprobar/integrar, no leer secretos y validar decisiones estructurales son **instrucciones**; con `--controls` se instalan hooks (Claude Code y Codex) que hacen cumplir todas salvo la validación de decisiones. Los hooks son una segunda capa, no la última. Aún no incluidos: aplicar upgrades, extensiones y Windows nativo.
+Soportado: macOS y Linux con Python ≥ 3.11 (evidencia local en macOS/3.15; CI en Ubuntu y macOS con 3.11 y 3.13). Windows: soportado a través de WSL 2 con el proyecto en el filesystem de Linux (bajo `~`; `/mnt/c` no está soportado), verificado en CI; Windows nativo sale con código 4. Integraciones: `--agent none`, `--agent claude` (Claude Code 2.1.319) y `--agent codex` (Codex CLI 0.167.0, treinta skills con invocación implícita desactivada; ejecución manual registrada). El adaptador de Claude Code instala treinta comandos, cuatro subagentes y `CLAUDE.md`, sin permisos ni servidores MCP. Por defecto, las reglas de pruebas congeladas, no firmar/aprobar/integrar, no leer secretos y validar decisiones estructurales son **instrucciones**; con `--controls` se instalan hooks (Claude Code y Codex) que hacen cumplir todas salvo la validación de decisiones. Los hooks son una segunda capa, no la última. Aún no incluidos: aplicar upgrades, extensiones y Windows nativo.

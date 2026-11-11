@@ -1,49 +1,67 @@
-# Comparison with GitHub Spec Kit
+# DIXI Spec Kit and GitHub Spec Kit
 
 ## Purpose
 
-Position DIXI Spec Kit's progress against GitHub Spec Kit in order to prioritize what is missing before publishing. This is an internal planning analysis, not marketing material: it claims neither parity nor superiority.
+Help a person choose between, or combine, two specification-driven development kits, with facts and their sources. GitHub Spec Kit is a mature, widely used project; this page states where DIXI Spec Kit matches it, where it goes in a different direction and where it has gaps. It is refreshed with each DIXI release.
 
-## Source and validity
+## Sources and date
 
-Data on github/spec-kit taken on 2026-11-08 from its README, its releases page and its documentation site. Its Issues and CHANGELOG were not read. Figures such as version, releases or stars change quickly; verify them before quoting. DIXI's status corresponds to the working branch on that date.
+Read on **2026-11-11**. GitHub Spec Kit **v1.4.0** (released 2026-11-10): repository https://github.com/github/spec-kit (`templates/commands/`, `CHANGELOG.md`, `docs/`, `README.md`) and its open issues. DIXI Spec Kit v1.6.0 plus the unreleased `constitution`, `checklist` and `converge` operations (v1.7.0). Figures about another project (agents, extensions, stars) change quickly and are quoted as that project publishes them; verify them before reusing.
 
-## Compared status
+## Agent commands
+
+| GitHub Spec Kit | DIXI Spec Kit | Notes |
+|---|---|---|
+| `/speckit.constitution` | `/dixi.constitution` | DIXI keeps the principles in `00-governance/principles.md`, versioned, and every operation reads them. |
+| `/speckit.specify` | `/dixi.specify` | DIXI places each feature under a module and a domain, checked by `dixi check`. |
+| `/speckit.clarify` | `/dixi.clarify` | |
+| `/speckit.plan` | `/dixi.plan` | |
+| `/speckit.checklist` | `/dixi.checklist` | Both write requirement-quality items a person ticks; DIXI's `build` stops on open items. |
+| `/speckit.tasks` | `/dixi.tasks` | |
+| `/speckit.analyze` | `/dixi.analyze` | Both read only and report. |
+| `/speckit.implement` | `/dixi.build` | DIXI requires a failing test committed before code and treats committed tests as frozen. |
+| `/speckit.converge` | `/dixi.converge` | Both append convergence tasks without editing specs or code. |
+| `/speckit.github.taskstoissues` (extension) | — | Planned in DIXI as `/dixi.issues` (v1.9.0). |
+| — | 21 more operations | Domain, architecture, contracts, data, threat model, AI, quality, verification, review, status, handoff, change, interview, risk review, release, promotion, operation, FinOps, compliance and due diligence. |
+
+## CLI and platform
 
 | Area | GitHub Spec Kit | DIXI Spec Kit |
 |---|---|---|
-| Maturity | v1.3.2 released on Nov 6; ten releases in about three weeks | `1.0.0.dev0` local, no release |
-| License | MIT | MIT proposed; rights and decision pending |
-| Installation | `uv tool install`, `uvx`, pipx, pip and air-gapped wheels | Local wheel and sdist; names not verified in the registry |
-| Agents | 41 integrations, plus `none` and `generic` | None; only `--agent none` |
-| Commands in the agent | constitution, specify, clarify, plan, checklist, tasks, analyze, implement, converge | None installable; 16 proposed |
-| CLI | init, check, version, self check, integration, extension, mcp | init, doctor, check, workflow list/show/prepare |
-| Extensibility | Extensions, presets, workflows, bundles, catalogs | Does not exist |
-| Community | CONTRIBUTING, SECURITY, SUPPORT, CODE_OF_CONDUCT, docs site, READMEs in three languages | Not prepared |
-| Systems | Linux, macOS and Windows | Only macOS tested |
+| Install | `uv tool install`, `uvx`, pipx, PyPI, air-gapped | `uv tool install`, pipx, PyPI, release wheel |
+| Project checks | `specify check` (installed agent tools) | `dixi check` (structure, links and goal → domain → module → feature → contract → test traceability), `dixi doctor` |
+| Upgrading a project | `specify self upgrade` upgrades the CLI; a procedure for already initialised projects is an open request (issue #1210) | `dixi upgrade --dry-run` previews kit-file changes; `--apply` is planned (v1.9.0) |
+| Workflows | Executable, resumable workflows with human review gates | `dixi workflow list/show/prepare`: deterministic context packets; the agent runs the operation |
+| Extensibility | Extensions, presets, workflows, bundles and catalogs (the project lists 186 community extensions and 42 presets) | Not available; local presets and extensions are planned |
+| MCP | Experimental read-only server | None; the CLI needs no network |
+| Agents | 41 integrations plus `generic` and `none` | Claude Code and Codex, plus `none`; a generic Agent Skills adapter is planned (v1.10.0) |
+| Systems | Windows, macOS and Linux | macOS and Linux; Windows through WSL 2 (verified in CI) |
+| Runtime dependencies | Python packages | None (standard library only) |
+| Languages | README in English, Chinese, Japanese and Korean; docs in English | Documents, commands and messages in English and Spanish |
 
-## Main gap
+## Where DIXI takes a different direction
 
-Spec Kit's value proposition is installing commands in the agent the person already uses. DIXI today creates documents and prepares context deterministically, but does not install commands in any agent.
+- **Enforced rules, opt-in.** With `--controls`, agent hooks block edits to committed tests, reading secrets, signing or merging for a person, destructive commands in production mode and finishing with `make verify` red. Without it, as in Spec Kit, rules are instructions.
+- **Module-level specs.** `04-modules/` holds persistent module specs linked to domains and features; Spec Kit lists module-level persistent specs as an open request (issue #1100).
+- **No imposed branch strategy.** DIXI creates no branches; in Spec Kit, issue #2047 asks to configure the branch strategy without forking.
+- **Safe filesystem writes.** Every write is descriptor-relative and refuses symlinks; native Windows exits with code 4 instead of writing with weaker guarantees.
+- **Beyond implementation.** Operations for release, operation, FinOps, compliance and due diligence write documents only and never deploy or claim certifications.
 
-## Differences DIXI can sustain with its own evidence
+## Gaps DIXI has today
 
-Each one requires the executed public example before being announced.
+- Two agents instead of forty-one.
+- No extension, preset or catalog mechanism.
+- No executable or resumable workflows.
+- No documentation site (planned).
+- A much smaller community and a younger project.
 
-- Mechanical checking of the business → domain → module → feature → contract → test chain through `dixi check`.
-- Explicit human gates: AI does not sign, attest, approve or merge; frozen tests are not modified.
-- Design of domains, architecture, contracts and threats, and impact analysis when a feature changes.
-- Agent-independent core documented in ADR-101.
-- CLI execution with the standard library and verification of paths, symlinks and limits with regression tests.
+## Using both
 
-## What is missing to publish
-
-Blockers: license and rights; at least one agent adapter with installed commands; verified names; installation without cloning the repository; a public example from idea to verified code; README es/en and community files; clean history and branch protection. Deferrable: `upgrade`, Linux and Windows, specialized commands, second language and second adapter, extensions. The scope proposal is in [ADR-102](../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md).
+The two kits use different folders (`.specify/` and `specs/` against DIXI's numbered folders and `.dixi/`). Moving a project is a manual mapping, described in [Coming from Spec Kit](coming-from-spec-kit.md).
 
 ## Related
 
-- [ADR-102](../09-architecture/adr/ADR-102-recorte-de-alcance-v1.md)
+- [Coming from Spec Kit](coming-from-spec-kit.md)
+- [ADR-108](../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)
+- [Support matrix](support-matrix.md)
 - [Command catalog](command-catalog.md)
-- [Publication](publication-readiness.md)
-- [Product](product-spec.md)
-- [TASK-003](../tasks/backlog/TASK-003-adaptador-claude-code.md)

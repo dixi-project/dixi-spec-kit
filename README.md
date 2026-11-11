@@ -46,7 +46,7 @@ Open Claude Code in `my-project` and walk through:
 /dixi.review main
 ```
 
-`/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Design with `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` and `/dixi.threat-model`; propose changes with `/dixi.change`; leave a resumable handoff with `/dixi.handoff`. `/dixi.interview` fills the `{{pending: …}}` blanks one question at a time and `/dixi.risk-review` prepares a risk-based review; subagents `dixi-architect`, `dixi-tester`, `dixi-developer` and `dixi-reviewer` live in `.claude/agents/`. Specialized operations: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` and `/dixi.duediligence` write documents only; they never run migrations, deploy, change `MODE` or claim certifications. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
+`/dixi.constitution` sets the project's versioned principles, which every operation reads; `/dixi.checklist` tests the quality of a feature's requirements before building; `/dixi.converge` compares the code with its specs and appends the missing work as tasks. `/dixi.analyze` checks consistency and the impact of a change; `/dixi.status` suggests the next step. Design with `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` and `/dixi.threat-model`; propose changes with `/dixi.change`; leave a resumable handoff with `/dixi.handoff`. `/dixi.interview` fills the `{{pending: …}}` blanks one question at a time and `/dixi.risk-review` prepares a risk-based review; subagents `dixi-architect`, `dixi-tester`, `dixi-developer` and `dixi-reviewer` live in `.claude/agents/`. Specialized operations: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` and `/dixi.duediligence` write documents only; they never run migrations, deploy, change `MODE` or claim certifications. Documents and messages are in English by default; use `dixi --lang es init …` for Spanish. Inside a project, messages follow the project's language.
 
 ## Profiles
 
@@ -90,6 +90,10 @@ Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 oc
 ## What is and is not included
 
 See the [support matrix](docs/support-matrix.md). In short: by default the adapters install commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Add `--controls` (with `--agent claude` or `codex`) to install hooks that enforce frozen tests, no secrets, no signing or merging, production-mode safety and verification before stopping; in Codex they run once you trust the project and approve them with `/hooks`. Hooks are a second layer, not the last one. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) installs the same operations as Agent Skills, with implicit invocation disabled. Applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows works through WSL 2 only.
+
+## Coming from GitHub Spec Kit
+
+Every Spec Kit command has a DIXI counterpart (`/speckit.implement` is `/dixi.build`), plus twenty-one more operations. See the [command map](docs/coming-from-spec-kit.md) and a dated, sourced [comparison](docs/spec-kit-comparison.md), including the gaps DIXI still has.
 
 ## Contributing
 
