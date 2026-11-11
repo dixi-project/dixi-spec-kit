@@ -15,7 +15,7 @@ The site needs locale negotiation, prefixed routes, alternates and catalogs. Nex
 ## Options
 
 1. An i18n library: complete, but adds dependencies and hides the rules this example wants to show.
-2. Logic inside `middleware.ts` and the pages: no dependencies, but only testable through Next.js.
+2. Logic inside `proxy.ts` and the pages: no dependencies, but only testable through Next.js.
 3. Plain ES modules (`lib/*.mjs`) imported by Next.js and tested with `node --test`.
 
 ## Decision

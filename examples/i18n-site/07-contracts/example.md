@@ -25,7 +25,7 @@ Contract of `lib/i18n.mjs` and `lib/catalog.mjs`, produced with `/dixi.plan`. Ne
 
 ## Next.js usage (illustrative)
 
-- `middleware.ts`: answers `redirectTarget(...)` with a 307 redirect, `Vary: Accept-Language` and `Cache-Control: private, no-store`.
+- `proxy.ts`: answers `redirectTarget(...)` with a 307 redirect, `Vary: Accept-Language` and `Cache-Control: private, no-store`.
 - `app/[lang]/layout.tsx`: `<html lang>` from the prefix; unknown locales give 404 (`dynamicParams = false`).
 - `app/[lang]/page.tsx`: `generateMetadata` returns `alternates: pageAlternates(...)`; visible text comes from `translate`.
 

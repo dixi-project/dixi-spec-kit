@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Implement the localized delivery domain as dependency-free ES modules (`lib/i18n.mjs`, `lib/catalog.mjs`) that a Next.js app imports from `middleware.ts` and `app/[lang]/`.
+Implement the localized delivery domain as dependency-free ES modules (`lib/i18n.mjs`, `lib/catalog.mjs`) that a Next.js app imports from `proxy.ts` and `app/[lang]/`.
 
 ## Responsibilities
 
