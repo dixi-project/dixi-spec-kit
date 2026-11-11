@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- Experimental CI workflow `wsl.yml` for [ADR-107](09-architecture/adr/ADR-107-windows-support.md) phase 1: on `windows-latest` it sets up Ubuntu 24.04 in WSL 2 (`Vampire/setup-wsl`, pinned by SHA), fails unless the kernel is WSL 2 and the project is on ext4 under `~`, and runs `make verify`, `dixi init --agent claude --controls`, `check`, `upgrade --dry-run` and three blocking hooks. Not a required check; Windows stays unsupported until phase 1 is closed.
+
 ### Changed
 
 - The READMEs install from PyPI (`uv tool install dixi-spec-kit`, `pipx install dixi-spec-kit`); Git tags and the release wheel stay as alternatives. Fixed the wheel name in the offline instructions, which still said 1.3.0.

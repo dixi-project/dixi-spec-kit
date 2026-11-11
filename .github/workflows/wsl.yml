@@ -1,0 +1,89 @@
+name: wsl
+
+# ADR-107 phase 1 (experimental): run the Linux evidence inside WSL 2 on a GitHub-hosted Windows runner.
+# Not a required check. The job fails unless the kernel is WSL 2 and the project lives on the Linux filesystem.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wsl-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  wsl2:
+    name: make verify in WSL 2 (Ubuntu 24.04)
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: wsl-bash {0}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Vampire/setup-wsl@4c48163d9f981914dd8caa0fc335fe19cca5bff4 # v7.2.0
+        with:
+          distribution: Ubuntu-24.04
+          wsl-version: 2
+          additional-packages: python3-venv make git
+      - name: Environment is WSL 2
+        run: |
+          uname -r
+          grep -E '^(PRETTY_NAME|VERSION_ID)=' /etc/os-release
+          python3 --version
+          git --version
+          uname -r | grep -q 'WSL2' || { echo "::error::kernel is not WSL 2: $(uname -r)"; exit 1; }
+      - name: Copy the checkout to the Linux filesystem (~)
+        run: |
+          git config --global --add safe.directory '*'
+          git init -q "$HOME/kit"
+          git -C "$HOME/kit" fetch -q --depth 1 "file://$PWD" HEAD
+          git -C "$HOME/kit" checkout -q FETCH_HEAD
+          git -C "$HOME/kit" log --oneline -1
+          fs=$(df -T "$HOME/kit" | awk 'NR==2 {print $2}')
+          echo "filesystem: $fs"
+          [ "$fs" = "ext4" ] || { echo "::error::$HOME/kit is on $fs, expected ext4"; exit 1; }
+      - name: make verify
+        run: |
+          cd "$HOME/kit"
+          python3 -m venv .venv
+          .venv/bin/python -m pip --isolated install -q --index-url https://pypi.org/simple \
+            --only-binary=:all: --no-deps --require-hashes -r requirements-build.txt
+          make verify
+      - name: init, check, upgrade and blocking hooks
+        run: |
+          cd "$HOME/kit"
+          .venv/bin/python -m pip install -q --no-deps --no-index dist/*.whl
+          dixi="$HOME/kit/.venv/bin/dixi"
+          "$dixi" --version
+          cd "$HOME"
+          "$dixi" init demo --agent claude --controls
+          cd demo
+          "$dixi" check
+          "$dixi" upgrade --dry-run
+          [ -d .git ] || git init -q
+          git config user.email ci@example.invalid
+          git config user.name "WSL CI"
+          mkdir -p tests
+          printf 'def test_ok():\n    assert True\n' > tests/test_ok.py
+          git add -A
+          git commit -q -m demo
+          export CLAUDE_PROJECT_DIR="$PWD"
+          expect_block() {
+            set +e
+            printf '%s' "$2" | python3 ".dixi/hooks/$1"
+            code=$?
+            set -e
+            echo "$1 exit=$code"
+            [ "$code" -eq 2 ] || { echo "::error::$1 did not block"; exit 1; }
+          }
+          expect_block protect_tests.py "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"$PWD/tests/test_ok.py\"},\"cwd\":\"$PWD\"}"
+          expect_block protect_tests.py "{\"tool_name\":\"Bash\",\"tool_input\":{\"command\":\"sed -i s/True/False/ tests/test_ok.py\"},\"cwd\":\"$PWD\"}"
+          expect_block guard_attestation.py "{\"tool_name\":\"Bash\",\"tool_input\":{\"command\":\"git commit -s -m x\"},\"cwd\":\"$PWD\"}"
+          test -z "$(git status --porcelain)"
+          echo "working tree unchanged"
