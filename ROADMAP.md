@@ -47,11 +47,15 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - `constitution`, `checklist` and `converge`: every GitHub Spec Kit command has a DIXI counterpart; every operation reads the project's principles ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase A).
 - A public, dated comparison with GitHub Spec Kit and a "Coming from Spec Kit" guide.
 
+## v1.8.0 — Beyond Spec Kit (2026-11-11)
+
+- `dixi workflow` recipes for all thirty-three operations ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase B).
+- `dixi upgrade --apply`: takes kit updates file by file, atomically, never touching the person's edits.
+- `onboard` for existing codebases, `bugfix` with a failing test first, and `issues` to GitHub with `gh` (phase C).
+
 ## Next: Spec Kit parity and beyond ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md))
 
-- v1.8.0: `dixi workflow` recipes for every operation.
-- v1.9.0: `onboard` for existing projects, `bugfix`, `issues` and `dixi upgrade --apply`.
-- v1.10.0: a generic Agent Skills adapter for more agents.
+- v1.9.0: a generic Agent Skills adapter for more agents.
 - Then: local presets and extensions, and a documentation site in English and Spanish.
 
 ## Later
