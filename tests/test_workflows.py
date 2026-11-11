@@ -13,6 +13,7 @@ OPERATIONS = {
     "discover": "GOAL-001", "specify": "MODULE-001", "clarify": "FEATURE-001",
     "domain": "GOAL-001", "architecture": "MODULE-001", "contract": "FEATURE-001",
     "threat-model": "FEATURE-001", "plan": "FEATURE-001",
+    "constitution": "GOAL-001", "checklist": "FEATURE-001", "converge": "FEATURE-001",
 }
 
 
