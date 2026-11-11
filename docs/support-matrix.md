@@ -53,7 +53,7 @@ Hooks are a second layer, not the last one: an agent can reach a file through a 
 
 Included: `init` with the `minimal`, `site`, `app` and `platform` profiles and `--regulated`, `doctor`, `check`, `workflow list/show/prepare`, `upgrade --dry-run`, `placeholders`, `pr-size`, opt-in `--controls`, Claude Code subagents, the thirty-three operations `constitution`, `checklist`, `converge`, `onboard`, `bugfix`, `issues`, `discover`, `specify`, `clarify`, `plan`, `tasks`, `build`, `verify`, `review`, `analyze`, `status`, `domain`, `architecture`, `contract`, `threat-model`, `handoff`, `change`, `data`, `quality`, `ai`, `release`, `promote`, `operate`, `finops`, `compliance`, `duediligence`, `interview`, `risk-review`, and es/en documents.
 
-Not included yet: applying upgrades, extensions or presets, and a second example language.
+Not included yet: extensions or presets, and a second example language.
 
 ## Related
 

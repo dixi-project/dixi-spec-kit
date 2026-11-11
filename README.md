@@ -77,6 +77,7 @@ Templates are guidance with `{{pending: …}}` blanks, not decisions: delete the
 | `dixi placeholders [--strict]` | Lists the `{{pending: …}}` markers left in the project's documents. |
 | `dixi pr-size [--base main] [--max 1500]` | Measures the current branch: changed lines without docs, lockfiles, generated files or tests (reported apart). Read-only; exit 1 over the limit. |
 | `dixi upgrade --dry-run [--profile …] [--controls]` | Previews what the installed kit version would change: unchanged, updatable, conflicting, new, missing and obsolete files. Writes nothing. |
+| `dixi upgrade --apply [--profile …] [--controls]` | Writes only updatable and new kit files, each atomically and re-checked right before writing; never your edits, deleted or obsolete files. |
 | `dixi --help`, `dixi --version` | Help and version. Global options: `--lang es\|en`, `--json`. |
 
 Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O failure.
@@ -89,7 +90,7 @@ Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 oc
 
 ## What is and is not included
 
-See the [support matrix](docs/support-matrix.md). In short: by default the adapters install commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Add `--controls` (with `--agent claude` or `codex`) to install hooks that enforce frozen tests, no secrets, no signing or merging, production-mode safety and verification before stopping; in Codex they run once you trust the project and approve them with `/hooks`. Hooks are a second layer, not the last one. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) installs the same operations as Agent Skills, with implicit invocation disabled. Applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows works through WSL 2 only.
+See the [support matrix](docs/support-matrix.md). In short: by default the adapters install commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Add `--controls` (with `--agent claude` or `codex`) to install hooks that enforce frozen tests, no secrets, no signing or merging, production-mode safety and verification before stopping; in Codex they run once you trust the project and approve them with `/hooks`. Hooks are a second layer, not the last one. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) installs the same operations as Agent Skills, with implicit invocation disabled. `dixi upgrade --apply` takes kit updates without touching your edits. Windows works through WSL 2 only.
 
 ## Coming from GitHub Spec Kit
 

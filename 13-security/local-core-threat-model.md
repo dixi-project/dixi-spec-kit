@@ -20,6 +20,10 @@ Assets: the user's local files, distributable resources, verification evidence a
 | T06 / Repudiation | Claiming application verification or changing files while inspecting. | Structural scope report, stable codes, read without writes; documented Markdown subset. | `test_check_read_only`, `test_generated_project_passes`, `test_broken_parent`, `test_broken_link`, `test_broken_reference_link`, `test_reference_links_with_valid_destinations` |
 | T07 / Information disclosure | Leaking private material through wheel/sdist. | Allowed inventory, original resources, tests on the final archive. | `test_artifact_allowlist`, `test_clean_installations` |
 | T08 / Tampering | Omitting mandatory files by altering the inventory. | Compare required names with the resources of the installed version. | `test_missing_required_file`, `test_incomplete_inventory` |
+| T09 / Tampering | `upgrade --apply` overwriting the person's edits, recreating deleted files or deleting obsolete ones. | Write only `updatable` (local equals recorded original) and `new` (absent); conflicts, missing and obsolete files are never written. | `test_apply_writes_only_updatable_and_new`, `test_dry_run_predicts_apply` |
+| T10 / Elevation | A file or its parent swapped for a symlink, or edited, between the plan and the write. | Re-read each file right before writing; descriptor-relative temporary file with `O_EXCL`/`O_NOFOLLOW` and rename; symlinks and non-regular files are conflicts. | `test_changed_after_plan_is_skipped`, `test_symlink_target_is_never_written` |
+| T11 / Denial of service | An interrupted apply leaving half-written files or inconsistent metadata. | Atomic rename per file, metadata rewritten last and atomically, already-applied content recorded on the next run. | `test_recovers_after_interruption`, `test_apply_is_idempotent` |
+| T12 / Tampering | Two applies running at once. | Exclusive lock file; a second run exits 3 without writing. | `test_lock_refuses_concurrent_apply` |
 
 ## Residual risk and review
 

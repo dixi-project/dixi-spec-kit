@@ -29,6 +29,10 @@ so that the method fits real projects, not only new ones.
 2. `make verify` passes and CI is green.
 3. A person ran `onboard` on an existing repository and `upgrade --apply` on a project created with v1.6.0, and both runs are recorded.
 
+## Progress — 2026-11-11
+
+`dixi upgrade --apply`: contract and threats T09–T12 approved by the owner and recorded before the code; red tests in `tests/test_upgrade_apply.py`; atomic per-file replacement (`replace_file`), re-check before each write, lock, idempotent recovery, metadata last. `test_upgrade_requires_dry_run` stays valid unchanged (bare `upgrade` still exits 2). Runs against projects created with `dixi 1.6.0` from PyPI recorded in the [contract](../../07-contracts/commands/block-a-contract.md#dixi-upgrade---apply). Pending: `onboard`, `bugfix` and `issues`.
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)

@@ -31,7 +31,7 @@ Read on **2026-11-11**. GitHub Spec Kit **v1.4.0** (released 2026-11-10): reposi
 |---|---|---|
 | Install | `uv tool install`, `uvx`, pipx, PyPI, air-gapped | `uv tool install`, pipx, PyPI, release wheel |
 | Project checks | `specify check` (installed agent tools) | `dixi check` (structure, links and goal → domain → module → feature → contract → test traceability), `dixi doctor` |
-| Upgrading a project | `specify self upgrade` upgrades the CLI; a procedure for already initialised projects is an open request (issue #1210) | `dixi upgrade --dry-run` previews kit-file changes; `--apply` is planned (v1.9.0) |
+| Upgrading a project | `specify self upgrade` upgrades the CLI; a procedure for already initialised projects is an open request (issue #1210) | `dixi upgrade --dry-run` previews kit-file changes; `dixi upgrade --apply` writes only unedited kit files, atomically |
 | Workflows | Executable, resumable workflows with human review gates | `dixi workflow list/show/prepare`: deterministic context packets; the agent runs the operation |
 | Extensibility | Extensions, presets, workflows, bundles and catalogs (the project lists 186 community extensions and 42 presets) | Not available; local presets and extensions are planned |
 | MCP | Experimental read-only server | None; the CLI needs no network |
