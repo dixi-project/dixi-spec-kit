@@ -14,6 +14,18 @@ Make concrete the first authorized block of TASK-001: help, version, `init --age
 
 First evaluated environment: macOS/POSIX with Python 3.15.2. Code intended for Python >=3.11; other versions/systems remain uncertified until their matrix is run. The core requires POSIX operations with directory descriptors and `O_NOFOLLOW` to avoid following symlinks; a system without them fails explicitly, without degrading that protection.
 
+### Windows through WSL 2
+
+Native Windows lacks those operations and exits with code 4. Under WSL 2 the code path is Linux, so Windows is supported through WSL 2 with the project on the Linux filesystem (under `~`); projects under `/mnt/c` or other mounted Windows drives are not supported ([ADR-107](../../09-architecture/adr/ADR-107-windows-support.md)).
+
+Recorded run on 2026-11-11 (UTC), CI job `wsl.yml` on commit `062032f` ([run 42939778058](https://github.com/dixi-project/dixi-spec-kit/actions/runs/42939778058)): runner image `windows-2025-vs2026` (Windows Server 2025, 10.0.26100), Ubuntu 24.04.5 LTS in WSL 2 (`uname -r`: `6.18.54.1-microsoft-standard-WSL2`), Python 3.12.3, project in `$HOME/kit` on ext4.
+
+- `make verify`: `Ran 191 tests`, `OK (skipped=2)` (`node` not installed; native-refusal test runs only on native Windows).
+- The built wheel reports `dixi 1.5.0`; `dixi init demo --agent claude --controls`, `dixi check` and `dixi upgrade --dry-run` exit 0.
+- With a committed `tests/test_ok.py`, `protect_tests.py` blocks an `Edit` and a `sed -i` of it and `guard_attestation.py` blocks `git commit -s`, each with exit 2, fed the same JSON Claude Code sends; the working tree stays unchanged.
+
+The job fails unless the kernel reports WSL2 and the project is on ext4, so WSL 1 or a `/mnt` path cannot pass it.
+
 ## Generated files and metadata
 
 Original resources of this product, stored in es/en JSON catalogs inside the package. No standard or proprietary template from the origin is copied. They include a README, vision, domain, module, feature, contract and draft test plan, a documentation-only usage guide, MODE, a structural-check Makefile and context/secret exclusions.

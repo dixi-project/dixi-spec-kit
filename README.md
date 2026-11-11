@@ -13,7 +13,7 @@ DIXI Spec Kit is a [Dixi Project](https://github.com/dixi-project) tool for spec
 
 ## Installation
 
-Requirements: Python 3.11 or later, macOS or Linux. Windows is not supported.
+Requirements: Python 3.11 or later, macOS or Linux. On Windows, use WSL 2 with the project under `~`, not `/mnt/c` ([details](docs/local-development.md#windows-wsl-2)); native Windows is not supported.
 
 ```sh
 uv tool install dixi-spec-kit
@@ -89,7 +89,7 @@ Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 oc
 
 ## What is and is not included
 
-See the [support matrix](docs/support-matrix.md). In short: by default the adapters install commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Add `--controls` (with `--agent claude` or `codex`) to install hooks that enforce frozen tests, no secrets, no signing or merging, production-mode safety and verification before stopping; in Codex they run once you trust the project and approve them with `/hooks`. Hooks are a second layer, not the last one. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) installs the same operations as Agent Skills, with implicit invocation disabled. Applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows is not supported.
+See the [support matrix](docs/support-matrix.md). In short: by default the adapters install commands and instructions, **not hooks or permissions**; rules are instructions for the agent, and effective protection comes from your review and branch protection. Add `--controls` (with `--agent claude` or `codex`) to install hooks that enforce frozen tests, no secrets, no signing or merging, production-mode safety and verification before stopping; in Codex they run once you trust the project and approve them with `/hooks`. Hooks are a second layer, not the last one. The Codex adapter (`--agent codex`, skills invoked as `$dixi-specify`, `$dixi-plan`, …) installs the same operations as Agent Skills, with implicit invocation disabled. Applying upgrades automatically is not available yet ([roadmap](ROADMAP.md)). Windows works through WSL 2 only.
 
 ## Contributing
 

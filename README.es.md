@@ -13,7 +13,7 @@ DIXI Spec Kit es una herramienta de [Dixi Project](https://github.com/dixi-proje
 
 ## Instalación
 
-Requisitos: Python 3.11 o superior, macOS o Linux. Windows no está soportado.
+Requisitos: Python 3.11 o superior, macOS o Linux. En Windows, usa WSL 2 con el proyecto bajo `~`, no en `/mnt/c` ([detalles](docs/local-development.md#windows-wsl-2)); Windows nativo no está soportado.
 
 ```sh
 uv tool install dixi-spec-kit
@@ -89,7 +89,7 @@ Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proy
 
 ## Qué incluye y qué no
 
-Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: por defecto los adaptadores instalan comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. Añade `--controls` (con `--agent claude` o `codex`) para instalar hooks que hacen cumplir pruebas congeladas, no leer secretos, no firmar ni integrar, seguridad en modo producción y verificación antes de terminar; en Codex se ejecutan cuando confías en el proyecto y los apruebas con `/hooks`. Los hooks son una segunda capa, no la última. El adaptador de Codex (`--agent codex`, skills que se invocan como `$dixi-specify`, `$dixi-plan`, …) instala las mismas operaciones como Agent Skills, con la invocación implícita desactivada. Aplicar actualizaciones automáticamente aún no está disponible ([plan](ROADMAP.md)). Windows no está soportado.
+Lo que ofrece cada integración y sus límites están en la [matriz de soporte](docs/support-matrix.md). En resumen: por defecto los adaptadores instalan comandos e instrucciones, **no hooks ni permisos**; las reglas son instrucciones para el agente, y la protección efectiva es tu revisión y la protección de rama. Añade `--controls` (con `--agent claude` o `codex`) para instalar hooks que hacen cumplir pruebas congeladas, no leer secretos, no firmar ni integrar, seguridad en modo producción y verificación antes de terminar; en Codex se ejecutan cuando confías en el proyecto y los apruebas con `/hooks`. Los hooks son una segunda capa, no la última. El adaptador de Codex (`--agent codex`, skills que se invocan como `$dixi-specify`, `$dixi-plan`, …) instala las mismas operaciones como Agent Skills, con la invocación implícita desactivada. Aplicar actualizaciones automáticamente aún no está disponible ([plan](ROADMAP.md)). Windows funciona solo a través de WSL 2.
 
 ## Contribuir
 

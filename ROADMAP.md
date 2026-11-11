@@ -37,9 +37,13 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - `protect_tests` also stops inline interpreter code that rewrites committed tests.
 - Windows through WSL 2 accepted ([ADR-107](09-architecture/adr/ADR-107-windows-support.md)); phase 0 verifies the native refusal in CI.
 
+## Next release
+
+- Windows supported through WSL 2 with the project on the Linux filesystem, verified in CI on every pull request ([ADR-107](09-architecture/adr/ADR-107-windows-support.md) phase 1).
+- READMEs install from PyPI; `examples/i18n-site` uses the Next.js 16 `proxy.ts` convention.
+
 ## Later
 
-- Windows through WSL 2, phase 1: a recorded manual run and the support matrix row ([ADR-107](09-architecture/adr/ADR-107-windows-support.md)).
 - A native Windows backend only with real demand and a new validation.
 
 ## Related

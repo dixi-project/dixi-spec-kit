@@ -10,7 +10,8 @@ Declare what DIXI Spec Kit v1.5.0 supports, with what evidence, and which contro
 |---|---|---|
 | macOS + Python 3.15 | Supported | Local `make verify`, clean install from wheel and sdist ([B3](b3-verification.md)). |
 | macOS / Linux + Python 3.11 and 3.13 | Supported when CI passes | `verify` job on `ubuntu-latest` and `macos-latest` ([ADR-103](../09-architecture/adr/ADR-103-ci-publica-en-github-actions.md)). |
-| Windows (native) | Not supported | Requires POSIX operations (`O_NOFOLLOW`, directory descriptors); `dixi` exits with code 4 and writes nothing, verified on `windows-latest` by the `windows-refusal` CI job. WSL 2 support is planned (ADR-107). |
+| Windows (WSL 2, Linux filesystem) | Supported when CI passes | Ubuntu 24.04 in WSL 2 on `windows-latest`, project under `~` on ext4: `make verify`, `init --agent claude --controls`, `check`, `upgrade --dry-run` and blocking hooks, run by the `wsl.yml` CI job ([first run](https://github.com/dixi-project/dixi-spec-kit/actions/runs/42939778058), [contract](../07-contracts/commands/local-core-contract.md#windows-through-wsl-2)). Projects under `/mnt/c` (or any Windows drive mounted in WSL) are **not supported**: Windows processes can create junctions there and its translation layer does not have ext4 link semantics. |
+| Windows (native) | Not supported | Requires POSIX operations (`O_NOFOLLOW`, directory descriptors); `dixi` exits with code 4 and writes nothing, verified on `windows-latest` by the `windows-refusal` CI job. Use WSL 2 ([ADR-107](../09-architecture/adr/ADR-107-windows-support.md)). |
 
 ## Integrations
 
