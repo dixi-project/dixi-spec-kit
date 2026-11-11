@@ -26,7 +26,7 @@ CLAUDE_REQUIRED = ("discover", "specify", "clarify", "plan", "tasks", "build", "
 CLAUDE_COMMANDS = CLAUDE_REQUIRED + ("domain", "architecture", "contract", "threat-model", "handoff", "change",
                                      "data", "quality", "ai", "release", "promote", "operate", "finops",
                                      "compliance", "duediligence", "interview", "risk-review",
-                                     "constitution", "checklist", "converge")
+                                     "constitution", "checklist", "converge", "onboard", "bugfix", "issues")
 SUBAGENTS = ("architect", "tester", "developer", "reviewer")
 CONTROLS = ("protect_tests", "guard_secrets", "guard_attestation", "mode_gate", "verify_on_stop")
 TEST_PATH = re.compile(r"(^|/)(tests?|__tests__|spec)/|(^|/)test_[^/]*$|_test\.[^/]+$|\.(test|spec)\.[^/]+$|\.feature$")

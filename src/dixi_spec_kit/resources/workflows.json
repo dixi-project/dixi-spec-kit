@@ -265,6 +265,35 @@
         "feature"
       ],
       "next_operations": []
+    },
+    "onboard": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "constitution",
+        "clarify",
+        "converge"
+      ]
+    },
+    "bugfix": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "clarify",
+        "change",
+        "verify",
+        "review"
+      ]
+    },
+    "issues": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "build"
+      ]
     }
   }
 }

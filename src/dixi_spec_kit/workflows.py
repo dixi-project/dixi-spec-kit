@@ -9,7 +9,7 @@ from .filesystem import Issue, decode_json, read_file, root_directory
 OPERATIONS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify", "review", "analyze", "status",
               "domain", "architecture", "contract", "threat-model", "handoff", "change", "data", "quality", "ai",
               "release", "promote", "operate", "finops", "compliance", "duediligence", "interview", "risk-review",
-              "constitution", "checklist", "converge")
+              "constitution", "checklist", "converge", "onboard", "bugfix", "issues")
 COMMON_SOURCES = (METADATA, TRACE, "MODE", "AGENTS.md", "00-master-spec.md")
 
 
