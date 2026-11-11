@@ -99,6 +99,177 @@
       "outputs": ["Tareas de convergencia añadidas a las tareas de la feature, o un informe de convergencia con evidencia."],
       "gates": ["El código no pedido solo se especifica o retira por decisión de una persona."],
       "checks": ["Specs, contratos, código, tareas existentes y pruebas no cambian.", "Las comprobaciones se informan como ejecutadas, fallidas o no ejecutadas; ninguna se afirma sin ejecutarla."]
+    },
+    "tasks": {
+      "title": "Dividir el plan en tareas",
+      "purpose": "Convertir el plan de la feature en tareas pequeñas y ordenadas, enlazadas a sus specs, con criterio, dependencias y nivel de riesgo.",
+      "inputs": ["La feature, su plan, su contrato, su plan de pruebas y los ADRs relacionados.", "Los principios del proyecto, si existen."],
+      "steps": ["Lee la feature, su contrato, su plan de pruebas y los ADRs relacionados; si un ADR estructural sigue «Propuesto», indícalo como bloqueo.", "Escribe 05-features/<slug>/tasks.md: cada tarea con ID T-NNN, descripción, criterio de aceptación que cubre, dependencias, nivel de riesgo (0 corrección, 1 reglas claras, 2 con dudas, 3 estructural) y enlace a la spec.", "Ordena por dependencias; las pruebas de cada tarea se escriben antes que su código.", "Sugiere construir la primera tarea desbloqueada (por ejemplo T-001)."],
+      "outputs": ["05-features/<slug>/tasks.md con tareas ordenadas y trazadas a criterios y specs.", "Bloqueos, preguntas abiertas y la primera tarea desbloqueada."],
+      "gates": ["Una tarea de nivel 3 requiere validación de la persona antes de construirse.", "Un ADR estructural todavía «Propuesto» bloquea las tareas que dependen de él."],
+      "checks": ["Cada tarea cubre un criterio y enlaza a la spec; las dependencias no son circulares.", "Se ejecutó dixi check; se informan archivos tocados, comprobaciones y pendientes."]
+    },
+    "build": {
+      "title": "Construir una tarea con pruebas primero",
+      "purpose": "Implementar una tarea de la feature con TDD: pruebas en rojo, código mínimo hasta verde y make verify.",
+      "inputs": ["La tarea en 05-features/*/tasks.md, su criterio y sus dependencias.", "Las listas de 05-features/<slug>/checklists/ y wip_limit en AGENTS.md (por defecto 3)."],
+      "steps": ["Detente si la tarea no existe, tiene dependencias abiertas o es de nivel 3 sin validar; detente si una lista tiene ítems abiertos hasta que la persona los cierre o decida continuar.", "Si gh está disponible y autenticado y la persona ya tiene wip_limit pull requests abiertos, detente y sugiere terminar uno primero.", "Escribe primero las pruebas del criterio en el lenguaje del proyecto y muestra que fallan por la razón esperada; sin prueba en rojo no hay código.", "Propón registrar las pruebas en rojo en su propio commit, sin Signed-off-by; desde ese momento son pruebas congeladas.", "Escribe el código mínimo para pasar a verde, ejecuta make verify y muestra el resultado real; si falla, corrige el código, no la prueba.", "Registra las pruebas en .dixi/traceability.json (kind: test), marca la tarea como hecha solo con make verify en verde y sugiere verify."],
+      "outputs": ["Pruebas en rojo propuestas para su propio commit y después el código mínimo hasta verde.", "Pruebas registradas en .dixi/traceability.json y la tarea marcada como hecha con make verify en verde."],
+      "gates": ["Ítems abiertos en una lista, dependencias abiertas o una tarea de nivel 3 sin validar detienen la construcción hasta que la persona decida.", "La persona firma el commit del rojo; una prueba congelada que parezca incorrecta detiene el trabajo para su revisión."],
+      "checks": ["Se ejecutó make verify y se muestra su resultado real; las pruebas congeladas no cambian.", "Se ejecutó dixi check; se informan archivos tocados, comprobaciones y pendientes."]
+    },
+    "verify": {
+      "title": "Verificar con evidencia",
+      "purpose": "Reunir evidencia real de verificación de la feature y relacionar cada criterio de aceptación con las pruebas que lo cubren, sin modificar archivos.",
+      "inputs": ["Los criterios de aceptación de la feature y .dixi/traceability.json.", "El código de pruebas y la salida de make verify."],
+      "steps": ["Ejecuta make verify y conserva la salida; no declares en verde nada que no se haya ejecutado.", "Relaciona cada criterio de aceptación con sus pruebas usando .dixi/traceability.json y el código de pruebas.", "Señala criterios sin prueba, pruebas omitidas o fallidas y comprobaciones que aún no se conectan a make verify.", "No corrijas código aquí: propone build para cada hueco y review si todo está en verde."],
+      "outputs": ["Un mapa criterio → prueba con el resultado real de make verify.", "Huecos: criterios sin prueba, pruebas omitidas o fallidas y comprobaciones sin conectar."],
+      "gates": ["Los huecos se corrigen con build, no en este procedimiento; review llega solo con todo en verde."],
+      "checks": ["No se modificó ningún archivo.", "Cada comprobación se informa como ejecutada, fallida o no ejecutada."]
+    },
+    "review": {
+      "title": "Preparar una revisión humana",
+      "purpose": "Preparar, para una persona, la revisión por riesgo del cambio frente a una base (por defecto main). Esta revisión no aprueba nada.",
+      "inputs": ["El diff de git diff <base>...HEAD, con la base de la solicitud (por defecto main).", "Los criterios, contratos y pruebas afectados."],
+      "steps": ["Lee el diff sin modificar el repositorio.", "Clasifica el riesgo (bajo, medio, alto) según lo que toca: contratos, datos, seguridad, permisos, migraciones.", "Contrasta criterio → cambio → prueba: cada criterio afectado debe tener cambio y prueba; cada cambio, un criterio.", "Enumera hallazgos con archivo y línea, de más a menos grave, distinguiendo hechos de sospechas.", "Comprueba que las pruebas congeladas no cambiaron en el diff; si cambiaron, es un hallazgo bloqueante.", "Entrega una lista de verificación para la persona revisora."],
+      "outputs": ["Nivel de riesgo, hallazgos por gravedad con archivo y línea y una lista de verificación para la persona revisora."],
+      "gates": ["La aprobación y la integración son de la persona revisora.", "Un cambio en una prueba congelada es un hallazgo bloqueante."],
+      "checks": ["El repositorio no se modificó.", "Hechos y sospechas van separados; cada hallazgo cita archivo y línea."]
+    },
+    "analyze": {
+      "title": "Analizar coherencia e impacto",
+      "purpose": "Encontrar huecos y contradicciones entre objetivo, dominio, módulo, feature, contrato y prueba, y el impacto de un cambio descrito. Solo informa; no escribe.",
+      "inputs": [".dixi/traceability.json, las specs de la cadena y el resultado de dixi check.", "El cambio descrito en la solicitud, si lo hay."],
+      "steps": ["Ejecuta dixi check para las reglas mecánicas (IDs, padres, enlaces).", "Lee la cadena declarada y las specs; busca features sin contrato o sin pruebas, criterios no verificables, contradicciones entre specs, decisiones sin ADR y marcas de pendiente.", "Si la solicitud describe un cambio, lista specs, contratos, tareas, pruebas y código afectados y si rompe compatibilidad.", "Ordena los hallazgos por gravedad y sugiere la operación que corrige cada uno (clarify, specify, plan o build)."],
+      "outputs": ["Hallazgos por gravedad, cada uno con la operación que lo corrige.", "Para un cambio: los artefactos afectados y su impacto en compatibilidad."],
+      "gates": ["Las correcciones las decide la persona y se hacen con las operaciones sugeridas, no aquí."],
+      "checks": ["No se modificaron archivos ni pruebas.", "Se ejecutó dixi check y se informa su resultado."]
+    },
+    "status": {
+      "title": "Mostrar estado y siguiente paso",
+      "purpose": "Resumir en qué punto está el proyecto e indicar un siguiente paso justificado, sin modificar archivos.",
+      "inputs": ["MODE, 00-master-spec.md, .dixi/traceability.json y 05-features/*/tasks.md si existen.", "Los resultados de dixi doctor y dixi check; un área opcional que acota el resumen."],
+      "steps": ["Ejecuta dixi doctor y dixi check y resume sus resultados.", "Lee MODE, la especificación maestra, el grafo de trazabilidad y las tareas de las features.", "Cuenta marcas de pendiente, ADRs «Propuesto», tareas abiertas o bloqueadas y features sin pruebas.", "Indica la siguiente operación con su motivo (por ejemplo clarify si hay preguntas bloqueantes o build si hay una tarea desbloqueada)."],
+      "outputs": ["Un resumen de estado con esos recuentos y un siguiente paso justificado."],
+      "gates": ["Los ADRs «Propuesto» y las preguntas bloqueantes se informan a la persona, no se resuelven."],
+      "checks": ["No se modificó ningún archivo.", "Las comprobaciones se informan como ejecutadas, fallidas o no ejecutadas."]
+    },
+    "handoff": {
+      "title": "Dejar un traspaso",
+      "purpose": "Registrar el estado actual en .context/handoff.md para que otra sesión o persona pueda continuar.",
+      "inputs": ["Los resultados de dixi doctor y dixi check.", "git status, git log --oneline -10 y una nota opcional de la solicitud."],
+      "steps": ["Ejecuta dixi doctor y dixi check y conserva sus resultados.", "Revisa los cambios sin commitear y el último trabajo con git status y git log, sin modificar el repositorio.", "Escribe .context/handoff.md (ignorado por Git): objetivo de la sesión, qué se hizo con su evidencia, comprobaciones ejecutadas y su resultado, pendientes, decisiones que esperan a la persona y el siguiente paso recomendado.", "Si ya existe un traspaso, conserva su historial y añade la sesión nueva al principio."],
+      "outputs": [".context/handoff.md con la sesión nueva al principio."],
+      "gates": ["Las decisiones que esperan a la persona se enumeran, no se toman."],
+      "checks": ["Lo no verificado figura como pendiente, nunca como terminado.", "No se incluyen secretos ni datos personales; el repositorio no se modificó."]
+    },
+    "change": {
+      "title": "Proponer un cambio",
+      "purpose": "Convertir un cambio descrito en una propuesta con su impacto, antes de tocar specs o código.",
+      "inputs": ["La descripción del cambio en la solicitud.", "La cadena afectada en .dixi/traceability.json: specs, contratos, tareas, pruebas y código."],
+      "steps": ["Si la descripción está vacía, pídela y detente.", "Ejecuta dixi check y analiza la cadena afectada.", "Escribe 05-features/<slug>/changes/CHANGE-NNN.md: motivación, cambio propuesto, artefactos afectados, compatibilidad, pruebas nuevas necesarias y riesgos.", "Si el cambio contradice una prueba congelada, señálalo en la propuesta para que la persona decida.", "Registra la decisión de la persona en la propuesta; una vez aceptada, sigue con specify, plan y tasks."],
+      "outputs": ["05-features/<slug>/changes/CHANGE-NNN.md con su impacto y la decisión registrada de la persona."],
+      "gates": ["No se modifican specs ni código hasta que la persona acepte la propuesta.", "Una contradicción con una prueba congelada la decide la persona."],
+      "checks": ["Las pruebas congeladas, las specs y el código no cambian.", "Se ejecutó dixi check y se informa su resultado."]
+    },
+    "data": {
+      "title": "Especificar los datos",
+      "purpose": "Especificar el modelo de datos, la clasificación de datos personales, la retención y el plan de migración del objetivo.",
+      "inputs": ["Las specs y contratos relacionados.", "Los documentos existentes en 08-data/ para el objetivo."],
+      "steps": ["Lee las specs y contratos relacionados; si el objetivo no está claro, pregunta y detente.", "Escribe o actualiza 08-data/<slug>.md: entidades y campos, responsables, clasificación (pública, interna, personal, sensible), reglas de retención y borrado.", "Para cambios de esquema, escribe 08-data/migrations/<slug>.md: orden, compatibilidad, rollback y comprobaciones de datos.", "Señala como pregunta bloqueante los datos personales o sensibles sin base legal o sin regla de retención.", "Sugiere contract o plan."],
+      "outputs": ["08-data/<slug>.md y, para cambios de esquema, 08-data/migrations/<slug>.md.", "Preguntas bloqueantes sobre base legal o retención."],
+      "gates": ["Los datos personales o sensibles sin base legal o sin regla de retención son una pregunta bloqueante para la persona."],
+      "checks": ["No se ejecutaron migraciones ni hubo conexión a ninguna base de datos.", "Cada campo tiene clasificación; las reglas de retención que faltan son preguntas abiertas."]
+    },
+    "quality": {
+      "title": "Definir la estrategia de calidad",
+      "purpose": "Definir cómo se verifica el alcance: niveles de prueba, presupuestos y una matriz criterio → prueba.",
+      "inputs": ["Las features y contratos del alcance.", "El make verify actual y los documentos existentes de 11-quality."],
+      "steps": ["Lee las features, los contratos y el make verify actual.", "Escribe o actualiza 11-quality/strategy.md: pirámide de pruebas, herramientas por nivel, qué debe ejecutar make verify y presupuestos (cobertura mínima, rendimiento, accesibilidad e i18n cuando apliquen).", "Escribe 11-quality/matrix.md relacionando cada criterio de aceptación con sus pruebas y marcando los criterios sin prueba.", "Sugiere tasks para las pruebas que faltan."],
+      "outputs": ["11-quality/strategy.md y 11-quality/matrix.md."],
+      "gates": ["Bajar un presupuesto o gate existente solo se propone; la persona decide."],
+      "checks": ["No se bajó ningún presupuesto ni gate existente.", "Cada criterio aparece en la matriz, con pruebas o marcado como sin prueba."]
+    },
+    "ai": {
+      "title": "Diseñar una capacidad de IA",
+      "purpose": "Diseñar un caso de uso de IA, su evaluación, datos, costos y diseño de agentes o MCP según la política de proveedores del proyecto.",
+      "inputs": ["00-master-spec.md y cualquier política de proveedores o de IA que registre el proyecto.", "El caso de uso descrito en la solicitud."],
+      "steps": ["Lee la especificación maestra y la política de proveedores; si no hay proveedor decidido, lista opciones como pregunta sin elegir uno.", "Escribe 21-ai/<slug>.md: problema y métrica de éxito, entradas y salidas, fuentes de datos y su clasificación, conjunto de evaluación y umbrales de aceptación, modos de fallo, supuestos de costo y supervisión humana.", "Para agentes o servidores MCP, describe herramientas, permisos, entradas no confiables y límites; trata la salida del modelo como dato no confiable.", "Sugiere threat-model y plan."],
+      "outputs": ["21-ai/<slug>.md con métrica, umbrales de evaluación, modos de fallo, supuestos de costo y supervisión humana."],
+      "gates": ["El proveedor lo elige la persona; sin decisión, las opciones siguen siendo una pregunta."],
+      "checks": ["No se invocó ningún modelo ni se crearon credenciales.", "El diseño trata la salida del modelo como dato no confiable."]
+    },
+    "release": {
+      "title": "Preparar una release",
+      "purpose": "Preparar la evidencia para publicar una versión, una propuesta de changelog y un plan de rollback, para que una persona decida.",
+      "inputs": ["La versión indicada en la solicitud.", "Los resultados de make verify y dixi check, las tareas abiertas y los ADRs propuestos."],
+      "steps": ["Si no se indica versión, pregunta y detente.", "Ejecuta make verify y dixi check; reúne resultados, tareas abiertas y ADRs propuestos.", "Escribe docs/releases/<versión>.md: cambios incluidos con sus specs, evidencia de verificación, limitaciones conocidas, notas de migración, plan de rollback y propuesta de changelog.", "Lista los bloqueos explícitamente y sugiere review para los cambios de la release."],
+      "outputs": ["docs/releases/<versión>.md con evidencia, bloqueos, plan de rollback y propuesta de changelog."],
+      "gates": ["Crear tags, publicar, aprobar gates y desplegar corresponde a la persona y a la pipeline."],
+      "checks": ["No se crearon tags, publicaciones ni despliegues.", "La evidencia de verificación procede de comandos realmente ejecutados."]
+    },
+    "promote": {
+      "title": "Revisar la promoción a prod",
+      "purpose": "Comprobar si el proyecto está listo para cambiar MODE de mvp a prod y enumerar la evidencia que falta, para que la persona decida.",
+      "inputs": ["MODE y 00-master-spec.md.", "Los documentos de calidad, seguridad, operación y datos."],
+      "steps": ["Lee MODE, la especificación maestra y los documentos de calidad, seguridad, operación y datos.", "Escribe docs/promotion/<fecha>-prod.md con una lista de comprobación: pruebas y presupuestos, modelo de amenazas, retención de datos, runbooks y SLOs, proceso de release y rollback, responsables y la evidencia de cada punto.", "Marca como faltante cada punto sin evidencia; no suavices requisitos.", "Sugiere las operaciones que cierran cada hueco (quality, threat-model, operate, data)."],
+      "outputs": ["docs/promotion/<fecha>-prod.md con la evidencia de cada punto y los faltantes."],
+      "gates": ["Solo la persona cambia MODE, tras revisar la lista."],
+      "checks": ["MODE no cambió.", "No se suavizó ningún requisito; cada punto sin evidencia figura como faltante."]
+    },
+    "operate": {
+      "title": "Preparar la operación",
+      "purpose": "Preparar la operación de un servicio: SLOs, observabilidad, runbooks y respuesta a incidentes.",
+      "inputs": ["La arquitectura, los contratos y el modelo de amenazas del servicio."],
+      "steps": ["Lee la arquitectura, los contratos y el modelo de amenazas del servicio.", "Escribe o actualiza 15-operations/<servicio>.md: SLIs y SLOs, alertas, dashboards y logs (sin datos personales), dependencias y supuestos de capacidad.", "Escribe 15-operations/runbooks/<servicio>-<escenario>.md para cada fallo crítico: detección, diagnóstico, mitigación, rollback y comunicación.", "Sugiere promote cuando la operación esté lista."],
+      "outputs": ["15-operations/<servicio>.md y un runbook por fallo crítico."],
+      "gates": ["Los runbooks describen pasos para personas y pipelines; ejecutarlos les corresponde a ellas."],
+      "checks": ["No se ejecutaron comandos contra producción ni contra ningún entorno vivo.", "Logs y dashboards se especifican sin datos personales."]
+    },
+    "finops": {
+      "title": "Estimar costos",
+      "purpose": "Estimar los costos de nube e IA de un alcance con supuestos, fuentes y presupuestos explícitos.",
+      "inputs": ["Los documentos de arquitectura, volúmenes de datos y diseño de IA.", "Los volúmenes de uso que aporte la persona."],
+      "steps": ["Lee la arquitectura, los volúmenes de datos y los documentos de diseño de IA.", "Escribe 22-finops/<slug>.md: impulsores de costo, supuestos de uso, precios unitarios con su fuente y fecha, rangos de estimación mensual, presupuestos y alertas a configurar.", "Pide a la persona los volúmenes que falten en lugar de inventarlos.", "Sugiere plan si la estimación cambia decisiones de diseño."],
+      "outputs": ["22-finops/<slug>.md con estimaciones marcadas, fuentes y presupuestos."],
+      "gates": ["Los volúmenes que faltan se piden a la persona, nunca se inventan."],
+      "checks": ["Cada cifra está marcada como estimación, nunca como consumo real.", "No se consultó facturación ni cuentas de nube."]
+    },
+    "compliance": {
+      "title": "Mapear obligaciones de cumplimiento",
+      "purpose": "Mapear las obligaciones de un marco o normativa a evidencia del proyecto y a la evidencia que aún falta.",
+      "inputs": ["El marco o normativa de la solicitud (por ejemplo RGPD, SOC 2, HIPAA, PCI DSS).", "Los artefactos del proyecto que pueden evidenciar cada obligación."],
+      "steps": ["Si no se indica marco, pregunta y detente.", "Escribe 23-compliance/<marco>.md: cada obligación aplicable, el artefacto que la evidencia, su responsable y su estado (evidenciada, parcial, faltante).", "Indica que el mapa apoya, y no sustituye, a una auditoría o asesoría legal.", "Sugiere las operaciones que producen la evidencia que falta (data, threat-model, operate)."],
+      "outputs": ["23-compliance/<marco>.md con responsable y estado de cada obligación."],
+      "gates": ["La certificación y la conformidad legal corresponden a auditoría y asesoría legal; nunca se declaran aquí."],
+      "checks": ["No se declara certificación ni conformidad legal.", "No se usan datos personales ni secretos como evidencia."]
+    },
+    "duediligence": {
+      "title": "Elaborar un informe de due diligence",
+      "purpose": "Elaborar un informe de due diligence de inversión, cliente o auditoría respaldado por artefactos existentes del proyecto, con sus brechas.",
+      "inputs": ["El tipo de informe de la solicitud (inversión, cliente o auditoría).", "Specs, ADRs, pruebas y sus resultados y los documentos de seguridad, datos, operación y cumplimiento."],
+      "steps": ["Si no se indica el tipo, pregunta y detente.", "Ejecuta dixi check y reúne los artefactos pertinentes.", "Escribe 28-due-diligence/<tipo>.md: hallazgos por área, cada uno con enlaces a su evidencia, y una sección de brechas.", "Lleva a brechas lo que no tenga evidencia; nunca lo presentes como hecho."],
+      "outputs": ["28-due-diligence/<tipo>.md con hallazgos enlazados a evidencia y una sección de brechas."],
+      "gates": ["Sin tipo de informe el trabajo se detiene hasta que la persona lo indique."],
+      "checks": ["Cada afirmación cita un artefacto.", "No se incluyen secretos, datos personales ni información de clientes."]
+    },
+    "interview": {
+      "title": "Entrevistar para rellenar huecos",
+      "purpose": "Rellenar los huecos {{pending: …}} del proyecto entrevistando a la persona, una pregunta a la vez.",
+      "inputs": ["La salida de dixi placeholders y profile en .dixi/project.json.", "Un área o archivo opcional de la solicitud que acota la entrevista."],
+      "steps": ["Ejecuta dixi placeholders; si no queda ningún hueco, dilo y detente.", "Sigue el orden del perfil: primero 00-master-spec.md y 01-business/, después las demás áreas instaladas; con una solicitud acotada, recorre solo esa área o ese archivo.", "Haz una sola pregunta a la vez, en lenguaje claro y con contexto; ofrece un ejemplo o un valor por defecto solo como sugerencia, nunca como respuesta.", "Escribe cada respuesta en lugar de su marcador, en el idioma del documento; si la persona no lo sabe o lo deja para después, conserva el marcador.", "Registra las respuestas estructurales (stack, arquitectura, almacenamiento de datos, integraciones) en 09-architecture/adr/ADR-NNN-<slug>.md con estado «Propuesto».", "Al terminar cada área, resume lo escrito, ejecuta de nuevo dixi placeholders y pregunta si se sigue."],
+      "outputs": ["Huecos sustituidos por las respuestas de la persona.", "ADRs «Propuesto» para las respuestas estructurales y los huecos que quedan."],
+      "gates": ["Nunca respondas por la persona; una respuesta estructural queda como ADR «Propuesto» hasta que la persona la valide.", "La siguiente área empieza solo cuando la persona lo acepta."],
+      "checks": ["Solo cambiaron huecos; reglas, políticas y texto normativo quedan intactos y las contradicciones se mostraron y preguntaron.", "Los huecos que quedan se muestran con dixi placeholders."]
+    },
+    "risk-review": {
+      "title": "Preparar un informe de revisión de riesgo",
+      "purpose": "Preparar, para una persona, un informe de revisión de riesgo de un pull request, rama o diff (por defecto, la rama actual frente a main). Este informe no aprueba nada.",
+      "inputs": ["El diff (git diff <base>...HEAD y --stat, o gh pr diff <n> para un número de pull request) y dixi pr-size --base <base>.", "La spec y la tarea que implementa el cambio: 05-features/*/feature-spec.md, 05-features/*/tasks.md y .dixi/traceability.json."],
+      "steps": ["Obtén el diff y su tamaño sin modificar nada; las pruebas se informan aparte y se leen primero.", "Encuentra la spec y la tarea que implementa el cambio; si no hay, es el primer hallazgo.", "Clasifica el riesgo (bajo, medio, alto) según contratos, datos, seguridad, permisos, migraciones, dinero y entrada externa; si el autor declaró un riesgo menor, señálalo.", "Explica el diff contra la spec criterio por criterio: qué cambia en el comportamiento observable y qué prueba lo cubre.", "Enumera casos borde manejados y no manejados, supuestos que no están en la spec como preguntas para el autor y qué podría romperse fuera de los archivos cambiados.", "Comprueba que las pruebas congeladas no cambiaron y que no se omitió ninguna prueba nueva; si ocurrió, es un hallazgo bloqueante.", "Entrega el informe con los hallazgos críticos primero: riesgo y motivo, tamaño, tabla de criterios, supuestos, dónde mirar primero, hallazgos por severidad, preguntas para el autor y lo que se puede ignorar."],
+      "outputs": ["Un informe de revisión de riesgo con tabla de criterios (criterio, prueba, estado), hallazgos por severidad y preguntas para el autor."],
+      "gates": ["La aprobación y la integración son de la persona.", "Una prueba congelada modificada o una prueba nueva omitida es un hallazgo bloqueante."],
+      "checks": ["No se modificó nada para obtener el diff.", "El riesgo se sube, nunca se baja; cada hallazgo cita archivo y línea."]
     }
   }
 }

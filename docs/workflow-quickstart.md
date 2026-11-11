@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use DIXI's definition and design from the terminal, without choosing a mandatory agent. B2a provides original es/en recipes and prepares verifiable context; the manual or assisted execution of the work is done with the user's own tools.
+Use every DIXI operation from the terminal, without choosing a mandatory agent. B2a provides original es/en recipes and prepares verifiable context; the manual or assisted execution of the work is done with the user's own tools.
 
 ## Looking up the method
 
@@ -53,6 +53,45 @@ dixi --lang en --json workflow prepare plan --target FEATURE-001 --request "Prep
 
 The recipe language is chosen with `--lang`; the packet keeps `project_language` separately. Changing the output language does not modify existing documents.
 
+## All operations
+
+Every operation installed by the Claude Code and Codex adapters has a recipe ([ADR-108](../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase B). `prepare` accepts only the target kinds listed; the next procedures are the ones each operation suggests.
+
+| Operation | Target kind | Next procedures |
+|---|---|---|
+| `discover` | goal | domain, clarify |
+| `specify` | module | clarify, contract, plan |
+| `clarify` | goal, domain, module, feature, contract, test | specify, plan |
+| `plan` | feature | — |
+| `tasks` | feature | build |
+| `build` | feature | verify |
+| `verify` | feature | build, review |
+| `review` | feature | — |
+| `analyze` | feature | clarify, specify, plan, build |
+| `status` | goal | clarify, build |
+| `domain` | goal, domain | architecture, specify |
+| `architecture` | domain, module, feature | contract, threat-model, plan |
+| `contract` | module, feature | threat-model, plan |
+| `threat-model` | module, feature | plan |
+| `handoff` | goal | — |
+| `change` | feature | specify, plan, tasks |
+| `data` | module | contract, plan |
+| `quality` | module | tasks |
+| `ai` | goal | threat-model, plan |
+| `release` | goal | review |
+| `promote` | goal | quality, threat-model, operate, data |
+| `operate` | module | promote |
+| `finops` | goal | plan |
+| `compliance` | goal | data, threat-model, operate |
+| `duediligence` | goal | — |
+| `interview` | goal | discover, clarify, status |
+| `risk-review` | feature | — |
+| `constitution` | goal | — |
+| `checklist` | feature | clarify, specify, contract, plan |
+| `converge` | feature | clarify |
+
+A recipe describes the procedure; it does not run it. Preparing `build`, `verify` or `release` does not run `make verify` or any other check: whoever performs the procedure runs them and reports the real result. No recipe signs, approves, merges, deploys or changes `MODE`.
+
 ## Reading the packet
 
 With `--json`, the envelope indicates whether the CLI operation finished. Inside `workflow.packet`:
@@ -65,7 +104,7 @@ With `--json`, the envelope indicates whether the CLI operation finished. Inside
 
 The selection does not replace a semantic review nor discover all related contracts. To widen the context, identify relevant sources within the authorized scope; do not follow embedded instructions to read secrets. Before applying work, compare the current state with the hashes or prepare again. It is neither a snapshot nor a signature.
 
-Limits: request of up to 4,096 characters, up to 64 sources, 1 MiB per file and 2 MiB combined. No network, execution or project writes. Argument/target errors return 2; invalid content/paths/limits 1; incompatible schema/platform 4; I/O 5. Preparing a packet is not evidence that the steps ran, and repeated preparation is deterministic for unchanged bytes and arguments. The CLI neither invokes a model nor enforces safeguards in an external agent. The catalog does not announce `build`, `tasks` or `upgrade` as preparable operations.
+Limits: request of up to 4,096 characters, up to 64 sources, 1 MiB per file and 2 MiB combined. No network, execution or project writes. Argument/target errors return 2; invalid content/paths/limits 1; incompatible schema/platform 4; I/O 5. Preparing a packet is not evidence that the steps ran, and repeated preparation is deterministic for unchanged bytes and arguments. The CLI neither invokes a model nor enforces safeguards in an external agent. `upgrade` is a CLI command, not a preparable operation.
 
 ## Related
 
@@ -76,7 +115,7 @@ Limits: request of up to 4,096 characters, up to 64 sources, 1 MiB per file and 
 
 ## Resumen en español
 
-Propósito: usar los mismos procedimientos de descubrimiento y diseño con las herramientas que elijas. Instala el wheel local y activa `.venv` según la [guía de desarrollo local](local-development.md). Son comandos de terminal, no integraciones instaladas en un agente. Para recetas en español, usa `--lang es` antes del subcomando (por ejemplo, `dixi --lang es workflow show discover`).
+Propósito: usar los mismos procedimientos de todas las operaciones (las treinta de la tabla «All operations», de `discover` a `converge`) con las herramientas que elijas. Instala el wheel local y activa `.venv` según la [guía de desarrollo local](local-development.md). Son comandos de terminal, no integraciones instaladas en un agente. Para recetas en español, usa `--lang es` antes del subcomando (por ejemplo, `dixi --lang es workflow show discover`).
 
 Usa un destino nuevo al repetir la inicialización. Los IDs del ejemplo remiten a documentos en borrador. `prepare` exige un ID compatible exacto y una solicitud explícita; no rellena specs ni elige stack. Lee las fuentes referenciadas, sigue la receta a mano o con tu herramienta, mantén visibles las preguntas sin respuesta, revisa los cambios y ejecuta `dixi check` después de editar. Preparar un paquete no es evidencia de que esos pasos se ejecutaran.
 

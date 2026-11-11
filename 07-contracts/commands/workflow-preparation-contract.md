@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provide a deterministic interface over the eight definition/design procedures. Makes A01–A08 concrete without simulating an agent's execution. It does not replace the artifact contract of the full workflow.
+Provide a deterministic interface over the method's procedures: the eight definition/design procedures A01–A08 first, and since ADR-108 phase B one recipe for every operation the adapters install. It never simulates an agent's execution. It does not replace the artifact contract of the full workflow.
 
 ## Interface
 

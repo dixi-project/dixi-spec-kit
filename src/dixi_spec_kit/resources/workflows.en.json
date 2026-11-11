@@ -99,6 +99,177 @@
       "outputs": ["Convergence tasks appended to the feature's tasks, or a converged report with evidence."],
       "gates": ["Unrequested code is specified or removed only by a person's decision."],
       "checks": ["Specs, contracts, code, existing tasks and tests are unchanged.", "Checks are reported as run, failed or not run; none is claimed without running."]
+    },
+    "tasks": {
+      "title": "Split the plan into tasks",
+      "purpose": "Turn the feature's plan into small, ordered tasks linked to their specs, with criteria, dependencies and risk level.",
+      "inputs": ["The feature, its plan, contract, test plan and related ADRs.", "The project's principles, when they exist."],
+      "steps": ["Read the feature, its contract, test plan and related ADRs; flag a structural ADR still Proposed as a blocker.", "Write 05-features/<slug>/tasks.md: each task with ID T-NNN, description, covered acceptance criterion, dependencies, risk level (0 fix, 1 clear rules, 2 with doubts, 3 structural) and link to the spec.", "Order by dependencies; each task's tests are written before its code.", "Suggest building the first unblocked task (for example T-001)."],
+      "outputs": ["05-features/<slug>/tasks.md with ordered tasks traced to criteria and specs.", "Blockers, open questions and the first unblocked task."],
+      "gates": ["A level 3 task needs the person's validation before it is built.", "A structural ADR still Proposed is a blocker for the tasks that depend on it."],
+      "checks": ["Every task covers a criterion and links to the spec; dependencies are acyclic.", "dixi check ran; files touched, checks and open items are reported."]
+    },
+    "build": {
+      "title": "Build a task test-first",
+      "purpose": "Implement one task of the feature with TDD: failing tests, minimal code to green and make verify.",
+      "inputs": ["The task in 05-features/*/tasks.md, its criterion and dependencies.", "The feature's checklists in 05-features/<slug>/checklists/ and wip_limit in AGENTS.md (default 3)."],
+      "steps": ["Stop if the task does not exist, has open dependencies or is an unvalidated level 3 task; stop if a checklist has open items until the person closes them or decides to continue.", "If gh is available and authenticated and the person already has wip_limit open pull requests, stop and suggest finishing one first.", "Write the tests for the task's criterion first, in the project's language, and show they fail for the expected reason; no failing test, no code.", "Propose committing the failing tests on their own, without Signed-off-by; from then on they are frozen tests.", "Write the minimal code to reach green, run make verify and show the real result; if it fails, fix the code, not the test.", "Register the tests in .dixi/traceability.json (kind: test), mark the task done only with make verify green and suggest verify."],
+      "outputs": ["Failing tests proposed for their own commit, then the minimal code to green.", "Tests registered in .dixi/traceability.json and the task marked done with make verify green."],
+      "gates": ["Open checklist items, open dependencies or an unvalidated level 3 task stop the build until the person decides.", "The person signs the red-test commit; a frozen test that looks wrong stops the work for their review."],
+      "checks": ["make verify ran and its real result is shown; frozen tests are unchanged.", "dixi check ran; files touched, checks and open items are reported."]
+    },
+    "verify": {
+      "title": "Verify with evidence",
+      "purpose": "Gather real verification evidence for the feature and map each acceptance criterion to the tests that cover it, without modifying files.",
+      "inputs": ["The feature's acceptance criteria and .dixi/traceability.json.", "The test code and the output of make verify."],
+      "steps": ["Run make verify and keep the output; never report as green anything that was not run.", "Map each acceptance criterion to its tests using .dixi/traceability.json and the test code.", "Flag criteria without tests, skipped or failing tests and checks not yet wired into make verify.", "Do not fix code here: propose build for each gap and review when everything is green."],
+      "outputs": ["A criterion-to-test map with the real make verify result.", "Gaps: criteria without tests, skipped or failing tests and unwired checks."],
+      "gates": ["Gaps are fixed through build, not in this procedure; review comes only when everything is green."],
+      "checks": ["No file was modified.", "Every check is reported as run, failed or not run."]
+    },
+    "review": {
+      "title": "Prepare a human review",
+      "purpose": "Prepare, for a person, a risk-based review of the change against a base (default main). This review approves nothing.",
+      "inputs": ["The diff from git diff <base>...HEAD, with the base from the request (default main).", "The affected criteria, contracts and tests."],
+      "steps": ["Read the diff without modifying the repository.", "Classify risk (low, medium, high) by what it touches: contracts, data, security, permissions, migrations.", "Check criterion → change → test: every affected criterion needs a change and a test; every change, a criterion.", "List findings with file and line, most severe first, separating facts from suspicions.", "Check that frozen tests did not change in the diff; if they did, that is a blocking finding.", "Deliver a checklist for the human reviewer."],
+      "outputs": ["Risk level, findings by severity with file and line, and a checklist for the human reviewer."],
+      "gates": ["Approval and merge belong to the human reviewer.", "A change to a frozen test is a blocking finding."],
+      "checks": ["The repository was not modified.", "Facts and suspicions are separated; every finding cites file and line."]
+    },
+    "analyze": {
+      "title": "Analyze consistency and impact",
+      "purpose": "Find gaps and contradictions across goal, domain, module, feature, contract and test, and the impact of a described change. Report only; no writes.",
+      "inputs": [".dixi/traceability.json, the specs in the chain and the result of dixi check.", "The change described in the request, if any."],
+      "steps": ["Run dixi check for mechanical rules (IDs, parents, links).", "Read the declared chain and the specs; look for features without contract or tests, unverifiable criteria, contradictions between specs, decisions without ADR and pending markers.", "If the request describes a change, list the affected specs, contracts, tasks, tests and code and whether it breaks compatibility.", "Order findings by severity and suggest the operation that fixes each one (clarify, specify, plan or build)."],
+      "outputs": ["Findings by severity, each with the operation that fixes it.", "For a change: the affected artifacts and its compatibility impact."],
+      "gates": ["Fixes are decided by the person and made through the suggested operations, not here."],
+      "checks": ["No file or test was modified.", "dixi check ran and its result is reported."]
+    },
+    "status": {
+      "title": "Show status and next step",
+      "purpose": "Summarize where the project stands and name a justified next step, without modifying files.",
+      "inputs": ["MODE, 00-master-spec.md, .dixi/traceability.json and 05-features/*/tasks.md if present.", "The results of dixi doctor and dixi check; an optional area that narrows the summary."],
+      "steps": ["Run dixi doctor and dixi check and summarize their results.", "Read MODE, the master spec, the traceability graph and the feature tasks.", "Count pending markers, Proposed ADRs, open or blocked tasks and features without tests.", "Name the next operation and why (for example clarify for blocking questions or build for an unblocked task)."],
+      "outputs": ["A status summary with those counts and one justified next step."],
+      "gates": ["Proposed ADRs and blocking questions are reported for the person, not resolved."],
+      "checks": ["No file was modified.", "Checks are reported as run, failed or not run."]
+    },
+    "handoff": {
+      "title": "Leave a handoff",
+      "purpose": "Record the current state in .context/handoff.md so another session or person can continue.",
+      "inputs": ["The results of dixi doctor and dixi check.", "git status, git log --oneline -10 and an optional note from the request."],
+      "steps": ["Run dixi doctor and dixi check and keep their results.", "Review uncommitted changes and recent work with git status and git log, without modifying the repository.", "Write .context/handoff.md (ignored by Git): session goal, work done with its evidence, checks run and their results, open items, decisions waiting for the person and the recommended next step.", "If a handoff already exists, keep its history and add the new session at the top."],
+      "outputs": [".context/handoff.md with the new session at the top."],
+      "gates": ["Decisions waiting for the person are listed, not taken."],
+      "checks": ["Anything unverified is listed as pending, never as done.", "No secrets or personal data are included; the repository was not modified."]
+    },
+    "change": {
+      "title": "Propose a change",
+      "purpose": "Turn a described change into a proposal with its impact, before touching specs or code.",
+      "inputs": ["The change description from the request.", "The affected chain in .dixi/traceability.json: specs, contracts, tasks, tests and code."],
+      "steps": ["If the description is empty, ask for it and stop.", "Run dixi check and analyze the affected chain.", "Write 05-features/<slug>/changes/CHANGE-NNN.md: motivation, proposed change, affected artifacts, compatibility, new tests needed and risks.", "If the change contradicts a frozen test, flag it in the proposal for the person to decide.", "Record the person's decision in the proposal; once accepted, continue with specify, plan and tasks."],
+      "outputs": ["05-features/<slug>/changes/CHANGE-NNN.md with its impact and the person's recorded decision."],
+      "gates": ["Specs and code are not modified until the person accepts the proposal.", "A contradiction with a frozen test is decided by the person."],
+      "checks": ["Frozen tests, specs and code are unchanged.", "dixi check ran and its result is reported."]
+    },
+    "data": {
+      "title": "Specify the data",
+      "purpose": "Specify the data model, personal-data classification, retention and migration plan for the target.",
+      "inputs": ["The related specs and contracts.", "The existing documents in 08-data/ for the target."],
+      "steps": ["Read the related specs and contracts; if the target is unclear, ask and stop.", "Write or update 08-data/<slug>.md: entities and fields, owners, classification (public, internal, personal, sensitive), retention and deletion rules.", "For schema changes, write 08-data/migrations/<slug>.md: order, backward compatibility, rollback and data checks.", "Flag personal or sensitive data lacking a legal basis or retention rule as a blocking question.", "Suggest contract or plan."],
+      "outputs": ["08-data/<slug>.md and, for schema changes, 08-data/migrations/<slug>.md.", "Blocking questions about legal basis or retention."],
+      "gates": ["Personal or sensitive data without a legal basis or retention rule is a blocking question for the person."],
+      "checks": ["No migration was run and no database was contacted.", "Every field has a classification; missing retention rules are open questions."]
+    },
+    "quality": {
+      "title": "Define the quality strategy",
+      "purpose": "Define how the scope is verified: test levels, budgets and a criterion-to-test matrix.",
+      "inputs": ["The features and contracts in scope.", "The current make verify and the existing 11-quality documents."],
+      "steps": ["Read the features, contracts and the current make verify.", "Write or update 11-quality/strategy.md: test pyramid, tools per level, what make verify must run, and budgets (coverage floor, performance, accessibility and i18n checks when in scope).", "Write 11-quality/matrix.md mapping each acceptance criterion to its tests and marking criteria without tests.", "Suggest tasks for the missing tests."],
+      "outputs": ["11-quality/strategy.md and 11-quality/matrix.md."],
+      "gates": ["Lowering an existing budget or gate is only proposed; the person decides."],
+      "checks": ["No existing budget or gate was lowered.", "Every criterion appears in the matrix, with tests or marked as without tests."]
+    },
+    "ai": {
+      "title": "Design an AI capability",
+      "purpose": "Design an AI use case, its evaluation, data, costs and agent or MCP design under the project's provider policy.",
+      "inputs": ["00-master-spec.md and any provider or AI policy the project records.", "The use case described in the request."],
+      "steps": ["Read the master spec and the provider policy; if no provider is decided, list options as a question without choosing one.", "Write 21-ai/<slug>.md: problem and success metric, inputs and outputs, data sources and their classification, evaluation set and acceptance thresholds, failure modes, cost assumptions and human oversight.", "For agents or MCP servers, describe tools, permissions, untrusted inputs and limits; treat model output as untrusted data.", "Suggest threat-model and plan."],
+      "outputs": ["21-ai/<slug>.md with metric, evaluation thresholds, failure modes, cost assumptions and human oversight."],
+      "gates": ["The provider is chosen by the person; without a decision, options stay a question."],
+      "checks": ["No model was called and no credential was created.", "Model output is treated as untrusted data in the design."]
+    },
+    "release": {
+      "title": "Prepare a release",
+      "purpose": "Prepare release readiness evidence, a changelog proposal and a rollback plan for a version, for a person to decide.",
+      "inputs": ["The version from the request.", "The results of make verify and dixi check, open tasks and proposed ADRs."],
+      "steps": ["If no version is given, ask and stop.", "Run make verify and dixi check; collect the results, open tasks and proposed ADRs.", "Write docs/releases/<version>.md: included changes with their specs, verification evidence, known limitations, migration notes, rollback plan and a changelog proposal.", "List blockers explicitly and suggest review for the release changes."],
+      "outputs": ["docs/releases/<version>.md with evidence, blockers, rollback plan and changelog proposal."],
+      "gates": ["Tagging, publishing, approving a gate and deploying belong to the person and the pipeline."],
+      "checks": ["No tag, publication or deployment was made.", "Verification evidence comes from commands actually run."]
+    },
+    "promote": {
+      "title": "Review promotion to prod",
+      "purpose": "Check whether the project is ready to change MODE from mvp to prod and list the missing evidence, for the person to decide.",
+      "inputs": ["MODE and 00-master-spec.md.", "The quality, security, operations and data documents."],
+      "steps": ["Read MODE, the master spec and the quality, security, operations and data documents.", "Write docs/promotion/<date>-prod.md with a checklist: tests and budgets, threat model, data retention, runbooks and SLOs, release and rollback process, owners, and the evidence for each item.", "Mark every item without evidence as missing; do not soften requirements.", "Suggest the operations that close each gap (quality, threat-model, operate, data)."],
+      "outputs": ["docs/promotion/<date>-prod.md with the evidence for each item and the missing ones."],
+      "gates": ["Only the person changes MODE, after reviewing the checklist."],
+      "checks": ["MODE is unchanged.", "No requirement was softened; every item without evidence is marked missing."]
+    },
+    "operate": {
+      "title": "Prepare operations",
+      "purpose": "Prepare the operation of a service: SLOs, observability, runbooks and incident response.",
+      "inputs": ["The service's architecture, contracts and threat model."],
+      "steps": ["Read the architecture, contracts and threat model of the service.", "Write or update 15-operations/<service>.md: SLIs and SLOs, alerts, dashboards and logs (without personal data), dependencies and capacity assumptions.", "Write 15-operations/runbooks/<service>-<scenario>.md for each critical failure: detection, diagnosis, mitigation, rollback and communication.", "Suggest promote when operations are ready."],
+      "outputs": ["15-operations/<service>.md and one runbook per critical failure."],
+      "gates": ["Runbooks describe steps for people and pipelines; running them is theirs."],
+      "checks": ["No command ran against production or any live environment.", "Logs and dashboards are specified without personal data."]
+    },
+    "finops": {
+      "title": "Estimate costs",
+      "purpose": "Estimate cloud and AI costs for a scope with explicit assumptions, sources and budgets.",
+      "inputs": ["The architecture, data volumes and AI design documents.", "The usage volumes the person provides."],
+      "steps": ["Read the architecture, data volumes and AI design documents.", "Write 22-finops/<slug>.md: cost drivers, usage assumptions, unit prices with their source and date, monthly estimate ranges, budgets and alerts to configure.", "Ask the person for missing volumes instead of inventing them.", "Suggest plan if the estimate changes design decisions."],
+      "outputs": ["22-finops/<slug>.md with labeled estimates, sources and budgets."],
+      "gates": ["Missing volumes are requested from the person, never invented."],
+      "checks": ["Every figure is labeled as an estimate, never as real consumption.", "No billing or cloud account was queried."]
+    },
+    "compliance": {
+      "title": "Map compliance obligations",
+      "purpose": "Map the obligations of a framework or regulation to project evidence and the evidence still missing.",
+      "inputs": ["The framework or regulation from the request (for example GDPR, SOC 2, HIPAA, PCI DSS).", "The project artifacts that may evidence each obligation."],
+      "steps": ["If no framework is given, ask and stop.", "Write 23-compliance/<framework>.md: each applicable obligation, the artifact that evidences it, its owner and its status (evidenced, partial, missing).", "State that the map supports, and does not replace, an auditor or legal advice.", "Suggest the operations that produce missing evidence (data, threat-model, operate)."],
+      "outputs": ["23-compliance/<framework>.md with owner and status for each obligation."],
+      "gates": ["Certification and legal conformity belong to auditors and legal advice; they are never declared here."],
+      "checks": ["No certification or legal conformity is claimed.", "No personal data or secrets are used as evidence."]
+    },
+    "duediligence": {
+      "title": "Produce a due-diligence report",
+      "purpose": "Produce an investor, customer or audit due-diligence report backed by existing project artifacts, with its gaps.",
+      "inputs": ["The report type from the request (investor, customer or audit).", "Specs, ADRs, tests and their results, and the security, data, operations and compliance documents."],
+      "steps": ["If the type is not given, ask and stop.", "Run dixi check and gather the relevant artifacts.", "Write 28-due-diligence/<type>.md: findings per area, each with links to its evidence, and a gaps section.", "Move anything without evidence to the gaps; never present it as fact."],
+      "outputs": ["28-due-diligence/<type>.md with findings linked to evidence and a gaps section."],
+      "gates": ["Without a report type the work stops until the person gives one."],
+      "checks": ["Every statement cites an artifact.", "No secrets, personal data or customer information are included."]
+    },
+    "interview": {
+      "title": "Interview to fill pending slots",
+      "purpose": "Fill the project's {{pending: …}} slots by interviewing the person, one question at a time.",
+      "inputs": ["The output of dixi placeholders and profile in .dixi/project.json.", "An optional area or file from the request that narrows the interview."],
+      "steps": ["Run dixi placeholders; if no slots remain, say so and stop.", "Follow the profile's order: 00-master-spec.md and 01-business/ first, then the other installed areas; with a narrowed request, cover only that area or file.", "Ask one question at a time, in plain language and with context; offer an example or default only as a suggestion, never as the answer.", "Write each answer in place of its marker, in the document's language; if the person does not know or defers, keep the marker.", "Record structural answers (stack, architecture, data storage, integrations) in 09-architecture/adr/ADR-NNN-<slug>.md with status Proposed.", "At the end of each area, summarize what was written, run dixi placeholders again and ask whether to continue."],
+      "outputs": ["Slots replaced by the person's answers.", "Proposed ADRs for structural answers and the remaining slots."],
+      "gates": ["Never answer for the person; a structural answer stays a Proposed ADR until the person validates it.", "The next area starts only when the person agrees."],
+      "checks": ["Only slots changed; rules, policies and normative text are untouched and contradictions were shown and asked.", "The remaining slots are shown with dixi placeholders."]
+    },
+    "risk-review": {
+      "title": "Prepare a risk review report",
+      "purpose": "Prepare, for a person, a risk review report of a pull request, branch or diff (default: current branch against main). This report approves nothing.",
+      "inputs": ["The diff (git diff <base>...HEAD and --stat, or gh pr diff <n> for a pull request number) and dixi pr-size --base <base>.", "The spec and task the change implements: 05-features/*/feature-spec.md, 05-features/*/tasks.md and .dixi/traceability.json."],
+      "steps": ["Get the diff and its size without modifying anything; tests are reported apart and read first.", "Find the spec and task the change implements; if there is none, that is the first finding.", "Classify risk (low, medium, high) by contracts, data, security, permissions, migrations, money and external input; if the author declared a lower risk, point it out.", "Explain the diff against the spec criterion by criterion: what changes in observable behavior and which test covers it.", "List handled and unhandled edge cases, assumptions not in the spec as questions for the author, and what could break outside the changed files.", "Check that frozen tests did not change and no test was newly skipped; otherwise it is a blocking finding.", "Deliver the report with critical findings first: risk and why, size, criteria table, assumptions, where to look first, findings by severity, questions for the author and what can be ignored."],
+      "outputs": ["A risk review report with criteria table (criterion, test, status), findings by severity and questions for the author."],
+      "gates": ["Approval and merge belong to the person.", "A changed frozen test or a newly skipped test is a blocking finding."],
+      "checks": ["Nothing was modified to obtain the diff.", "Risk goes up, never down; every finding cites file and line."]
     }
   }
 }

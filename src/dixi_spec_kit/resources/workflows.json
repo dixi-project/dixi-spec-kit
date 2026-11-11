@@ -105,6 +105,166 @@
       "next_operations": [
         "clarify"
       ]
+    },
+    "tasks": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "build"
+      ]
+    },
+    "build": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "verify"
+      ]
+    },
+    "verify": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "build",
+        "review"
+      ]
+    },
+    "review": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": []
+    },
+    "analyze": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "clarify",
+        "specify",
+        "plan",
+        "build"
+      ]
+    },
+    "status": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "clarify",
+        "build"
+      ]
+    },
+    "handoff": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": []
+    },
+    "change": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": [
+        "specify",
+        "plan",
+        "tasks"
+      ]
+    },
+    "data": {
+      "target_kinds": [
+        "module"
+      ],
+      "next_operations": [
+        "contract",
+        "plan"
+      ]
+    },
+    "quality": {
+      "target_kinds": [
+        "module"
+      ],
+      "next_operations": [
+        "tasks"
+      ]
+    },
+    "ai": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "threat-model",
+        "plan"
+      ]
+    },
+    "release": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "review"
+      ]
+    },
+    "promote": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "quality",
+        "threat-model",
+        "operate",
+        "data"
+      ]
+    },
+    "operate": {
+      "target_kinds": [
+        "module"
+      ],
+      "next_operations": [
+        "promote"
+      ]
+    },
+    "finops": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "plan"
+      ]
+    },
+    "compliance": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "data",
+        "threat-model",
+        "operate"
+      ]
+    },
+    "duediligence": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": []
+    },
+    "interview": {
+      "target_kinds": [
+        "goal"
+      ],
+      "next_operations": [
+        "discover",
+        "clarify",
+        "status"
+      ]
+    },
+    "risk-review": {
+      "target_kinds": [
+        "feature"
+      ],
+      "next_operations": []
     }
   }
 }

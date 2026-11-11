@@ -8,7 +8,7 @@ Turn EIS-IA's capabilities into operations usable by third parties: define, buil
 
 Working catalog of TASK-001 and ADR-100. B1 already implements `dixi init --agent none`, `dixi doctor`, `dixi check`, help and version as local development. Agent commands, upgrade and specialized capabilities remain proposed; their presence here does not indicate that they are installed. The open direction and incremental start are authorized.
 
-B2a adds `dixi workflow list`, `show` and `prepare` for the eight definition/design recipes. They are deterministic access to the method and its context; not assisted execution of the `/dixi.*` commands. [B2a contract](../07-contracts/commands/workflow-preparation-contract.md) · [Guide](workflow-quickstart.md).
+B2a added `dixi workflow list`, `show` and `prepare` for the eight definition/design recipes; since ADR-108 phase B every operation has one. They are deterministic access to the method and its context; not assisted execution of the `/dixi.*` commands. [B2a contract](../07-contracts/commands/workflow-preparation-contract.md) · [Guide](workflow-quickstart.md).
 
 The `/dixi.*` names express shared operations of the core; the installable syntax is verified per adapter and may vary between tools. The `dixi ...` commands run in the terminal. The CLI performs deterministic operations; the chosen integration guides decisions and prepares documents using shared validators. The no-integration mode delivers the method, templates and guides for documentary use. Codex and Claude Code are candidates of equal priority, without announced support until they are verified.
 
