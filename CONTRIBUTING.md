@@ -22,6 +22,12 @@ Every commit carries `Signed-off-by: Name <email>`, certifying the [Developer Ce
 
 You may use AI agents, but a human signs every commit, ticks the pull request attestation and answers for the change. An agent never signs, attests or approves.
 
+AI is an assistance tool, not an author. Pull requests opened with Claude Code end with the owner's declaration, set in `.claude/settings.json` (`attribution.pr`):
+
+> **Desarrollo asistido por IA:** Claude Code (Anthropic). El código ha sido desarrollado bajo dirección y supervisión humana, utilizando inteligencia artificial como herramienta de asistencia técnica. El uso de esta herramienta no implica coautoría, cesión de derechos ni participación en la propiedad intelectual a favor de Anthropic. La titularidad de los desarrollos corresponde a sus legítimos titulares conforme a la legislación y los acuerdos aplicables.
+
+Commits written with an agent may carry a `Co-Authored-By` trailer: a git convention that records which tool took part, for traceability. It does not declare legal co-authorship. The person who answers for each commit is the one who signs it with `Signed-off-by`.
+
 ## Review and merge
 
 CODEOWNERS assigns the maintainers. A pull request is merged only with all required checks green and after a maintainer has reviewed it. Nobody pushes directly or force-pushes to `main`.
@@ -32,7 +38,7 @@ CODEOWNERS assigns the maintainers. A pull request is merged only with all requi
 
 ## Resumen en español
 
-`main` es público y de solo lectura para quien no mantiene el proyecto: cualquiera puede clonarlo, usarlo y hacer fork. Abre una issue para cambios grandes, trabaja en una rama de tu fork, escribe primero la prueba que falla, mantén los mensajes de la CLI en `en.json` y `es.json`, ejecuta `make verify`, firma cada commit con `git commit -s` (DCO 1.1) y abre un PR contra `main`. Las personas firman y atestan; los agentes de IA nunca firman ni aprueban. Solo los mantenedores integran, con revisión y checks en verde. Si redistribuyes una versión modificada, usa otro nombre.
+`main` es público y de solo lectura para quien no mantiene el proyecto: cualquiera puede clonarlo, usarlo y hacer fork. Abre una issue para cambios grandes, trabaja en una rama de tu fork, escribe primero la prueba que falla, mantén los mensajes de la CLI en `en.json` y `es.json`, ejecuta `make verify`, firma cada commit con `git commit -s` (DCO 1.1) y abre un PR contra `main`. Las personas firman y atestan; los agentes de IA nunca firman ni aprueban. La IA es una herramienta de asistencia, no autora: los PRs abiertos con Claude Code terminan con la declaración de `.claude/settings.json`, y el trailer `Co-Authored-By` de un commit solo registra qué herramienta participó; responde quien firma con `Signed-off-by`. Solo los mantenedores integran, con revisión y checks en verde. Si redistribuyes una versión modificada, usa otro nombre.
 
 ## Related
 
