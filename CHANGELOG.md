@@ -6,6 +6,8 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+## [1.7.0] — 2026-11-11
+
 ### Added
 
 - Spec Kit parity ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase A, [contract](07-contracts/commands/parity-commands-contract.md)): `/dixi.constitution` (versioned principles in `00-governance/principles.md`, read by every operation), `/dixi.checklist` (unchecked, traced requirement-quality items; `/dixi.build` stops on open items) and `/dixi.converge` (compares code with specs and appends typed, traced convergence tasks), in English and Spanish, for Claude Code and Codex, with `dixi workflow` recipes. Thirty operations in total.
