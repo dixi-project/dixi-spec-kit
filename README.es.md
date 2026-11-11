@@ -46,7 +46,7 @@ Abre Claude Code en `mi-proyecto` y recorre:
 /dixi.review main
 ```
 
-`/dixi.constitution` fija los principios versionados del proyecto, que lee cada operación; `/dixi.checklist` prueba la calidad de los requisitos de una feature antes de construir; `/dixi.converge` compara el código con sus specs y añade lo que falta como tareas. `/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Diseña con `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` y `/dixi.threat-model`; propone cambios con `/dixi.change`; deja un traspaso con `/dixi.handoff`. Operaciones especializadas: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` y `/dixi.duediligence` solo escriben documentos; nunca ejecutan migraciones, despliegan, cambian `MODE` ni declaran certificaciones. Sin `--lang es`, documentos y mensajes salen en inglés; dentro de un proyecto, los mensajes siguen su idioma.
+`/dixi.constitution` fija los principios versionados del proyecto, que lee cada operación; `/dixi.checklist` prueba la calidad de los requisitos de una feature antes de construir; `/dixi.converge` compara el código con sus specs y añade lo que falta como tareas. En proyectos existentes, `/dixi.onboard` redacta borradores de módulos y features a partir del código para que los valides; `/dixi.bugfix` corrige un bug con una prueba en rojo commiteada primero y un registro trazado; `/dixi.issues` publica las tareas de una feature como issues de GitHub con `gh`, después de que confirmes una vista previa. `/dixi.analyze` revisa coherencia e impacto de un cambio; `/dixi.status` indica el siguiente paso. Diseña con `/dixi.domain`, `/dixi.architecture`, `/dixi.contract` y `/dixi.threat-model`; propone cambios con `/dixi.change`; deja un traspaso con `/dixi.handoff`. Operaciones especializadas: `/dixi.data`, `/dixi.quality`, `/dixi.ai`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance` y `/dixi.duediligence` solo escriben documentos; nunca ejecutan migraciones, despliegan, cambian `MODE` ni declaran certificaciones. Sin `--lang es`, documentos y mensajes salen en inglés; dentro de un proyecto, los mensajes siguen su idioma.
 
 ## Perfiles
 
@@ -93,7 +93,7 @@ Lo que ofrece cada integración y sus límites están en la [matriz de soporte](
 
 ## Si vienes de GitHub Spec Kit
 
-Cada comando de Spec Kit tiene su equivalente en DIXI (`/speckit.implement` es `/dixi.build`), más veintiuna operaciones adicionales. Consulta el [mapa de comandos](docs/coming-from-spec-kit.md) y una [comparación](docs/spec-kit-comparison.md) fechada y con fuentes, que incluye las carencias que DIXI aún tiene.
+Cada comando de Spec Kit tiene su equivalente en DIXI (`/speckit.implement` es `/dixi.build`), más veinticuatro operaciones adicionales. Consulta el [mapa de comandos](docs/coming-from-spec-kit.md) y una [comparación](docs/spec-kit-comparison.md) fechada y con fuentes, que incluye las carencias que DIXI aún tiene.
 
 ## Contribuir
 
