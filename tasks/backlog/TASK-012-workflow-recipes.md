@@ -27,6 +27,10 @@ so that the whole method is reachable, not only its first steps.
 1. Tests were committed red before the recipes.
 2. `make verify` passes and CI is green.
 
+## Closed — 2026-11-11
+
+Released in v1.8.0, together with phase C (owner's decision: one release for both phases).
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)

@@ -1,4 +1,4 @@
-# TASK-014 — Generic Agent Skills adapter (v1.10.0)
+# TASK-014 — Generic Agent Skills adapter (v1.9.0)
 
 ## Purpose
 

@@ -54,7 +54,7 @@ class LocalCoreTests(unittest.TestCase):
     def test_version_is_release(self):
         result = self.cli("--version")
         self.assertEqual(result.returncode, 0)
-        self.assertEqual(result.stdout.strip(), "dixi 1.7.0")
+        self.assertEqual(result.stdout.strip(), "dixi 1.8.0")
 
     def test_unknown_command(self):
         self.assertEqual(self.cli("not-a-command").returncode, 2)

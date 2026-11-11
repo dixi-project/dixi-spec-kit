@@ -34,6 +34,10 @@ so that I can switch without losing `constitution`, `checklist` or `converge`.
 
 With the owner's authorization, the operation lists of four frozen tests gained the three names and `test_workflows.py:71` derives the catalogue size from the list, each in its own commit; new red tests in `tests/test_parity_operations.py`. `constitution`, `checklist` and `converge` are installed in both languages and both adapters (Codex skills generated with `scripts/generate-codex-skills.py`), with `dixi workflow` recipes; every operation follows `00-governance/principles.md`, and `build` stops on open checklist items. Public comparison, migration guide, contract, catalog, READMEs, support matrix and PyPI description updated; `make verify` green with 209 tests. A Claude Code 2.1.322 run on a sample project exercised the three operations and the `build` stop, recorded in the [contract](../../07-contracts/commands/parity-commands-contract.md#manual-run). Pending: release v1.7.0.
 
+## Closed — 2026-11-11
+
+Released in [v1.7.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.7.0).
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)
