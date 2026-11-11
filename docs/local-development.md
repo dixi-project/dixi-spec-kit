@@ -6,7 +6,7 @@ Build, install and test DIXI Spec Kit from this repository. The CLI needs no age
 
 ## Requirements and build
 
-Tested environment: macOS, Python 3.15.2, pip and Make. The package declares Python >=3.11; the other versions have not been tested yet. POSIX operations with directory descriptors and `O_NOFOLLOW` are required. Windows is not supported in B1. The first installation of Setuptools requires network access; the build and the installations of the local artifacts work without querying an index.
+Tested environment: macOS, Python 3.15.2, pip and Make. The package declares Python >=3.11; the other versions have not been tested yet. POSIX operations with directory descriptors and `O_NOFOLLOW` are required. Native Windows is not supported; use WSL 2 ([below](#windows-wsl-2)). The first installation of Setuptools requires network access; the build and the installations of the local artifacts work without querying an index.
 
 From the repository root:
 
@@ -17,6 +17,24 @@ make verify
 ```
 
 `make verify` builds wheel and sdist, checks syntax/catalogs and runs all tests. The distribution tests rebuild the wheel from sdist and install both in clean temporary environments with `--no-index --no-deps`; then they test the commands and the generated Makefile. `make package` only builds the artifacts. `make test` runs only the cases in `test_local_core.py`; it does not replace the full verification.
+
+## Windows (WSL 2)
+
+Native Windows exits with code 4. Use WSL 2 with an Ubuntu LTS distribution and keep the project on the Linux filesystem:
+
+```powershell
+wsl --install -d Ubuntu-24.04
+```
+
+Inside Ubuntu:
+
+```sh
+sudo apt update && sudo apt install -y python3-venv make git
+cd ~                         # not /mnt/c/...
+git clone https://github.com/dixi-project/dixi-spec-kit.git && cd dixi-spec-kit
+```
+
+Then follow the build steps above. Projects under `/mnt/c` (or any mounted Windows drive) are not supported: Windows processes can create junctions there, and its translation layer does not have the ext4 link semantics `dixi` relies on. Evidence: the `wsl.yml` CI job ([contract](../07-contracts/commands/local-core-contract.md#windows-through-wsl-2)).
 
 Setuptools 84.2.1 is the only external build dependency; it is pinned by hash in `requirements-build.txt`. Provenance and verification are in the [B1 contract](../07-contracts/commands/local-core-contract.md). The runtime uses the standard library.
 
@@ -65,7 +83,7 @@ The documents are drafts. The initial `test` element is a plan, not an executabl
 
 ## Resumen en español
 
-Propósito: construir y probar el paquete local de desarrollo B1 sin agente. Probado en macOS con Python 3.15.2 y Make; Python >=3.11 es el mínimo declarado, no una matriz de compatibilidad probada. Se requieren descriptores de directorio POSIX y `O_NOFOLLOW`. Windows no está soportado en B1.
+Propósito: construir y probar el paquete local de desarrollo B1 sin agente. Probado en macOS con Python 3.15.2 y Make; Python >=3.11 es el mínimo declarado, no una matriz de compatibilidad probada. Se requieren descriptores de directorio POSIX y `O_NOFOLLOW`. Windows nativo no está soportado; usa WSL 2 con el proyecto bajo `~` (no en `/mnt/c`).
 
 Ejecuta los comandos de build anteriores desde la raíz del repositorio. Setuptools es una dependencia de build verificada y fijada por hash; la CLI no tiene dependencias de ejecución de terceros. `make verify` construye wheel/sdist, comprueba código y catálogos, ejecuta la suite, reconstruye desde sdist e instala ambos wheels en entornos temporales limpios sin índice. Licencia: MIT.
 

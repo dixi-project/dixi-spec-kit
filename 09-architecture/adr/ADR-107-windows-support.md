@@ -8,6 +8,8 @@ Decide whether DIXI Spec Kit can run on Windows with the same safety guarantees 
 
 **Accepted** on 2026-11-10 by the responsible person: Windows is supported through WSL 2 (option D) once phase 1 is done; native Windows keeps exit 4 (option A); option B is rejected; option C stays conditional and needs a new validation before it starts. Proposed the same day. Until phase 1 is done, [ADR-102](ADR-102-recorte-de-alcance-v1.md) item 5 stands: Windows is declared unsupported.
 
+**Phase 1 done** on 2026-11-11: the maintainer has no Windows machine, so the evidence comes from the optional CI job instead of a manual run on a personal computer. `wsl.yml` runs exactly the phase 1 commands in Ubuntu 24.04 on WSL 2 on every pull request and fails unless the kernel is WSL 2 and the project is on ext4 under `~` ([run](https://github.com/dixi-project/dixi-spec-kit/actions/runs/42939778058), [contract](../../07-contracts/commands/local-core-contract.md#windows-through-wsl-2)). Windows through WSL 2 is supported; native Windows keeps exit 4. This replaces ADR-102 item 5 for WSL 2 only.
+
 ## Context
 
 ### What the core relies on today
