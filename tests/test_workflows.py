@@ -97,7 +97,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(self.cli(*args).returncode, 0)
 
     def test_unknown_operation(self):
-        self.assert_error(self.cli("--json", "workflow", "show", "build"), 2)
+        self.assert_error(self.cli("--json", "workflow", "show", "not-an-operation"), 2)
 
     def test_prepare_requires_project(self):
         self.assert_error(self.cli("--json", "workflow", "prepare", "plan", "--target", "FEATURE-001",
