@@ -4,6 +4,12 @@
 
 Record changes to the public DIXI Spec Kit product. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- The READMEs install from PyPI (`uv tool install dixi-spec-kit`, `pipx install dixi-spec-kit`); Git tags and the release wheel stay as alternatives. Fixed the wheel name in the offline instructions, which still said 1.3.0.
+
 ## [1.5.0] — 2026-11-10
 
 ### Added
