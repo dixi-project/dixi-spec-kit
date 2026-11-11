@@ -9,6 +9,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 ### Changed
 
 - The READMEs install from PyPI (`uv tool install dixi-spec-kit`, `pipx install dixi-spec-kit`); Git tags and the release wheel stay as alternatives. Fixed the wheel name in the offline instructions, which still said 1.3.0.
+- `examples/i18n-site` follows the Next.js 16 file convention: `middleware.ts` is now `proxy.ts` and exports `proxy` instead of `middleware`; `config.matcher` is unchanged. The example's specs, README and the comment in `lib/i18n.mjs` name `proxy.ts`. `tests/test_example_i18n_site.py` now expects `proxy.ts` (authorized one-line change) and the new `tests/test_example_next16_proxy.py` requires `export function proxy`, keeps `export const config` with its matcher and rejects `middleware.ts`.
 
 ## [1.5.0] — 2026-11-10
 

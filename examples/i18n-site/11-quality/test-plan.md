@@ -11,7 +11,7 @@ Map each criterion to its executable tests; `make verify` runs `dixi check` and,
 | FEATURE-001 · 3–4 | `declares canonical and reciprocal hreflang alternates per language`, `rejects origins that are not bare http(s) origins` |
 | FEATURE-001 · 5 | `tests/catalog.test.mjs` |
 
-Not covered by automated tests: the Next.js skeleton itself (`middleware.ts`, `app/[lang]/`), which needs `npm install next react react-dom` to run. Its HTTP status and headers are checked by hand when the skeleton is run.
+Not covered by automated tests: the Next.js skeleton itself (`proxy.ts`, `app/[lang]/`), which needs `npm install next react react-dom` to run. Its HTTP status and headers are checked by hand when the skeleton is run.
 
 ## Related
 

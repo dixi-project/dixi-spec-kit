@@ -1,5 +1,5 @@
 // Pure i18n routing logic (CONTRACT-001). No dependencies: Next.js imports it from
-// middleware.ts and app/[lang]/, and `node --test` exercises it directly.
+// proxy.ts and app/[lang]/, and `node --test` exercises it directly.
 
 export const LOCALES = Object.freeze(["en", "es"]);
 export const DEFAULT_LOCALE = "en";
