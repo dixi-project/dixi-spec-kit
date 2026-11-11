@@ -29,6 +29,14 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 - [x] **Remaining content areas** _(P2, level 2)_ — [TASK-009](backlog/TASK-009-remaining-content.md). Closed on 2026-11-09; released in [v1.4.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.4.0). Customer-name check passed.
 - [x] **Opt-in automated controls, subagents and new operations** _(P1, level 3)_ — [TASK-010](backlog/TASK-010-automated-controls.md). Closed on 2026-11-09; released in [v1.4.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.4.0).
 
+## Spec Kit parity and beyond ([ADR-108](../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md))
+
+- [ ] **Parity: constitution, checklist, converge and comparison docs** _(P1, level 3, v1.7.0)_ — [TASK-011](backlog/TASK-011-parity-commands.md).
+- [ ] **`dixi workflow` recipes for every operation** _(P2, level 2, v1.8.0)_ — [TASK-012](backlog/TASK-012-workflow-recipes.md).
+- [ ] **Own commands: onboard, bugfix, issues and `upgrade --apply`** _(P1, level 3, v1.9.0)_ — [TASK-013](backlog/TASK-013-own-commands.md).
+- [ ] **Generic Agent Skills adapter** _(P2, level 3, v1.10.0)_ — [TASK-014](backlog/TASK-014-agent-skills-adapter.md).
+- [ ] **Local presets and extensions, and a documentation site** _(P2, level 3)_ — [TASK-015](backlog/TASK-015-extensibility-and-site.md).
+
 ## Related
 
 - [Roadmap](../ROADMAP.md)
