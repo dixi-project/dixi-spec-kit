@@ -7,7 +7,7 @@ import sys
 from . import __version__
 from .core import METADATA, PROFILES, check_project, doctor, initialize, message, placeholders, pr_size
 from .filesystem import Issue, read_json, root_directory
-from .upgrade import STATUSES, plan as upgrade_plan
+from .upgrade import STATUSES, apply as upgrade_apply, plan as upgrade_plan
 from .workflows import OPERATIONS, workflow_result
 
 
@@ -48,6 +48,7 @@ def parser_for(catalog):
             child.add_argument("--max", type=int, default=1500, dest="limit", help=catalog["pr_size_max"])
         elif command == "upgrade":
             child.add_argument("--dry-run", action="store_true", help=catalog["upgrade_dry_run"])
+            child.add_argument("--apply", action="store_true", help=catalog["upgrade_apply"])
             child.add_argument("--profile", choices=PROFILES, default=None, help=catalog["profile_option"])
             child.add_argument("--regulated", action="store_true", default=None, help=catalog["regulated_option"])
             child.add_argument("--controls", action="store_true", default=None, help=catalog["controls_option"])
@@ -115,11 +116,17 @@ def main(argv=None):
             workflow = workflow_result(args, Path.cwd())
             messages = [message("workflow_scope")]
         elif args.command == "upgrade":
-            if not args.dry_run:
-                raise Issue("upgrade_requires_dry_run", 2)
-            upgrade = upgrade_plan(Path.cwd(), args.profile, args.regulated, args.controls)
-            messages = [message("upgrade_planned", source=upgrade["from"], target=upgrade["to"]),
-                        message("upgrade_no_changes")]
+            if args.dry_run == args.apply:
+                raise Issue("upgrade_requires_mode", 2)
+            if args.apply:
+                upgrade = upgrade_apply(Path.cwd(), args.profile, args.regulated, args.controls)
+                left = len(upgrade["files"]["conflict"]) + len(upgrade["skipped"])
+                messages = [message("upgrade_applied", source=upgrade["from"], target=upgrade["to"],
+                                    applied=len(upgrade["applied"]), left=left)]
+            else:
+                upgrade = upgrade_plan(Path.cwd(), args.profile, args.regulated, args.controls)
+                messages = [message("upgrade_planned", source=upgrade["from"], target=upgrade["to"]),
+                            message("upgrade_no_changes")]
         elif args.command == "placeholders":
             counts = placeholders(Path.cwd())
             total = sum(counts.values())
@@ -168,6 +175,10 @@ def format_upgrade(upgrade, catalog):
         lines.append(f"\n{catalog['upgrade_heading_' + status]} ({len(names)}):")
         if status != "unchanged":
             lines += [f"- {name}" for name in names]
+    for key in ("applied", "skipped"):
+        if key in upgrade:
+            lines.append(f"\n{catalog['upgrade_heading_' + key]} ({len(upgrade[key])}):")
+            lines += [f"- {name}" for name in upgrade[key]]
     return "\n".join(lines)
 
 
