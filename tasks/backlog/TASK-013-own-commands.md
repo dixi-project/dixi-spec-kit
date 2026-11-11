@@ -31,7 +31,8 @@ so that the method fits real projects, not only new ones.
 
 ## Progress — 2026-11-11
 
-`dixi upgrade --apply`: contract and threats T09–T12 approved by the owner and recorded before the code; red tests in `tests/test_upgrade_apply.py`; atomic per-file replacement (`replace_file`), re-check before each write, lock, idempotent recovery, metadata last. `test_upgrade_requires_dry_run` stays valid unchanged (bare `upgrade` still exits 2). Runs against projects created with `dixi 1.6.0` from PyPI recorded in the [contract](../../07-contracts/commands/block-a-contract.md#dixi-upgrade---apply). Pending: `onboard`, `bugfix` and `issues`.
+`dixi upgrade --apply`: contract and threats T09–T12 approved by the owner and recorded before the code; red tests in `tests/test_upgrade_apply.py`; atomic per-file replacement (`replace_file`), re-check before each write, lock, idempotent recovery, metadata last. `test_upgrade_requires_dry_run` stays valid unchanged (bare `upgrade` still exits 2). Runs against projects created with `dixi 1.6.0` from PyPI recorded in the [contract](../../07-contracts/commands/block-a-contract.md#dixi-upgrade---apply). 
+`onboard`, `bugfix` and `issues` installed in both languages and both adapters with `dixi workflow` recipes ([contract](../../07-contracts/commands/own-commands-contract.md)); with the owner's authorization the operation lists gained the three names and the hard-coded operation count in `test_workflow_coverage` was removed. A Claude Code run of `onboard` on an existing codebase is recorded in the contract: it stopped for the module split, then wrote drafts only. Known gap found during the run: `dixi init` needs an empty destination, so adopting a repository with code needs a separate change (`init --existing`). Pending: release v1.9.0.
 
 ## Related
 
