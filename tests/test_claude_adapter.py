@@ -19,7 +19,9 @@ COMMANDS = ("discover", "specify", "clarify", "plan", "tasks", "build", "verify"
             "interview", "risk-review", "constitution", "checklist", "converge")
 SUBAGENTS = ("architect", "tester", "developer", "reviewer")
 WORKFLOW_OPERATIONS = {"discover", "specify", "clarify", "domain", "architecture", "contract", "threat-model", "plan",
-                       "constitution", "checklist", "converge"}
+                       "constitution", "checklist", "converge", "tasks", "build", "verify", "review", "analyze",
+                       "status", "handoff", "change", "data", "quality", "ai", "release", "promote", "operate",
+                       "finops", "compliance", "duediligence", "interview", "risk-review"}
 CLI_COMMANDS = {"init", "doctor", "check", "workflow", "placeholders", "pr-size",
                 "--help", "--version", "--lang", "--json"}
 LIMITS = {
