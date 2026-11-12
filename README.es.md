@@ -99,7 +99,7 @@ Las plantillas son guías con huecos `{{pending: …}}`, no decisiones: borra la
 | `dixi upgrade --apply [--profile …] [--controls]` | Escribe solo los archivos del kit actualizables y nuevos, cada uno de forma atómica y comprobado justo antes de escribir; nunca tus ediciones, archivos borrados ni obsoletos. |
 | `dixi --help`, `dixi --version` | Ayuda y versión. Opciones globales: `--lang es\|en`, `--json`. |
 
-Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proyecto ausente, 3 destino ocupado o inseguro, 4 versión o plataforma no soportada, 5 fallo de entrada/salida.
+Códigos de salida: 0 completado, 1 contenido inválido, 2 uso incorrecto o proyecto ausente, 3 destino ocupado o inseguro, 4 versión o plataforma no soportada, 5 fallo de entrada/salida. Cada comando, subcomando y opción está en la [referencia de la CLI](docs/cli/index.es.md).
 
 ## Ejemplos
 
