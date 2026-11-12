@@ -97,5 +97,19 @@
   "placeholders_found": "{total} pending markers in {files} files.",
   "pr_size_result": "Change against {base}: {counted} counted lines (limit {max}); tests {tests}; excluded {excluded}.",
   "pr_size_exceeded": "The change has {counted} counted lines, over the limit of {max}: split it so a person can review it.",
-  "pr_size_git": "Could not measure the change: Git is missing, this is not a repository or the base {base} does not exist."
+  "pr_size_git": "Could not measure the change: Git is missing, this is not a repository or the base {base} does not exist.",
+  "extension": "Add, list or remove local data-only extensions that add operations (ADR-109).",
+  "extension_add": "Install an extension folder (extension.json and operations/en|es/*.md) for the project's agent.",
+  "extension_list": "List the installed extensions.",
+  "extension_remove": "Remove an extension: deletes only the files it installed that you have not edited.",
+  "extension_folder": "Folder of the extension on the local disk.",
+  "extension_id": "Extension id.",
+  "extension_added": "Extension {id} {version} installed: {operations} operations as dixi-{id}-<operation>.",
+  "extension_removed": "Extension {id} removed: {removed} files deleted, {kept} kept because you edited them.",
+  "extension_listed": "Installed extensions: {count}.",
+  "invalid_extension": "Invalid extension, nothing was written: {reason}.",
+  "extension_conflict": "Extension conflict, nothing was written: {path} already exists.",
+  "extension_missing": "No installed extension with id {id}.",
+  "extensions_require_agent": "Extensions need an agent: create the project with --agent claude, codex or skills.",
+  "extension_kept": "kept, you edited it"
 }

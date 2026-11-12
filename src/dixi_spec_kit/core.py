@@ -316,6 +316,17 @@ def project_metadata(root):
     required = set(templates(data["language"])) | required_adapter_files(data["agent"])
     if not required <= set(inventory):
         raise Issue("invalid_metadata")
+    extensions = data.get("extensions", {})
+    if not isinstance(extensions, dict) or len(extensions) > 100:
+        raise Issue("invalid_metadata")
+    for ext_id, entry in extensions.items():
+        if (not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", ext_id) or not isinstance(entry, dict)
+                or not isinstance(entry.get("version"), str) or not isinstance(entry.get("files"), dict)
+                or len(entry["files"]) > MAX_MANAGED):
+            raise Issue("invalid_metadata")
+        for name, digest in entry["files"].items():
+            if not safe_path(name) or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+                raise Issue("invalid_metadata")
     return data
 
 
