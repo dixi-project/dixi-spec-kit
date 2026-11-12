@@ -35,6 +35,10 @@ No `.claude/`, `.codex/`, `.cursor/`, `.github/`, `.gemini/` or `.opencode/` fol
 
 The support matrix lists the adapter as "format compatible, not verified per agent". An agent moves to Supported only after a recorded run, as for Claude Code and Codex.
 
+## Manual runs
+
+- 2026-11-11, OpenCode 1.19.5, in a project created with `dixi init --agent skills` from this branch: `opencode debug skill` listed all thirty-three `dixi-<operation>` skills with their location in `.agents/skills/`, each `name` equal to its folder. The listing does not show whether `disable-model-invocation` is honoured. Running an operation with the configured local model (`qwen3.5:9b`) did not answer within five minutes; execution is not yet verified.
+
 ## Compatibility
 
 `doctor` reports installed of available skills (`agent_skills`); `check` requires the core skills like Codex; `upgrade` treats the skills as kit files.
