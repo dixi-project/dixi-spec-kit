@@ -61,6 +61,6 @@ The availability of an integration does not imply the absence of costs or additi
 
 - [ADR-100](ADR-100-distribucion-publica-v1.md)
 - [Product](../../docs/product-spec.md)
-- [Joint review](../../docs/v1-design-review.md)
+- [Joint review](../../docs/history/v1-design-review.md)
 - [Contract](../../07-contracts/commands/command-contract.md)
 - [Story](../../tasks/backlog/TASK-001-lanzamiento-v1.md)

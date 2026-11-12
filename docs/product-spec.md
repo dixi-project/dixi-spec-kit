@@ -30,7 +30,7 @@ dixi check
 make verify
 ```
 
-Requires installing the local artifact following the [es/en guide](local-development.md); there is no package published in a registry. `init` creates the directory; the others inspect the current project. The generated Makefile only checks documentary structure. Help/version are also available. `upgrade --dry-run` and agent commands remain pending.
+Install the package from PyPI or the local artifact following the [es/en guide](local-development.md). `init` creates the directory; the others inspect the current project. The generated Makefile only checks documentary structure. Help/version are also available. `upgrade` and the agent operations shipped after this first increment; the [README](../README.md) lists what is available today.
 
 B2a increment: `dixi workflow list/show/prepare` looks up the eight shared definition/design recipes and prepares instructions plus a source manifest for an explicit ID. It does not produce decisions or run an agent. [Contract and limits](../07-contracts/commands/workflow-preparation-contract.md).
 
@@ -38,9 +38,9 @@ B2a increment: `dixi workflow list/show/prepare` looks up the eight shared defin
 
 ### Command-based workflow
 
-The product must allow going through discovery, specification, planning, tasks, build, verification and review preparation through agent commands. The [proposed catalog](command-catalog.md) extends that journey with domains, architecture, contracts, threats, traceability analysis and change management, plus specialized capabilities still to be prioritized.
+The product must allow going through discovery, specification, planning, tasks, build, verification and review preparation through agent commands. The [command guide](command-catalog.md) extends that journey with domains, architecture, contracts, threats, traceability analysis and change management, plus the specialized capabilities.
 
-The CLI installs resources and runs deterministic checks; agent commands guide decisions and produce traceable artifacts. Each command requires a contract of inputs, outputs, errors, continuity, gates and tests. The list and syntax remain proposed until the story is validated and the adapter is checked. Public support requires an example executed end to end and a later modification with impact analysis.
+The CLI installs resources and runs deterministic checks; agent commands guide decisions and produce traceable artifacts. Each command requires a contract of inputs, outputs, errors, continuity, gates and tests. The operations are the same for every adapter and the syntax is fixed per adapter; the [support matrix](support-matrix.md) says which ones are verified. Public support requires an example executed end to end and a later modification with impact analysis.
 
 ### Initialization
 
@@ -82,7 +82,7 @@ v1 does not require a SaaS, telemetry, user registration, billing or integration
 
 - [Story](../tasks/backlog/TASK-001-lanzamiento-v1.md)
 - [Command catalog](command-catalog.md)
-- [Joint review](v1-design-review.md)
+- [Joint review](history/v1-design-review.md)
 - [Command contract](../07-contracts/commands/command-contract.md)
 - [ADR-100](../09-architecture/adr/ADR-100-distribucion-publica-v1.md)
 - [ADR-101: portability and integrations](../09-architecture/adr/ADR-101-nucleo-sdd-portable-e-integraciones.md)

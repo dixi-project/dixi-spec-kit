@@ -62,7 +62,7 @@ def site_path(relative):
     if command:
         return f"commands/{command.group(1)}.html"
     if relative.startswith("docs/") and relative.endswith(".md") and "/" not in relative[5:]:
-        return relative[5:-3] + ".html"
+        return relative[5:-3].removesuffix(".es") + ".html"
     return None
 
 
@@ -200,7 +200,13 @@ def page(lang, catalog, name, body, title, pages, current, notice):
 def build(output):
     if output.exists():
         shutil.rmtree(output)
-    docs = sorted((ROOT / "docs").glob("*.md"))
+    docs = sorted(path for path in (ROOT / "docs").glob("*.md") if not path.name.endswith(".es.md"))
+
+    def flat(doc, lang):
+        """A document's Spanish version (`<name>.es.md`) is the page of the Spanish tree when it exists."""
+        translated = f"docs/{doc.stem}.es.md"
+        return translated if lang == "es" and (ROOT / translated).is_file() else f"docs/{doc.name}"
+
     for lang in LANGUAGES:
         catalog = json.loads((ROOT / "scripts/site" / f"{lang}.json").read_text(encoding="utf-8"))
         suffix = ".es.md" if lang == "es" else ".md"
@@ -208,7 +214,7 @@ def build(output):
                             if path.name.endswith(".es.md") == (lang == "es"))
         operations.sort(key=lambda operation: operation != "index")
         commands = [(f"commands/{operation}", f"docs/commands/{operation}{suffix}") for operation in operations]
-        sources = [("index", HOME[lang])] + [(doc.stem, f"docs/{doc.name}") for doc in docs] + commands
+        sources = [("index", HOME[lang])] + [(doc.stem, flat(doc, lang)) for doc in docs] + commands
         rendered = {}
         for name, source in sources:
             rendered[name] = render((ROOT / source).read_text(encoding="utf-8"), source)
@@ -221,7 +227,8 @@ def build(output):
         for name, source in sources:
             body, title = rendered[name]
             url = "index.html" if name == "index" else f"{name}.html"
-            notice = catalog["english_only"] if name != "index" and "/" not in name else ""
+            translated = name == "index" or "/" in name or source.endswith(".es.md")
+            notice = "" if translated else catalog["english_only"]
             (folder / url).write_text(page(lang, catalog, name, body, title, pages, url, notice), encoding="utf-8")
             text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body)).strip()
             index.append({"url": url, "title": title, "text": text[:2000]})
