@@ -10,6 +10,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 - A DIXI Spec Kit logo in `docs/assets/` (light, dark and a standalone mark, as self-contained SVG): the READMEs open with it and with PyPI, Python, verification and license badges, and the documentation site shows the mark in its header and as its icon.
 - The PyPI page (`packaging/README.md`) opens with the logo, loaded from an absolute URL on `main`; it shows from the next published version.
+- Command reference (TASK-016): one page per operation in `docs/commands/`, in English and Spanish, with purpose, invocation for Claude Code, Codex and Agent Skills, when to use it, steps, files read and written, stops and human gates, and next step. `scripts/build-command-reference.py` (standard library) generates the pages from the packaged command texts and the workflow graph; `--check` and a test fail when a page is missing or out of date. The documentation site gains a Commands section in both languages.
 
 ### Changed
 

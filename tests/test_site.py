@@ -107,6 +107,34 @@ class SiteTests(unittest.TestCase):
         self.assertIn("refs/heads/main", deploy)
         self.assertNotIn("secrets.", text)
 
+    def test_commands_section_in_both_languages(self):
+        operations = sorted(path.name[5:-3] for path in
+                            (ROOT / "src/dixi_spec_kit/resources/claude/en").glob("dixi.*.md"))
+        words = {"en": ("Steps", "Commands"), "es": ("Pasos", "Comandos")}
+        for lang in ("en", "es"):
+            for name in [*operations, "index"]:
+                self.assertTrue((self.out / lang / "commands" / f"{name}.html").is_file(), f"{lang}/{name}")
+            with self.subTest(lang=lang):
+                page = self.parse(self.out / lang / "commands/specify.html")
+                text = (self.out / lang / "commands/specify.html").read_text(encoding="utf-8")
+                self.assertEqual(page.lang, lang)
+                self.assertTrue(page.canonical.endswith(f"/{lang}/commands/specify.html"), page.canonical)
+                self.assertTrue(page.alternates["es"].endswith("/es/commands/specify.html"), page.alternates)
+                self.assertIn(f'>{words[lang][0]}</h2>', text)
+                self.assertIn("../assets/mark.svg", text)
+                self.assertIn("../search.json", text)
+                self.assertIn("plan.html", page.links)
+                self.assertIn("../index.html", page.links)
+                home = self.parse(self.out / lang / "index.html")
+                self.assertIn("commands/index.html", home.links)
+                self.assertIn("commands/specify.html", home.links)
+                self.assertIn(words[lang][1], (self.out / lang / "index.html").read_text(encoding="utf-8"))
+                index = json.loads((self.out / lang / "search.json").read_text(encoding="utf-8"))
+                self.assertTrue(any(entry["url"] == "commands/specify.html" for entry in index))
+        notice = json.loads((ROOT / "scripts/site/es.json").read_text(encoding="utf-8"))["english_only"]
+        self.assertNotIn(notice, (self.out / "es/commands/specify.html").read_text(encoding="utf-8"))
+        self.assertIn(notice, (self.out / "es/support-matrix.html").read_text(encoding="utf-8"))
+
     def test_logo_files_are_self_contained(self):
         for name in ("logo-light.svg", "logo-dark.svg", "mark.svg"):
             with self.subTest(logo=name):
