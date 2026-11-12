@@ -1,3 +1,17 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.svg">
+    <img src="docs/assets/logo-light.svg" alt="DIXI Spec Kit" width="420">
+  </picture>
+</p>
+
+<p align="center">
+  <a href="https://pypi.org/project/dixi-spec-kit/"><img src="https://img.shields.io/pypi/v/dixi-spec-kit?color=1f5fc4" alt="Versión en PyPI"></a>
+  <a href="https://pypi.org/project/dixi-spec-kit/"><img src="https://img.shields.io/pypi/pyversions/dixi-spec-kit?color=1f5fc4" alt="Versiones de Python compatibles"></a>
+  <a href="https://github.com/dixi-project/dixi-spec-kit/actions/workflows/verify.yml"><img src="https://github.com/dixi-project/dixi-spec-kit/actions/workflows/verify.yml/badge.svg?branch=main" alt="Estado de la verificación"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/pypi/l/dixi-spec-kit?color=1f5fc4" alt="Licencia MIT"></a>
+</p>
+
 # DIXI Spec Kit
 
 [English](README.md) · **Español** · [Sitio de documentación](https://dixi-project.github.io/dixi-spec-kit/)

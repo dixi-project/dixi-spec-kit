@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-labelledby="t">
+  <title id="t">DIXI Spec Kit</title>
+  <style>
+    .ink{stroke:#23262b}.ink-fill{fill:#23262b}.blue{stroke:#1f5fc4}
+    @media (prefers-color-scheme:dark){.ink{stroke:#e6e8ec}.ink-fill{fill:#e6e8ec}.blue{stroke:#5b9bff}}
+  </style>
+  <defs>
+    <mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="200">
+      <rect width="200" height="200" fill="#fff"/>
+      <rect x="-50" y="86" width="300" height="28" transform="rotate(-45 100 100)" fill="#000"/>
+    </mask>
+  </defs>
+  <g fill="none" stroke-width="16" mask="url(#cut)">
+    <path class="ink" d="M149.5 50.5A70 70 0 0 0 50.5 149.5"/>
+    <path class="blue" d="M50.5 149.5A70 70 0 0 0 149.5 50.5"/>
+  </g>
+  <g transform="rotate(-45 100 100)">
+    <path class="blue" d="M86 60V100H196" fill="none" stroke-width="16" stroke-linejoin="miter"/>
+    <rect class="ink-fill" x="4" y="92" width="40" height="16"/>
+  </g>
+</svg>

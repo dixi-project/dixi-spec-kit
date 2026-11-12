@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- A DIXI Spec Kit logo in `docs/assets/` (light, dark and a standalone mark, as self-contained SVG): the READMEs open with it and with PyPI, Python, verification and license badges, and the documentation site shows the mark in its header and as its icon.
+
 ### Changed
 
 - The support matrix lists `--agent skills` as supported for discovery and explicit invocation in OpenCode 1.19.5, recorded in the adapter contract; other agents stay format compatible, not verified.

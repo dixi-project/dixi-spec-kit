@@ -22,7 +22,7 @@ STYLE = """
 @media (prefers-color-scheme:dark){:root{--fg:#e6e8ec;--muted:#a3a9b6;--bg:#15171b;--line:#2b2f37;--accent:#7aa2ff;--code:#1e2128}}
 *{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,sans-serif;color:var(--fg);background:var(--bg)}
 header{display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-bottom:1px solid var(--line)}
-header a{color:var(--fg);text-decoration:none;font-weight:600}
+header a{color:var(--fg);text-decoration:none;font-weight:600}.brand{display:inline-flex;align-items:center;gap:.5rem}
 .layout{display:grid;grid-template-columns:16rem 1fr;max-width:72rem;margin:0 auto}
 nav{padding:1rem;border-right:1px solid var(--line)}nav ul{list-style:none;padding:0;margin:0}nav li{margin:.25rem 0}
 nav a{color:var(--muted);text-decoration:none}nav a[aria-current]{color:var(--accent);font-weight:600}
@@ -141,6 +141,11 @@ def render(markdown, source):
         if not line.strip():
             i += 1
             continue
+        if re.match(r"</?(p|picture|source|img|a|div)\b", line):
+            # A raw HTML block (the README banner, made for GitHub) is not part of the site: the header has the mark.
+            while i < len(lines) and lines[i].strip():
+                i += 1
+            continue
         paragraph = []
         while i < len(lines) and lines[i].strip() and not re.match(r"(#{1,6} |```|\||>|\s*([-*]|\d+\.) )", lines[i]):
             paragraph.append(lines[i].strip())
@@ -160,8 +165,8 @@ def page(lang, catalog, name, body, title, pages, current, notice):
     return f"""<!doctype html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title if title == 'DIXI Spec Kit' else title + ' · DIXI Spec Kit')}</title><link rel="canonical" href="{BASE}{lang}/{url}">{alternates}
-<style>{STYLE}</style></head><body>
-<header><a href="index.html">{html.escape(catalog["title"])}</a>
+<link rel="icon" type="image/svg+xml" href="../assets/mark.svg"><style>{STYLE}</style></head><body>
+<header><a class="brand" href="index.html"><img src="../assets/mark.svg" alt="" width="28" height="28">{html.escape(catalog["title"])}</a>
 <span><a href="../{other}/{url or 'index.html'}" hreflang="{other}">{html.escape(catalog["language"])}</a> ·
 <a href="{REPO.replace('/blob/main/', '')}">{html.escape(catalog["source"])}</a></span></header>
 <div class="layout"><nav aria-label="{html.escape(catalog["docs"])}">
@@ -203,6 +208,8 @@ def build(output):
 <script>var l=(navigator.language||'en').slice(0,2).toLowerCase();location.replace(l==='es'?'es/':'en/');</script>
 </head><body><p>Choose a language · Elige un idioma</p><ul>{choose}</ul></body></html>
 """, encoding="utf-8")
+    (output / "assets").mkdir()
+    shutil.copyfile(ROOT / "docs/assets/mark.svg", output / "assets/mark.svg")
     (output / ".nojekyll").write_text("", encoding="utf-8")
 
 
