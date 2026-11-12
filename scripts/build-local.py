@@ -11,7 +11,7 @@ SOURCES = ["pyproject.toml", "MANIFEST.in", "packaging/README.md",
            "src/dixi_spec_kit/cli.py", "src/dixi_spec_kit/core.py", "src/dixi_spec_kit/filesystem.py",
            "src/dixi_spec_kit/locales/es.json", "src/dixi_spec_kit/locales/en.json",
            "src/dixi_spec_kit/resources/project.es.json", "src/dixi_spec_kit/resources/project.en.json",
-           "src/dixi_spec_kit/workflows.py", "src/dixi_spec_kit/upgrade.py", "src/dixi_spec_kit/resources/workflows.json",
+           "src/dixi_spec_kit/workflows.py", "src/dixi_spec_kit/upgrade.py", "src/dixi_spec_kit/extensions.py", "src/dixi_spec_kit/resources/workflows.json",
            "src/dixi_spec_kit/resources/workflows.es.json", "src/dixi_spec_kit/resources/workflows.en.json",
            "src/dixi_spec_kit/LICENSE", "src/dixi_spec_kit/resources/profiles.json"]
 SOURCES += sorted(p.relative_to(ROOT).as_posix()

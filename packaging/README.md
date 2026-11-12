@@ -30,7 +30,7 @@ In Claude Code, thirty-three commands: `/dixi.constitution`, `/dixi.onboard`, `/
 
 For other agents that read Agent Skills (Cursor, VS Code/Copilot, Gemini CLI, OpenCode…), `--agent skills` installs the operations in `.agents/skills/`, with implicit invocation disabled. In Codex, `--agent codex` installs the same operations as skills, invoked as `$dixi-specify`, `$dixi-plan`, etc., with implicit invocation disabled.
 
-Terminal: `dixi init`, `dixi doctor`, `dixi check`, `dixi workflow list|show|prepare`, `dixi upgrade --dry-run` (preview what a newer kit version would change, without writing), `dixi upgrade --apply` (write only kit files you have not edited), `dixi placeholders`, `dixi pr-size`. Global options `--lang es|en` and `--json` go before the command. Exit codes: 0 success, 1 invalid content, 2 usage, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O.
+Terminal: `dixi init`, `dixi doctor`, `dixi check`, `dixi workflow list|show|prepare`, `dixi upgrade --dry-run` (preview what a newer kit version would change, without writing), `dixi upgrade --apply` (write only kit files you have not edited), `dixi extension add|list|remove` (your own operations from a local, data-only folder), `dixi placeholders`, `dixi pr-size`. Global options `--lang es|en` and `--json` go before the command. Exit codes: 0 success, 1 invalid content, 2 usage, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O.
 
 `dixi check` and the generated `make verify` check documentary structure and traceability; connect your application's real tests to `make verify`.
 
