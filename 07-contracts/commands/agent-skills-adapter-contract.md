@@ -38,6 +38,7 @@ The support matrix lists the adapter as "format compatible, not verified per age
 ## Manual runs
 
 - 2026-11-11, OpenCode 1.19.5, in a project created with `dixi init --agent skills` from this branch: `opencode debug skill` listed all thirty-three `dixi-<operation>` skills with their location in `.agents/skills/`, each `name` equal to its folder. The listing does not show whether `disable-model-invocation` is honoured. Running an operation with the configured local model (`qwen3.5:9b`) did not answer within five minutes; execution is not yet verified.
+- Same day, second attempt with a fifteen-minute limit: `opencode run "Use the dixi-status skill…"` loaded the skill explicitly (`Skill "dixi-status"`, base directory `.agents/skills/dixi-status`), followed its steps (ran `dixi doctor` and `dixi check`, read `00-master-spec.md` and `docs/guide.md`), reported the project as an unstarted draft and changed no file. `dixi doctor` and `check` answered "invalid metadata" because the `dixi` on that machine's PATH was an installed release that does not know `skills` yet; the run ended with an OpenCode internal server error after the answer. Discovery and explicit invocation are verified for OpenCode; a full run with a released `dixi` that knows the adapter is pending.
 
 ## Compatibility
 
