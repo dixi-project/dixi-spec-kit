@@ -35,7 +35,7 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 - [x] **`dixi workflow` recipes for every operation** _(P2, level 2)_ — [TASK-012](backlog/TASK-012-workflow-recipes.md). Closed on 2026-11-11; released in v1.8.0.
 - [x] **Own commands: onboard, bugfix, issues and `upgrade --apply`** _(P1, level 3)_ — [TASK-013](backlog/TASK-013-own-commands.md). Closed on 2026-11-11; released in v1.8.0.
 - [ ] **Generic Agent Skills adapter** _(P2, level 3, v1.9.0)_ — [TASK-014](backlog/TASK-014-agent-skills-adapter.md).
-- [ ] **Local presets and extensions, and a documentation site** _(P2, level 3)_ — [TASK-015](backlog/TASK-015-extensibility-and-site.md).
+- [x] **Local presets and extensions, and a documentation site** _(P2, level 3)_ — [TASK-015](backlog/TASK-015-extensibility-and-site.md). Closed on 2026-11-12; released in v1.9.0.
 
 ## Related
 

@@ -28,6 +28,10 @@ so that I can use the method without waiting for a dedicated adapter.
 2. `make verify` passes and CI is green.
 3. At least one agent other than Claude Code and Codex ran an operation and the run is recorded.
 
+## Progress — 2026-11-12
+
+`--agent skills` merged (#42, [contract](../../07-contracts/commands/agent-skills-adapter-contract.md)); released in v1.9.0. OpenCode 1.19.5 discovered the thirty-three skills and loaded and followed `dixi-status` explicitly, but the `dixi` on its PATH predated the adapter. Pending (done when 3): a full run with OpenCode and the released 1.9.0.
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)
