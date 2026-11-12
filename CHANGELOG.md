@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- `dixi init <dir> --existing` adds DIXI to a folder that already has files: creates only what is missing, never overwrites, reports the files it kept and records them with the kit hash so `upgrade --apply` never overwrites them ([contract](07-contracts/commands/local-core-contract.md#adding-dixi-to-an-existing-folder), threat T13). Closes the gap found while running `/dixi.onboard` on an existing codebase.
+
 ## [1.8.0] — 2026-11-11
 
 ### Added
