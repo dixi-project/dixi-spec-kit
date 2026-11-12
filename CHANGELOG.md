@@ -9,6 +9,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 ### Added
 
 - A DIXI Spec Kit logo in `docs/assets/` (light, dark and a standalone mark, as self-contained SVG): the READMEs open with it and with PyPI, Python, verification and license badges, and the documentation site shows the mark in its header and as its icon.
+- The PyPI page (`packaging/README.md`) opens with the logo, loaded from an absolute URL on `main`; it shows from the next published version.
 
 ### Changed
 

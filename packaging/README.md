@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dixi-project/dixi-spec-kit/main/docs/assets/logo-light.svg" alt="DIXI Spec Kit" width="420">
+</p>
+
 # DIXI Spec Kit
 
 ## Purpose / Propósito

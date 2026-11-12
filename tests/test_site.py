@@ -123,6 +123,17 @@ class SiteTests(unittest.TestCase):
                 self.assertIn('src="docs/assets/logo-light.svg" alt="DIXI Spec Kit"', text)
                 self.assertIn("\n# DIXI Spec Kit\n", text)
 
+    def test_pypi_readme_shows_the_logo_from_an_absolute_url(self):
+        text = (ROOT / "packaging/README.md").read_text(encoding="utf-8")
+        images = re.findall(r'<img src="([^"]+)"', text)
+        self.assertEqual(len(images), 1, images)
+        prefix = "https://raw.githubusercontent.com/dixi-project/dixi-spec-kit/main/"
+        self.assertTrue(images[0].startswith(prefix), images[0])
+        self.assertTrue((ROOT / images[0][len(prefix):]).is_file(), images[0])
+        self.assertIn('alt="DIXI Spec Kit"', text)
+        self.assertNotIn("<picture", text)
+        self.assertIn("\n# DIXI Spec Kit\n", text)
+
     def test_site_shows_the_mark_and_hides_the_readme_banner(self):
         self.assertEqual((self.out / "assets/mark.svg").read_bytes(), (ROOT / "docs/assets/mark.svg").read_bytes())
         for lang in ("en", "es"):
