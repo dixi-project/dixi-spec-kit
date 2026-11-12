@@ -11,3 +11,4 @@ dist/
 *.egg-info/
 .claude/worktrees/
 .claude/settings.local.json
+site/
