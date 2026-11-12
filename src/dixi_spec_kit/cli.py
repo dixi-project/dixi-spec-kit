@@ -8,6 +8,7 @@ from . import __version__
 from .core import METADATA, PROFILES, check_project, doctor, initialize, initialize_existing, message, placeholders, pr_size
 from .filesystem import Issue, read_json, root_directory
 from . import extensions as extension_ops
+from . import presets as preset_ops
 from .upgrade import STATUSES, apply as upgrade_apply, plan as upgrade_plan
 from .workflows import OPERATIONS, workflow_result
 
@@ -30,7 +31,7 @@ def parser_for(catalog):
     parser.add_argument("--lang", choices=("es", "en"), default=None, help=catalog["lang"])
     parser.add_argument("--json", action="store_true", help=catalog["json"])
     commands = parser.add_subparsers(dest="command", required=True, title=catalog["commands"])
-    for command in ("init", "doctor", "check", "workflow", "upgrade", "extension", "placeholders", "pr-size"):
+    for command in ("init", "doctor", "check", "workflow", "upgrade", "extension", "preset", "placeholders", "pr-size"):
         child = commands.add_parser(command, help=catalog[command], description=catalog[command],
                                     add_help=False, formatter_class=Formatter)
         child._positionals.title = catalog["arguments"]
@@ -54,18 +55,18 @@ def parser_for(catalog):
             child.add_argument("--profile", choices=PROFILES, default=None, help=catalog["profile_option"])
             child.add_argument("--regulated", action="store_true", default=None, help=catalog["regulated_option"])
             child.add_argument("--controls", action="store_true", default=None, help=catalog["controls_option"])
-        elif command == "extension":
-            actions = child.add_subparsers(dest="extension_action", required=True, title=catalog["commands"])
+        elif command in ("extension", "preset"):
+            actions = child.add_subparsers(dest=f"{command}_action", required=True, title=catalog["commands"])
             for action in ("add", "list", "remove"):
-                operation = actions.add_parser(action, help=catalog[f"extension_{action}"], add_help=False,
-                                               description=catalog[f"extension_{action}"], formatter_class=Formatter)
+                operation = actions.add_parser(action, help=catalog[f"{command}_{action}"], add_help=False,
+                                               description=catalog[f"{command}_{action}"], formatter_class=Formatter)
                 operation._positionals.title = catalog["arguments"]
                 operation._optionals.title = catalog["options"]
                 operation.add_argument("--help", "-h", action="help", help=catalog["help"])
                 if action == "add":
-                    operation.add_argument("folder", help=catalog["extension_folder"])
+                    operation.add_argument("folder", help=catalog[f"{command}_folder"])
                 elif action == "remove":
-                    operation.add_argument("id", help=catalog["extension_id"])
+                    operation.add_argument("id", help=catalog[f"{command}_id"])
         elif command == "workflow":
             actions = child.add_subparsers(dest="workflow_action", required=True, title=catalog["commands"])
             for action in ("list", "show", "prepare"):
@@ -161,6 +162,19 @@ def main(argv=None):
                 result = {"installed": extension_ops.listing(Path.cwd())}
                 messages = [message("extension_listed", count=len(result["installed"]))]
             extra = {"extension": result}
+        elif args.command == "preset":
+            if args.preset_action == "add":
+                result = preset_ops.add(Path.cwd(), args.folder)
+                messages = [message("preset_added", id=result["id"], version=result["version"],
+                                    applied=len(result["applied"]), kept=len(result["kept"]))]
+            elif args.preset_action == "remove":
+                result = preset_ops.remove(Path.cwd(), args.id)
+                messages = [message("preset_removed", id=result["id"], restored=len(result["restored"]),
+                                    kept=len(result["kept"]))]
+            else:
+                result = {"installed": preset_ops.listing(Path.cwd())}
+                messages = [message("preset_listed", count=len(result["installed"]))]
+            extra = {"preset": result}
         elif args.command == "placeholders":
             counts = placeholders(Path.cwd())
             total = sum(counts.values())
@@ -201,6 +215,10 @@ def main(argv=None):
             print(f"  {catalog['init_kept']}: {name}")
         for entry in extra.get("extension", {}).get("installed", []):
             print(f"  {entry['id']} {entry['version']} ({entry['files']})")
+        for entry in extra.get("preset", {}).get("installed", []):
+            print(f"  {entry['id']} {entry['version']} priority {entry['priority']} ({entry['files']})")
+        for name in extra.get("preset", {}).get("kept", []):
+            print(f"  {catalog['preset_kept']}: {name}")
         for name in extra.get("extension", {}).get("kept", []):
             print(f"  {catalog['extension_kept']}: {name}")
         for name, count in extra.get("placeholders", {}).items():
