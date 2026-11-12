@@ -18,7 +18,8 @@ PARENTS = {"goal": set(), "domain": {"goal"}, "module": {"domain"},
            "feature": {"module"}, "contract": {"feature", "module"},
            "test": {"feature", "contract"}}
 METADATA = ".dixi/project.json"
-AGENTS = ("none", "claude", "codex")
+AGENTS = ("none", "claude", "codex", "skills")
+HOOK_AGENTS = ("claude", "codex")
 PROFILES = ("minimal", "site", "app", "platform")
 MAX_MANAGED = 1000
 CODEX_POLICY = b"policy:\n  allow_implicit_invocation: false\n"
@@ -90,10 +91,27 @@ def codex_files(language):
     return payload
 
 
+def skills_files(language):
+    """Agent Skills (agentskills.io) for any compatible agent, derived from the Codex skills (ADR-108 phase D).
+
+    Same `.agents/skills/` path and Codex policy file; adds `disable-model-invocation: true` (honoured by Cursor,
+    VS Code/Copilot and OpenCode) and replaces the Codex-only `$dixi-<op>` syntax with the skill name.
+    """
+    folder = files("dixi_spec_kit").joinpath("resources", "codex", language)
+    payload = {}
+    for name in CLAUDE_COMMANDS:
+        text = folder.joinpath(f"dixi-{name}.md").read_text(encoding="utf-8")
+        text = text.replace("\n---\n", "\ndisable-model-invocation: true\n---\n", 1)
+        text = re.sub(r"\$dixi-([a-z0-9-]+)", r"dixi-\1", text)
+        payload[f".agents/skills/dixi-{name}/SKILL.md"] = text.encode("utf-8")
+        payload[f".agents/skills/dixi-{name}/agents/openai.yaml"] = CODEX_POLICY
+    return payload
+
+
 def required_adapter_files(agent):
     if agent == "claude":
         return {"CLAUDE.md"} | {f".claude/commands/dixi.{name}.md" for name in CLAUDE_REQUIRED}
-    if agent == "codex":
+    if agent in ("codex", "skills"):
         return {f".agents/skills/dixi-{name}/{suffix}" for name in CLAUDE_REQUIRED
                 for suffix in ("SKILL.md", "agents/openai.yaml")}
     return set()
@@ -104,6 +122,8 @@ def adapter_files(agent, language):
         return {}
     if agent == "codex":
         return codex_files(language)
+    if agent == "skills":
+        return skills_files(language)
     folder = files("dixi_spec_kit").joinpath("resources", "claude", language)
     payload = {"CLAUDE.md": folder.joinpath("CLAUDE.md").read_bytes()}
     for name in CLAUDE_COMMANDS:
@@ -135,7 +155,7 @@ def hook_group(agent, scripts, matcher=None, timeout=None):
 
 
 def control_files(agent):
-    if agent not in ("claude", "codex"):
+    if agent not in HOOK_AGENTS:
         return {}
     folder = files("dixi_spec_kit").joinpath("resources", "hooks")
     payload = {f".dixi/hooks/{name}.py": folder.joinpath(f"{name}.py").read_bytes() for name in CONTROLS}
@@ -160,7 +180,7 @@ def message(key, **params):
 
 def initialize(destination, language, agent="none", profile="minimal", regulated=False, controls=False):
     check_profile(profile, regulated)
-    if controls and agent == "none":
+    if controls and agent not in HOOK_AGENTS:
         raise Issue("controls_require_agent", 2)
     text = str(destination)
     path = Path(os.getcwd()) if text and text.rstrip("/") == "." else Path(text)
@@ -291,7 +311,7 @@ def project_metadata(root):
     if profile not in PROFILES or type(regulated) is not bool or (regulated and profile == "minimal"):
         raise Issue("invalid_metadata")
     controls = data.get("controls", False)
-    if type(controls) is not bool or (controls and data["agent"] == "none"):
+    if type(controls) is not bool or (controls and data["agent"] not in HOOK_AGENTS):
         raise Issue("invalid_metadata")
     required = set(templates(data["language"])) | required_adapter_files(data["agent"])
     if not required <= set(inventory):
@@ -405,6 +425,13 @@ def doctor(path, language):
                 installed = sum(f".agents/skills/dixi-{name}/SKILL.md" in metadata["managed_files"]
                                 for name in CLAUDE_COMMANDS)
                 results.append(message("agent_codex", language=metadata["language"],
+                                       skills=installed, available=len(CLAUDE_COMMANDS)))
+                if installed < len(CLAUDE_COMMANDS):
+                    results.append(message("upgrade_hint"))
+            elif metadata["agent"] == "skills":
+                installed = sum(f".agents/skills/dixi-{name}/SKILL.md" in metadata["managed_files"]
+                                for name in CLAUDE_COMMANDS)
+                results.append(message("agent_skills", language=metadata["language"],
                                        skills=installed, available=len(CLAUDE_COMMANDS)))
                 if installed < len(CLAUDE_COMMANDS):
                     results.append(message("upgrade_hint"))

@@ -35,7 +35,7 @@ Read on **2026-11-11**. GitHub Spec Kit **v1.4.0** (released 2026-11-10): reposi
 | Workflows | Executable, resumable workflows with human review gates | `dixi workflow list/show/prepare`: deterministic context packets; the agent runs the operation |
 | Extensibility | Extensions, presets, workflows, bundles and catalogs (the project lists 186 community extensions and 42 presets) | Not available; local presets and extensions are planned |
 | MCP | Experimental read-only server | None; the CLI needs no network |
-| Agents | 41 integrations plus `generic` and `none` | Claude Code and Codex, plus `none`; a generic Agent Skills adapter is planned (v1.10.0) |
+| Agents | 41 integrations plus `generic` and `none` | Claude Code and Codex (verified), `skills` (Agent Skills in `.agents/skills/`, format compatible with Cursor, VS Code/Copilot, Gemini CLI, OpenCode, Goose and Amp, not verified per agent), plus `none` |
 | Systems | Windows, macOS and Linux | macOS and Linux; Windows through WSL 2 (verified in CI) |
 | Runtime dependencies | Python packages | None (standard library only) |
 | Languages | README in English, Chinese, Japanese and Korean; docs in English | Documents, commands and messages in English and Spanish |
