@@ -9,6 +9,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 ### Added
 
 - `dixi mode` (TASK-022, [contract](07-contracts/commands/automated-controls-contract.md#dixi-mode)): prints `MODE` and, for `mvp`, which of the six items `/dixi.promote` reviews (tests and budgets, threat model, data retention, runbooks and SLOs, release and rollback, owners) have no evidence yet, meaning a document without `{{pending: …}}` blanks. With `--json`. Read-only: it writes nothing and has no option to change `MODE`.
+- `make release` warns about unannounced changes (TASK-023): it lists the pull requests merged since the previous tag whose number or branch the CHANGELOG section of the version does not mention and asks the maintainer to type `yes` before going on. Pull requests that need no entry are marked in the section with `<!-- no changelog entry: #N -->`, which is left out of the release notes.
 
 ### Changed
 

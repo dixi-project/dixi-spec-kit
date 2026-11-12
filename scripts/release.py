@@ -3,6 +3,8 @@
 Refuses, before creating anything, when the release pull request is not merged (public/main does not
 carry the version), the checkout is not public/main or has local changes, the tag already exists, or
 dist/ does not hold exactly this version's wheel and sdist. Runs `make verify`, checks dist/ again,
+lists the pull requests merged since the previous tag that the CHANGELOG section does not mention (by
+`#number` or branch, unless marked `<!-- no changelog entry: #N -->`) and asks the person to confirm,
 shows what it will do and asks the person to type the version before calling `gh release create`.
 Publishing the release starts publish.yml; the PyPI upload still waits for a maintainer's approval.
 """
@@ -25,11 +27,63 @@ def pyproject_version(text):
     return match.group(1)
 
 
-def changelog_notes(text, version):
+NO_ENTRY = re.compile(r"<!--\s*no changelog entry:(.*?)-->", re.DOTALL)
+
+
+def changelog_section(text, version):
+    """The CHANGELOG section of a version as written, with its `no changelog entry` markers."""
     match = re.search(rf"^## \[{re.escape(version)}\][^\n]*\n(.*?)(?=^## \[|\Z)", text, re.MULTILINE | re.DOTALL)
     if not match or not match.group(1).strip():
         raise ValueError(f"CHANGELOG.md has no [{version}] section")
-    return match.group(1).strip() + "\n"
+    return match.group(1)
+
+
+def changelog_notes(text, version):
+    """The release notes: the section without the markers, which are for maintainers only."""
+    return re.sub(r"\n{3,}", "\n\n", NO_ENTRY.sub("", changelog_section(text, version))).strip() + "\n"
+
+
+def merged_pull_requests(log):
+    """(number, branch) of each pull request merge in `git log --merges --first-parent --format=%s` output."""
+    return [(int(number), branch) for number, branch in
+            re.findall(r"^Merge pull request #(\d+) from [^/\s]+/(\S+)$", log, re.MULTILINE)]
+
+
+def previous_tag(tags, version):
+    """The highest vX.Y.Z tag below `version`, or None for a first release."""
+    def key(text):
+        return tuple(int(part) for part in text.split("."))
+
+    lower = [tag for tag in tags if tag.startswith("v") and VERSION.fullmatch(tag[1:]) and key(tag[1:]) < key(version)]
+    return max(lower, key=lambda tag: key(tag[1:])) if lower else None
+
+
+def no_entry_needed(section):
+    """Pull request numbers marked `<!-- no changelog entry: #49, #50 -->` (for example documentation only)."""
+    return {int(number) for marker in NO_ENTRY.findall(section) for number in re.findall(r"#(\d+)", marker)}
+
+
+def unannounced(pulls, section):
+    """The merged pull requests whose number and branch the section does not mention and that are not marked."""
+    marked, text = no_entry_needed(section), NO_ENTRY.sub("", section)
+    return [(number, branch) for number, branch in pulls if number not in marked
+            and not re.search(rf"#{number}(?!\d)", text)
+            and not re.search(rf"(?<![\w/.-]){re.escape(branch)}(?![\w/-])", text)]
+
+
+def changelog_warning(missing, previous, total):
+    if not missing:
+        return [f"All {total} pull requests merged since {previous} are in the CHANGELOG section."]
+    numbers = ", ".join(f"#{number}" for number, _ in missing)
+    return [f"{len(missing)} of {total} pull requests merged since {previous} are not in the CHANGELOG section:",
+            *(f"  #{number} ({branch})" for number, branch in missing),
+            "Add an entry that names each one, for example `(#NN)`, or mark the ones that need none with:",
+            f"  <!-- no changelog entry: {numbers} -->"]
+
+
+def confirm_unannounced(missing, ask=input):
+    """True when nothing is missing or the person types yes to release without those entries."""
+    return not missing or ask("Type yes to release without those entries: ").strip() == "yes"
 
 
 def release_problems(version, main_version, local_head, remote_head, dirty, tag_exists, dist_names):
@@ -98,7 +152,16 @@ def main(argv):
     problems = release_problems(**state(version))
     if problems:
         return refuse(problems)
-    notes = changelog_notes((ROOT / "CHANGELOG.md").read_text(encoding="utf-8"), version)
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    notes = changelog_notes(changelog, version)
+    previous = previous_tag(git("tag", "--list", "v*").splitlines(), version)
+    if previous:
+        pulls = merged_pull_requests(git("log", "--merges", "--first-parent", "--format=%s",
+                                         f"{previous}..{REMOTE}/main"))
+        missing = unannounced(pulls, changelog_section(changelog, version))
+        print("\n" + "\n".join(changelog_warning(missing, previous, len(pulls))))
+        if not confirm_unannounced(missing):
+            return refuse(["not confirmed: add the missing CHANGELOG entries or mark them, in a pull request"])
     print(f"\nReady to create release v{version} from {REMOTE}/main ({current['remote_head'][:7]}) with:")
     for name in sorted(dist_names()):
         print(f"  dist/{name}")
