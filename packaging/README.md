@@ -17,7 +17,7 @@ Requirements: Python 3.11+, macOS or Linux. On Windows, use WSL 2 with the proje
 ## Quickstart
 
 ```text
-dixi init my-project --agent claude   # or --agent codex, or --agent none
+dixi init my-project --agent claude   # or --agent codex, --agent skills, or --agent none
 cd my-project
 dixi doctor
 dixi check
@@ -28,7 +28,7 @@ Optional: `--profile site|app|platform` (and `--regulated`) for fuller templates
 
 In Claude Code, thirty-three commands: `/dixi.constitution`, `/dixi.onboard`, `/dixi.discover`, `/dixi.interview`, `/dixi.specify`, `/dixi.clarify`, `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.data`, `/dixi.threat-model`, `/dixi.ai`, `/dixi.plan`, `/dixi.tasks`, `/dixi.build`, `/dixi.verify`, `/dixi.review`, `/dixi.analyze`, `/dixi.checklist`, `/dixi.converge`, `/dixi.bugfix`, `/dixi.issues`, `/dixi.quality`, `/dixi.status`, `/dixi.handoff`, `/dixi.change`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance`, `/dixi.duediligence`, `/dixi.risk-review`, plus four subagents.
 
-In Codex, `--agent codex` installs the same operations as skills, invoked as `$dixi-specify`, `$dixi-plan`, etc., with implicit invocation disabled.
+For other agents that read Agent Skills (Cursor, VS Code/Copilot, Gemini CLI, OpenCode…), `--agent skills` installs the operations in `.agents/skills/`, with implicit invocation disabled. In Codex, `--agent codex` installs the same operations as skills, invoked as `$dixi-specify`, `$dixi-plan`, etc., with implicit invocation disabled.
 
 Terminal: `dixi init`, `dixi doctor`, `dixi check`, `dixi workflow list|show|prepare`, `dixi upgrade --dry-run` (preview what a newer kit version would change, without writing), `dixi upgrade --apply` (write only kit files you have not edited), `dixi placeholders`, `dixi pr-size`. Global options `--lang es|en` and `--json` go before the command. Exit codes: 0 success, 1 invalid content, 2 usage, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O.
 

@@ -20,6 +20,7 @@ Declare what DIXI Spec Kit v1.8.0 supports, with what evidence, and which contro
 | `--agent none` | Supported | Documentary base, `AGENTS.md` and guide. Use it with any editor or agent, without installed commands. |
 | `--agent claude` | Supported (Claude Code 2.1.319) | All of the above plus `CLAUDE.md` and thirty-three `/dixi.*` commands in `.claude/commands/` (fewer in projects created with earlier versions; see `dixi upgrade --dry-run`). |
 | `--agent codex` | Supported (Codex CLI 0.167.0; [manual run](../07-contracts/commands/codex-adapter-contract.md#manual-run)) | Baseline plus thirty-three skills in `.agents/skills/dixi-<operation>/SKILL.md`, each with `agents/openai.yaml` disabling implicit invocation. Invoke them as `$dixi-<operation>`. Codex reads `AGENTS.md` itself. |
+| `--agent skills` | Format compatible, not verified per agent ([contract](../07-contracts/commands/agent-skills-adapter-contract.md)) | Baseline plus thirty-three [Agent Skills](https://agentskills.io/specification) in `.agents/skills/dixi-<operation>/SKILL.md` with `disable-model-invocation: true`, read by Cursor, VS Code/Copilot, Gemini CLI, OpenCode, Goose and Amp according to their documentation (read on 2026-11-11). No hooks: `--controls` is not available. An agent moves to Supported only with a recorded run. |
 | Others | Not included | Having `AGENTS.md` does not amount to support. |
 
 ## Claude Code adapter controls
