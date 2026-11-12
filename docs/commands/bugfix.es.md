@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `[reporte del bug, número de issue o comportamiento que falla]`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.bugfix buscar por etiqueta devuelve notas que tienen otras etiquetas`
+- Codex: `$dixi-bugfix buscar por etiqueta devuelve notas que tienen otras etiquetas`
+- Agent Skills: Usa la skill `dixi-bugfix`: buscar por etiqueta devuelve notas que tienen otras etiquetas
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `feature`

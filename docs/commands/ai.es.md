@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `<caso de uso de IA>`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.ai resumir una nota larga con un modelo de lenguaje`
+- Codex: `$dixi-ai resumir una nota larga con un modelo de lenguaje`
+- Agent Skills: Usa la skill `dixi-ai`: resumir una nota larga con un modelo de lenguaje
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `goal`

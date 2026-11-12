@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `<ID de dominio, módulo o feature>`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.architecture MODULE-001`
+- Codex: `$dixi-architecture MODULE-001`
+- Agent Skills: Usa la skill `dixi-architecture`: MODULE-001
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `domain`, `module`, `feature`

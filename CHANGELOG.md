@@ -12,6 +12,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 - The PyPI page (`packaging/README.md`) opens with the logo, loaded from an absolute URL on `main`; it shows from the next published version.
 - Command reference (TASK-016): one page per operation in `docs/commands/`, in English and Spanish, with purpose, invocation for Claude Code, Codex and Agent Skills, when to use it, steps, files read and written, stops and human gates, and next step. `scripts/build-command-reference.py` (standard library) generates the pages from the packaged command texts and the workflow graph; `--check` and a test fail when a page is missing or out of date. The documentation site gains a Commands section in both languages.
 - Command guide (TASK-017): `docs/command-catalog.md`, with a Spanish version in `docs/command-catalog.es.md`, is now a guide for users: the journey map, a "which command when" table of the thirty-three operations linked to their reference pages, and a walkthrough from `dixi init` to a release. The documentation site serves a document's `.es.md` version in the Spanish tree when it exists.
+- Command examples (TASK-018): every reference page shows a realistic example for Claude Code, Codex and Agent Skills, from `scripts/site/command-examples.json`. `README.es.md` now mentions `/dixi.interview`, `/dixi.risk-review` and the subagents, as the English README does.
 
 ### Changed
 

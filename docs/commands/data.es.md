@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `<feature, módulo o entidad>`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.data FEATURE-001`
+- Codex: `$dixi-data FEATURE-001`
+- Agent Skills: Usa la skill `dixi-data`: FEATURE-001
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `module`
