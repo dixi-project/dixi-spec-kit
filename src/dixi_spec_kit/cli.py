@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 
 from . import __version__
-from .core import METADATA, PROFILES, check_project, doctor, initialize, message, placeholders, pr_size
+from .core import METADATA, PROFILES, check_project, doctor, initialize, initialize_existing, message, placeholders, pr_size
 from .filesystem import Issue, read_json, root_directory
 from .upgrade import STATUSES, apply as upgrade_apply, plan as upgrade_plan
 from .workflows import OPERATIONS, workflow_result
@@ -41,6 +41,7 @@ def parser_for(catalog):
             child.add_argument("--profile", choices=PROFILES, default="minimal", help=catalog["profile_option"])
             child.add_argument("--regulated", action="store_true", help=catalog["regulated_option"])
             child.add_argument("--controls", action="store_true", help=catalog["controls_option"])
+            child.add_argument("--existing", action="store_true", help=catalog["existing_option"])
         elif command == "placeholders":
             child.add_argument("--strict", action="store_true", help=catalog["placeholders_strict"])
         elif command == "pr-size":
@@ -109,7 +110,14 @@ def main(argv=None):
         args = parser_for(catalog).parse_args(argv)
         args.lang = args.lang or language
         if args.command == "init":
-            messages = initialize(args.directory, args.lang, args.agent, args.profile, args.regulated, args.controls)
+            if args.existing:
+                messages, details = initialize_existing(args.directory, args.lang, args.agent, args.profile,
+                                                        args.regulated, args.controls)
+                if details is not None:
+                    extra = {"init": details}
+            else:
+                messages = initialize(args.directory, args.lang, args.agent, args.profile, args.regulated,
+                                      args.controls)
         elif args.command == "doctor":
             messages = doctor(Path.cwd(), args.lang)
         elif args.command == "workflow":
@@ -163,6 +171,8 @@ def main(argv=None):
             print(format_workflow(workflow, catalog))
         if upgrade is not None:
             print(format_upgrade(upgrade, catalog))
+        for name in extra.get("init", {}).get("conflicts", []):
+            print(f"  {catalog['init_kept']}: {name}")
         for name, count in extra.get("placeholders", {}).items():
             print(f"  {count:4d}  {name}")
     return code
