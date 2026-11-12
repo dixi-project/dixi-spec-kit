@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- `--agent skills` ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase D, [contract](07-contracts/commands/agent-skills-adapter-contract.md)): the thirty-three operations as [Agent Skills](https://agentskills.io/specification) in `.agents/skills/`, derived from the Codex skills, with `disable-model-invocation: true` and neutral `dixi-<operation>` references, for Cursor, VS Code/Copilot, Gemini CLI, OpenCode and other compatible agents. Listed as format compatible, not verified per agent; `--controls` is not available for it.
+
 ## [1.8.0] — 2026-11-11
 
 ### Added

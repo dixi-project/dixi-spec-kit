@@ -18,7 +18,8 @@ PARENTS = {"goal": set(), "domain": {"goal"}, "module": {"domain"},
            "feature": {"module"}, "contract": {"feature", "module"},
            "test": {"feature", "contract"}}
 METADATA = ".dixi/project.json"
-AGENTS = ("none", "claude", "codex")
+AGENTS = ("none", "claude", "codex", "skills")
+HOOK_AGENTS = ("claude", "codex")
 PROFILES = ("minimal", "site", "app", "platform")
 MAX_MANAGED = 1000
 CODEX_POLICY = b"policy:\n  allow_implicit_invocation: false\n"
@@ -90,10 +91,27 @@ def codex_files(language):
     return payload
 
 
+def skills_files(language):
+    """Agent Skills (agentskills.io) for any compatible agent, derived from the Codex skills (ADR-108 phase D).
+
+    Same `.agents/skills/` path and Codex policy file; adds `disable-model-invocation: true` (honoured by Cursor,
+    VS Code/Copilot and OpenCode) and replaces the Codex-only `$dixi-<op>` syntax with the skill name.
+    """
+    folder = files("dixi_spec_kit").joinpath("resources", "codex", language)
+    payload = {}
+    for name in CLAUDE_COMMANDS:
+        text = folder.joinpath(f"dixi-{name}.md").read_text(encoding="utf-8")
+        text = text.replace("\n---\n", "\ndisable-model-invocation: true\n---\n", 1)
+        text = re.sub(r"\$dixi-([a-z0-9-]+)", r"dixi-\1", text)
+        payload[f".agents/skills/dixi-{name}/SKILL.md"] = text.encode("utf-8")
+        payload[f".agents/skills/dixi-{name}/agents/openai.yaml"] = CODEX_POLICY
+    return payload
+
+
 def required_adapter_files(agent):
     if agent == "claude":
         return {"CLAUDE.md"} | {f".claude/commands/dixi.{name}.md" for name in CLAUDE_REQUIRED}
-    if agent == "codex":
+    if agent in ("codex", "skills"):
         return {f".agents/skills/dixi-{name}/{suffix}" for name in CLAUDE_REQUIRED
                 for suffix in ("SKILL.md", "agents/openai.yaml")}
     return set()
@@ -104,6 +122,8 @@ def adapter_files(agent, language):
         return {}
     if agent == "codex":
         return codex_files(language)
+    if agent == "skills":
+        return skills_files(language)
     folder = files("dixi_spec_kit").joinpath("resources", "claude", language)
     payload = {"CLAUDE.md": folder.joinpath("CLAUDE.md").read_bytes()}
     for name in CLAUDE_COMMANDS:
@@ -135,7 +155,7 @@ def hook_group(agent, scripts, matcher=None, timeout=None):
 
 
 def control_files(agent):
-    if agent not in ("claude", "codex"):
+    if agent not in HOOK_AGENTS:
         return {}
     folder = files("dixi_spec_kit").joinpath("resources", "hooks")
     payload = {f".dixi/hooks/{name}.py": folder.joinpath(f"{name}.py").read_bytes() for name in CONTROLS}
@@ -160,7 +180,7 @@ def message(key, **params):
 
 def initialize(destination, language, agent="none", profile="minimal", regulated=False, controls=False):
     check_profile(profile, regulated)
-    if controls and agent == "none":
+    if controls and agent not in HOOK_AGENTS:
         raise Issue("controls_require_agent", 2)
     text = str(destination)
     path = Path(os.getcwd()) if text and text.rstrip("/") == "." else Path(text)
@@ -198,6 +218,70 @@ def initialize(destination, language, agent="none", profile="minimal", regulated
     return [message("initialized", path=str(path)), message("structure_only")]
 
 
+def initialize_existing(destination, language, agent="none", profile="minimal", regulated=False, controls=False):
+    """Add DIXI to a folder that already has files: create only what is missing, never overwrite (T13).
+
+    A file that already exists with other content, a symlink or a path under a symlinked folder is kept as it
+    is and reported as a conflict. Every kit file is recorded with the kit's hash, so `upgrade` never treats a
+    kept file as updatable.
+    """
+    path = Path(os.getcwd()) if str(destination).rstrip("/") in ("", ".") else Path(str(destination))
+    if not path.is_dir() or path.is_symlink():
+        return initialize(destination, language, agent, profile, regulated, controls), None
+    check_profile(profile, regulated)
+    if controls and agent == "none":
+        raise Issue("controls_require_agent", 2)
+    if ".." in path.parts:
+        raise Issue("unsafe_destination", 3)
+    payload = {name: text.encode("utf-8") for name, text in templates(language).items()}
+    payload.update(profile_files(language, profile, regulated))
+    payload.update(adapter_files(agent, language))
+    if controls:
+        payload.update(control_files(agent))
+    metadata = {"schema_version": 1, "kit_version": __version__, "language": language,
+                "agent": agent, "policy": "portable", "profile": profile, "regulated": regulated,
+                "controls": bool(controls),
+                "managed_files": {name: hashlib.sha256(data).hexdigest() for name, data in payload.items()}}
+    details = {"created": [], "adopted": [], "conflicts": []}
+    try:
+        with root_directory(path) as root:
+            try:
+                read_file(root, METADATA)
+                raise Issue("already_initialized", 3, path=str(path))
+            except Issue as error:
+                if error.key != "missing_file":
+                    raise
+            try:
+                write_file(root, ".dixi-init.lock", b"")
+            except FileExistsError:
+                raise Issue("destination_conflict", 3) from None
+            try:
+                for name, data in sorted(payload.items()):
+                    try:
+                        write_file(root, name, data)
+                        details["created"].append(name)
+                    except FileExistsError:
+                        try:
+                            same = read_file(root, name) == data
+                        except Issue:
+                            same = False
+                        details["adopted" if same else "conflicts"].append(name)
+                    except Issue:
+                        details["conflicts"].append(name)
+                write_file(root, METADATA, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode())
+            finally:
+                os.unlink(".dixi-init.lock", dir_fd=root)
+    except Issue as error:
+        if error.key == "unsafe_path":
+            error.key, error.code = "unsafe_destination", 3
+        raise
+    except FileExistsError:
+        raise Issue("destination_conflict", 3) from None
+    return [message("initialized_existing", path=str(path), created=len(details["created"]),
+                    adopted=len(details["adopted"]), conflicts=len(details["conflicts"])),
+            message("structure_only")], details
+
+
 def project_metadata(root):
     try:
         data = read_json(root, METADATA)
@@ -227,7 +311,7 @@ def project_metadata(root):
     if profile not in PROFILES or type(regulated) is not bool or (regulated and profile == "minimal"):
         raise Issue("invalid_metadata")
     controls = data.get("controls", False)
-    if type(controls) is not bool or (controls and data["agent"] == "none"):
+    if type(controls) is not bool or (controls and data["agent"] not in HOOK_AGENTS):
         raise Issue("invalid_metadata")
     required = set(templates(data["language"])) | required_adapter_files(data["agent"])
     if not required <= set(inventory):
@@ -341,6 +425,13 @@ def doctor(path, language):
                 installed = sum(f".agents/skills/dixi-{name}/SKILL.md" in metadata["managed_files"]
                                 for name in CLAUDE_COMMANDS)
                 results.append(message("agent_codex", language=metadata["language"],
+                                       skills=installed, available=len(CLAUDE_COMMANDS)))
+                if installed < len(CLAUDE_COMMANDS):
+                    results.append(message("upgrade_hint"))
+            elif metadata["agent"] == "skills":
+                installed = sum(f".agents/skills/dixi-{name}/SKILL.md" in metadata["managed_files"]
+                                for name in CLAUDE_COMMANDS)
+                results.append(message("agent_skills", language=metadata["language"],
                                        skills=installed, available=len(CLAUDE_COMMANDS)))
                 if installed < len(CLAUDE_COMMANDS):
                     results.append(message("upgrade_hint"))

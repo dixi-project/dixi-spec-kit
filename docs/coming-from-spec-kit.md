@@ -47,7 +47,7 @@ Add `--profile site|app|platform` for fuller templates and `--controls` to have 
 
 ## Moving an existing Spec Kit project
 
-1. Run `dixi init` in a new branch of the repository (an empty or new folder is required; use a subfolder and move files after review if the root is not empty).
+1. In a new branch of the repository, run `dixi init . --existing`: it adds DIXI next to the existing files, never overwrites any of them and lists the ones it kept (for example your own `README.md`).
 2. Copy the constitution's principles into `00-governance/principles.md` with `/dixi.constitution`, keeping their meaning and giving them IDs.
 3. For each `specs/NNN-name/`, run `/dixi.specify` with the existing spec as input and place the feature under its module; move contracts and data models to `07-contracts/` and `08-data/`.
 4. Run `dixi check` and `/dixi.analyze`, then `/dixi.converge` per feature to see what the code already covers.

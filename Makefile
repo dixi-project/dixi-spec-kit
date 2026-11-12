@@ -1,6 +1,6 @@
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
-.PHONY: verify test package
+.PHONY: verify test package release
 verify: package
 	$(PYTHON) scripts/verify-source.py
 	$(PYTHON) -m unittest discover -s tests -v
@@ -10,3 +10,7 @@ test:
 
 package:
 	$(PYTHON) scripts/build-local.py
+
+release:
+	@test -n "$(VERSION)" || { echo "usage: make release VERSION=X.Y.Z"; exit 2; }
+	$(PYTHON) scripts/release.py $(VERSION)
