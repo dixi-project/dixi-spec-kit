@@ -28,6 +28,10 @@ so that DIXI fits my organisation and is easy to discover.
 2. `make verify` passes and CI is green.
 3. The site is published and linked from both READMEs.
 
+## Progress — 2026-11-12
+
+[ADR-109](../../09-architecture/adr/ADR-109-local-presets-and-extensions.md) accepted: local, data-only presets (override) and extensions (add `dixi-<extension>-<operation>`), validated like the core, recorded with their origin, reversible. Next: contracts, threat review and red tests.
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)
