@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `<ID o ruta de la spec>`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.clarify FEATURE-001`
+- Codex: `$dixi-clarify FEATURE-001`
+- Agent Skills: Usa la skill `dixi-clarify`: FEATURE-001
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `goal`, `domain`, `module`, `feature`, `contract`, `test`

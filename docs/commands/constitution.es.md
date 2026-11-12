@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `[principios que añadir o cambiar, o vacío para revisar]`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.constitution añadir un principio: toda función pública tiene una prueba`
+- Codex: `$dixi-constitution añadir un principio: toda función pública tiene una prueba`
+- Agent Skills: Usa la skill `dixi-constitution`: añadir un principio: toda función pública tiene una prueba
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `goal`

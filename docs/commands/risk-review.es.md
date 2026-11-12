@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `[número de pull request, rama o base, por defecto la rama actual contra main]`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.risk-review feature/add-note`
+- Codex: `$dixi-risk-review feature/add-note`
+- Agent Skills: Usa la skill `dixi-risk-review`: feature/add-note
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `feature`

@@ -16,6 +16,14 @@ Generada por `scripts/build-command-reference.py` a partir del texto empaquetado
 
 Argumento: `[ID o descripción del cambio]`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.
 
+## Ejemplo
+
+- Claude Code: `/dixi.analyze hacer que las etiquetas no distingan mayúsculas`
+- Codex: `$dixi-analyze hacer que las etiquetas no distingan mayúsculas`
+- Agent Skills: Usa la skill `dixi-analyze`: hacer que las etiquetas no distingan mayúsculas
+
+El texto después del comando es la petición; cámbialo para que corresponda a tu proyecto.
+
 ## Cuándo usarlo
 
 - Trabaja sobre: `feature`

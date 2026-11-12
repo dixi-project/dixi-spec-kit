@@ -3,7 +3,8 @@
 Standard library only. Writes one page per operation in English (`<operation>.md`) and Spanish
 (`<operation>.es.md`), plus an index per language, under `docs/commands/`. Everything comes from the packaged
 Claude Code command texts and the workflow graph, so the reference cannot drift: `--check` exits with 1 when a
-page is missing, out of date or left over. Interface strings come from `scripts/site/<lang>.json`.
+page is missing, out of date or left over. Interface strings come from `scripts/site/<lang>.json` and the example
+of each operation from `scripts/site/command-examples.json`.
 """
 import argparse
 import json
@@ -44,7 +45,7 @@ def links(operations, suffix):
     return ", ".join(f"[`/dixi.{name}`]({name}{suffix})" for name in operations)
 
 
-def page(lang, operation, graph, strings):
+def page(lang, operation, graph, strings, example):
     suffix, command = LANGUAGES[lang], read_command(lang, operation)
     hint = command["hint"]
     when = [f"- {strings['works_on']}: " + ", ".join(f"`{kind}`" for kind in graph[operation]["target_kinds"])]
@@ -61,6 +62,11 @@ def page(lang, operation, graph, strings):
         f"- Codex: `$dixi-{operation} {hint}`",
         f"- Agent Skills: `dixi-{operation}` — {strings['skills']}", "",
         strings["arguments"].format(hint=hint), "",
+        f"## {strings['example']}", "",
+        f"- Claude Code: `/dixi.{operation} {example}`",
+        f"- Codex: `$dixi-{operation} {example}`",
+        "- Agent Skills: " + strings["example_skill"].format(operation=operation, example=example), "",
+        strings["example_note"], "",
         f"## {strings['when']}", "", *when, "",
         f"## {strings['steps']}", "", command["steps"], "",
         f"## {strings['files']}", "",
@@ -88,12 +94,13 @@ def index(lang, graph, strings):
 
 def pages():
     graph = json.loads((RESOURCES / "workflows.json").read_text(encoding="utf-8"))["operations"]
+    examples = json.loads((ROOT / "scripts/site/command-examples.json").read_text(encoding="utf-8"))
     result = {}
     for lang, suffix in LANGUAGES.items():
         strings = json.loads((ROOT / "scripts/site" / f"{lang}.json").read_text(encoding="utf-8"))["reference"]
         result[f"index{suffix}"] = index(lang, graph, strings)
         for operation in graph:
-            result[f"{operation}{suffix}"] = page(lang, operation, graph, strings)
+            result[f"{operation}{suffix}"] = page(lang, operation, graph, strings, examples[operation][lang])
     return result
 
 
