@@ -37,7 +37,7 @@ def parser_for(catalog):
         child.add_argument("--help", "-h", action="help", help=catalog["help"])
         if command == "init":
             child.add_argument("directory", help=catalog["directory"])
-            child.add_argument("--agent", choices=("none", "claude", "codex"), default="none", help=catalog["agent"])
+            child.add_argument("--agent", choices=("none", "claude", "codex", "skills"), default="none", help=catalog["agent"])
             child.add_argument("--profile", choices=PROFILES, default="minimal", help=catalog["profile_option"])
             child.add_argument("--regulated", action="store_true", help=catalog["regulated_option"])
             child.add_argument("--controls", action="store_true", help=catalog["controls_option"])
