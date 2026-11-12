@@ -7,6 +7,7 @@ import sys
 from . import __version__
 from .core import METADATA, PROFILES, check_project, doctor, initialize, initialize_existing, message, placeholders, pr_size
 from .filesystem import Issue, read_json, root_directory
+from . import extensions as extension_ops
 from .upgrade import STATUSES, apply as upgrade_apply, plan as upgrade_plan
 from .workflows import OPERATIONS, workflow_result
 
@@ -29,7 +30,7 @@ def parser_for(catalog):
     parser.add_argument("--lang", choices=("es", "en"), default=None, help=catalog["lang"])
     parser.add_argument("--json", action="store_true", help=catalog["json"])
     commands = parser.add_subparsers(dest="command", required=True, title=catalog["commands"])
-    for command in ("init", "doctor", "check", "workflow", "upgrade", "placeholders", "pr-size"):
+    for command in ("init", "doctor", "check", "workflow", "upgrade", "extension", "placeholders", "pr-size"):
         child = commands.add_parser(command, help=catalog[command], description=catalog[command],
                                     add_help=False, formatter_class=Formatter)
         child._positionals.title = catalog["arguments"]
@@ -53,6 +54,18 @@ def parser_for(catalog):
             child.add_argument("--profile", choices=PROFILES, default=None, help=catalog["profile_option"])
             child.add_argument("--regulated", action="store_true", default=None, help=catalog["regulated_option"])
             child.add_argument("--controls", action="store_true", default=None, help=catalog["controls_option"])
+        elif command == "extension":
+            actions = child.add_subparsers(dest="extension_action", required=True, title=catalog["commands"])
+            for action in ("add", "list", "remove"):
+                operation = actions.add_parser(action, help=catalog[f"extension_{action}"], add_help=False,
+                                               description=catalog[f"extension_{action}"], formatter_class=Formatter)
+                operation._positionals.title = catalog["arguments"]
+                operation._optionals.title = catalog["options"]
+                operation.add_argument("--help", "-h", action="help", help=catalog["help"])
+                if action == "add":
+                    operation.add_argument("folder", help=catalog["extension_folder"])
+                elif action == "remove":
+                    operation.add_argument("id", help=catalog["extension_id"])
         elif command == "workflow":
             actions = child.add_subparsers(dest="workflow_action", required=True, title=catalog["commands"])
             for action in ("list", "show", "prepare"):
@@ -135,6 +148,19 @@ def main(argv=None):
                 upgrade = upgrade_plan(Path.cwd(), args.profile, args.regulated, args.controls)
                 messages = [message("upgrade_planned", source=upgrade["from"], target=upgrade["to"]),
                             message("upgrade_no_changes")]
+        elif args.command == "extension":
+            if args.extension_action == "add":
+                result = extension_ops.add(Path.cwd(), args.folder)
+                messages = [message("extension_added", id=result["id"], version=result["version"],
+                                    operations=len(result["operations"]))]
+            elif args.extension_action == "remove":
+                result = extension_ops.remove(Path.cwd(), args.id)
+                messages = [message("extension_removed", id=result["id"], removed=len(result["removed"]),
+                                    kept=len(result["kept"]))]
+            else:
+                result = {"installed": extension_ops.listing(Path.cwd())}
+                messages = [message("extension_listed", count=len(result["installed"]))]
+            extra = {"extension": result}
         elif args.command == "placeholders":
             counts = placeholders(Path.cwd())
             total = sum(counts.values())
@@ -173,6 +199,10 @@ def main(argv=None):
             print(format_upgrade(upgrade, catalog))
         for name in extra.get("init", {}).get("conflicts", []):
             print(f"  {catalog['init_kept']}: {name}")
+        for entry in extra.get("extension", {}).get("installed", []):
+            print(f"  {entry['id']} {entry['version']} ({entry['files']})")
+        for name in extra.get("extension", {}).get("kept", []):
+            print(f"  {catalog['extension_kept']}: {name}")
         for name, count in extra.get("placeholders", {}).items():
             print(f"  {count:4d}  {name}")
     return code

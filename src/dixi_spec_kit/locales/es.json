@@ -97,5 +97,19 @@
   "placeholders_found": "{total} marcadores pendientes en {files} archivos.",
   "pr_size_result": "Cambio contra {base}: {counted} líneas contadas (límite {max}); pruebas {tests}; excluidas {excluded}.",
   "pr_size_exceeded": "El cambio tiene {counted} líneas contadas, por encima del límite de {max}: divídelo para que una persona pueda revisarlo.",
-  "pr_size_git": "No se pudo medir el cambio: falta Git, no es un repositorio o la base {base} no existe."
+  "pr_size_git": "No se pudo medir el cambio: falta Git, no es un repositorio o la base {base} no existe.",
+  "extension": "Añadir, listar o quitar extensiones locales de solo datos que añaden operaciones (ADR-109).",
+  "extension_add": "Instalar una carpeta de extensión (extension.json y operations/en|es/*.md) para el agente del proyecto.",
+  "extension_list": "Listar las extensiones instaladas.",
+  "extension_remove": "Quitar una extensión: borra solo los archivos que instaló y que no has editado.",
+  "extension_folder": "Carpeta de la extensión en el disco local.",
+  "extension_id": "Id de la extensión.",
+  "extension_added": "Extensión {id} {version} instalada: {operations} operaciones como dixi-{id}-<operación>.",
+  "extension_removed": "Extensión {id} quitada: {removed} archivos borrados, {kept} conservados porque los editaste.",
+  "extension_listed": "Extensiones instaladas: {count}.",
+  "invalid_extension": "Extensión inválida, no se escribió nada: {reason}.",
+  "extension_conflict": "Conflicto de extensión, no se escribió nada: {path} ya existe.",
+  "extension_missing": "No hay ninguna extensión instalada con el id {id}.",
+  "extensions_require_agent": "Las extensiones necesitan un agente: crea el proyecto con --agent claude, codex o skills.",
+  "extension_kept": "conservado, lo editaste"
 }
