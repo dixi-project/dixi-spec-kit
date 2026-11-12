@@ -327,6 +327,17 @@ def project_metadata(root):
         for name, digest in entry["files"].items():
             if not safe_path(name) or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
                 raise Issue("invalid_metadata")
+    presets = data.get("presets", {})
+    if not isinstance(presets, dict) or len(presets) > 100:
+        raise Issue("invalid_metadata")
+    for preset_id, entry in presets.items():
+        if (not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", preset_id) or not isinstance(entry, dict)
+                or not isinstance(entry.get("version"), str) or type(entry.get("priority")) is not int
+                or not isinstance(entry.get("files"), dict) or not isinstance(entry.get("copy"), dict)):
+            raise Issue("invalid_metadata")
+        for name, digest in [*entry["files"].items(), *entry["copy"].items()]:
+            if not safe_path(name) or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+                raise Issue("invalid_metadata")
     return data
 
 

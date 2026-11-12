@@ -111,5 +111,18 @@
   "extension_conflict": "Conflicto de extensión, no se escribió nada: {path} ya existe.",
   "extension_missing": "No hay ninguna extensión instalada con el id {id}.",
   "extensions_require_agent": "Las extensiones necesitan un agente: crea el proyecto con --agent claude, codex o skills.",
-  "extension_kept": "conservado, lo editaste"
+  "extension_kept": "conservado, lo editaste",
+  "preset": "Añadir, listar o quitar presets locales de solo datos que sustituyen textos del kit (ADR-109).",
+  "preset_add": "Aplicar una carpeta de preset (preset.json, operations/en|es, templates/en|es) a los archivos del kit sin editar.",
+  "preset_list": "Listar los presets instalados.",
+  "preset_remove": "Quitar un preset: restaura el texto del kit solo donde el texto del preset no cambió.",
+  "preset_folder": "Carpeta del preset en el disco local.",
+  "preset_id": "Id del preset.",
+  "preset_added": "Preset {id} {version} aplicado a {applied} archivos; {kept} conservados (tus ediciones, tus overrides o un preset de mayor prioridad).",
+  "preset_removed": "Preset {id} quitado: {restored} archivos vuelven al texto del kit, {kept} conservados porque cambiaron.",
+  "preset_listed": "Presets instalados: {count}.",
+  "preset_kept": "conservado",
+  "invalid_preset": "Preset inválido, no se escribió nada: {reason}.",
+  "preset_conflict": "Conflicto de preset, no se escribió nada: {path} ya existe.",
+  "preset_missing": "No hay ningún preset instalado con el id {id}."
 }

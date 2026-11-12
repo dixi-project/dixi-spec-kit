@@ -111,5 +111,18 @@
   "extension_conflict": "Extension conflict, nothing was written: {path} already exists.",
   "extension_missing": "No installed extension with id {id}.",
   "extensions_require_agent": "Extensions need an agent: create the project with --agent claude, codex or skills.",
-  "extension_kept": "kept, you edited it"
+  "extension_kept": "kept, you edited it",
+  "preset": "Add, list or remove local data-only presets that override kit texts (ADR-109).",
+  "preset_add": "Apply a preset folder (preset.json, operations/en|es, templates/en|es) to unedited kit files.",
+  "preset_list": "List the installed presets.",
+  "preset_remove": "Remove a preset: restores the kit text only where the preset text is unchanged.",
+  "preset_folder": "Folder of the preset on the local disk.",
+  "preset_id": "Preset id.",
+  "preset_added": "Preset {id} {version} applied to {applied} files; {kept} kept (your edits, your overrides or a higher-priority preset).",
+  "preset_removed": "Preset {id} removed: {restored} files back to the kit text, {kept} kept because they changed.",
+  "preset_listed": "Installed presets: {count}.",
+  "preset_kept": "kept",
+  "invalid_preset": "Invalid preset, nothing was written: {reason}.",
+  "preset_conflict": "Preset conflict, nothing was written: {path} already exists.",
+  "preset_missing": "No installed preset with id {id}."
 }
