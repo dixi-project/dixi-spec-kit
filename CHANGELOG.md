@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- `dixi mode` (TASK-022, [contract](07-contracts/commands/automated-controls-contract.md#dixi-mode)): prints `MODE` and, for `mvp`, which of the six items `/dixi.promote` reviews (tests and budgets, threat model, data retention, runbooks and SLOs, release and rollback, owners) have no evidence yet, meaning a document without `{{pending: …}}` blanks. With `--json`. Read-only: it writes nothing and has no option to change `MODE`.
+
 ### Changed
 
 - `/dixi.status` resumes a session (TASK-021): besides the state and the next step, it reports what the last session did and left open from `.context/handoff.md` when it exists, lists the recent changes under `07-contracts/` from the Git history and lists the open tasks by ID. It stays read-only: no writes, commits or pushes. Same text for Claude Code, Codex and Agent Skills, in English and Spanish.

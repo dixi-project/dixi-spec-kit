@@ -32,6 +32,7 @@ Escríbelas antes del comando, por ejemplo `dixi --lang es --json check`.
 - [`dixi preset`](preset.es.md) — Añadir, listar o quitar presets locales de solo datos que sustituyen textos del kit (ADR-109).
 - [`dixi placeholders`](placeholders.es.md) — Lista los marcadores {{pending: …}} que quedan en los documentos del proyecto.
 - [`dixi pr-size`](pr-size.es.md) — Mide la rama actual contra una base: líneas cambiadas, sin documentación, lockfiles, archivos generados ni pruebas.
+- [`dixi mode`](mode.es.md) — Mostrar MODE y, si es mvp, los puntos de promoción sin evidencia. Solo lectura: nunca cambia MODE.
 
 ## Códigos de salida
 

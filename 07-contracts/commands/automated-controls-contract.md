@@ -70,7 +70,7 @@ With `--agent claude`, four subagents are installed in `.claude/agents/`: `dixi-
 
 Both are installed for Claude Code (`/dixi.interview`, `/dixi.risk-review`) and Codex (`$dixi-interview`, `$dixi-risk-review`), are optional in the inventory and bring the available total to 27.
 
-Changing `MODE` stays a manual action of the person: `status` shows the mode and `promote` prepares the evidence. There is no `mode` operation.
+Changing `MODE` stays a manual action of the person: `status` shows the mode and `promote` prepares the evidence. No operation and no terminal command changes it; `dixi mode` (below) only reads it.
 
 ## CLI helpers
 
@@ -81,6 +81,21 @@ Read-only. Lists the `{{pending: …}}` markers in the project's managed Markdow
 ### `dixi pr-size`
 
 Read-only. Runs `git diff --numstat <base>...HEAD` (default base `main`) inside the project and reports added plus deleted lines. Documentation (`*.md`, `docs/`), lockfiles, minified or generated files and tests are not counted; tests are reported separately. Exit 1 when the count exceeds `--max` (default 1 500), 2 when Git is missing or the base does not exist. It is the only subcommand that runs an external program; it never fetches, writes or changes the repository.
+
+### `dixi mode`
+
+Read-only. Prints the content of `MODE` (`mvp` or `prod`; any other value is invalid content, exit 1). For `mvp` it lists which of the six items `/dixi.promote` reviews have no evidence yet. Evidence is a non-empty document without `{{pending: …}}` blanks outside code, read without following symbolic links:
+
+| Item | Evidence looked for |
+|---|---|
+| `tests` (tests and budgets) | `11-quality/strategy.md` |
+| `threats` (threat model) | a `*threat-model*.md` file in `13-security/` |
+| `data` (data retention) | a Markdown file in `08-data/`, other than `README.md` |
+| `operations` (runbooks and SLOs) | a Markdown file in `15-operations/`, other than `README.md` |
+| `release` (release and rollback process) | a Markdown file in `docs/releases/`, other than `README.md` |
+| `owners` | a non-empty `CODEOWNERS` in the root, `.github/` or `docs/` |
+
+It checks that the document exists and is filled in, not that its content is sufficient: the judgement stays with the person and with `/dixi.promote`. Exit 0 whether or not items are missing, 1 for an invalid or absent `MODE`, 2 outside a project or with any argument: there is no option to change `MODE`. JSON output: `{"mode": {"mode": "mvp", "evidence": [{"item": "<item>", "status": "present|missing", "expected": "<path>", "found": ["<file>"]}], "missing": <n>}}`; for `prod`, `evidence` is empty. It writes nothing.
 
 ## Work-in-progress limit
 

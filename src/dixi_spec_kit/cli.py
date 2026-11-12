@@ -5,7 +5,8 @@ from pathlib import Path
 import sys
 
 from . import __version__
-from .core import METADATA, PROFILES, check_project, doctor, initialize, initialize_existing, message, placeholders, pr_size
+from .core import (METADATA, PROFILES, check_project, doctor, initialize, initialize_existing, message, mode_report,
+                   placeholders, pr_size)
 from .filesystem import Issue, read_json, root_directory
 from . import extensions as extension_ops
 from . import presets as preset_ops
@@ -31,7 +32,8 @@ def parser_for(catalog):
     parser.add_argument("--lang", choices=("es", "en"), default=None, help=catalog["lang"])
     parser.add_argument("--json", action="store_true", help=catalog["json"])
     commands = parser.add_subparsers(dest="command", required=True, title=catalog["commands"])
-    for command in ("init", "doctor", "check", "workflow", "upgrade", "extension", "preset", "placeholders", "pr-size"):
+    for command in ("init", "doctor", "check", "workflow", "upgrade", "extension", "preset", "placeholders", "pr-size",
+                    "mode"):
         child = commands.add_parser(command, help=catalog[command], description=catalog[command],
                                     add_help=False, formatter_class=Formatter)
         child._positionals.title = catalog["arguments"]
@@ -188,6 +190,17 @@ def main(argv=None):
             if size["counted"] > size["max"]:
                 code = 1
                 messages.append(message("pr_size_exceeded", counted=size["counted"], max=size["max"]))
+        elif args.command == "mode":
+            report = mode_report(Path.cwd())
+            extra = {"mode": report}
+            if report["mode"] == "prod":
+                messages = [message("mode_prod")]
+            else:
+                messages = [message("mode_current", mode=report["mode"])]
+                messages += [message(f"mode_item_{entry['item']}", expected=entry["expected"])
+                             for entry in report["evidence"] if entry["status"] == "missing"]
+                messages.append(message("mode_summary", missing=report["missing"], total=len(report["evidence"]))
+                                if report["missing"] else message("mode_complete"))
         else:
             code, messages = check_project(Path.cwd())
     except Issue as error:
