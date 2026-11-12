@@ -99,7 +99,7 @@ Templates are guidance with `{{pending: …}}` blanks, not decisions: delete the
 | `dixi upgrade --apply [--profile …] [--controls]` | Writes only updatable and new kit files, each atomically and re-checked right before writing; never your edits, deleted or obsolete files. |
 | `dixi --help`, `dixi --version` | Help and version. Global options: `--lang es\|en`, `--json`. |
 
-Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O failure.
+Exit codes: 0 success, 1 invalid content, 2 usage error or missing project, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O failure. Every command, subcommand and option is in the [CLI reference](docs/cli/index.md).
 
 ## Examples
 
