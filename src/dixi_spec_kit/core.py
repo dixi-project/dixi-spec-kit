@@ -229,7 +229,7 @@ def initialize_existing(destination, language, agent="none", profile="minimal", 
     if not path.is_dir() or path.is_symlink():
         return initialize(destination, language, agent, profile, regulated, controls), None
     check_profile(profile, regulated)
-    if controls and agent == "none":
+    if controls and agent not in HOOK_AGENTS:
         raise Issue("controls_require_agent", 2)
     if ".." in path.parts:
         raise Issue("unsafe_destination", 3)
