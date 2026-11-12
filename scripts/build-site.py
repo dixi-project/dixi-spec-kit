@@ -159,7 +159,7 @@ def page(lang, catalog, name, body, title, pages, current, notice):
     banner = f'<p class="notice">{html.escape(notice)}</p>' if notice else ""
     return f"""<!doctype html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{html.escape(title)} · DIXI Spec Kit</title><link rel="canonical" href="{BASE}{lang}/{url}">{alternates}
+<title>{html.escape(title if title == 'DIXI Spec Kit' else title + ' · DIXI Spec Kit')}</title><link rel="canonical" href="{BASE}{lang}/{url}">{alternates}
 <style>{STYLE}</style></head><body>
 <header><a href="index.html">{html.escape(catalog["title"])}</a>
 <span><a href="../{other}/{url or 'index.html'}" hreflang="{other}">{html.escape(catalog["language"])}</a> ·

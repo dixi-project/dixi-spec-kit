@@ -53,10 +53,12 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - `dixi upgrade --apply`: takes kit updates file by file, atomically, never touching the person's edits.
 - `onboard` for existing codebases, `bugfix` with a failing test first, and `issues` to GitHub with `gh` (phase C).
 
-## Next: Spec Kit parity and beyond ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md))
+## v1.9.0 — More agents, extensibility and a documentation site (2026-11-12)
 
-- v1.9.0: a generic Agent Skills adapter for more agents.
-- Then: local presets and extensions, and a documentation site in English and Spanish.
+- `--agent skills`: the operations as Agent Skills for Cursor, VS Code/Copilot, Gemini CLI, OpenCode and other compatible agents ([ADR-108](09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md) phase D).
+- `dixi init --existing` adds DIXI to a repository that already has files, without overwriting any.
+- Local, data-only extensions (`dixi extension`) and presets (`dixi preset`) ([ADR-109](09-architecture/adr/ADR-109-local-presets-and-extensions.md)).
+- Documentation site in English and Spanish: https://dixi-project.github.io/dixi-spec-kit/ (phase E). With this release the ADR-108 plan is complete.
 
 ## Later
 

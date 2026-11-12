@@ -34,6 +34,12 @@ so that DIXI fits my organisation and is easy to discover.
 
 Extensions (`dixi extension`, threat T14) and presets (`dixi preset`, threat T15) implemented with red tests first and contracts ([extensions](../../07-contracts/commands/extensions-contract.md), [presets](../../07-contracts/commands/presets-contract.md)). Pending: the documentation site.
 
+Documentation site built by `scripts/build-site.py` and published by `pages.yml` at https://dixi-project.github.io/dixi-spec-kit/ (Pages enabled on 2026-11-12), linked from both READMEs.
+
+## Closed — 2026-11-12
+
+Released in v1.9.0: ADR-109 accepted, extensions and presets with red tests first, site published and linked.
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)
