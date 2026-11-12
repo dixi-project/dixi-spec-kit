@@ -19,13 +19,13 @@ Steps for a maintainer to enable and use the PyPI publication defined in [ADR-10
 ## Each release
 
 1. Bump the version (`pyproject.toml`, `src/dixi_spec_kit/__init__.py`, the version test and the CHANGELOG) in a pull request and merge it.
-2. Create the GitHub release with tag `vX.Y.Z` from `main`, as usual. Publishing the release starts `publish.yml`.
+2. Only after that pull request is merged: `git switch main && git pull --ff-only public main`, remove other versions from `dist/`, then `make release VERSION=X.Y.Z`. It refuses before creating anything if `public/main` does not carry the version (the release PR is not merged), the checkout is not `public/main` or has local changes, the tag already exists, or `dist/` does not hold exactly this version; it runs `make verify`, shows the release and its notes (the CHANGELOG section) and asks you to type the version before calling `gh release create`. Publishing the release starts `publish.yml`.
 3. If the environment requires reviewers, approve the `publish` job in the Actions tab.
 4. Check `https://pypi.org/project/dixi-spec-kit/` and install in a clean shell: `pipx install dixi-spec-kit` or `uv tool install dixi-spec-kit`, then `dixi --version`.
 
 ## If something fails
 
-- **Tag does not match the package version:** nothing was uploaded. Delete the release and the tag, fix the version, and release again.
+- **Tag does not match the package version:** nothing was uploaded; the release was created before its pull request was merged. Delete the release and the tag (`gh release delete vX.Y.Z -R dixi-project/dixi-spec-kit --cleanup-tag --yes`, `git tag -d vX.Y.Z`) and release again with `make release`.
 - **`invalid-publisher` from PyPI:** one of the five pending-publisher fields does not match exactly (case included). Fix it on PyPI and re-run the failed job.
 - **A bad version reached PyPI:** PyPI never allows replacing a file. Yank it on PyPI and publish a new patch version.
 
