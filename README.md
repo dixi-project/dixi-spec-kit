@@ -71,6 +71,7 @@ Templates are guidance with `{{pending: …}}` blanks, not decisions: delete the
 | Command | What it does |
 |---|---|
 | `dixi init <dir> [--agent none\|claude\|codex] [--profile …] [--regulated] [--controls]` | Creates the documentary baseline, plus the profile's templates, in a new or empty directory (`.` for the current one); never overwrites. |
+| `dixi init <dir> --existing [same options]` | Adds DIXI to a folder that already has files (an existing repository): creates only what is missing, never overwrites, and lists the files it kept. |
 | `dixi doctor` | Diagnoses environment and project without network or credentials. |
 | `dixi check` | Checks structure, links and traceability. Runs no code. |
 | `dixi workflow list\|show\|prepare` | Lists and prepares the discover, specify, clarify, domain, architecture, contract, threat-model and plan procedures. |

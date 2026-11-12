@@ -218,6 +218,70 @@ def initialize(destination, language, agent="none", profile="minimal", regulated
     return [message("initialized", path=str(path)), message("structure_only")]
 
 
+def initialize_existing(destination, language, agent="none", profile="minimal", regulated=False, controls=False):
+    """Add DIXI to a folder that already has files: create only what is missing, never overwrite (T13).
+
+    A file that already exists with other content, a symlink or a path under a symlinked folder is kept as it
+    is and reported as a conflict. Every kit file is recorded with the kit's hash, so `upgrade` never treats a
+    kept file as updatable.
+    """
+    path = Path(os.getcwd()) if str(destination).rstrip("/") in ("", ".") else Path(str(destination))
+    if not path.is_dir() or path.is_symlink():
+        return initialize(destination, language, agent, profile, regulated, controls), None
+    check_profile(profile, regulated)
+    if controls and agent == "none":
+        raise Issue("controls_require_agent", 2)
+    if ".." in path.parts:
+        raise Issue("unsafe_destination", 3)
+    payload = {name: text.encode("utf-8") for name, text in templates(language).items()}
+    payload.update(profile_files(language, profile, regulated))
+    payload.update(adapter_files(agent, language))
+    if controls:
+        payload.update(control_files(agent))
+    metadata = {"schema_version": 1, "kit_version": __version__, "language": language,
+                "agent": agent, "policy": "portable", "profile": profile, "regulated": regulated,
+                "controls": bool(controls),
+                "managed_files": {name: hashlib.sha256(data).hexdigest() for name, data in payload.items()}}
+    details = {"created": [], "adopted": [], "conflicts": []}
+    try:
+        with root_directory(path) as root:
+            try:
+                read_file(root, METADATA)
+                raise Issue("already_initialized", 3, path=str(path))
+            except Issue as error:
+                if error.key != "missing_file":
+                    raise
+            try:
+                write_file(root, ".dixi-init.lock", b"")
+            except FileExistsError:
+                raise Issue("destination_conflict", 3) from None
+            try:
+                for name, data in sorted(payload.items()):
+                    try:
+                        write_file(root, name, data)
+                        details["created"].append(name)
+                    except FileExistsError:
+                        try:
+                            same = read_file(root, name) == data
+                        except Issue:
+                            same = False
+                        details["adopted" if same else "conflicts"].append(name)
+                    except Issue:
+                        details["conflicts"].append(name)
+                write_file(root, METADATA, (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode())
+            finally:
+                os.unlink(".dixi-init.lock", dir_fd=root)
+    except Issue as error:
+        if error.key == "unsafe_path":
+            error.key, error.code = "unsafe_destination", 3
+        raise
+    except FileExistsError:
+        raise Issue("destination_conflict", 3) from None
+    return [message("initialized_existing", path=str(path), created=len(details["created"]),
+                    adopted=len(details["adopted"]), conflicts=len(details["conflicts"])),
+            message("structure_only")], details
+
+
 def project_metadata(root):
     try:
         data = read_json(root, METADATA)

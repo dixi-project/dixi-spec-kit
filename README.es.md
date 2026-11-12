@@ -71,6 +71,7 @@ Las plantillas son guías con huecos `{{pending: …}}`, no decisiones: borra la
 | Comando | Qué hace |
 |---|---|
 | `dixi init <dir> [--agent none\|claude\|codex] [--profile …] [--regulated] [--controls]` | Crea la base documental, más las plantillas del perfil, en un directorio nuevo o vacío (`.` para el actual); nunca sobrescribe. |
+| `dixi init <dir> --existing [mismas opciones]` | Añade DIXI a una carpeta que ya tiene archivos (un repositorio existente): crea solo lo que falta, nunca sobrescribe y lista los archivos que conservó. |
 | `dixi doctor` | Diagnostica el entorno y el proyecto sin red ni credenciales. |
 | `dixi check` | Comprueba estructura, enlaces y trazabilidad. No ejecuta código. |
 | `dixi workflow list\|show\|prepare` | Consulta y prepara los procedimientos de descubrimiento, especificación, dominio, arquitectura, contrato, amenazas y plan. |
