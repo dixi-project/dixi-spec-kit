@@ -94,7 +94,7 @@ Released in [v1.0.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/
 
 - [Product](../../docs/product-spec.md)
 - [Proposed command catalog](../../docs/command-catalog.md)
-- [Joint design review](../../docs/v1-design-review.md)
+- [Joint design review](../../docs/history/v1-design-review.md)
 - [Business goal](../../01-business/vision/product-vision.md)
 - [Domain](../../03-domains/spec-driven-delivery/domain-spec.md)
 - [Module](../../04-modules/command-workflow/module-spec.md)

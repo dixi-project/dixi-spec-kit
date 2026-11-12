@@ -38,6 +38,6 @@ Resolved on 2026-11-08 by [ADR-102](ADR-102-recorte-de-alcance-v1.md): license (
 - [ADR-101: portable core](ADR-101-nucleo-sdd-portable-e-integraciones.md)
 - [Specification](../../docs/product-spec.md)
 - [Proposed catalog](../../docs/command-catalog.md)
-- [Joint review](../../docs/v1-design-review.md)
+- [Joint review](../../docs/history/v1-design-review.md)
 - [Proposed contract](../../07-contracts/commands/command-contract.md)
 - [Allowlist exporter](../../docs/repository-settings.md)

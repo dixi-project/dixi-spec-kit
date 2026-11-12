@@ -1,5 +1,7 @@
 # DIXI Spec Kit v1.0.0 design review
 
+> Historical record: the v1 design review of 2026-11-06, kept as written. It is not the current documentation; see the [command guide](../command-catalog.md).
+
 ## Purpose
 
 Record the design, the authorized scope and the pending decisions. On 2026-11-06 the user agreed to proceed after clarifying independence from agent and stack. The first authorized block is the local CLI/package, `init --agent none`, `doctor`, `check`, help/version and tests first. The earlier choice of the assistant's model was context; the later implementation authorization is what enables B1. It does not imply confirming the license or the whole future matrix.
@@ -42,7 +44,7 @@ The specialized capabilities `data`, `quality`, `ai`, `release`, `promote`, `ope
 
 `GOAL-001 → spec-driven-delivery → command-workflow → guided-workflow → command-contract → scenarios WF-01…WF-08`
 
-There are 20 BDD scenarios and a draft acceptance matrix for the guided workflow; they do not have a runner yet. B1 adds its own feature, contract, threat model, distribution inventory and executable tests. Its [report](b1-verification.md) distinguishes that evidence from the still-pending validation of the complete walkthrough.
+There are 20 BDD scenarios and a draft acceptance matrix for the guided workflow; they do not have a runner yet. B1 adds its own feature, contract, threat model, distribution inventory and executable tests. Its [report](../b1-verification.md) distinguishes that evidence from the still-pending validation of the complete walkthrough.
 
 ## Delivery by blocks
 
@@ -65,10 +67,10 @@ The authorization to proceed with the open approach and B1 is recorded; do not a
 
 ## Related
 
-- [Story](../tasks/backlog/TASK-001-lanzamiento-v1.md)
-- [ADR-100](../09-architecture/adr/ADR-100-distribucion-publica-v1.md)
-- [ADR-101](../09-architecture/adr/ADR-101-nucleo-sdd-portable-e-integraciones.md)
-- [Command contract](../07-contracts/commands/command-contract.md)
-- [Feature and scenarios](../05-features/guided-workflow/feature-spec.md)
+- [Story](../../tasks/backlog/TASK-001-lanzamiento-v1.md)
+- [ADR-100](../../09-architecture/adr/ADR-100-distribucion-publica-v1.md)
+- [ADR-101](../../09-architecture/adr/ADR-101-nucleo-sdd-portable-e-integraciones.md)
+- [Command contract](../../07-contracts/commands/command-contract.md)
+- [Feature and scenarios](../../05-features/guided-workflow/feature-spec.md)
 - [Full catalog](command-catalog.md)
-- [Publication](publication-readiness.md)
+- [Publication](../publication-readiness.md)
