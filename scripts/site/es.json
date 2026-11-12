@@ -7,5 +7,29 @@
   "language": "English",
   "english_only": "Esta página está disponible solo en inglés; el resumen en español, si existe, está al final.",
   "source": "Código en GitHub",
-  "choose": "Elige un idioma"
+  "choose": "Elige un idioma",
+  "commands": "Comandos",
+  "reference": {
+    "index_title": "Referencia de comandos",
+    "index_purpose": "Una página por operación de DIXI: qué hace, cuándo usarla, qué lee y escribe, dónde se detiene y cómo invocarla desde Claude Code, Codex o un agente compatible con Agent Skills.",
+    "commands": "Comandos",
+    "generated": "Generada por `scripts/build-command-reference.py` a partir del texto empaquetado del comando; no la edites a mano.",
+    "purpose": "Propósito",
+    "invocation": "Invocación",
+    "skills": "menciona la skill y escribe la petición a continuación.",
+    "arguments": "Argumento: `{hint}`. Los signos de menor y mayor marcan un valor obligatorio y los corchetes uno opcional. En los pasos, `$ARGUMENTS` es el texto escrito después del comando.",
+    "when": "Cuándo usarlo",
+    "works_on": "Trabaja sobre",
+    "after": "Normalmente después de",
+    "any_time": "En cualquier momento: ninguna otra operación conduce a ella.",
+    "steps": "Pasos",
+    "files": "Archivos que lee y escribe",
+    "files_intro": "Rutas que nombra el texto del comando:",
+    "no_files": "El texto del comando no nombra ninguna ruta fija.",
+    "stops": "Paradas y controles humanos",
+    "closing": "Cierre",
+    "next": "Siguiente paso",
+    "no_next": "Sin operación siguiente fija; `/dixi.status` sugiere una.",
+    "related": "Relacionado"
+  }
 }
