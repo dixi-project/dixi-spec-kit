@@ -147,10 +147,10 @@
     },
     "status": {
       "title": "Mostrar estado y siguiente paso",
-      "purpose": "Resumir en qué punto está el proyecto e indicar un siguiente paso justificado, sin modificar archivos.",
-      "inputs": ["MODE, 00-master-spec.md, .dixi/traceability.json y 05-features/*/tasks.md si existen.", "Los resultados de dixi doctor y dixi check; un área opcional que acota el resumen."],
-      "steps": ["Ejecuta dixi doctor y dixi check y resume sus resultados.", "Lee MODE, la especificación maestra, el grafo de trazabilidad y las tareas de las features.", "Cuenta marcas de pendiente, ADRs «Propuesto», tareas abiertas o bloqueadas y features sin pruebas.", "Indica la siguiente operación con su motivo (por ejemplo clarify si hay preguntas bloqueantes o build si hay una tarea desbloqueada)."],
-      "outputs": ["Un resumen de estado con esos recuentos y un siguiente paso justificado."],
+      "purpose": "Resumir en qué punto está el proyecto y dónde se quedó la última sesión, e indicar un siguiente paso justificado, sin modificar archivos.",
+      "inputs": ["MODE, 00-master-spec.md, .dixi/traceability.json y 05-features/*/tasks.md si existen.", ".context/handoff.md si existe y el historial reciente de 07-contracts/ cuando el proyecto es un repositorio Git.", "Los resultados de dixi doctor y dixi check; un área opcional que acota el resumen."],
+      "steps": ["Ejecuta dixi doctor y dixi check y resume sus resultados.", "Lee MODE, la especificación maestra, el grafo de trazabilidad y las tareas de las features.", "Informa, a partir de .context/handoff.md, qué hizo la última sesión, qué dejó abierto y qué siguiente paso indicó; dilo cuando el archivo no existe.", "Lista los cambios recientes en 07-contracts/ según el historial de Git; dilo cuando no hay repositorio.", "Cuenta marcas de pendiente, ADRs «Propuesto», tareas abiertas o bloqueadas y features sin pruebas, y lista las tareas abiertas por ID.", "Indica la siguiente operación con su motivo (por ejemplo clarify si hay preguntas bloqueantes o build si hay una tarea desbloqueada), prefiriendo el siguiente paso del traspaso cuando siga vigente."],
+      "outputs": ["Un resumen de estado con esos recuentos, dónde se quedó la última sesión y un siguiente paso justificado."],
       "gates": ["Los ADRs «Propuesto» y las preguntas bloqueantes se informan a la persona, no se resuelven."],
       "checks": ["No se modificó ningún archivo.", "Las comprobaciones se informan como ejecutadas, fallidas o no ejecutadas."]
     },

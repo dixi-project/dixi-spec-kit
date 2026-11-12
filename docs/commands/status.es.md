@@ -4,7 +4,7 @@
 
 Mostrar el estado del proyecto y el siguiente paso justificado.
 
-Resumir dónde está el proyecto y qué conviene hacer después, sin modificar archivos. `$ARGUMENTS` puede acotar el área.
+Resumir dónde está el proyecto, dónde se quedó la última sesión y qué conviene hacer después, sin modificar archivos. `$ARGUMENTS` puede acotar el área.
 
 Generada por `scripts/build-command-reference.py` a partir del texto empaquetado del comando; no la edites a mano.
 
@@ -33,9 +33,11 @@ El texto después del comando es la petición; cámbialo para que corresponda a 
 
 1. Ejecuta `dixi doctor` y `dixi check` y resume sus resultados.
 2. Lee `MODE`, `00-master-spec.md`, `.dixi/traceability.json` y `05-features/*/tasks.md` si existen.
-3. Cuenta marcas de pendiente, ADRs «Propuesto», tareas abiertas o bloqueadas y features sin pruebas.
-4. Indica el siguiente comando con su motivo (por ejemplo `/dixi.clarify` si hay preguntas bloqueantes o `/dixi.build T-003` si hay una tarea desbloqueada).
-5. No modifiques archivos.
+3. Si existe `.context/handoff.md`, léelo e informa qué hizo la última sesión, qué dejó abierto y qué siguiente paso indicó. Si no existe, dilo y continúa.
+4. Lista los cambios recientes en los contratos con `git log --oneline -10 -- 07-contracts/`, para que la persona vea qué acuerdos se movieron en su ausencia. Omite este paso, y dilo, cuando el proyecto no es un repositorio Git.
+5. Cuenta marcas de pendiente, ADRs «Propuesto», tareas abiertas o bloqueadas y features sin pruebas, y lista las tareas abiertas por ID.
+6. Indica el siguiente comando con su motivo (por ejemplo `/dixi.clarify` si hay preguntas bloqueantes o `/dixi.build T-003` si hay una tarea desbloqueada). Prefiere el siguiente paso del traspaso cuando siga vigente.
+7. No modifiques archivos, no hagas commits ni push.
 
 ## Archivos que lee y escribe
 
@@ -44,6 +46,7 @@ Rutas que nombra el texto del comando:
 - `00-master-spec.md`
 - `.dixi/traceability.json`
 - `05-features/*/tasks.md`
+- `.context/handoff.md`
 - `00-governance/principles.md`
 
 ## Paradas y controles humanos

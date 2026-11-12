@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Changed
+
+- `/dixi.status` resumes a session (TASK-021): besides the state and the next step, it reports what the last session did and left open from `.context/handoff.md` when it exists, lists the recent changes under `07-contracts/` from the Git history and lists the open tasks by ID. It stays read-only: no writes, commits or pushes. Same text for Claude Code, Codex and Agent Skills, in English and Spanish.
+
 ## [1.10.0] — 2026-11-12
 
 ### Added
