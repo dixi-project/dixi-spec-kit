@@ -32,6 +32,10 @@ so that I can use the method without waiting for a dedicated adapter.
 
 `--agent skills` merged (#42, [contract](../../07-contracts/commands/agent-skills-adapter-contract.md)); released in v1.9.0. OpenCode 1.19.5 discovered the thirty-three skills and loaded and followed `dixi-status` explicitly, but the `dixi` on its PATH predated the adapter. Pending (done when 3): a full run with OpenCode and the released 1.9.0.
 
+## Closed — 2026-11-12
+
+Released in v1.9.0. "Done when" 3 closed with the owner's decision: OpenCode 1.19.5 discovered all thirty-three skills and loaded and followed `dixi-status` explicitly; full answers with the configured local model did not finish in time, which depends on the model and not on the adapter ([contract](../../07-contracts/commands/agent-skills-adapter-contract.md#manual-runs)).
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)

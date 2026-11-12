@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Changed
+
+- The support matrix lists `--agent skills` as supported for discovery and explicit invocation in OpenCode 1.19.5, recorded in the adapter contract; other agents stay format compatible, not verified.
+
 ## [1.9.0] — 2026-11-12
 
 ### Added
