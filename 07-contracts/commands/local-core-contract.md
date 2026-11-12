@@ -26,6 +26,16 @@ Recorded run on 2026-11-11 (UTC), CI job `wsl.yml` on commit `062032f` ([run 429
 
 The job fails unless the kernel reports WSL2 and the project is on ext4, so WSL 1 or a `/mnt` path cannot pass it.
 
+### Adding DIXI to an existing folder
+
+`dixi init <dir> --existing` (accepted on 2026-11-11, [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md), [TASK-013](../../tasks/backlog/TASK-013-own-commands.md)) adds the baseline to a folder that already has files. Without the flag, a non-empty destination still exits 3 and the message points to `--existing`; if the folder does not exist yet, `--existing` behaves like a plain `init`.
+
+- A folder that already holds `.dixi/project.json` is refused with exit 3 (`already_initialized`): use `dixi upgrade`.
+- `.dixi-init.lock` is created exclusively first; if it exists, exit 3 and nothing is written.
+- Each kit file is created with exclusive creation and without following links. A file that already exists with the same content is adopted; with other content, as a symlink, or under a symlinked folder, it is kept untouched and reported as a conflict.
+- `.dixi/project.json` is written last and records every kit file with the **kit's** hash, including kept ones, so `dixi check` finds the required inventory and `dixi upgrade` never classifies a kept file as updatable.
+- JSON adds `init: {created, adopted, conflicts}` with sorted paths; the human output lists the kept files.
+
 ## Generated files and metadata
 
 Original resources of this product, stored in es/en JSON catalogs inside the package. No standard or proprietary template from the origin is copied. They include a README, vision, domain, module, feature, contract and draft test plan, a documentation-only usage guide, MODE, a structural-check Makefile and context/secret exclusions.
