@@ -32,6 +32,8 @@ so that DIXI fits my organisation and is easy to discover.
 
 [ADR-109](../../09-architecture/adr/ADR-109-local-presets-and-extensions.md) accepted: local, data-only presets (override) and extensions (add `dixi-<extension>-<operation>`), validated like the core, recorded with their origin, reversible. Next: contracts, threat review and red tests.
 
+Extensions (`dixi extension`, threat T14) and presets (`dixi preset`, threat T15) implemented with red tests first and contracts ([extensions](../../07-contracts/commands/extensions-contract.md), [presets](../../07-contracts/commands/presets-contract.md)). Pending: the documentation site.
+
 ## Related
 
 - [ADR-108](../../09-architecture/adr/ADR-108-spec-kit-parity-and-beyond.md)

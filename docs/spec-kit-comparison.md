@@ -33,7 +33,7 @@ Read on **2026-11-11**. GitHub Spec Kit **v1.4.0** (released 2026-11-10): reposi
 | Project checks | `specify check` (installed agent tools) | `dixi check` (structure, links and goal → domain → module → feature → contract → test traceability), `dixi doctor` |
 | Upgrading a project | `specify self upgrade` upgrades the CLI; a procedure for already initialised projects is an open request (issue #1210) | `dixi upgrade --dry-run` previews kit-file changes; `dixi upgrade --apply` writes only unedited kit files, atomically |
 | Workflows | Executable, resumable workflows with human review gates | `dixi workflow list/show/prepare`: deterministic context packets; the agent runs the operation |
-| Extensibility | Extensions, presets, workflows, bundles and catalogs (the project lists 186 community extensions and 42 presets) | Local, data-only extensions (`dixi extension`) that add operations; local presets planned; no catalogs, workflows or bundles |
+| Extensibility | Extensions, presets, workflows, bundles and catalogs (the project lists 186 community extensions and 42 presets) | Local, data-only extensions (`dixi extension`) that add operations and presets (`dixi preset`) that override kit texts and templates; no catalogs, workflows or bundles |
 | MCP | Experimental read-only server | None; the CLI needs no network |
 | Agents | 41 integrations plus `generic` and `none` | Claude Code and Codex (verified), `skills` (Agent Skills in `.agents/skills/`, format compatible with Cursor, VS Code/Copilot, Gemini CLI, OpenCode, Goose and Amp, not verified per agent), plus `none` |
 | Systems | Windows, macOS and Linux | macOS and Linux; Windows through WSL 2 (verified in CI) |

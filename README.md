@@ -77,6 +77,7 @@ Templates are guidance with `{{pending: …}}` blanks, not decisions: delete the
 | `dixi workflow list\|show\|prepare` | Lists and prepares the discover, specify, clarify, domain, architecture, contract, threat-model and plan procedures. |
 | `dixi placeholders [--strict]` | Lists the `{{pending: …}}` markers left in the project's documents. |
 | `dixi pr-size [--base main] [--max 1500]` | Measures the current branch: changed lines without docs, lockfiles, generated files or tests (reported apart). Read-only; exit 1 over the limit. |
+| `dixi preset add <folder>` · `list` · `remove <id>` | Replaces kit operation texts and templates with your team's versions from a local, data-only folder; only files you have not edited, `.dixi/overrides/` always wins, and removal restores the kit text. |
 | `dixi extension add <folder>` · `list` · `remove <id>` | Adds your team's own operations from a local, data-only folder, as `dixi-<extension>-<operation>` for the project's agent; never runs anything and never shadows a kit operation. |
 | `dixi upgrade --dry-run [--profile …] [--controls]` | Previews what the installed kit version would change: unchanged, updatable, conflicting, new, missing and obsolete files. Writes nothing. |
 | `dixi upgrade --apply [--profile …] [--controls]` | Writes only updatable and new kit files, each atomically and re-checked right before writing; never your edits, deleted or obsolete files. |
