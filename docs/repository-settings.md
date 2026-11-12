@@ -15,6 +15,7 @@ Record the configuration of `dixi-project/dixi-spec-kit` that guarantees: `main`
 | Merge | Squash or merge commit; delete branches on merge. |
 | Private vulnerability reporting | Enabled (Settings → Security). |
 | Actions | Approval required for workflows from new contributors' PRs. |
+| Pages | Source: GitHub Actions (Settings → Pages). `.github/workflows/pages.yml` builds the documentation site with `scripts/build-site.py` on every pull request and publishes it from `main` to https://dixi-project.github.io/dixi-spec-kit/. |
 
 ## Protection of `main` (ruleset)
 

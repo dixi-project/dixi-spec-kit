@@ -1,6 +1,6 @@
 # DIXI Spec Kit
 
-**English** · [Español](README.es.md)
+**English** · [Español](README.es.md) · [Documentation site](https://dixi-project.github.io/dixi-spec-kit/)
 
 ## Purpose
 
