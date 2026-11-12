@@ -107,6 +107,34 @@ class SiteTests(unittest.TestCase):
         self.assertIn("refs/heads/main", deploy)
         self.assertNotIn("secrets.", text)
 
+    def test_logo_files_are_self_contained(self):
+        for name in ("logo-light.svg", "logo-dark.svg", "mark.svg"):
+            with self.subTest(logo=name):
+                text = (ROOT / "docs/assets" / name).read_text(encoding="utf-8")
+                self.assertIn("<title", text)
+                for forbidden in ("<text", "<script", "<image", "font-family", "href="):
+                    self.assertNotIn(forbidden, text)
+
+    def test_readmes_show_the_logo_for_both_color_schemes(self):
+        for name in ("README.md", "README.es.md"):
+            with self.subTest(readme=name):
+                text = (ROOT / name).read_text(encoding="utf-8")
+                self.assertIn('srcset="docs/assets/logo-dark.svg"', text)
+                self.assertIn('src="docs/assets/logo-light.svg" alt="DIXI Spec Kit"', text)
+                self.assertIn("\n# DIXI Spec Kit\n", text)
+
+    def test_site_shows_the_mark_and_hides_the_readme_banner(self):
+        self.assertEqual((self.out / "assets/mark.svg").read_bytes(), (ROOT / "docs/assets/mark.svg").read_bytes())
+        for lang in ("en", "es"):
+            for page in ("index.html", "support-matrix.html"):
+                with self.subTest(lang=lang, page=page):
+                    text = (self.out / lang / page).read_text(encoding="utf-8")
+                    self.assertIn('<link rel="icon" type="image/svg+xml" href="../assets/mark.svg">', text)
+                    self.assertIn('<img src="../assets/mark.svg" alt="" width="28" height="28">', text)
+                    self.assertNotIn("&lt;picture", text)
+                    self.assertNotIn("&lt;p align", text)
+                    self.assertNotIn("img.shields.io", text)
+
 
 if __name__ == "__main__":
     unittest.main()
