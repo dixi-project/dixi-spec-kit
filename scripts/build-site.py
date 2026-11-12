@@ -1,0 +1,214 @@
+"""Build the static documentation site in English and Spanish: `python3 scripts/build-site.py <output>`.
+
+Standard library only. Pages are pre-rendered HTML under language-prefixed folders (`en/`, `es/`) with
+`hreflang` alternates and a canonical URL each; the root redirects to the browser language and links to both.
+Interface strings come from `scripts/site/<lang>.json`. Links to repository files that are not part of the site
+point to GitHub. Published by `.github/workflows/pages.yml`.
+"""
+import html
+import json
+from pathlib import Path
+import re
+import shutil
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = "https://dixi-project.github.io/dixi-spec-kit/"
+REPO = "https://github.com/dixi-project/dixi-spec-kit/blob/main/"
+LANGUAGES = ("en", "es")
+HOME = {"en": "README.md", "es": "README.es.md"}
+STYLE = """
+:root{--fg:#1d1f23;--muted:#5b6170;--bg:#fff;--line:#e3e6eb;--accent:#2457c5;--code:#f4f6f9}
+@media (prefers-color-scheme:dark){:root{--fg:#e6e8ec;--muted:#a3a9b6;--bg:#15171b;--line:#2b2f37;--accent:#7aa2ff;--code:#1e2128}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,sans-serif;color:var(--fg);background:var(--bg)}
+header{display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-bottom:1px solid var(--line)}
+header a{color:var(--fg);text-decoration:none;font-weight:600}
+.layout{display:grid;grid-template-columns:16rem 1fr;max-width:72rem;margin:0 auto}
+nav{padding:1rem;border-right:1px solid var(--line)}nav ul{list-style:none;padding:0;margin:0}nav li{margin:.25rem 0}
+nav a{color:var(--muted);text-decoration:none}nav a[aria-current]{color:var(--accent);font-weight:600}
+main{padding:1rem 2rem;min-width:0}a{color:var(--accent)}pre,code{background:var(--code);border-radius:4px}
+pre{padding:.75rem;overflow-x:auto}code{padding:.1rem .3rem;font-size:.92em}pre code{padding:0}
+table{border-collapse:collapse;display:block;overflow-x:auto}th,td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left;vertical-align:top}
+blockquote{margin:0;padding:.25rem 1rem;border-left:3px solid var(--line);color:var(--muted)}
+.notice{padding:.5rem .75rem;border:1px solid var(--line);border-radius:4px;color:var(--muted)}
+#search{width:100%;padding:.4rem;margin-bottom:.75rem;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg)}
+@media (max-width:48rem){.layout{grid-template-columns:1fr}nav{border-right:0;border-bottom:1px solid var(--line)}main{padding:1rem}}
+"""
+SEARCH = """
+<script>
+(function(){var box=document.getElementById('search'),list=document.getElementById('pages');if(!box)return;
+var data=null;box.hidden=false;box.addEventListener('input',function(){var q=box.value.toLowerCase().trim();
+function show(){Array.prototype.forEach.call(list.children,function(li){var e=data[li.dataset.url]||'';
+li.hidden=q&&e.indexOf(q)<0;});}
+if(data){show();return;}fetch('search.json').then(function(r){return r.json();}).then(function(items){data={};
+items.forEach(function(i){data[i.url]=(i.title+' '+i.text).toLowerCase();});show();});});})();
+</script>
+"""
+
+
+def slug(text):
+    text = re.sub(r"<[^>]+>", "", text).lower()
+    return re.sub(r"[^\w\- ]", "", text, flags=re.UNICODE).strip().replace(" ", "-")
+
+
+def link_target(href, source):
+    """Rewrite a Markdown link from `source` (repository-relative) to a site or GitHub URL."""
+    if re.match(r"(https?:|mailto:|#)", href):
+        return href
+    path, _, anchor = href.partition("#")
+    resolved = (ROOT / Path(source).parent / path).resolve()
+    try:
+        relative = resolved.relative_to(ROOT).as_posix()
+    except ValueError:
+        return href
+    suffix = f"#{anchor}" if anchor else ""
+    if relative in HOME.values():
+        return "index.html" + suffix
+    if relative.startswith("docs/") and relative.endswith(".md") and "/" not in relative[5:]:
+        return relative[5:-3] + ".html" + suffix
+    return REPO + relative + suffix
+
+
+def inline(text, source):
+    parts = re.split(r"(`[^`]+`)", text)
+    out = []
+    for part in parts:
+        if part.startswith("`") and part.endswith("`") and len(part) > 1:
+            out.append(f"<code>{html.escape(part[1:-1])}</code>")
+            continue
+        escaped = html.escape(part, quote=False)
+        escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
+        escaped = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)",
+                         lambda m: f'<a href="{html.escape(link_target(html.unescape(m.group(2)), source))}">{m.group(1)}</a>',
+                         escaped)
+        out.append(escaped)
+    return "".join(out)
+
+
+def render(markdown, source):
+    lines = markdown.split("\n")
+    out, i, title = [], 0, None
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith("```"):
+            block = []
+            i += 1
+            while i < len(lines) and not lines[i].startswith("```"):
+                block.append(lines[i])
+                i += 1
+            out.append(f"<pre><code>{html.escape(chr(10).join(block))}</code></pre>")
+            i += 1
+            continue
+        heading = re.match(r"(#{1,6}) (.*)", line)
+        if heading:
+            level, text = len(heading.group(1)), inline(heading.group(2), source)
+            title = title or re.sub(r"<[^>]+>", "", text)
+            out.append(f'<h{level} id="{slug(text)}">{text}</h{level}>')
+            i += 1
+            continue
+        if line.startswith("|") and i + 1 < len(lines) and re.match(r"\|[\s:|-]+\|?$", lines[i + 1]):
+            cells = lambda row: [c.strip() for c in row.strip().strip("|").split("|")]  # noqa: E731
+            head = "".join(f"<th>{inline(c, source)}</th>" for c in cells(line))
+            rows, i = [], i + 2
+            while i < len(lines) and lines[i].startswith("|"):
+                rows.append("<tr>" + "".join(f"<td>{inline(c, source)}</td>" for c in cells(lines[i])) + "</tr>")
+                i += 1
+            out.append(f"<table><thead><tr>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table>")
+            continue
+        item = re.match(r"(\s*)([-*]|\d+\.) (.*)", line)
+        if item:
+            ordered = item.group(2)[0].isdigit()
+            entries = []
+            while i < len(lines):
+                current = re.match(r"(\s*)([-*]|\d+\.) (.*)", lines[i])
+                if current:
+                    entries.append(inline(current.group(3), source))
+                elif lines[i].startswith("  ") and entries:
+                    entries[-1] += " " + inline(lines[i].strip(), source)
+                else:
+                    break
+                i += 1
+            tag = "ol" if ordered else "ul"
+            out.append(f"<{tag}>" + "".join(f"<li>{e}</li>" for e in entries) + f"</{tag}>")
+            continue
+        if line.startswith(">"):
+            quote = []
+            while i < len(lines) and lines[i].startswith(">"):
+                quote.append(lines[i].lstrip("> "))
+                i += 1
+            out.append(f"<blockquote><p>{inline(' '.join(quote), source)}</p></blockquote>")
+            continue
+        if not line.strip():
+            i += 1
+            continue
+        paragraph = []
+        while i < len(lines) and lines[i].strip() and not re.match(r"(#{1,6} |```|\||>|\s*([-*]|\d+\.) )", lines[i]):
+            paragraph.append(lines[i].strip())
+            i += 1
+        out.append(f"<p>{inline(' '.join(paragraph), source)}</p>")
+    return "\n".join(out), title or source
+
+
+def page(lang, catalog, name, body, title, pages, current, notice):
+    url = "" if name == "index" else f"{name}.html"
+    alternates = "".join(f'<link rel="alternate" hreflang="{other}" href="{BASE}{other}/{url}">' for other in LANGUAGES)
+    alternates += f'<link rel="alternate" hreflang="x-default" href="{BASE}en/{url}">'
+    other = "es" if lang == "en" else "en"
+    nav = "".join(f'<li data-url="{p_url}"><a href="{p_url}"{" aria-current=page" if p_url == current else ""}>'
+                  f"{html.escape(p_title)}</a></li>" for p_url, p_title in pages)
+    banner = f'<p class="notice">{html.escape(notice)}</p>' if notice else ""
+    return f"""<!doctype html>
+<html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)} · DIXI Spec Kit</title><link rel="canonical" href="{BASE}{lang}/{url}">{alternates}
+<style>{STYLE}</style></head><body>
+<header><a href="index.html">{html.escape(catalog["title"])}</a>
+<span><a href="../{other}/{url or 'index.html'}" hreflang="{other}">{html.escape(catalog["language"])}</a> ·
+<a href="{REPO.replace('/blob/main/', '')}">{html.escape(catalog["source"])}</a></span></header>
+<div class="layout"><nav aria-label="{html.escape(catalog["docs"])}">
+<input id="search" type="search" placeholder="{html.escape(catalog["search"])}" aria-label="{html.escape(catalog["search"])}" hidden>
+<ul id="pages">{nav}</ul></nav>
+<main>{banner}{body}</main></div>{SEARCH}</body></html>
+"""
+
+
+def build(output):
+    if output.exists():
+        shutil.rmtree(output)
+    docs = sorted((ROOT / "docs").glob("*.md"))
+    for lang in LANGUAGES:
+        catalog = json.loads((ROOT / "scripts/site" / f"{lang}.json").read_text(encoding="utf-8"))
+        sources = [("index", HOME[lang])] + [(doc.stem, f"docs/{doc.name}") for doc in docs]
+        rendered = {}
+        for name, source in sources:
+            rendered[name] = render((ROOT / source).read_text(encoding="utf-8"), source)
+        pages = [("index.html" if n == "index" else f"{n}.html", catalog["home"] if n == "index" else rendered[n][1])
+                 for n, _ in sources]
+        folder = output / lang
+        folder.mkdir(parents=True)
+        index = []
+        for name, source in sources:
+            body, title = rendered[name]
+            url = "index.html" if name == "index" else f"{name}.html"
+            notice = catalog["english_only"] if name != "index" else ""
+            (folder / url).write_text(page(lang, catalog, name, body, title, pages, url, notice), encoding="utf-8")
+            text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body)).strip()
+            index.append({"url": url, "title": title, "text": text[:2000]})
+        (folder / "search.json").write_text(json.dumps(index, ensure_ascii=False), encoding="utf-8")
+    choose = "".join(f'<li><a href="{lang}/" hreflang="{lang}">{lang.upper()}</a></li>' for lang in LANGUAGES)
+    (output / "index.html").write_text(f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIXI Spec Kit</title><link rel="canonical" href="{BASE}en/">
+<link rel="alternate" hreflang="en" href="{BASE}en/"><link rel="alternate" hreflang="es" href="{BASE}es/">
+<link rel="alternate" hreflang="x-default" href="{BASE}en/">
+<script>var l=(navigator.language||'en').slice(0,2).toLowerCase();location.replace(l==='es'?'es/':'en/');</script>
+</head><body><p>Choose a language · Elige un idioma</p><ul>{choose}</ul></body></html>
+""", encoding="utf-8")
+    (output / ".nojekyll").write_text("", encoding="utf-8")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("usage: python3 scripts/build-site.py <output folder>", file=sys.stderr)
+        sys.exit(2)
+    build(Path(sys.argv[1]).resolve())
+    print(f"Site built in {sys.argv[1]}")
