@@ -77,6 +77,22 @@ class ChangelogGuardTests(unittest.TestCase):
         self.assertIn("- CLI reference (#57)", notes)
         self.assertEqual(release.unannounced([(49, "docs/x")], release.changelog_section(CHANGELOG, "1.10.0")), [])
 
+    def test_a_marker_quoted_inside_an_entry_is_text_not_a_marker(self):
+        # TASK-025: the notes of v1.11.0 lost the example an entry quoted.
+        entry = "- Pull requests that need no entry are marked with `<!-- no changelog entry: #7 -->`, which is left out."
+        section = f"### Added\n\n{entry}\n- Another thing (#8).\n\n<!-- no changelog entry: #9 -->\n"
+        changelog = f"# Changelog\n\n## [Unreleased]\n\n## [2.0.0] — 2026-11-13\n\n{section}\n## [1.0.0] — 2026-01-01\n\n- Old.\n"
+        notes = release.changelog_notes(changelog, "2.0.0")
+        self.assertIn(entry, notes)
+        self.assertNotIn("#9", notes)
+        self.assertEqual(notes.count("<!--"), 1)
+        self.assertEqual(release.no_entry_needed(section), {9})
+        pulls = [(7, "docs/a"), (8, "feat/b"), (9, "docs/c"), (10, "feat/d")]
+        self.assertEqual(release.unannounced(pulls, section), [(10, "feat/d")])
+        indented = "- One thing.\n\n  <!-- no changelog entry: #3 -->  \n"
+        self.assertEqual(release.no_entry_needed(indented), {3})
+        self.assertNotIn("<!--", release.NO_ENTRY.sub("", indented))
+
     def test_warning_names_each_pull_request_and_how_to_resolve_it(self):
         lines = release.changelog_warning([(5, "fix/typo-in-readme"), (60, "feat/x")], "v1.9.0", 4)
         text = "\n".join(lines)
