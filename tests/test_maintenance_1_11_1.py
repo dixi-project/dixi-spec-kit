@@ -72,6 +72,20 @@ class VerifyWorkflowTests(unittest.TestCase):
         self.assertIn("30 minutes", section)
         self.assertIn("macOS", section)
 
+    def test_settings_name_the_real_cause_of_the_cancellation(self):
+        # Correction of TASK-027: GitHub cancels a job that no hosted runner acquires; `timeout-minutes` does not
+        # count while the job waits, so raising it did not prevent the cancellation (seen again on 2026-11-13).
+        settings = read("docs/repository-settings.md")
+        section = settings.split("\n## Checks cancelled while waiting for a runner\n", 1)[1].split("\n## ", 1)[0]
+        self.assertIn("The job was not acquired by Runner of type hosted", section)
+        self.assertIn("`timeout-minutes` does not count while a job waits", section)
+        self.assertNotIn("the rest for the macOS queue", section)
+        workflow = read(".github/workflows/verify.yml")
+        self.assertNotIn("leaves room for the macOS runner queue", workflow)
+        task = read("tasks/backlog/TASK-027-macos-job-timeout.md")
+        self.assertIn("\n## Correction\n", task)
+        self.assertIn("2026-11-13", task.split("\n## Correction\n", 1)[1])
+
 
 class IsolatedHandoffTests(unittest.TestCase):
     """TASK-028: an isolated agent session hands off without writing private content to the repository."""
