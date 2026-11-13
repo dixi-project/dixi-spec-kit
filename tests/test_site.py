@@ -151,6 +151,19 @@ class SiteTests(unittest.TestCase):
                 self.assertIn('src="docs/assets/logo-light.svg" alt="DIXI Spec Kit"', text)
                 self.assertIn("\n# DIXI Spec Kit\n", text)
 
+    def test_python_badge_reads_requires_python_from_the_repository(self):
+        # The package declares no Python classifiers, so the PyPI "pyversions" badge would say "missing".
+        pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        self.assertIn('requires-python = ">=3.11"', pyproject)
+        self.assertNotIn("Programming Language :: Python ::", pyproject)
+        source = ("https://img.shields.io/python/required-version-toml?tomlFilePath="
+                  "https%3A%2F%2Fraw.githubusercontent.com%2Fdixi-project%2Fdixi-spec-kit%2Fmain%2Fpyproject.toml")
+        for name in ("README.md", "README.es.md"):
+            with self.subTest(readme=name):
+                text = (ROOT / name).read_text(encoding="utf-8")
+                self.assertNotIn("img.shields.io/pypi/pyversions/", text)
+                self.assertEqual(text.count(f'<img src="{source}&color=1f5fc4"'), 1)
+
     def test_pypi_readme_shows_the_logo_from_an_absolute_url(self):
         text = (ROOT / "packaging/README.md").read_text(encoding="utf-8")
         images = re.findall(r'<img src="([^"]+)"', text)
