@@ -51,6 +51,16 @@ TASK-021, TASK-022 and TASK-023 moved to v1.11.0 by the owner's decision, to rel
 - [x] **`make release` warns about pull requests without a CHANGELOG entry** _(P2, level 1, v1.11.0)_ — [TASK-023](backlog/TASK-023-changelog-guard.md). Closed on 2026-11-12; released in v1.11.0.
 - [x] **Release v1.10.0** _(P2, level 1, v1.10.0)_ — [TASK-024](backlog/TASK-024-release-1-10.md). Closed on 2026-11-12; released in [v1.10.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.10.0) and on PyPI.
 
+## Maintenance after v1.11.0
+
+Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-029 are mostly the maintainer's own actions in their clone.
+
+- [ ] **Release notes keep the text that quotes the no-entry marker** _(P2, level 1, v1.11.1)_ — [TASK-025](backlog/TASK-025-release-notes-marker.md).
+- [ ] **The README version badge shows the current version after a release** _(P3, level 1, v1.11.1)_ — [TASK-026](backlog/TASK-026-readme-version-badge.md).
+- [ ] **macOS verification jobs survive a slow runner queue** _(P3, level 1, v1.11.1)_ — [TASK-027](backlog/TASK-027-macos-job-timeout.md).
+- [ ] **The handoff of an isolated session reaches the maintainer's checkout** _(P2, level 1, v1.11.1)_ — [TASK-028](backlog/TASK-028-session-handoff.md).
+- [ ] **Local cleanup after v1.10.0 and v1.11.0** _(P3, level 1, v1.11.1)_ — [TASK-029](backlog/TASK-029-local-cleanup.md).
+
 ## Related
 
 - [Roadmap](../ROADMAP.md)
