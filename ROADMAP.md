@@ -72,6 +72,10 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - `dixi mode`: read-only view of `MODE` and of the promotion items without evidence.
 - `make release` lists the merged pull requests that the CHANGELOG does not mention.
 
+## Next: maintenance (v1.11.1)
+
+- Release notes that keep an entry quoting the no-entry marker; a README version badge that does not look stale after a release; macOS verification jobs that survive a slow runner queue.
+
 ## Later
 
 - A native Windows backend only with real demand and a new validation.
