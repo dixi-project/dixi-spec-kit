@@ -58,7 +58,7 @@ Each command declares in its body:
 | `/dixi.verify` | Nothing (report only) | Runs `make verify`; does not declare green what it did not run | `review` |
 | `/dixi.review` | Review report for a person | Cross-checks criterion → change → test; does not approve | Human review |
 | `/dixi.analyze` | Nothing (report only) | Missing items, contradictions and impact of a change | Command that corrects |
-| `/dixi.status` | Nothing (report only) | Reads the state; runs `dixi check` | Whichever applies |
+| `/dixi.status` | Nothing (report only) | Reads the state, `.context/handoff.md` when it exists and the recent Git history of `07-contracts/`; runs `dixi check`; never commits or pushes | Whichever applies |
 
 ## Controls matrix
 

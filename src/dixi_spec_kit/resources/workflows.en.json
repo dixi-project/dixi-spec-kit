@@ -147,10 +147,10 @@
     },
     "status": {
       "title": "Show status and next step",
-      "purpose": "Summarize where the project stands and name a justified next step, without modifying files.",
-      "inputs": ["MODE, 00-master-spec.md, .dixi/traceability.json and 05-features/*/tasks.md if present.", "The results of dixi doctor and dixi check; an optional area that narrows the summary."],
-      "steps": ["Run dixi doctor and dixi check and summarize their results.", "Read MODE, the master spec, the traceability graph and the feature tasks.", "Count pending markers, Proposed ADRs, open or blocked tasks and features without tests.", "Name the next operation and why (for example clarify for blocking questions or build for an unblocked task)."],
-      "outputs": ["A status summary with those counts and one justified next step."],
+      "purpose": "Summarize where the project stands and where the last session left off, and name a justified next step, without modifying files.",
+      "inputs": ["MODE, 00-master-spec.md, .dixi/traceability.json and 05-features/*/tasks.md if present.", ".context/handoff.md if it exists and the recent history of 07-contracts/ when the project is a Git repository.", "The results of dixi doctor and dixi check; an optional area that narrows the summary."],
+      "steps": ["Run dixi doctor and dixi check and summarize their results.", "Read MODE, the master spec, the traceability graph and the feature tasks.", "Report from .context/handoff.md what the last session did, what it left open and the next step it named; say so when the file does not exist.", "List the recent changes under 07-contracts/ from the Git history; say so when there is no repository.", "Count pending markers, Proposed ADRs, open or blocked tasks and features without tests, and list the open tasks by ID.", "Name the next operation and why (for example clarify for blocking questions or build for an unblocked task), preferring the next step of the handoff when it still applies."],
+      "outputs": ["A status summary with those counts, where the last session left off and one justified next step."],
       "gates": ["Proposed ADRs and blocking questions are reported for the person, not resolved."],
       "checks": ["No file was modified.", "Checks are reported as run, failed or not run."]
     },

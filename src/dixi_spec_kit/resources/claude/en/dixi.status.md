@@ -7,15 +7,17 @@ argument-hint: "[optional area]"
 
 ## Goal
 
-Summarize where the project stands and what to do next, without modifying files. `$ARGUMENTS` may narrow the area.
+Summarize where the project stands, where the last session left off and what to do next, without modifying files. `$ARGUMENTS` may narrow the area.
 
 ## Steps
 
 1. Run `dixi doctor` and `dixi check` and summarize their results.
 2. Read `MODE`, `00-master-spec.md`, `.dixi/traceability.json` and `05-features/*/tasks.md` if present.
-3. Count pending markers, "Proposed" ADRs, open or blocked tasks and features without tests.
-4. Name the next command and why (for example `/dixi.clarify` if blocking questions exist or `/dixi.build T-003` if a task is unblocked).
-5. Do not modify files.
+3. If `.context/handoff.md` exists, read it and report what the last session did, what it left open and the next step it named. If it does not exist, say so and go on.
+4. List the recent changes to the contracts with `git log --oneline -10 -- 07-contracts/`, so the person sees which agreements moved while they were away. Skip this step, and say so, when the project is not a Git repository.
+5. Count pending markers, "Proposed" ADRs, open or blocked tasks and features without tests, and list the open tasks by ID.
+6. Name the next command and why (for example `/dixi.clarify` if blocking questions exist or `/dixi.build T-003` if a task is unblocked). Prefer the next step of the handoff when it still applies.
+7. Do not modify files, commit or push.
 
 ## Limits
 
