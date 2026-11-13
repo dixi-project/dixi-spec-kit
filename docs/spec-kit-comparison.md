@@ -6,7 +6,7 @@ Help a person choose between, or combine, two specification-driven development k
 
 ## Sources and date
 
-Read on **2026-11-11**. GitHub Spec Kit **v1.4.0** (released 2026-11-10): repository https://github.com/github/spec-kit (`templates/commands/`, `CHANGELOG.md`, `docs/`, `README.md`) and its open issues. DIXI Spec Kit v1.9.0. Figures about another project (agents, extensions, stars) change quickly and are quoted as that project publishes them; verify them before reusing.
+Read on **2026-11-11**. GitHub Spec Kit **v1.4.0** (released 2026-11-10): repository https://github.com/github/spec-kit (`templates/commands/`, `CHANGELOG.md`, `docs/`, `README.md`) and its open issues. DIXI Spec Kit v1.10.0. Figures about another project (agents, extensions, stars) change quickly and are quoted as that project publishes them; verify them before reusing.
 
 ## Agent commands
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dixi-spec-kit"
-version = "1.9.0"
+version = "1.10.0"
 description = "Specification-driven development kit with traceability, verification and Claude Code commands"
 readme = "packaging/README.md"
 requires-python = ">=3.11"

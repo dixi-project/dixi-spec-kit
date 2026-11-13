@@ -6,20 +6,22 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+## [1.10.0] — 2026-11-12
+
 ### Added
 
-- A DIXI Spec Kit logo in `docs/assets/` (light, dark and a standalone mark, as self-contained SVG): the READMEs open with it and with PyPI, Python, verification and license badges, and the documentation site shows the mark in its header and as its icon.
-- The PyPI page (`packaging/README.md`) opens with the logo, loaded from an absolute URL on `main`; it shows from the next published version.
-- Command reference (TASK-016): one page per operation in `docs/commands/`, in English and Spanish, with purpose, invocation for Claude Code, Codex and Agent Skills, when to use it, steps, files read and written, stops and human gates, and next step. `scripts/build-command-reference.py` (standard library) generates the pages from the packaged command texts and the workflow graph; `--check` and a test fail when a page is missing or out of date. The documentation site gains a Commands section in both languages.
-- Command guide (TASK-017): `docs/command-catalog.md`, with a Spanish version in `docs/command-catalog.es.md`, is now a guide for users: the journey map, a "which command when" table of the thirty-three operations linked to their reference pages, and a walkthrough from `dixi init` to a release. The documentation site serves a document's `.es.md` version in the Spanish tree when it exists.
-- Command examples (TASK-018): every reference page shows a realistic example for Claude Code, Codex and Agent Skills, from `scripts/site/command-examples.json`. `README.es.md` now mentions `/dixi.interview`, `/dixi.risk-review` and the subagents, as the English README does.
-- CLI reference (TASK-019): `docs/cli/`, in English and Spanish, with one page per `dixi` terminal command (usage, arguments, options, subcommands) and the exit-code table. `scripts/build-cli-reference.py` generates it from the real argument parser and the message catalogs; `--check` and a test fail when a command or option is missing. The documentation site publishes it under `cli/`.
-- Spanish site pages (TASK-020): the migration guide has a Spanish version (`docs/coming-from-spec-kit.es.md`), so the Spanish tree shows the command guide, the command and CLI references and the migration guide in Spanish; the support matrix keeps its Spanish summary and, like every page still only in English, the notice. A test lists the pages with Spanish versions and checks that they keep the same links and that every anchor link resolves.
+- A DIXI Spec Kit logo in `docs/assets/` (light, dark and a standalone mark, as self-contained SVG): the READMEs open with it and with PyPI, Python, verification and license badges, and the documentation site shows the mark in its header and as its icon (#52).
+- The PyPI page (`packaging/README.md`) opens with the logo, loaded from an absolute URL on `main`; it shows from this version (#53).
+- Command reference (TASK-016): one page per operation in `docs/commands/`, in English and Spanish, with purpose, invocation for Claude Code, Codex and Agent Skills, when to use it, steps, files read and written, stops and human gates, and next step. `scripts/build-command-reference.py` (standard library) generates the pages from the packaged command texts and the workflow graph; `--check` and a test fail when a page is missing or out of date. The documentation site gains a Commands section in both languages (#54).
+- Command guide (TASK-017): `docs/command-catalog.md`, with a Spanish version in `docs/command-catalog.es.md`, is now a guide for users: the journey map, a "which command when" table of the thirty-three operations linked to their reference pages, and a walkthrough from `dixi init` to a release. The documentation site serves a document's `.es.md` version in the Spanish tree when it exists (#55).
+- Command examples (TASK-018): every reference page shows a realistic example for Claude Code, Codex and Agent Skills, from `scripts/site/command-examples.json`. `README.es.md` now mentions `/dixi.interview`, `/dixi.risk-review` and the subagents, as the English README does (#56).
+- CLI reference (TASK-019): `docs/cli/`, in English and Spanish, with one page per `dixi` terminal command (usage, arguments, options, subcommands) and the exit-code table. `scripts/build-cli-reference.py` generates it from the real argument parser and the message catalogs; `--check` and a test fail when a command or option is missing. The documentation site publishes it under `cli/` (#57).
+- Spanish site pages (TASK-020): the migration guide has a Spanish version (`docs/coming-from-spec-kit.es.md`), so the Spanish tree shows the command guide, the command and CLI references and the migration guide in Spanish; the support matrix keeps its Spanish summary and, like every page still only in English, the notice. A test lists the pages with Spanish versions and checks that they keep the same links and that every anchor link resolves (#58).
 
 ### Changed
 
-- The working catalog and the v1 design review moved to `docs/history/` with a note that they are historical records; they are no longer published on the documentation site. `docs/product-spec.md` no longer describes shipped commands as provisional.
-- The support matrix lists `--agent skills` as supported for discovery and explicit invocation in OpenCode 1.19.5, recorded in the adapter contract; other agents stay format compatible, not verified.
+- The working catalog and the v1 design review moved to `docs/history/` with a note that they are historical records; they are no longer published on the documentation site. `docs/product-spec.md` no longer describes shipped commands as provisional (#55).
+- The support matrix lists `--agent skills` as supported for discovery and explicit invocation in OpenCode 1.19.5, recorded in the adapter contract; other agents stay format compatible, not verified (#50).
 
 ## [1.9.0] — 2026-11-12
 

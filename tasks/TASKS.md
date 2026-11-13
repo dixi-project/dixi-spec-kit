@@ -37,18 +37,18 @@ Track the work on the new product, without inheriting the private EIS-IA backlog
 - [x] **Generic Agent Skills adapter** _(P2, level 3)_ — [TASK-014](backlog/TASK-014-agent-skills-adapter.md). Closed on 2026-11-12; released in v1.9.0.
 - [x] **Local presets and extensions, and a documentation site** _(P2, level 3)_ — [TASK-015](backlog/TASK-015-extensibility-and-site.md). Closed on 2026-11-12; released in v1.9.0.
 
-## Next loop: documentation and continuity (v1.10.0)
+## v1.10.0 — documentation for users
 
-Worked in order by the next `/loop` session; TASK-021 and TASK-022 need the owner to confirm their design first.
+TASK-021, TASK-022 and TASK-023 moved to v1.11.0 by the owner's decision, to release the documentation first.
 
-- [ ] **Generated command reference** _(P1, level 2, v1.10.0)_ — [TASK-016](backlog/TASK-016-command-reference.md).
-- [ ] **Public command guide replacing the internal catalog** _(P1, level 2, v1.10.0)_ — [TASK-017](backlog/TASK-017-public-command-guide.md).
-- [ ] **Usage examples for every operation** _(P2, level 1, v1.10.0)_ — [TASK-018](backlog/TASK-018-command-examples.md).
-- [ ] **CLI reference generated from the help** _(P2, level 1, v1.10.0)_ — [TASK-019](backlog/TASK-019-cli-reference.md).
-- [ ] **Spanish versions of the key site pages** _(P2, level 1, v1.10.0)_ — [TASK-020](backlog/TASK-020-spanish-site.md).
-- [ ] **`/dixi.status` resumes a session like the ecosystem's `/open`** _(P2, level 2, v1.10.0)_ — [TASK-021](backlog/TASK-021-status-resumes-session.md).
-- [ ] **Read-only `dixi mode`** _(P3, level 2, v1.10.0)_ — [TASK-022](backlog/TASK-022-mode-read-only.md).
-- [ ] **`make release` warns about pull requests without a CHANGELOG entry** _(P2, level 1, v1.10.0)_ — [TASK-023](backlog/TASK-023-changelog-guard.md).
+- [x] **Generated command reference** _(P1, level 2, v1.10.0)_ — [TASK-016](backlog/TASK-016-command-reference.md). Closed on 2026-11-12; released in v1.10.0.
+- [x] **Public command guide replacing the internal catalog** _(P1, level 2, v1.10.0)_ — [TASK-017](backlog/TASK-017-public-command-guide.md). Closed on 2026-11-12; released in v1.10.0.
+- [x] **Usage examples for every operation** _(P2, level 1, v1.10.0)_ — [TASK-018](backlog/TASK-018-command-examples.md). Closed on 2026-11-12; released in v1.10.0.
+- [x] **CLI reference generated from the help** _(P2, level 1, v1.10.0)_ — [TASK-019](backlog/TASK-019-cli-reference.md). Closed on 2026-11-12; released in v1.10.0.
+- [x] **Spanish versions of the key site pages** _(P2, level 1, v1.10.0)_ — [TASK-020](backlog/TASK-020-spanish-site.md). Closed on 2026-11-12; released in v1.10.0.
+- [ ] **`/dixi.status` resumes a session like the ecosystem's `/open`** _(P2, level 2, v1.11.0)_ — [TASK-021](backlog/TASK-021-status-resumes-session.md).
+- [ ] **Read-only `dixi mode`** _(P3, level 2, v1.11.0)_ — [TASK-022](backlog/TASK-022-mode-read-only.md).
+- [ ] **`make release` warns about pull requests without a CHANGELOG entry** _(P2, level 1, v1.11.0)_ — [TASK-023](backlog/TASK-023-changelog-guard.md).
 - [ ] **Release v1.10.0** _(P2, level 1, v1.10.0)_ — [TASK-024](backlog/TASK-024-release-1-10.md).
 
 ## Related
