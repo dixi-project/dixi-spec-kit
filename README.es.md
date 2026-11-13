@@ -113,7 +113,7 @@ Lo que ofrece cada integración y sus límites están en la [matriz de soporte](
 
 ## Si vienes de GitHub Spec Kit
 
-Cada comando de Spec Kit tiene su equivalente en DIXI (`/speckit.implement` es `/dixi.build`), más veinticuatro operaciones adicionales. Consulta el [mapa de comandos](docs/coming-from-spec-kit.md) y una [comparación](docs/spec-kit-comparison.md) fechada y con fuentes, que incluye las carencias que DIXI aún tiene.
+Cada comando de Spec Kit tiene su equivalente en DIXI (`/speckit.implement` es `/dixi.build`), más veinticuatro operaciones adicionales. Consulta el [mapa de comandos](docs/coming-from-spec-kit.es.md) y una [comparación](docs/spec-kit-comparison.md) fechada y con fuentes, que incluye las carencias que DIXI aún tiene.
 
 ## Contribuir
 

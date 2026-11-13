@@ -148,7 +148,7 @@ Cuando una petición posterior cambie el comportamiento, empieza con `/dixi.chan
 
 - [Referencia de comandos](commands/index.es.md)
 - [Inicio rápido de recetas (en inglés)](workflow-quickstart.md)
-- [Matriz de soporte (en inglés)](support-matrix.md)
-- [Si vienes de GitHub Spec Kit (en inglés)](coming-from-spec-kit.md)
+- [Matriz de soporte (en inglés, con resumen en español)](support-matrix.md)
+- [Si vienes de GitHub Spec Kit](coming-from-spec-kit.es.md)
 - [Catálogo de trabajo con el que se diseñó la v1 (historial, en inglés)](history/command-catalog.md)
 - [README](../README.es.md)
