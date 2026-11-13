@@ -61,6 +61,10 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 - [x] **The handoff of an isolated session reaches the maintainer's checkout** _(P2, level 1, v1.11.1)_ — [TASK-028](backlog/TASK-028-session-handoff.md). Closed on 2026-11-13; procedure merged in #64, and the maintainer copied the handoff of the session.
 - [x] **Local cleanup after v1.10.0 and v1.11.0** _(P3, level 1, v1.11.1)_ — [TASK-029](backlog/TASK-029-local-cleanup.md). Closed on 2026-11-13; the worktree and the merged local branches were removed after comparing their content with `public/main`, with the maintainer's confirmation.
 
+## v1.12.0 — complete documentation
+
+- [ ] **Guides for what surrounds the commands, and a documentation index** _(P1, level 2, v1.12.0)_ — [TASK-030](backlog/TASK-030-complete-documentation.md).
+
 ## Related
 
 - [Roadmap](../ROADMAP.md)
