@@ -19,6 +19,8 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 - The Python badge of the READMEs said "missing": it read the package's Python classifiers, which the package does not declare. It now reads `requires-python` from `pyproject.toml` and shows `>=3.11` (#62).
 - Release notes lost the text of an entry that quoted the `no changelog entry` marker, as in the notes of v1.11.0 (TASK-025): `make release` now treats as a marker only a comment alone on its line (#64).
 
+<!-- no changelog entry: #63, #65, #66, #68 -->
+
 ## [1.11.0] — 2026-11-12
 
 ### Added
