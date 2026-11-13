@@ -72,11 +72,11 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - `dixi mode`: read-only view of `MODE` and of the promotion items without evidence.
 - `make release` lists the merged pull requests that the CHANGELOG does not mention.
 
-## Next: maintenance (v1.11.1)
+## v1.11.1 — Maintenance (2026-11-13)
 
-Already in `main`, to be released with the next version:
-
-- Release notes that keep an entry quoting the no-entry marker; a README version badge that does not look stale after a release; macOS verification jobs that survive a slow runner queue.
+- Release notes keep an entry that quotes the no-entry marker.
+- The READMEs show the latest GitHub release and the required Python version, instead of badges that looked stale or said "missing".
+- Documented: what to do when GitHub cancels a macOS check for lack of runners, and how an isolated agent session hands off.
 
 ## Later
 

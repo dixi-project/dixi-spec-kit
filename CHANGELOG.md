@@ -6,16 +6,20 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+## [1.11.1] — 2026-11-13
+
 ### Changed
 
-- The READMEs show the latest GitHub release instead of the PyPI version (TASK-026): the PyPI badge is cached for six hours and looked stale after a release. `docs/pypi-publishing.md` says how to check the real version.
-- The `make verify` jobs of the `verify` workflow have a limit of 30 minutes instead of 15 (TASK-027). This does not prevent the cancellation of macOS jobs that wait for a runner, as first assumed: GitHub cancels a job that no hosted runner acquires, and `timeout-minutes` does not count while it waits. `docs/repository-settings.md` explains the cause and says to re-run the failed jobs.
-- `docs/local-development.md` describes how an agent session that works in an isolated worktree hands off to the maintainer's checkout (TASK-028).
+- The READMEs show the latest GitHub release instead of the PyPI version (TASK-026): the PyPI badge is cached for six hours and looked stale after a release. `docs/pypi-publishing.md` says how to check the real version (#64).
+- The `make verify` jobs of the `verify` workflow have a limit of 30 minutes instead of 15 (TASK-027). This does not prevent the cancellation of macOS jobs that wait for a runner, as first assumed: GitHub cancels a job that no hosted runner acquires, and `timeout-minutes` does not count while it waits. `docs/repository-settings.md` explains the cause and says to re-run the failed jobs (#64, corrected in #67).
+- `docs/local-development.md` describes how an agent session that works in an isolated worktree hands off to the maintainer's checkout (TASK-028, #64).
 
 ### Fixed
 
 - The Python badge of the READMEs said "missing": it read the package's Python classifiers, which the package does not declare. It now reads `requires-python` from `pyproject.toml` and shows `>=3.11` (#62).
-- Release notes lost the text of an entry that quoted the `no changelog entry` marker, as in the notes of v1.11.0 (TASK-025): `make release` now treats as a marker only a comment alone on its line.
+- Release notes lost the text of an entry that quoted the `no changelog entry` marker, as in the notes of v1.11.0 (TASK-025): `make release` now treats as a marker only a comment alone on its line (#64).
+
+<!-- no changelog entry: #63, #65, #66, #68 -->
 
 ## [1.11.0] — 2026-11-12
 
