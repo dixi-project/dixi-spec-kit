@@ -74,6 +74,8 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 
 ## Next: maintenance (v1.11.1)
 
+Already in `main`, to be released with the next version:
+
 - Release notes that keep an entry quoting the no-entry marker; a README version badge that does not look stale after a release; macOS verification jobs that survive a slow runner queue.
 
 ## Later

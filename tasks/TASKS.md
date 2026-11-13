@@ -59,7 +59,7 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 - [x] **The README version badge shows the current version after a release** _(P3, level 1, v1.11.1)_ — [TASK-026](backlog/TASK-026-readme-version-badge.md). Closed on 2026-11-13; merged in #64 with the badge of the latest GitHub release, chosen by the owner.
 - [x] **macOS verification jobs survive a slow runner queue** _(P3, level 1, v1.11.1)_ — [TASK-027](backlog/TASK-027-macos-job-timeout.md). Closed on 2026-11-13; merged in #64, with the macOS jobs green under the new limit.
 - [x] **The handoff of an isolated session reaches the maintainer's checkout** _(P2, level 1, v1.11.1)_ — [TASK-028](backlog/TASK-028-session-handoff.md). Closed on 2026-11-13; procedure merged in #64, and the maintainer copied the handoff of the session.
-- [ ] **Local cleanup after v1.10.0 and v1.11.0** _(P3, level 1, v1.11.1)_ — [TASK-029](backlog/TASK-029-local-cleanup.md).
+- [x] **Local cleanup after v1.10.0 and v1.11.0** _(P3, level 1, v1.11.1)_ — [TASK-029](backlog/TASK-029-local-cleanup.md). Closed on 2026-11-13; the worktree and the merged local branches were removed after comparing their content with `public/main`, with the maintainer's confirmation.
 
 ## Related
 
