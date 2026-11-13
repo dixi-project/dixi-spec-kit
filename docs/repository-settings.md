@@ -33,9 +33,11 @@ Check with: `gh api repos/dixi-project/dixi-spec-kit/rulesets`. Rulesets require
 
 ## Checks cancelled while waiting for a runner
 
-A required check can end as cancelled without having run a single step: GitHub did not assign a runner before the job's limit. It happened twice on 2026-11-12 with `make verify (macos-latest, Python 3.13)`, when the limit was 15 minutes. The matrix job now has 30 minutes, about two for the work and the rest for the macOS queue; the limit stays so that a hung job is still cancelled.
+A required check can end as cancelled without having run a single step. The cause is on GitHub's side: when no hosted runner takes the job in about fifteen minutes, GitHub cancels it with the annotation "The job was not acquired by Runner of type hosted even after multiple attempts", often next to a notice about capacity constraints of the macOS arm64 runners. It happened with the `make verify` jobs on `macos-latest` on 2026-11-12 and again on 2026-11-13.
 
-If it happens again, nothing is wrong with the change: open the run in the Actions tab and choose "Re-run failed jobs". Only the cancelled job runs again, and the pull request can be merged when it passes.
+The workflow cannot prevent it: `timeout-minutes` does not count while a job waits for a runner, only once it runs. The matrix job has a limit of 30 minutes, which cancels a job that hangs; raising it from 15 did not avoid these cancellations, as first assumed in TASK-027.
+
+When it happens, nothing is wrong with the change: open the run in the Actions tab and choose "Re-run failed jobs". Only the cancelled jobs run again, and the pull request can be merged when they pass. If macOS capacity makes this frequent, the alternative is to stop requiring the macOS checks in the ruleset, a decision of the maintainers.
 
 ## Clean history before making it public
 
