@@ -31,6 +31,12 @@ Applied on 2026-11-08 as the `main-protegida` ruleset (default branch, no `bypas
 
 Check with: `gh api repos/dixi-project/dixi-spec-kit/rulesets`. Rulesets require a public repository or GitHub Pro.
 
+## Checks cancelled while waiting for a runner
+
+A required check can end as cancelled without having run a single step: GitHub did not assign a runner before the job's limit. It happened twice on 2026-11-12 with `make verify (macos-latest, Python 3.13)`, when the limit was 15 minutes. The matrix job now has 30 minutes, about two for the work and the rest for the macOS queue; the limit stays so that a hung job is still cancelled.
+
+If it happens again, nothing is wrong with the change: open the run in the Actions tab and choose "Re-run failed jobs". Only the cancelled job runs again, and the pull request can be merged when it passes.
+
 ## Clean history before making it public
 
 The preparation work (with non-distributable inherited material and a PR that cannot be deleted) was archived in a separate private repository. This repository was created fresh, with `main` built from an explicit inclusion list, and before making it public `git ls-remote` was used to confirm that it contained only `main`.

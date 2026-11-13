@@ -6,9 +6,16 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Changed
+
+- The READMEs show the latest GitHub release instead of the PyPI version (TASK-026): the PyPI badge is cached for six hours and looked stale after a release. `docs/pypi-publishing.md` says how to check the real version.
+- The `make verify` jobs of the `verify` workflow have 30 minutes instead of 15 (TASK-027), so that a slow macOS runner queue does not cancel a required check; `docs/repository-settings.md` says what to do if it happens.
+- `docs/local-development.md` describes how an agent session that works in an isolated worktree hands off to the maintainer's checkout (TASK-028).
+
 ### Fixed
 
-- The Python badge of the READMEs said "missing": it read the package's Python classifiers, which the package does not declare. It now reads `requires-python` from `pyproject.toml` and shows `>=3.11`.
+- The Python badge of the READMEs said "missing": it read the package's Python classifiers, which the package does not declare. It now reads `requires-python` from `pyproject.toml` and shows `>=3.11` (#62).
+- Release notes lost the text of an entry that quoted the `no changelog entry` marker, as in the notes of v1.11.0 (TASK-025): `make release` now treats as a marker only a comment alone on its line.
 
 ## [1.11.0] — 2026-11-12
 

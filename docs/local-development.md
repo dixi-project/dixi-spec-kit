@@ -74,6 +74,23 @@ The same package already includes `dixi workflow list/show/prepare`: it looks up
 
 The documents are drafts. The initial `test` element is a plan, not an executable test. The generated `make verify` calls `dixi check`; each project must connect its own tests before claiming application quality. The instructions in `AGENTS.md` are documentary rules: B1 does not install hooks or automate human review, promotion or deployment. `dixi init --agent claude` additionally installs the ten `/dixi.*` commands for Claude Code; `upgrade` and Codex arrive in v1.1.
 
+## Handoff from an isolated agent session
+
+The maintainers' handoff between sessions lives in `.context/` of this repository's main checkout. Git ignores that folder, so it is in no branch and in no worktree: an agent session that works in an isolated worktree cannot write there, and what it writes inside its own worktree disappears with it.
+
+Such a session hands off like this:
+
+1. It writes the complete handoff to a file outside the repository, in a folder of its own.
+2. Before finishing, it gives the maintainer the exact command to copy it, and says that the file is lost if the session is deleted first:
+
+   ```sh
+   cp <folder of the session>/HANDOFF.md .context/HANDOFF.md
+   ```
+
+3. The maintainer runs the command from the main checkout. The next session reads `.context/HANDOFF.md` at the start.
+
+The handoff is private working state. It is never committed, and it is not pasted into pull requests, issues or task records.
+
 ## Related
 
 - [B1 evidence](b1-verification.md)
