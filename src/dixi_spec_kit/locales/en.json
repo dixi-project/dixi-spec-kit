@@ -124,5 +124,17 @@
   "preset_kept": "kept",
   "invalid_preset": "Invalid preset, nothing was written: {reason}.",
   "preset_conflict": "Preset conflict, nothing was written: {path} already exists.",
-  "preset_missing": "No installed preset with id {id}."
+  "preset_missing": "No installed preset with id {id}.",
+  "mode": "Show MODE and, for mvp, the promotion items without evidence. Read-only: it never changes MODE.",
+  "mode_current": "MODE is {mode}.",
+  "mode_prod": "MODE is prod: there is no promotion to prepare.",
+  "mode_invalid": "MODE must be mvp or prod; found: {value}",
+  "mode_item_tests": "No evidence for tests and budgets: {expected}",
+  "mode_item_threats": "No evidence for the threat model: {expected}",
+  "mode_item_data": "No evidence for data retention: {expected}",
+  "mode_item_operations": "No evidence for runbooks and SLOs: {expected}",
+  "mode_item_release": "No evidence for the release and rollback process: {expected}",
+  "mode_item_owners": "No evidence for owners: {expected}",
+  "mode_summary": "{missing} of {total} promotion items have no evidence (a document without pending blanks). /dixi.promote prepares the checklist; only a person changes MODE.",
+  "mode_complete": "Every promotion item has evidence. /dixi.promote prepares the checklist; only a person changes MODE."
 }

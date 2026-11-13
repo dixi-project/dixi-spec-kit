@@ -35,7 +35,7 @@ uv tool install dixi-spec-kit
 pipx install dixi-spec-kit
 ```
 
-El paquete está en [PyPI](https://pypi.org/project/dixi-spec-kit/). Para fijar una etiqueta desde Git: `uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.10.0`. Sin acceso a PyPI, descarga el wheel de la [release v1.10.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.10.0) e instálalo con `pipx install dixi_spec_kit-1.10.0-py3-none-any.whl`.
+El paquete está en [PyPI](https://pypi.org/project/dixi-spec-kit/). Para fijar una etiqueta desde Git: `uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.11.0`. Sin acceso a PyPI, descarga el wheel de la [release v1.11.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.11.0) e instálalo con `pipx install dixi_spec_kit-1.11.0-py3-none-any.whl`.
 
 ## Inicio rápido
 
@@ -93,6 +93,7 @@ Las plantillas son guías con huecos `{{pending: …}}`, no decisiones: borra la
 | `dixi workflow list\|show\|prepare` | Consulta y prepara los procedimientos de descubrimiento, especificación, dominio, arquitectura, contrato, amenazas y plan. |
 | `dixi placeholders [--strict]` | Lista los marcadores `{{pending: …}}` que quedan en los documentos del proyecto. |
 | `dixi pr-size [--base main] [--max 1500]` | Mide la rama actual: líneas cambiadas sin documentación, lockfiles, archivos generados ni pruebas (que se informan aparte). Solo lectura; sale con 1 si supera el límite. |
+| `dixi mode` | Muestra `MODE` y, si es `mvp`, cuáles de los puntos que revisa `/dixi.promote` aún no tienen evidencia. Solo lectura: no puede cambiar `MODE`. |
 | `dixi preset add <carpeta>` · `list` · `remove <id>` | Sustituye textos de operaciones y plantillas del kit por las versiones de tu equipo desde una carpeta local de solo datos; solo en archivos que no has editado, `.dixi/overrides/` siempre gana y al quitarlo vuelve el texto del kit. |
 | `dixi extension add <carpeta>` · `list` · `remove <id>` | Añade operaciones propias de tu equipo desde una carpeta local de solo datos, como `dixi-<extensión>-<operación>` para el agente del proyecto; nunca ejecuta nada ni oculta una operación del kit. |
 | `dixi upgrade --dry-run [--profile …] [--controls]` | Previsualiza qué cambiaría la versión instalada del kit: archivos sin cambios, actualizables, en conflicto, nuevos, ausentes y obsoletos. No escribe nada. |

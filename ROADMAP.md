@@ -66,9 +66,11 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - A public command guide with the journey, "which command when" and a walkthrough, replacing the internal catalog.
 - The key pages of the documentation site in Spanish; a logo for the project.
 
-## Next: continuity (v1.11.0)
+## v1.11.0 — Continuity (2026-11-12)
 
-- `/dixi.status` resumes a session; a read-only `dixi mode`; a CHANGELOG check in `make release`.
+- `/dixi.status` reports where the last session left off, from the handoff, the recent contract changes and the open tasks.
+- `dixi mode`: read-only view of `MODE` and of the promotion items without evidence.
+- `make release` lists the merged pull requests that the CHANGELOG does not mention.
 
 ## Later
 

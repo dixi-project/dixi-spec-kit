@@ -490,6 +490,48 @@ def placeholders(path):
     return counts
 
 
+# What /dixi.promote reviews before a person changes MODE: item, the document expected and where to look for it.
+PROMOTION_EVIDENCE = (
+    ("tests", "11-quality/strategy.md", ((("11-quality",), r"strategy\.md"),)),
+    ("threats", "13-security/<slug>-threat-model.md", ((("13-security",), r".*threat-model.*\.md"),)),
+    ("data", "08-data/<slug>.md", ((("08-data",), r".+\.md"),)),
+    ("operations", "15-operations/<service>.md", ((("15-operations",), r".+\.md"),)),
+    ("release", "docs/releases/<version>.md", ((("docs", "releases"), r".+\.md"),)),
+    ("owners", "CODEOWNERS", (((), "CODEOWNERS"), ((".github",), "CODEOWNERS"), (("docs",), "CODEOWNERS"))),
+)
+
+
+def mode_report(path):
+    """Read MODE and, for mvp, which promotion items have a document without `{{pending: …}}` blanks. Never writes."""
+    with root_directory(path) as root:
+        project_metadata(root)
+        mode = read_file(root, "MODE").decode("utf-8", errors="replace").strip()
+        if mode not in ("mvp", "prod"):
+            raise Issue("mode_invalid", value=mode[:40])
+        evidence = []
+        for item, expected, places in PROMOTION_EVIDENCE if mode == "mvp" else ():
+            found = []
+            for parts, pattern in places:
+                try:
+                    with directory(root, parts) as folder:
+                        names = sorted(os.listdir(folder))
+                except (FileNotFoundError, Issue):
+                    continue
+                for name in names:
+                    if name == "README.md" or not re.fullmatch(pattern, name):
+                        continue
+                    relative = "/".join((*parts, name))
+                    try:
+                        text = read_file(root, relative).decode("utf-8", errors="replace")
+                    except Issue:
+                        continue
+                    if text.strip() and "{{pending:" not in strip_code(text):
+                        found.append(relative)
+            evidence.append({"item": item, "status": "present" if found else "missing", "expected": expected,
+                             "found": found})
+    return {"mode": mode, "evidence": evidence, "missing": sum(entry["status"] == "missing" for entry in evidence)}
+
+
 def pr_size(path, base, limit):
     def git(*args):
         try:

@@ -47,7 +47,7 @@ class CliReferenceTests(unittest.TestCase):
     def test_one_page_per_command_in_both_languages(self):
         commands = list(children(parser_for(catalog("en"))))
         self.assertEqual(commands, ["init", "doctor", "check", "workflow", "upgrade", "extension", "preset",
-                                    "placeholders", "pr-size"])
+                                    "placeholders", "pr-size", "mode"])
         expected = {f"{name}{suffix}" for name in [*commands, "index"] for suffix in SUFFIX.values()}
         self.assertEqual({path.name for path in PAGES.iterdir()}, expected)
 
