@@ -27,7 +27,8 @@ def pyproject_version(text):
     return match.group(1)
 
 
-NO_ENTRY = re.compile(r"<!--\s*no changelog entry:(.*?)-->", re.DOTALL)
+# A marker is a comment alone on its line; the same text quoted inside an entry is part of the entry.
+NO_ENTRY = re.compile(r"^[ \t]*<!--\s*no changelog entry:(.*?)-->[ \t]*$", re.MULTILINE)
 
 
 def changelog_section(text, version):
