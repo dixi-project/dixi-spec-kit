@@ -1,8 +1,8 @@
-# v1.11.0 support matrix
+# v1.11.1 support matrix
 
 ## Purpose
 
-Declare what DIXI Spec Kit v1.11.0 supports, with what evidence, and which controls are automatic or only instructions. Nothing outside this table is announced as supported.
+Declare what DIXI Spec Kit v1.11.1 supports, with what evidence, and which controls are automatic or only instructions. Nothing outside this table is announced as supported.
 
 ## Systems and Python
 
