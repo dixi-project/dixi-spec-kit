@@ -9,6 +9,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 ### Changed
 
 - The READMEs show the latest GitHub release instead of the PyPI version (TASK-026): the PyPI badge is cached for six hours and looked stale after a release. `docs/pypi-publishing.md` says how to check the real version.
+- The `make verify` jobs of the `verify` workflow have 30 minutes instead of 15 (TASK-027), so that a slow macOS runner queue does not cancel a required check; `docs/repository-settings.md` says what to do if it happens.
 
 ### Fixed
 
