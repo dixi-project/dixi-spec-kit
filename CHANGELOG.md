@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Fixed
+
+- The Python badge of the READMEs said "missing": it read the package's Python classifiers, which the package does not declare. It now reads `requires-python` from `pyproject.toml` and shows `>=3.11`.
+
 ## [1.11.0] — 2026-11-12
 
 ### Added
