@@ -16,8 +16,9 @@ jobs:
   verify:
     name: make verify (${{ matrix.os }}, Python ${{ matrix.python }})
     runs-on: ${{ matrix.os }}
-    # The job itself takes about two minutes. The limit leaves room for the macOS runner queue, which on
-    # 2026-11-12 used up fifteen minutes twice before any step ran (TASK-027).
+    # The job itself takes about two minutes; the limit only cancels a job that hangs once it runs. It does not
+    # count while the job waits for a runner: GitHub cancels a job that no hosted runner acquires, as with the
+    # macOS jobs on 2026-11-12 and 2026-11-13. Then re-run the failed jobs (docs/repository-settings.md).
     timeout-minutes: 30
     strategy:
       fail-fast: false
