@@ -49,7 +49,7 @@ TASK-021, TASK-022 and TASK-023 moved to v1.11.0 by the owner's decision, to rel
 - [ ] **`/dixi.status` resumes a session like the ecosystem's `/open`** _(P2, level 2, v1.11.0)_ — [TASK-021](backlog/TASK-021-status-resumes-session.md).
 - [ ] **Read-only `dixi mode`** _(P3, level 2, v1.11.0)_ — [TASK-022](backlog/TASK-022-mode-read-only.md).
 - [ ] **`make release` warns about pull requests without a CHANGELOG entry** _(P2, level 1, v1.11.0)_ — [TASK-023](backlog/TASK-023-changelog-guard.md).
-- [ ] **Release v1.10.0** _(P2, level 1, v1.10.0)_ — [TASK-024](backlog/TASK-024-release-1-10.md).
+- [x] **Release v1.10.0** _(P2, level 1, v1.10.0)_ — [TASK-024](backlog/TASK-024-release-1-10.md). Closed on 2026-11-12; released in [v1.10.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.10.0) and on PyPI.
 
 ## Related
 
