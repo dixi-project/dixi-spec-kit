@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/dixi-spec-kit/"><img src="https://img.shields.io/pypi/v/dixi-spec-kit?color=1f5fc4" alt="Versión en PyPI"></a>
+  <a href="https://github.com/dixi-project/dixi-spec-kit/releases/latest"><img src="https://img.shields.io/github/v/release/dixi-project/dixi-spec-kit?color=1f5fc4" alt="Última versión"></a>
   <a href="https://pypi.org/project/dixi-spec-kit/"><img src="https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fdixi-project%2Fdixi-spec-kit%2Fmain%2Fpyproject.toml&color=1f5fc4" alt="Versión de Python requerida"></a>
   <a href="https://github.com/dixi-project/dixi-spec-kit/actions/workflows/verify.yml"><img src="https://github.com/dixi-project/dixi-spec-kit/actions/workflows/verify.yml/badge.svg?branch=main" alt="Estado de la verificación"></a>
   <a href="LICENSE"><img src="https://img.shields.io/pypi/l/dixi-spec-kit?color=1f5fc4" alt="Licencia MIT"></a>

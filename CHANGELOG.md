@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Changed
+
+- The READMEs show the latest GitHub release instead of the PyPI version (TASK-026): the PyPI badge is cached for six hours and looked stale after a release. `docs/pypi-publishing.md` says how to check the real version.
+
 ### Fixed
 
 - The Python badge of the READMEs said "missing": it read the package's Python classifiers, which the package does not declare. It now reads `requires-python` from `pyproject.toml` and shows `>=3.11` (#62).

@@ -23,6 +23,12 @@ Steps for a maintainer to enable and use the PyPI publication defined in [ADR-10
 3. If the environment requires reviewers, approve the `publish` job in the Actions tab.
 4. Check `https://pypi.org/project/dixi-spec-kit/` and install in a clean shell: `pipx install dixi-spec-kit` or `uv tool install dixi-spec-kit`, then `dixi --version`.
 
+## After a release
+
+The real version is the one PyPI serves: check https://pypi.org/project/dixi-spec-kit/ and, in a clean shell, `uv tool install --force --refresh dixi-spec-kit` (or `pipx install --force dixi-spec-kit`) and `dixi --version`. Without `--refresh`, `uv` may install the version it has cached.
+
+Badges are images served through caches and say nothing about whether the release worked. The README shows the latest GitHub release, which changes about five minutes after `make release`. A badge of the PyPI version is sent with a cache lifetime of six hours and GitHub keeps its own copy of README images, so on 2026-11-12 it still showed v1.10.0 hours after v1.11.0 was on PyPI; that is why the README does not use it.
+
 ## If something fails
 
 - **Tag does not match the package version:** nothing was uploaded; the release was created before its pull request was merged. Delete the release and the tag (`gh release delete vX.Y.Z -R dixi-project/dixi-spec-kit --cleanup-tag --yes`, `git tag -d vX.Y.Z`) and release again with `make release`.
