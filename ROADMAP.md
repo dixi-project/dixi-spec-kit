@@ -60,10 +60,14 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - Local, data-only extensions (`dixi extension`) and presets (`dixi preset`) ([ADR-109](09-architecture/adr/ADR-109-local-presets-and-extensions.md)).
 - Documentation site in English and Spanish: https://dixi-project.github.io/dixi-spec-kit/ (phase E). With this release the ADR-108 plan is complete.
 
-## Next: documentation and continuity (v1.10.0)
+## v1.10.0 — Documentation for users (2026-11-12)
 
-- A generated reference page per command and a CLI reference, in English and Spanish.
-- A public command guide with the journey and "which command when", replacing the internal catalog.
+- A generated reference page per command, with an example for each adapter, and a CLI reference, in English and Spanish.
+- A public command guide with the journey, "which command when" and a walkthrough, replacing the internal catalog.
+- The key pages of the documentation site in Spanish; a logo for the project.
+
+## Next: continuity (v1.11.0)
+
 - `/dixi.status` resumes a session; a read-only `dixi mode`; a CHANGELOG check in `make release`.
 
 ## Later
