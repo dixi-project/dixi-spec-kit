@@ -12,6 +12,8 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 - Documentation index and guides for what surrounds the commands (TASK-030), in English and Spanish and on the documentation site: `docs/documentation.md` lists every user document by what the person wants to do, and both READMEs link it from a Documentation section; `docs/subagents.md`, generated from the packaged subagent files by `scripts/build-subagent-reference.py`; `docs/controls.md`, what each of the five hooks of `--controls` blocks and what none covers; `docs/extensions-and-presets.md`, how to write one, with the examples `examples/extension-minimal` and `examples/preset-minimal` that a test installs; and a Spanish version of the recipes guide (#70).
 
+<!-- no changelog entry: #69, #71 -->
+
 ## [1.11.1] — 2026-11-13
 
 ### Changed
