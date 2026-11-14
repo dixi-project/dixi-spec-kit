@@ -23,15 +23,17 @@ No `.claude/`, `.codex/`, `.cursor/`, `.github/`, `.gemini/` or `.opencode/` fol
 
 ## Discovery by agent
 
-| Agent | Reads `.agents/skills/` | Source (read 2026-11-11) |
-|---|---|---|
-| OpenAI Codex | Yes | learn.chatgpt.com/docs/build-skills |
-| Cursor | Yes | cursor.com/docs/skills |
-| VS Code / GitHub Copilot | Yes (depending on the surface) | code.visualstudio.com/docs/copilot/customization/agent-skills |
-| Gemini CLI | Yes (alias of `.gemini/skills`) | geminicli.com/docs/cli/skills |
-| OpenCode | Yes | opencode.ai/docs/skills |
-| Goose, Amp | Yes, according to search results only | goose-docs.ai, ampcode.com |
-| Claude Code | No (only `.claude/skills/`; issue #31005 open) | code.claude.com/docs/en/skills |
+| Agent | Reads `.agents/skills/` | Explicit invocation | Source (read 2026-11-14) |
+|---|---|---|---|
+| OpenAI Codex | Yes, from the working directory up to the repository root (page truncated; not read verbatim) | `$dixi-<operation>` | learn.chatgpt.com/docs/build-skills |
+| Cursor | Yes (project level); honours `disable-model-invocation` | `/dixi-<operation>` in Agent chat | cursor.com/docs/skills |
+| VS Code / GitHub Copilot | **No for Copilot**, which reads `.github/skills/`; only the OpenAI Codex harness and the deprecated Local sessions read `.agents/skills/` | `/dixi-<operation>` in chat | code.visualstudio.com/docs/copilot/customization/agent-skills |
+| Gemini CLI | Yes (alias of `.gemini/skills/`); no field to stop implicit invocation, only `/skills disable`. Replaced by Antigravity CLI on 2026-06-18 according to its site | Automatic activation only | geminicli.com/docs/cli/skills |
+| OpenCode | Yes (compatibility path; `.opencode/skills/` is the main one); honours `disable-model-invocation` | `@dixi-<operation>` in the prompt | opencode.ai/docs/skills |
+| Goose, Amp | Yes, according to search results only (not re-read on 2026-11-14) | Not recorded | goose-docs.ai, ampcode.com |
+| Claude Code | No (only `.claude/skills/`) | `/skill-name` | code.claude.com/docs/en/skills |
+
+Changes since the reading of 2026-11-11: VS Code/Copilot was listed as "Yes (depending on the surface)", but Copilot itself reads `.github/skills/`; Gemini CLI has been replaced by Antigravity CLI, which has not been read.
 
 The support matrix lists the adapter as "format compatible, not verified per agent". An agent moves to Supported only after a recorded run, as for Claude Code and Codex.
 

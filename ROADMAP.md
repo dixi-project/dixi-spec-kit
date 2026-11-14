@@ -85,10 +85,11 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 
 ## Next: more verified agents (v1.13.0)
 
-- Recorded runs of `--agent skills` in Cursor and VS Code/Copilot, and a full run in OpenCode; an agent is listed as supported only with its run.
+- A recorded run of `--agent skills` in Cursor and a full run in OpenCode; an agent is listed as supported only with its run.
 
 ## Later
 
+- A VS Code/Copilot adapter writing `.github/skills/`, only with demand and its own ADR.
 - A native Windows backend only with real demand and a new validation.
 
 ## Related
