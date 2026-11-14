@@ -18,7 +18,7 @@ so that I do not have to read the packaged files or the internal contracts to us
 
 ## Acceptance criteria
 
-1. Documentation index: `docs/index.md`, with a Spanish version, lists every user document by what the person wants to do (start, choose a command, look up a command or an option, extend the kit, migrate, contribute). Both READMEs link it in a section of its own near the top, and the documentation site shows it.
+1. Documentation index: `docs/documentation.md` (first written here as `docs/index.md`; renamed during the work because `index` is the home page of the site), with a Spanish version, lists every user document by what the person wants to do (start, choose a command, look up a command or an option, extend the kit, migrate, contribute). Both READMEs link it in a section of its own near the top, and the documentation site shows it.
 2. Subagents: a page that says what each of the four subagents is for, what it may and may not do, and how to invoke it, generated from the packaged agent files so that it cannot drift; a test fails when a subagent has no entry or the page is out of date.
 3. Automatic controls: a guide to `--controls` that says, for each of the five hooks, what it blocks, when it runs, for which agents, and how to see that it is active; with what the controls do not cover. A test fails when a packaged hook is not in the guide.
 4. Extensions and presets: a guide to writing one from an empty folder (the files, the fields of the manifest, the limits) with a minimal example that a test installs with `dixi extension add` and `dixi preset add`.

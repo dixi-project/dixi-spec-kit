@@ -25,6 +25,19 @@ DIXI Spec Kit is a [Dixi Project](https://github.com/dixi-project) tool for spec
 - **Human control:** the agent does not sign, approve, merge or deploy.
 - **No dependencies, no network:** the CLI uses only the Python standard library, consumes no AI and asks for no credentials. You choose your project's language.
 
+## Documentation
+
+Everything is listed in the [documentation index](docs/documentation.md), by what you want to do. The pages people open most:
+
+| To | Open |
+|---|---|
+| Know which command to use and when | [Command guide](docs/command-catalog.md) |
+| Look up one command of the agent | [Command reference](docs/commands/index.md), one page for each of the thirty-three |
+| Look up one terminal command or option | [CLI reference](docs/cli/index.md) |
+| Use the Claude Code subagents | [Subagents](docs/subagents.md) |
+| Have the rules enforced by hooks | [Automatic controls](docs/controls.md) |
+| Add your own operations or texts | [Extensions and presets](docs/extensions-and-presets.md) |
+
 ## Installation
 
 Requirements: Python 3.11 or later, macOS or Linux. On Windows, use WSL 2 with the project under `~`, not `/mnt/c` ([details](docs/local-development.md#windows-wsl-2)); native Windows is not supported.

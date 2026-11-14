@@ -10,6 +10,27 @@
   "choose": "Elige un idioma",
   "commands": "Comandos",
   "cli_group": "Terminal (CLI)",
+  "subagents": {
+    "title": "Subagentes de DIXI Spec Kit",
+    "purpose": "Propósito",
+    "purpose_text": "Decir para qué sirve cada uno de los cuatro subagentes de Claude Code, qué puede y qué no puede hacer y cómo usarlo. Un subagente es un rol con un trabajo acotado y sus propios límites; los comandos siguen siendo los que empiezan y terminan el trabajo.",
+    "generated": "Generada por `scripts/build-subagent-reference.py` a partir de los archivos empaquetados de los subagentes; no la edites a mano.",
+    "how": "Cómo se usan",
+    "how_text": [
+      "- Se instalan solo con `--agent claude`, como archivos en `.claude/agents/`, en el idioma del proyecto. Los proyectos de Codex y de Agent Skills no reciben subagentes.",
+      "- Claude Code elige un subagente por su descripción, o tú lo pides por nombre, por ejemplo: «Usa el subagente dixi-tester para escribir las pruebas de T-001».",
+      "- Una tarea pasa por ellos en este orden: architect, tester, developer, reviewer. `/dixi.build` sigue el mismo orden cuando trabaja sin subagentes.",
+      "- Cada uno conserva los límites de los comandos: no firma, no aprueba, no integra, no despliega ni lee secretos, y nunca edita una prueba ya commiteada."
+    ],
+    "file": "Se instala como `.claude/agents/{name}.md`.",
+    "does": "Qué hace",
+    "delivers": "Qué entrega",
+    "limits": "Límites",
+    "related": "Relacionado",
+    "documentation": "Índice de la documentación",
+    "commands": "Referencia de comandos",
+    "controls": "Controles automáticos"
+  },
   "cli": {
     "index_title": "Referencia de la CLI",
     "index_purpose": "Cada comando de terminal de `dixi` con sus argumentos, opciones y códigos de salida, para poder automatizarlo con seguridad. Las operaciones que se ejecutan dentro de un agente están en la referencia de comandos.",

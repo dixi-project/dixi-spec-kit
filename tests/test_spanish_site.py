@@ -13,7 +13,11 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 # Flat documents with a Spanish source (`<name>.es.md`). Every other flat page keeps the English-only notice.
-TRANSLATED = {"command-catalog": "Guía de comandos de DIXI Spec Kit", "coming-from-spec-kit": "Si vienes de Spec Kit"}
+TRANSLATED = {"command-catalog": "Guía de comandos de DIXI Spec Kit", "coming-from-spec-kit": "Si vienes de Spec Kit",
+              # Added by TASK-030.
+              "documentation": "Documentación de DIXI Spec Kit", "subagents": "Subagentes de DIXI Spec Kit",
+              "controls": "Controles automáticos", "extensions-and-presets": "Extensiones y presets",
+              "workflow-quickstart": "Procedimientos compartidos"}
 NOTICE = json.loads((ROOT / "scripts/site/es.json").read_text(encoding="utf-8"))["english_only"]
 
 

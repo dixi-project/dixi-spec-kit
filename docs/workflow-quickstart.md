@@ -113,7 +113,8 @@ Limits: request of up to 4,096 characters, up to 64 sources, 1 MiB per file and 
 
 - [Contract](../07-contracts/commands/workflow-preparation-contract.md)
 - [Evidence](b2-verification.md)
-- [Full catalog](command-catalog.md)
+- [Command guide](command-catalog.md)
+- [CLI reference: `dixi workflow`](cli/workflow.md)
 - [Task](../tasks/backlog/TASK-002-operaciones-compartidas-b2.md)
 
 ## Resumen en español
