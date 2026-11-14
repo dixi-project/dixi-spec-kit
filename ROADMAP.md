@@ -78,9 +78,10 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - The READMEs show the latest GitHub release and the required Python version, instead of badges that looked stale or said "missing".
 - Documented: what to do when GitHub cancels a macOS check for lack of runners, and how an isolated agent session hands off.
 
-## Next: complete documentation (v1.12.0)
+## v1.12.0 — Complete documentation (2026-11-13)
 
-- A documentation index, and guides for the subagents, the automatic controls and writing extensions and presets, in English and Spanish.
+- A documentation index that lists every user document by what the person wants to do, linked from the READMEs.
+- Guides for the subagents, the automatic controls and writing extensions and presets, and the recipes guide in Spanish.
 
 ## Later
 
