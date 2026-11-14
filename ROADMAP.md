@@ -85,7 +85,8 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 
 ## Next: more verified agents (v1.13.0)
 
-- A recorded run of `--agent skills` in Cursor and a full run in OpenCode; an agent is listed as supported only with its run.
+- `--agent skills` supported in OpenCode with a full recorded run; an agent is listed as supported only with its run. Cursor stays format compatible, not verified.
+- `dixi doctor` and the public pages no longer list VS Code/Copilot among the agents that read `.agents/skills/`.
 
 ## Later
 

@@ -38,6 +38,10 @@ so that I can adopt the method without testing the adapter myself.
 - OpenCode: full run recorded in the [contract](../../07-contracts/commands/agent-skills-adapter-contract.md#manual-runs) with `dixi 1.12.0`; (a) to (d) hold. The run found that `dixi doctor` still listed VS Code/Copilot; the message was corrected tests first.
 - Cursor: pending, run by the owner (graphical application).
 
+## Closed — 2026-11-14
+
+Merged in #72. OpenCode 1.19.5 is supported with a full recorded run; the `dixi doctor` message and the public pages no longer list VS Code/Copilot, which reads `.github/skills/`. "Done when" 3 closed with the owner's decision: Cursor was not run in this task and stays "format compatible, not verified" in the support matrix; a later run can move it to Supported, and the test added here requires that run to be recorded in the contract.
+
 ## Related
 
 - [Tasks](../TASKS.md)
