@@ -65,6 +65,10 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 
 - [x] **Guides for what surrounds the commands, and a documentation index** _(P1, level 2, v1.12.0)_ — [TASK-030](backlog/TASK-030-complete-documentation.md). Closed on 2026-11-13; released in v1.12.0. The owner checked the index.
 
+## v1.13.0 — more verified agents
+
+- [~] **More agents verified with the Agent Skills adapter** _(P2, level 2, v1.13.0)_ — [TASK-031](backlog/TASK-031-more-verified-agents.md). OpenCode full run recorded and supported; VS Code/Copilot taken out of the task by the owner (it reads `.github/skills/`). Missing: the Cursor run (owner), CI green and the owner's acceptance of the evidence.
+
 ## Related
 
 - [Roadmap](../ROADMAP.md)

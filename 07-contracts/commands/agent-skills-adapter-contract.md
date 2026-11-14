@@ -23,15 +23,17 @@ No `.claude/`, `.codex/`, `.cursor/`, `.github/`, `.gemini/` or `.opencode/` fol
 
 ## Discovery by agent
 
-| Agent | Reads `.agents/skills/` | Source (read 2026-11-11) |
-|---|---|---|
-| OpenAI Codex | Yes | learn.chatgpt.com/docs/build-skills |
-| Cursor | Yes | cursor.com/docs/skills |
-| VS Code / GitHub Copilot | Yes (depending on the surface) | code.visualstudio.com/docs/copilot/customization/agent-skills |
-| Gemini CLI | Yes (alias of `.gemini/skills`) | geminicli.com/docs/cli/skills |
-| OpenCode | Yes | opencode.ai/docs/skills |
-| Goose, Amp | Yes, according to search results only | goose-docs.ai, ampcode.com |
-| Claude Code | No (only `.claude/skills/`; issue #31005 open) | code.claude.com/docs/en/skills |
+| Agent | Reads `.agents/skills/` | Explicit invocation | Source (read 2026-11-14) |
+|---|---|---|---|
+| OpenAI Codex | Yes, from the working directory up to the repository root (page truncated; not read verbatim) | `$dixi-<operation>` | learn.chatgpt.com/docs/build-skills |
+| Cursor | Yes (project level); honours `disable-model-invocation` | `/dixi-<operation>` in Agent chat | cursor.com/docs/skills |
+| VS Code / GitHub Copilot | **No for Copilot**, which reads `.github/skills/`; only the OpenAI Codex harness and the deprecated Local sessions read `.agents/skills/` | `/dixi-<operation>` in chat | code.visualstudio.com/docs/copilot/customization/agent-skills |
+| Gemini CLI | Yes (alias of `.gemini/skills/`); no field to stop implicit invocation, only `/skills disable`. Replaced by Antigravity CLI on 2026-06-18 according to its site | Automatic activation only | geminicli.com/docs/cli/skills |
+| OpenCode | Yes (compatibility path; `.opencode/skills/` is the main one); honours `disable-model-invocation` | `@dixi-<operation>` in the prompt | opencode.ai/docs/skills |
+| Goose, Amp | Yes, according to search results only (not re-read on 2026-11-14) | Not recorded | goose-docs.ai, ampcode.com |
+| Claude Code | No (only `.claude/skills/`) | `/skill-name` | code.claude.com/docs/en/skills |
+
+Changes since the reading of 2026-11-11: VS Code/Copilot was listed as "Yes (depending on the surface)", but Copilot itself reads `.github/skills/`; Gemini CLI has been replaced by Antigravity CLI, which has not been read.
 
 The support matrix lists the adapter as "format compatible, not verified per agent". An agent moves to Supported only after a recorded run, as for Claude Code and Codex.
 
@@ -42,6 +44,7 @@ The support matrix lists the adapter as "format compatible, not verified per age
 
 - 2026-11-12, released `dixi 1.9.0` installed from PyPI: `dixi init --agent skills` installed 33 of 33 skills, `dixi check` passed and `doctor` reported the adapter. Two OpenCode 1.19.5 runs of `dixi-status` with the configured local model (`ollama/qwen3.5:9b` on a 16 GB machine): the first could not reach the model server (`ECONNREFUSED`); the second reached it but did not finish within fifteen minutes (the model only started a subagent to load the skill). No file changed in either run.
 - **Accepted by the owner on 2026-11-12** as evidence for OpenCode: discovery of all thirty-three skills and explicit loading and following of a skill are verified; the speed and quality of a full answer depend on the model the person configures, which is outside the adapter.
+- 2026-11-14, full run for [TASK-031](../../tasks/backlog/TASK-031-more-verified-agents.md): OpenCode 1.19.5 with model `opencode/deepseek-v4.1-flash-free`, released `dixi 1.12.0` from PyPI, project created with `dixi init demo --agent skills` and committed. (a) `opencode debug skill` returned 49 skills, 33 of them `dixi-<operation>` from `demo/.agents/skills/`, each `name` equal to its folder. (b) `opencode run "@dixi-status"` loaded the skill (`→ Skill "dixi-status"`), ran `dixi doctor` and `dixi check` (both OK, 33 of 33 skills), read the traceability and the documents, and answered with the project state and `dixi-interview` as the next step, in 41 seconds; a second identical run gave the same steps. (c) `opencode run "Summarize this project in three lines"` loaded no `dixi-*` skill: it read four files and answered in 16 seconds. (d) `git status --short` was empty after the three runs. The run also showed that the `dixi doctor` message listed VS Code/Copilot among the agents that read `.agents/skills/`; corrected in the same task.
 
 ## Compatibility
 
