@@ -179,6 +179,17 @@ class ExtensionAndPresetGuideTests(unittest.TestCase):
         self.assertEqual(cli("preset", "remove", "team", cwd=self.project).returncode, 0)
         self.assertEqual(target.read_text(encoding="utf-8"), kit)
 
+    def test_guide_says_which_one_works_without_an_agent(self):
+        # Found while checking the guide against the CLI: only the extension needs an agent.
+        self.assertEqual(cli("init", "plain", "--agent", "none", cwd=self.base).returncode, 0)
+        plain = self.base / "plain"
+        self.assertEqual(cli("extension", "add", str(ROOT / "examples/extension-minimal"), cwd=plain).returncode, 2)
+        self.assertEqual(cli("preset", "add", str(ROOT / "examples/preset-minimal"), cwd=plain).returncode, 0)
+        english = read("docs/extensions-and-presets.md")
+        self.assertIn("`dixi extension add` is refused", english)
+        self.assertIn("A preset is accepted in any project", english)
+        self.assertIn("`dixi extension add` se rechaza", read("docs/extensions-and-presets.es.md"))
+
     def test_examples_hold_only_what_the_formats_accept(self):
         files = {"extension-minimal": ["extension.json", "operations/en/deploy-check.md", "operations/es/deploy-check.md"],
                  "preset-minimal": ["operations/en/handoff.md", "operations/es/handoff.md", "preset.json"]}
