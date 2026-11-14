@@ -33,6 +33,11 @@ so that I can adopt the method without testing the adapter myself.
 2. `make verify` passes and CI is green.
 3. The owner ran each agent, or recorded why an agent could not be run, and accepted the evidence.
 
+## Progress — 2026-11-14
+
+- OpenCode: full run recorded in the [contract](../../07-contracts/commands/agent-skills-adapter-contract.md#manual-runs) with `dixi 1.12.0`; (a) to (d) hold. The run found that `dixi doctor` still listed VS Code/Copilot; the message was corrected tests first.
+- Cursor: pending, run by the owner (graphical application).
+
 ## Related
 
 - [Tasks](../TASKS.md)
