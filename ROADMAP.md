@@ -78,6 +78,10 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - The READMEs show the latest GitHub release and the required Python version, instead of badges that looked stale or said "missing".
 - Documented: what to do when GitHub cancels a macOS check for lack of runners, and how an isolated agent session hands off.
 
+## Next: complete documentation (v1.12.0)
+
+- A documentation index, and guides for the subagents, the automatic controls and writing extensions and presets, in English and Spanish.
+
 ## Later
 
 - A native Windows backend only with real demand and a new validation.
