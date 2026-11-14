@@ -67,7 +67,7 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 
 ## v1.13.0 — more verified agents
 
-- [ ] **More agents verified with the Agent Skills adapter** _(P2, level 2, v1.13.0)_ — [TASK-031](backlog/TASK-031-more-verified-agents.md).
+- [~] **More agents verified with the Agent Skills adapter** _(P2, level 2, v1.13.0)_ — [TASK-031](backlog/TASK-031-more-verified-agents.md). OpenCode full run recorded and supported; VS Code/Copilot taken out of the task by the owner (it reads `.github/skills/`). Missing: the Cursor run (owner), CI green and the owner's acceptance of the evidence.
 
 ## Related
 

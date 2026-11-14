@@ -6,6 +6,15 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Changed
+
+- `--agent skills` is supported in OpenCode 1.19.5 with a full recorded run (TASK-031): with the released `dixi` 1.12.0, OpenCode discovered the thirty-three skills, loaded and followed `dixi-status` when asked as `@dixi-status`, started no DIXI skill on a prompt that named none, and changed no file. A test requires a recorded run for every agent that the support matrix lists as supported.
+- The discovery table of the Agent Skills contract was re-read on 2026-11-14: VS Code/Copilot reads `.github/skills/`, not `.agents/skills/`, so the READMEs, the support matrix and the Spec Kit comparison no longer list it; Gemini CLI has been replaced by Antigravity CLI according to its site. The Spanish summary of the support matrix now covers `--agent skills` (TASK-031).
+
+### Fixed
+
+- `dixi doctor` no longer names VS Code/Copilot among the agents that read `.agents/skills/` (TASK-031).
+
 ## [1.12.0] — 2026-11-13
 
 ### Added
