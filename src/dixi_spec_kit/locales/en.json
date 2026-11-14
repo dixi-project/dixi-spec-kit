@@ -40,7 +40,7 @@
   "agent_none": "Integration: none. No agent required. Project language: {language}",
   "agent_claude": "Integration: Claude Code. Installed commands: {commands} of {available}. Project language: {language}",
   "agent_codex": "Integration: Codex. Installed skills: {skills} of {available}. Project language: {language}",
-  "agent_skills": "Integration: Agent Skills in .agents/skills/ (Cursor, VS Code/Copilot, Gemini CLI, OpenCode and other compatible agents). Installed skills: {skills} of {available}. Project language: {language}",
+  "agent_skills": "Integration: Agent Skills in .agents/skills/ (Cursor, Gemini CLI, OpenCode and other compatible agents). Installed skills: {skills} of {available}. Project language: {language}",
   "no_project_optional": "No project in this directory; general diagnosis completed.",
   "invalid_arguments": "Invalid arguments. See dixi --help; global options precede the command.",
   "io_error": "Input/output failure. Initialization may be partial; inspect the destination before retrying.",
