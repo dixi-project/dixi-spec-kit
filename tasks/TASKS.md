@@ -63,7 +63,7 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 
 ## v1.12.0 — complete documentation
 
-- [ ] **Guides for what surrounds the commands, and a documentation index** _(P1, level 2, v1.12.0)_ — [TASK-030](backlog/TASK-030-complete-documentation.md).
+- [x] **Guides for what surrounds the commands, and a documentation index** _(P1, level 2, v1.12.0)_ — [TASK-030](backlog/TASK-030-complete-documentation.md). Closed on 2026-11-13; released in v1.12.0. The owner checked the index.
 
 ## Related
 
