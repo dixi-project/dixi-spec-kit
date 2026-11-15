@@ -71,7 +71,7 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 
 ## v1.14.0 — tutorial
 
-- [~] **A step-by-step tutorial on the documentation site** _(P2, level 2, v1.14.0)_ — [TASK-032](backlog/TASK-032-tutorial.md). Pages, site group and tests done; pending CI and the owner following the published tutorial.
+- [x] **A step-by-step tutorial on the documentation site** _(P2, level 2, v1.14.0)_ — [TASK-032](backlog/TASK-032-tutorial.md). Closed on 2026-11-15; merged in #75; released in v1.14.0. The owner checked the published tutorial; the PyPI page links it.
 
 ## Related
 

@@ -49,7 +49,7 @@ uv tool install dixi-spec-kit
 pipx install dixi-spec-kit
 ```
 
-The package is on [PyPI](https://pypi.org/project/dixi-spec-kit/). To pin a tag from Git instead: `uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.13.0`. Without network access to PyPI, download the wheel from the [v1.13.0 release](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.13.0) and install it with `pipx install dixi_spec_kit-1.13.0-py3-none-any.whl`.
+The package is on [PyPI](https://pypi.org/project/dixi-spec-kit/). To pin a tag from Git instead: `uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.14.0`. Without network access to PyPI, download the wheel from the [v1.14.0 release](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.14.0) and install it with `pipx install dixi_spec_kit-1.14.0-py3-none-any.whl`.
 
 ## Quickstart
 
