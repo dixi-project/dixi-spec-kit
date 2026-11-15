@@ -31,6 +31,7 @@ Everything is listed in the [documentation index](docs/documentation.md), by wha
 
 | To | Open |
 |---|---|
+| Learn the method by building one feature | [Tutorial](docs/tutorial/index.md), seven short steps |
 | Know which command to use and when | [Command guide](docs/command-catalog.md) |
 | Look up one command of the agent | [Command reference](docs/commands/index.md), one page for each of the thirty-three |
 | Look up one terminal command or option | [CLI reference](docs/cli/index.md) |

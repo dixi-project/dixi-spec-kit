@@ -6,6 +6,10 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+### Added
+
+- A step-by-step tutorial on the documentation site, in English and Spanish, as the first menu group (TASK-032): one example feature from installing the kit to a verified build, in seven short steps (install, create the project, specify, plan, tasks, build, verify), each linking the reference of the commands it uses. Tests check that every command it names exists and run its terminal commands in order in an empty folder. The documentation index and both READMEs link it.
+
 ## [1.13.0] — 2026-11-14
 
 ### Changed

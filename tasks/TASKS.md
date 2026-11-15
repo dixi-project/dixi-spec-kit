@@ -69,6 +69,10 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 
 - [x] **More agents verified with the Agent Skills adapter** _(P2, level 2, v1.13.0)_ — [TASK-031](backlog/TASK-031-more-verified-agents.md). Closed on 2026-11-14; merged in #72; released in v1.13.0. OpenCode supported with a full recorded run; VS Code/Copilot taken out (it reads `.github/skills/`); Cursor not run, by the owner's decision, and stays format compatible, not verified.
 
+## v1.14.0 — tutorial
+
+- [~] **A step-by-step tutorial on the documentation site** _(P2, level 2, v1.14.0)_ — [TASK-032](backlog/TASK-032-tutorial.md). Pages, site group and tests done; pending CI and the owner following the published tutorial.
+
 ## Related
 
 - [Roadmap](../ROADMAP.md)
