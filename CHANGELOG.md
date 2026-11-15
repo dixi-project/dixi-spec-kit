@@ -17,7 +17,7 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 - `dixi doctor` no longer names VS Code/Copilot among the agents that read `.agents/skills/` (TASK-031, #72).
 
-<!-- no changelog entry: #73 -->
+<!-- no changelog entry: #73, #74 -->
 
 ## [1.12.0] — 2026-11-13
 
