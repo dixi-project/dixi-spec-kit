@@ -32,12 +32,19 @@ Optional: `--profile site|app|platform` (and `--regulated`) for fuller templates
 
 In Claude Code, thirty-three commands: `/dixi.constitution`, `/dixi.onboard`, `/dixi.discover`, `/dixi.interview`, `/dixi.specify`, `/dixi.clarify`, `/dixi.domain`, `/dixi.architecture`, `/dixi.contract`, `/dixi.data`, `/dixi.threat-model`, `/dixi.ai`, `/dixi.plan`, `/dixi.tasks`, `/dixi.build`, `/dixi.verify`, `/dixi.review`, `/dixi.analyze`, `/dixi.checklist`, `/dixi.converge`, `/dixi.bugfix`, `/dixi.issues`, `/dixi.quality`, `/dixi.status`, `/dixi.handoff`, `/dixi.change`, `/dixi.release`, `/dixi.promote`, `/dixi.operate`, `/dixi.finops`, `/dixi.compliance`, `/dixi.duediligence`, `/dixi.risk-review`, plus four subagents.
 
-For other agents that read Agent Skills (Cursor, Gemini CLI, OpenCode…), `--agent skills` installs the operations in `.agents/skills/`, with implicit invocation disabled. In Codex, `--agent codex` installs the same operations as skills, invoked as `$dixi-specify`, `$dixi-plan`, etc., with implicit invocation disabled.
+For agents that read Agent Skills, `--agent skills` installs the operations in `.agents/skills/`, with implicit invocation disabled; verified in OpenCode, format compatible with Cursor and others. In Codex, `--agent codex` installs the same operations as skills, invoked as `$dixi-specify`, `$dixi-plan`, etc., with implicit invocation disabled.
 
 Terminal: `dixi init`, `dixi doctor`, `dixi check`, `dixi workflow list|show|prepare`, `dixi upgrade --dry-run` (preview what a newer kit version would change, without writing), `dixi upgrade --apply` (write only kit files you have not edited), `dixi extension add|list|remove` (your own operations from a local, data-only folder), `dixi preset add|list|remove` (your versions of kit texts and templates), `dixi placeholders`, `dixi pr-size`. Global options `--lang es|en` and `--json` go before the command. Exit codes: 0 success, 1 invalid content, 2 usage, 3 occupied or unsafe destination, 4 unsupported version or platform, 5 I/O.
 
 `dixi check` and the generated `make verify` check documentary structure and traceability; connect your application's real tests to `make verify`.
 
+## Documentation / Documentación
+
+Documentation site in English and Spanish: https://dixi-project.github.io/dixi-spec-kit/
+
+- Tutorial, one feature from installing the kit to a verified build: [English](https://dixi-project.github.io/dixi-spec-kit/en/tutorial/index.html) · [Español](https://dixi-project.github.io/dixi-spec-kit/es/tutorial/index.html)
+- Documentation index, every guide and reference by what you want to do: [English](https://dixi-project.github.io/dixi-spec-kit/en/documentation.html) · [Español](https://dixi-project.github.io/dixi-spec-kit/es/documentation.html)
+
 ## Related / Relacionados
 
-Source, documentation, support matrix and contribution guide: https://github.com/dixi-project/dixi-spec-kit. License: MIT.
+Source, support matrix and contribution guide: https://github.com/dixi-project/dixi-spec-kit. License: MIT.

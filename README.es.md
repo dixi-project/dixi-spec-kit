@@ -49,7 +49,7 @@ uv tool install dixi-spec-kit
 pipx install dixi-spec-kit
 ```
 
-El paquete está en [PyPI](https://pypi.org/project/dixi-spec-kit/). Para fijar una etiqueta desde Git: `uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.13.0`. Sin acceso a PyPI, descarga el wheel de la [release v1.13.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.13.0) e instálalo con `pipx install dixi_spec_kit-1.13.0-py3-none-any.whl`.
+El paquete está en [PyPI](https://pypi.org/project/dixi-spec-kit/). Para fijar una etiqueta desde Git: `uv tool install git+https://github.com/dixi-project/dixi-spec-kit@v1.14.0`. Sin acceso a PyPI, descarga el wheel de la [release v1.14.0](https://github.com/dixi-project/dixi-spec-kit/releases/tag/v1.14.0) e instálalo con `pipx install dixi_spec_kit-1.14.0-py3-none-any.whl`.
 
 ## Inicio rápido
 
