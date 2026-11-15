@@ -83,7 +83,7 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - A documentation index that lists every user document by what the person wants to do, linked from the READMEs.
 - Guides for the subagents, the automatic controls and writing extensions and presets, and the recipes guide in Spanish.
 
-## Next: more verified agents (v1.13.0)
+## v1.13.0 — More verified agents (2026-11-14)
 
 - `--agent skills` supported in OpenCode with a full recorded run; an agent is listed as supported only with its run. Cursor stays format compatible, not verified.
 - `dixi doctor` and the public pages no longer list VS Code/Copilot among the agents that read `.agents/skills/`.

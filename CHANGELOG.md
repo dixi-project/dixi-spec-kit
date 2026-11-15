@@ -6,6 +6,8 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 
 ## [Unreleased]
 
+## [1.13.0] — 2026-11-14
+
 ### Changed
 
 - `--agent skills` is supported in OpenCode 1.19.5 with a full recorded run (TASK-031): with the released `dixi` 1.12.0, OpenCode discovered the thirty-three skills, loaded and followed `dixi-status` when asked as `@dixi-status`, started no DIXI skill on a prompt that named none, and changed no file. A test requires a recorded run for every agent that the support matrix lists as supported (#72).
@@ -14,6 +16,8 @@ Record changes to the public DIXI Spec Kit product. Format based on [Keep a Chan
 ### Fixed
 
 - `dixi doctor` no longer names VS Code/Copilot among the agents that read `.agents/skills/` (TASK-031, #72).
+
+<!-- no changelog entry: #73, #74 -->
 
 ## [1.12.0] — 2026-11-13
 
