@@ -31,6 +31,7 @@ Todo está listado en el [índice de la documentación](docs/documentation.es.md
 
 | Para | Abre |
 |---|---|
+| Aprender el método construyendo una feature | [Tutorial](docs/tutorial/index.es.md), siete pasos cortos |
 | Saber qué comando usar y cuándo | [Guía de comandos](docs/command-catalog.es.md) |
 | Consultar un comando del agente | [Referencia de comandos](docs/commands/index.es.md), una página por cada uno de los treinta y tres |
 | Consultar un comando de terminal o una opción | [Referencia de la CLI](docs/cli/index.es.md) |

@@ -8,6 +8,7 @@
   "english_only": "Esta página está disponible solo en inglés; el resumen en español, si existe, está al final.",
   "source": "Código en GitHub",
   "choose": "Elige un idioma",
+  "tutorial": "Tutorial",
   "commands": "Comandos",
   "cli_group": "Terminal (CLI)",
   "subagents": {

@@ -8,6 +8,7 @@
   "english_only": "",
   "source": "Source on GitHub",
   "choose": "Choose a language",
+  "tutorial": "Tutorial",
   "commands": "Commands",
   "cli_group": "Terminal (CLI)",
   "subagents": {

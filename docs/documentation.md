@@ -7,6 +7,7 @@ List everything written for people who use DIXI, by what you want to do. Each li
 ## Start
 
 - [README](../README.md): what DIXI is, how to install it and the first commands.
+- [Tutorial](tutorial/index.md): one example feature step by step, from installing the kit to a verified build.
 - [Command guide](command-catalog.md): the path of a feature from an idea to a release, and a complete example from `dixi init`.
 - [Support matrix](support-matrix.md): which systems, Python versions and agents are supported, and with what evidence.
 
