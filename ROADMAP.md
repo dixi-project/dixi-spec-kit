@@ -88,6 +88,10 @@ Released together; originally planned as v1.4.0 to v1.6.0.
 - `--agent skills` supported in OpenCode with a full recorded run; an agent is listed as supported only with its run. Cursor stays format compatible, not verified.
 - `dixi doctor` and the public pages no longer list VS Code/Copilot among the agents that read `.agents/skills/`.
 
+## Next
+
+- v1.14.0: a step-by-step tutorial on the documentation site, from installing the kit to a verified build, in English and Spanish ([TASK-032](tasks/backlog/TASK-032-tutorial.md)).
+
 ## Later
 
 - A VS Code/Copilot adapter writing `.github/skills/`, only with demand and its own ADR.
