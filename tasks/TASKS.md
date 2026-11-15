@@ -71,7 +71,7 @@ Small follow-ups found while releasing v1.10.0 and v1.11.0. TASK-028 and TASK-02
 
 ## v1.14.0 — tutorial
 
-- [ ] **A step-by-step tutorial on the documentation site** _(P2, level 2, v1.14.0)_ — [TASK-032](backlog/TASK-032-tutorial.md).
+- [~] **A step-by-step tutorial on the documentation site** _(P2, level 2, v1.14.0)_ — [TASK-032](backlog/TASK-032-tutorial.md). Pages, site group and tests done; pending CI and the owner following the published tutorial.
 
 ## Related
 
